@@ -15,8 +15,8 @@ class DestinasiController extends Controller
     // Destinasi Alam
     public function alam()
     {
-        $kategori = 'Alam';
-        $deskripsi = 'Destinasi wisata alam yang menampilkan keindahan geologi, pegunungan, air terjun, dan keunikan alam Danau Toba.';
+        $kategori = 'Alam'; 
+        $deskripsi = 'Destinasi wisata alam yang menampilkan keindahan geologi, pegunungan, air terjun, dan keunikan alam Danau Toba.'; // Menampilkan destinasi yang tersedia
         $destinasi = [
             (object)[
                 'id' => 1,
