@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Destinasi;
 
 class DestinasiController extends Controller
 {
     // Halaman utama destinasi (semua kategori)
     public function index()
     {
-        return view('destinasi.index');
+        $destinasi = Destinasi::all();
+        return view('destinasi.index', compact('destinasi'));
     }
     
     // Destinasi Alam

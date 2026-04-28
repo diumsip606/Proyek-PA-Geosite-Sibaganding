@@ -1,3 +1,9 @@
+<h1>Daftar Destinasi</h1>
+
+@foreach($destinasi as $d)
+    <p>{{ $d->nama }}</p>
+@endforeach
+
 @extends('layouts.app')
 
 @section('title', 'Destinasi Geosite - Danau Toba')
