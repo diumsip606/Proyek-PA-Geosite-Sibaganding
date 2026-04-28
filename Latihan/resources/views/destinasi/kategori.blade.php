@@ -1,3 +1,7 @@
+<h1>{{ $kategori }}</h1>
+<p>{{ $deskripsi }}</p>
+<hr>
+
 @extends('layouts.app')
 
 @section('title', 'Destinasi ' . $kategori . ' - Geosite Danau Toba')
