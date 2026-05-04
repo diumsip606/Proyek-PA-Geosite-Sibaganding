@@ -370,7 +370,7 @@
             </div>
             
             <div class="copyright text-center">
-                <p>Kel7.</p>
+                <p>©copyright by kelompok 04.</p>
             </div>
         </div>
     </footer>

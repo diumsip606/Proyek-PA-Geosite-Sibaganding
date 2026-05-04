@@ -11,45 +11,40 @@ class GaleriSeeder extends Seeder
     public function run()
     {
         $galeri = [
+            // --- BIODIVERSITY ---
             [
-                'judul' => 'Pemandangan Danau Toba',
-                'slug' => 'pemandangan-danau-toba',
-                'deskripsi' => 'Keindahan Danau Toba dari atas Bukit Holbung dengan pemandangan yang memukau',
-                'gambar' => '/image/toba.jpg',
-                'kategori' => 'Balige',
-                'lokasi' => 'Balige, Toba Samosir',
+                'judul' => 'Monyet Ekor Panjang Sibaganding',
+                'slug' => 'monyet-ekor-panjang-sibaganding',
+                'deskripsi' => 'Fauna endemik yang menjadi daya tarik utama di kawasan hutan Sibaganding.',
+                'gambar' => '/image/monyet.jpg', // Pastikan file ini nanti ada, atau pakai gambar dummy sementara
+                'kategori' => 'Biodiversity',
+                'lokasi' => 'Geosite Sibaganding',
                 'status' => true,
-                'views' => 0
+                'views' => 150
             ],
+
+            // --- GEODIVERSITY ---
             [
-                'judul' => 'Rumah Adat Batak',
-                'slug' => 'rumah-adat-batak',
-                'deskripsi' => 'Arsitektur tradisional rumah adat Batak Toba yang masih terjaga',
-                'gambar' => '/image/meat.jpg',
-                'kategori' => 'Meat',
-                'lokasi' => 'Desa Meat, Toba Samosir',
+                'judul' => 'Batu Gantung',
+                'slug' => 'batu-gantung',
+                'deskripsi' => 'Fenomena geologi berupa formasi batuan yang tampak menggantung di tebing.',
+                'gambar' => '/image/batu_gantung.jpg',
+                'kategori' => 'Geodiversity',
+                'lokasi' => 'Geosite Sibaganding',
                 'status' => true,
-                'views' => 0
+                'views' => 320
             ],
+
+            // --- CULTURE DIVERSITY ---
             [
-                'judul' => 'Batu Bahisan',
-                'slug' => 'batu-bahisan',
-                'deskripsi' => 'Formasi batuan unik hasil proses geologi jutaan tahun',
-                'gambar' => '/image/batu.jpg',
-                'kategori' => 'Batu Bahisan',
-                'lokasi' => 'Samosir',
+                'judul' => 'Legenda Batu Gantung',
+                'slug' => 'legenda-batu-gantung',
+                'deskripsi' => 'Situs yang erat kaitannya dengan cerita rakyat dan budaya lokal masyarakat sekitar.',
+                'gambar' => '/image/budaya.jpg',
+                'kategori' => 'Culture diversity',
+                'lokasi' => 'Geosite Sibaganding',
                 'status' => true,
-                'views' => 0
-            ],
-            [
-                'judul' => 'Liang Sipege',
-                'slug' => 'liang-sipege',
-                'deskripsi' => 'Goa alami dengan stalaktit dan stalakmit yang indah',
-                'gambar' => '/image/liang.jpg',
-                'kategori' => 'Liang Sipege',
-                'lokasi' => 'Samosir',
-                'status' => true,
-                'views' => 0
+                'views' => 200
             ],
         ];
 

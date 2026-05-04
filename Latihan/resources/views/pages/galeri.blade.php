@@ -272,8 +272,8 @@
     </div>
     <div class="logo-divider"></div>
     <div>
-        <div class="geotoba-text">GEOTOBA</div>
-        <div class="geotoba-sub">Geopark Danau Toba</div>
+        <div class="geotoba-text">GEOSITE</div>
+        <div class="geotoba-sub">SIBAGANDING</div>
     </div>
 </div>
 
@@ -281,16 +281,16 @@
 <section class="galeri-hero">
     <div>
         <h1 data-aos="fade-up">Galeri Geosite</h1>
-        <p data-aos="fade-up">Dokumentasi keindahan Geopark Danau Toba</p>
+        <p data-aos="fade-up">Dokumentasi Keindahan Geosite Sibaganding</p>
     </div>
 </section>
 
 <!-- TABS -->
 <div class="container">
     <div class="galeri-tabs" data-aos="fade-up">
-        <button class="tab-btn active" data-tab="meat">Meat</button>
-        <button class="tab-btn" data-tab="batu-bahisan">Batu Bahisan</button>
-        <button class="tab-btn" data-tab="liang-sipege">Liang Sipege</button>
+        <button class="tab-btn active" data-tab="meat">Biodiversity</button>
+        <button class="tab-btn" data-tab="batu-bahisan">Geodiversity</button>
+        <button class="tab-btn" data-tab="liang-sipege">Culture diveristy</button>
     </div>
 </div>
 

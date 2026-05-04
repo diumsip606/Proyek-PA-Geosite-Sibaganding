@@ -12,28 +12,30 @@ class Galeri extends Model
 
     protected $table = 'galeris';
     
+    // Satpam sudah di-update: slug dan views diizinkan masuk
     protected $fillable = [
         'judul',
-        'kategori',
+        'slug',
         'deskripsi',
         'gambar',
+        'kategori',
         'lokasi',
-        'tanggal_foto',
-        'status'
+        'status',
+        'views'
     ];
 
+    // tanggal_foto dihapus, cukup status saja yang di-cast ke boolean
     protected $casts = [
-        'status' => 'boolean',
-        'tanggal_foto' => 'date'
+        'status' => 'boolean'
     ];
 
-    // Helper untuk mendapatkan path folder berdasarkan kategori
+    // Helper folder sudah disesuaikan dengan kategori Sibaganding
     public static function getPathByKategori($kategori)
     {
         return match($kategori) {
-            'Meat' => 'image/meat/galeri',
-            'Batu Bahisan' => 'image/batu-bahisan/galeri',
-            'Liang Sipege' => 'image/liang-sipege/galeri',
+            'Biodiversity' => 'image/biodiversity/galeri',
+            'Geodiversity' => 'image/geodiversity/galeri',
+            'Culture diversity' => 'image/culture/galeri',
             default => 'image/galeri',
         };
     }
