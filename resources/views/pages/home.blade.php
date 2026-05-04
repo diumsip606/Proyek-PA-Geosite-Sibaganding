@@ -144,105 +144,144 @@
         }
     }
     
-    /* ==================== HERO SLIDER ==================== */
-    .hero-section {
-        height: 100vh;
-        position: relative;
-        overflow: hidden;
-        margin-top: 0;
+   /* ==================== HERO SLIDER ==================== */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slides-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transform: scale(1.08);
+    transition: opacity 1.5s ease-in-out, transform 6s ease-out;
+    z-index: 1;
+}
+
+.slide.active {
+    opacity: 1;
+    z-index: 2;
+    transform: scale(1);
+}
+
+.slide-1 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding1.jpg'); }
+.slide-2 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding2.jpg'); }
+.slide-3 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding3.jpg'); }
+.slide-4 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding4.jpg'); }
+.slide-5 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding5.jpg'); }
+.slide-1 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding6.jpg'); }
+.slide-2 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding7.jpg'); }
+.slide-3 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding8.jpg'); }
+.slide-4 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding9.jpg'); }
+.slide-5 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding10.jpg'); }
+
+.hero-content {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    letter-spacing: 0.55em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: 500;
+}
+
+.hero-title {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 10.5rem;
+    font-weight: 900;
+    line-height: 0.9;
+    margin: 0;
+    color: #fff8e8;
+    text-align: center;
+    letter-spacing: 12px;
+    text-transform: uppercase;
+
+    transform: perspective(900px) rotateX(6deg) scaleY(1.08);
+
+    text-shadow:
+        2px 2px 0 rgba(188, 154, 70, 0.45),
+        0 4px 6px rgba(0, 0, 0, 0.55),
+        0 12px 28px rgba(0, 0, 0, 0.7),
+        0 0 18px rgba(255, 230, 170, 0.35);
+}
+.hero-divider {
+    width: 130px;
+    height: 3px;
+    background: #c6a43b;
+    margin: 24px auto 30px;
+    position: relative;
+}
+
+.hero-divider::after {
+    content: "✦";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #c6a43b;
+    font-size: 18px;
+}
+
+.hero-btn {
+    display: inline-block;
+    background: #d4a52c;
+    color: #12304a;
+    padding: 16px 48px;
+    font-size: 0.85rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 40px;
+}
+
+.hero-btn:hover {
+    background: white;
+    color: #003366;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 6rem;
+        letter-spacing: 8px;
     }
-    
-    .slides-container {
-        position: relative;
-        width: 100%;
-        height: 100%;
+}
+
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 3.2rem;
+        letter-spacing: 4px;
     }
-    
-    .slide {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: 0;
-        transform: scale(1.05);
-        transition: opacity 1.5s ease-in-out, transform 6s ease-out;
-        z-index: 1;
-    }
-    
-    .slide.active {
-        opacity: 1;
-        z-index: 2;
-        transform: scale(1);
-    }
-    
-    /* Overlay biru gradasi pada slide */
-    .slide-1 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/meat/slide1.jpg'); }
-    .slide-2 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/meat/slide2.jpg'); }
-    .slide-3 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/meat/slide3.jpg'); }
-    .slide-4 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/meat/slide4.jpg'); }
-    .slide-5 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/meat/slide5.jpg'); }
-    
-    .hero-content {
-        position: absolute;
-        z-index: 10;
-        bottom: 20%;
-        left: 0;
-        right: 0;
-        text-align: center;
-        color: white;
-        padding: 0 20px;
-    }
-    
+
     .hero-subtitle {
         font-size: 0.7rem;
         letter-spacing: 0.35em;
-        text-transform: uppercase;
-        margin-bottom: 20px;
-        font-weight: 300;
-        opacity: 0.9;
-        animation: fadeUp 0.8s ease;
     }
-    
-    .hero-title {
-        font-size: 3.8rem;
-        font-weight: 700;
-        font-family: 'Cormorant Garamond', serif;
-        line-height: 1.2;
-        margin-bottom: 25px;
-        color: white;
-        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
-        animation: fadeUp 0.8s ease 0.1s both;
-    }
-    
-    .hero-divider {
-        width: 60px;
-        height: 2px;
-        background: #c6a43b;
-        margin: 0 auto 30px;
-        animation: fadeUp 0.8s ease 0.2s both;
-    }
-    
-    .hero-btn {
-        display: inline-block;
-        background: #c6a43b;
-        color: #003366;
-        padding: 14px 42px;
-        font-size: 0.75rem;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        transition: all 0.4s ease;
-        text-decoration: none;
-        font-weight: 600;
-        border-radius: 40px;
-        animation: fadeUp 0.8s ease 0.3s both;
-        border: none;
-        cursor: pointer;
-    }
-    
+}
     .hero-btn:hover {
         background: white;
         color: #003366;
@@ -683,7 +722,7 @@
         <div class="hero-content">
             <div>
                 <div class="hero-subtitle"> Global Geopark</div>
-                <h1 class="hero-title"> BALIGE · MEAT · BATU BAHISAN<br>LIANG SIPEGE</h1>
+                <h1 class="hero-title">SIBAGANDING</h1>
                 <div class="hero-divider"></div>
                 <a href="#destinasi" class="hero-btn">Jelajahi Sekarang</a>
             </div>
