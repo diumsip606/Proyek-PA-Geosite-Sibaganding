@@ -356,6 +356,7 @@
 </head>
 <body>
     <script>
+    <div id="google_translate_element" style="display:none;"></div>
 window.addEventListener("scroll", function() {
     const navbar = document.querySelector(".navbar");
 
@@ -429,21 +430,19 @@ window.addEventListener("scroll", function() {
                     </a>
                 </li>
             </ul>
-
-            <div class="header-actions">
-                <div class="dropdown">
+<div class="dropdown">
     <button class="lang-btn dropdown-toggle" data-bs-toggle="dropdown">
         🌐 Language
     </button>
 
     <ul class="dropdown-menu">
         <li>
-            <a class="dropdown-item" href="#" onclick="setLang('id')">
+             <a class="dropdown-item" href="?lang=id">🇮🇩 Indonesia</a>
                 🇮🇩 Indonesia
             </a>
         </li>
         <li>
-            <a class="dropdown-item" href="#" onclick="setLang('en')">
+            <a class="dropdown-item" href="?lang=en">🇺🇸 English</a>
                 🇺🇸 English
             </a>
         </li>
@@ -592,18 +591,53 @@ function googleTranslateElementInit() {
 }
 
 function setLang(lang) {
-    const interval = setInterval(() => {
-        const select = document.querySelector(".goog-te-combo");
-        if (select) {
-            select.value = lang;
-            select.dispatchEvent(new Event("change"));
-            clearInterval(interval);
-        }
-    }, 300);
+   <script>
+function setLang(lang) {
+    const langCode = lang === 'en' ? '/id/en' : '/id/id';
+
+    document.cookie = "googtrans=" + langCode + ";path=/";
+    document.cookie = "googtrans=" + langCode + ";domain=" + window.location.hostname + ";path=/";
+
+    location.reload();
+}
+
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'id',
+        includedLanguages: 'id,en',
+        autoDisplay: false
+    }, 'google_translate_element');
 }
 </script>
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<div id="google_translate_element" style="display:none;"></div>
+
+<script>
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'id',
+        includedLanguages: 'id,en',
+        autoDisplay: false
+    }, 'google_translate_element');
+
+    setTimeout(function () {
+        const params = new URLSearchParams(window.location.search);
+        const lang = params.get('lang');
+
+        if (lang) {
+            const select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = lang;
+                select.dispatchEvent(new Event('change'));
+            }
+        }
+    }, 1000);
+}
+</script>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </script>
 </body>
 </html>
