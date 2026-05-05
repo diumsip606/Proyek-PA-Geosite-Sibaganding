@@ -10,7 +10,7 @@ class HomeController extends Controller
    public function index()
 {
     $galeri = Galeri::where('status', true)->latest()->take(6)->get();
-    $berita = Berita::with('kategori')->where('status', true)->latest()->take(3)->get();
+//    $berita = Berita::with('kategori')->where('status', true)->latest()->take(3)->get();
     
     $destinasi = [
         (object)[
@@ -33,6 +33,6 @@ class HomeController extends Controller
         ]
     ];
     
-    return view('pages.home', compact('galeri', 'berita', 'destinasi'));
+    return view('pages.home', compact('galeri', /* 'berita' ,*/ 'destinasi'));
     }
 }

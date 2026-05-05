@@ -28,7 +28,7 @@ class GaleriController extends Controller
         // Validasi
         $request->validate([
             'judul' => 'required|string|max:255',
-            'kategori' => 'required|in:Meat,Batu Bahisan,Liang Sipege,Balige',
+            'kategori' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'lokasi' => 'nullable|string',
@@ -76,7 +76,7 @@ class GaleriController extends Controller
 
         $request->validate([
             'judul' => 'required|string|max:255',
-            'kategori' => 'required|in:Meat,Batu Bahisan,Liang Sipege,Balige',
+            'kategori' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'lokasi' => 'nullable|string',

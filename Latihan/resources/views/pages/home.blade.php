@@ -647,7 +647,7 @@
         <div class="del-logo-wrapper">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThY4yORALIvsjHi1T6lhDZogLcYcnjLfSZPQ&s"
                 class="del-img"
-                title="DDel">
+                title="Del">
         </div>
         
         <div class="logo-divider"></div>
@@ -819,7 +819,7 @@
         </div>
         <div class="gallery-grid">
             <div class="gallery-item" data-aos="zoom-in">
-                <img src="/image/galerihome/gallery-1.jpg" alt="Galeri 1">
+                <img src="/image/galerihome/Monyet-Ekor-Panjang.jpg" alt="Galeri 1">
             </div>
             <div class="gallery-item" data-aos="zoom-in" data-aos-delay="50">
                 <img src="/image/galerihome/gallery-2.jpg" alt="Galeri 2">

@@ -40,7 +40,7 @@
                 <tr><th>Judul</th><th>Tanggal</th><th>Status</th><th></th></tr>
             </thead>
             <tbody>
-                @foreach(\App\Models\Berita::latest()->limit(5)->get() as $item)
+                @foreach(/* \App\Models\Berita::latest()->limit(5)->get()*/ [] as $item)
                 <tr>
                     <td>{{ Str::limit($item->judul, 30) }}</td>
                     <td>{{ $item->tanggal_terbit->format('d/m/Y') }}</td>

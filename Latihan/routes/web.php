@@ -11,14 +11,16 @@ use App\Http\Controllers\HomeController;
 
 // ==================== FRONTEND ROUTES ====================
 
+// Home
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Destinasi Routes
+// Destinasi
 Route::get('/destinasi', [DestinasiController::class, 'index'])->name('destinasi');
 Route::get('/destinasi/alam', [DestinasiController::class, 'alam'])->name('destinasi.alam');
 Route::get('/destinasi/buatan', [DestinasiController::class, 'buatan'])->name('destinasi.buatan');
 Route::get('/destinasi/budaya', [DestinasiController::class, 'budaya'])->name('destinasi.budaya');
-// Home
-Route::get('/', [HomeController::class, 'index'])->name('home');
+// Detail Destinasi (jika masih pakai ID)
+Route::get('/destinasi/{id}', [DestinasiController::class, 'show'])->name('destinasi.show');
 
 // Informasi
 Route::get('/informasi', function () {
@@ -26,36 +28,19 @@ Route::get('/informasi', function () {
     return view('pages.informasi', compact('informasi'));
 })->name('informasi');
 
-// Destinasi
-Route::get('/destinasi', [DestinasiController::class, 'index'])->name('destinasi');
-
-// Detail Destinasi (jika masih pakai ID)
-Route::get('/destinasi/{id}', [DestinasiController::class, 'show'])->name('destinasi.show');
-
-// ==================== GEOSITE ROUTES (TIGA GEOSITE) ====================
-Route::get('/geosite/meat', function () {
-    return view('geosite.meat');
-})->name('geosite.meat');
-
-Route::get('/geosite/batu-bahisan', function () {
-    return view('geosite.batu-bahisan');
-})->name('geosite.batu-bahisan');
-
-Route::get('/geosite/liang-sipege', function () {
-    return view('geosite.liang-sipege');
-})->name('geosite.liang-sipege');
-
-// Galeri
+// --- HALAMAN UTAMA GALERI ---
 Route::get('/galeri', function () {
-    $galeri = App\Models\Galeri::where('status', true)->latest()->paginate(12);
-    return view('pages.galeri', compact('galeri'));
-})->name('galeri');
+    // Pakai paginate agar rapi, atau get() jika ingin tampil semua tanpa halaman
+    $galeris = App\Models\Galeri::where('status', true)->latest()->paginate(12);
+    return view('pages.galeri', compact('galeris'));
+})->name('galeri.index');
 
-
-
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::resource('galeri', GaleriController::class);
-});
+// Detail Galeri
+Route::get('/galeri/{slug}', function ($slug) {
+    $galeris = App\Models\Galeri::where('slug', $slug)->firstOrFail();
+    $galeris->increment('views');
+    return view('pages.galeri-detail', compact('galeris'));
+})->name('galeri.detail');
 
 // Berita
 Route::get('/berita', function () {
@@ -71,13 +56,6 @@ Route::get('/berita/{slug}', function ($slug) {
     return view('pages.berita-detail', compact('berita'));
 })->name('berita.detail');
 
-// Detail Galeri
-Route::get('/galeri/{slug}', function ($slug) {
-    $galeri = App\Models\Galeri::where('slug', $slug)->firstOrFail();
-    $galeri->increment('views');
-    return view('pages.galeri-detail', compact('galeri'));
-})->name('galeri.detail');
-
 // UMKM
 Route::get('/umkm', [HomeController::class, 'umkm'])->name('umkm');
 
@@ -89,29 +67,54 @@ Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
 
+
 // ==================== AUTH ROUTES ====================
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Halaman untuk input email (Lupa Password)
+Route::get('/forgot_password', [AuthController::class, 'showForgotPasswordForm'])
+    ->name('password.request');
+
+// Proses pengiriman email link reset
+Route::post('/forgot_password', [AuthController::class, 'sendResetLink'])
+    ->name('password.email');
+
+// Halaman untuk menampilkan form password baru (dari link di log)
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])
+    ->name('password.reset');
+
+// Proses update password ke database
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])
+    ->name('password.update');
+
+
 // ==================== ADMIN ROUTES ====================
+
 Route::prefix('admin')->middleware('auth')->group(function () {
+    
+    // --- DASHBOARD ADMIN ---
     Route::get('/', function () {
+        // 1. Hitung galeri karena tabelnya sudah ada
         $totalGaleri = App\Models\Galeri::count();
-        $totalBerita = App\Models\Berita::count();
-        $totalInformasi = App\Models\Informasi::count();
-        $totalViews = App\Models\Berita::sum('views') + App\Models\Galeri::sum('views') + App\Models\Informasi::sum('views');
+        
+        // 2. SET KE 0 SEMENTARA untuk fitur yang tabelnya belum dibuat
+        $totalBerita = 0; 
+        $totalInformasi = 0; 
+        
+        // 3. Ambil views dari Galeri saja dulu
+        $totalViews = App\Models\Galeri::sum('views'); 
+
         return view('admin.dashboard', compact('totalGaleri', 'totalBerita', 'totalInformasi', 'totalViews'));
     })->name('admin.dashboard');
     
+    // Resource Routes
     Route::resource('galeri', GaleriController::class)->names('admin.galeri');
     Route::resource('berita', BeritaController::class)->names('admin.berita');
     Route::resource('informasi', InformasiController::class)->names('admin.informasi');
-    Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])->name('admin.galeri.toggle-status');
-
-// ==================== GEOSITE ROUTES ====================
-Route::get('/geosite/meat', [App\Http\Controllers\GeositeController::class, 'meat'])->name('geosite.meat');
-Route::get('/geosite/batu-bahisan', [App\Http\Controllers\GeositeController::class, 'batuBahisan'])->name('geosite.batu-bahisan');
-Route::get('/geosite/liang-sipege', [App\Http\Controllers\GeositeController::class, 'liangSipege'])->name('geosite.liang-sipege');
     
+    // Custom Route Toggle Status
+    Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])->name('admin.galeri.toggle-status');
 });

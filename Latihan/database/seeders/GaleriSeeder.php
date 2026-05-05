@@ -16,7 +16,7 @@ class GaleriSeeder extends Seeder
                 'judul' => 'Monyet Ekor Panjang Sibaganding',
                 'slug' => 'monyet-ekor-panjang-sibaganding',
                 'deskripsi' => 'Fauna endemik yang menjadi daya tarik utama di kawasan hutan Sibaganding.',
-                'gambar' => '/image/monyet.jpg', // Pastikan file ini nanti ada, atau pakai gambar dummy sementara
+                'gambar' => '/image/Monyet-Ekor-Panjang.jpg', // Pastikan file ini nanti ada, atau pakai gambar dummy sementara
                 'kategori' => 'Biodiversity',
                 'lokasi' => 'Geosite Sibaganding',
                 'status' => true,

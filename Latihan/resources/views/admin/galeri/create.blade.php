@@ -45,10 +45,9 @@
                     <label class="form-label required">Kategori</label>
                     <select name="kategori" class="form-control @error('kategori') is-invalid @enderror" required>
                         <option value="">-- Pilih Kategori --</option>
-                        <option value="Balige" {{ old('kategori') == 'Balige' ? 'selected' : '' }}>🏙️ Baligez</option>
-                        <option value="Meat" {{ old('kategori') == 'Meat' ? 'selected' : '' }}>🏝️ Meat</option>
-                        <option value="Batu Bahisan" {{ old('kategori') == 'Batu Bahisan' ? 'selected' : '' }}>🪨 Batu Bahisan</option>
-                        <option value="Liang Sipege" {{ old('kategori') == 'Liang Sipege' ? 'selected' : '' }}>🕳️ Liang Sipege</option>
+                        <option value="Biodiversity" {{ old('kategori', $galeri->kategori) == 'Biodiversity' ? 'selected' : '' }}>Biodiversity</option>
+                        <option value="Geodiversity" {{ old('kategori', $galeri->kategori) == 'Geodiversity' ? 'selected' : '' }}>Geodiversity</option>
+                        <option value="Culture Diversity" {{ old('kategori', $galeri->kategori) == 'Culture Diversity' ? 'selected' : '' }}>Culture Diversity</option>
                     </select>
                     <small class="text-muted">Pilih kategori untuk menentukan folder penyimpanan gambar</small>
                     @error('kategori')

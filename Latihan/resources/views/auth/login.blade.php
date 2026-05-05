@@ -24,10 +24,18 @@
                                 <label>Email</label>
                                 <input type="email" name="email" class="form-control" required>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-2"> <!-- Margin bawah dikurangi sedikit biar link lupa password agak naik -->
                                 <label>Password</label>
                                 <input type="password" name="password" class="form-control" required>
                             </div>
+                            
+                            <!-- TAMBAHAN LINK LUPA PASSWORD DI SINI -->
+                            <div class="text-end mb-3">
+                                <a href="{{ route('password.request') }}" class="text-decoration-none text-muted" style="font-size: 0.85rem;">
+                                    Lupa Password?
+                                </a>
+                            </div>
+
                             <button type="submit" class="btn btn-dark w-100">Login</button>
                         </form>
                     </div>

@@ -264,11 +264,11 @@
 <!-- LOGO -->
 <div class="logo-container">
     <div>
-        <img src="[GANTI_LINK_BENDERA]" alt="Bendera" class="flag-img">
+        <img src="[LOGO_BANK_INDONESIA]" alt="Bendera" class="flag-img">
     </div>
     <div class="logo-divider"></div>
     <div>
-        <img src="[GANTI_LINK_DEL]" alt="D el" class="del-img">
+        <img src="[GANTI_LINK_DEL]" alt="Del" class="del-img">
     </div>
     <div class="logo-divider"></div>
     <div>
@@ -290,7 +290,7 @@
     <div class="galeri-tabs" data-aos="fade-up">
         <button class="tab-btn active" data-tab="meat">Biodiversity</button>
         <button class="tab-btn" data-tab="batu-bahisan">Geodiversity</button>
-        <button class="tab-btn" data-tab="liang-sipege">Culture diveristy</button>
+        <button class="tab-btn" data-tab="liang-sipege">Culture Diversity</button>
     </div>
 </div>
 
@@ -307,37 +307,35 @@
 </div>
 
 <script>
+    // Menyuntikkan data PHP (Database) ke dalam JavaScript
     const galeriData = {
-        meat: [
-            { src: '/image/meat/galeri/1.jpg', caption: 'Pantai Meat - Foto 1' },
-            { src: '/image/meat/galeri/2.jpg', caption: 'Pantai Meat - Foto 2' },
-            { src: '/image/meat/galeri/3.jpg', caption: 'Pantai Meat - Foto 3' },
-            { src: '/image/meat/galeri/4.jpg', caption: 'Pantai Meat - Foto 4' },
-            { src: '/image/meat/galeri/5.jpg', caption: 'Pantai Meat - Foto 5' },
-            { src: '/image/meat/galeri/6.jpg', caption: 'Pantai Meat - Foto 6' },
-            { src: '/image/meat/galeri/7.jpg', caption: 'Pantai Meat - Foto 7' },
-            { src: '/image/meat/galeri/8.jpg', caption: 'Pantai Meat - Foto 8' },
+        'Biodiversity': [
+            @foreach($galeris->where('kategori', 'Biodiversity') as $item)
+                { src: '{{ asset('storage/' . $item->gambar) }}', caption: '{{ $item->judul }}' },
+            @endforeach
         ],
-        'batu-bahisan': [
-            { src: '/image/batu-bahisan/galeri/1.jpg', caption: 'Batu Bahisan - Foto 1' },
-            { src: '/image/batu-bahisan/galeri/2.jpg', caption: 'Batu Bahisan - Foto 2' },
-            { src: '/image/batu-bahisan/galeri/3.jpg', caption: 'Batu Bahisan - Foto 3' }
+        'Geodiversity': [
+            @foreach($galeris->where('kategori', 'Geodiversity') as $item)
+                { src: '{{ asset('storage/' . $item->gambar) }}', caption: '{{ $item->judul }}' },
+            @endforeach
         ],
-        'liang-sipege': [
-            { src: '/image/liang-sipege/galeri/1.jpg', caption: 'Liang Sipege - Foto 1' },
-            { src: '/image/liang-sipege/galeri/2.jpg', caption: 'Liang Sipege - Foto 2' },
-            { src: '/image/liang-sipege/galeri/3.jpg', caption: 'Liang Sipege - Foto 3' }
+        'Culture diversity': [
+            @foreach($galeris->where('kategori', 'Culture diversity') as $item)
+                { src: '{{ asset('storage/' . $item->gambar) }}', caption: '{{ $item->judul }}' },
+            @endforeach
         ]
     };
 
-    let currentTab = 'meat';
+    // Set default tab yang terbuka pertama kali
+    let currentTab = 'Biodiversity';
 
     function renderGallery(tab) {
         const grid = document.getElementById('galeriGrid');
         let photos = galeriData[tab] || [];
 
         if (photos.length === 0) {
-            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px"><p>Belum ada foto</p></div>';
+            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px"><p>Belum ada dokumentasi untuk kategori ini.</p></div>';
+            document.getElementById('galleryCounter').innerHTML = '';
             return;
         }
 
@@ -349,6 +347,7 @@
 
         document.getElementById('galleryCounter').innerHTML = '<span>Menampilkan ' + photos.length + ' foto</span>';
 
+        // Pasang ulang event listener untuk lightbox setiap kali render
         document.querySelectorAll('.galeri-item').forEach(function(item) {
             item.addEventListener('click', function() {
                 openLightbox(item.dataset.src, item.dataset.caption);
@@ -390,7 +389,8 @@
         }
     });
 
-    renderGallery('meat');
+    // Panggil fungsi render untuk menampilkan Biodiversity pertama kali web dibuka
+    renderGallery('Biodiversity');
 </script>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
