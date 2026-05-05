@@ -6,103 +6,192 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Geosite Danau Toba')</title>
     
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Google Fonts (Poppins - untuk body) -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- FONT HERO (ELEGAN & PREMIUM 🔥) -->
-   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- GOOGLE FONTS (FIX & RAPI) -->
+
+<!-- Body (clean & modern) -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Navbar (lebih tegas & rapi) -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+
+<!-- Hero (elegan premium) -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+
+<!-- Optional elegan tambahan -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<!-- AOS Animation -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <style>
     * {
         font-family: 'Poppins', sans-serif;
     }
+/* DEFAULT (di atas / hero) */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 96px;
+    padding: 0 55px;
+    background: transparent !important;
+    box-shadow: none !important;
+    border-bottom: none !important;
+    z-index: 9999;
+    transition: all 0.35s ease;
 
-    /* Navbar Styles */
-    .navbar {
-        transition: all 0.4s ease;
-        padding: 1rem 0;
-        background: transparent;
-        z-index: 999;
-    }
+    display: flex;
+    align-items: center;
+}
 
-    .navbar.scrolled {
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(10px);
-        padding: 0.5rem 0;
-        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-    }
+.navbar.scrolled {
+    height: 86px;
+    padding: 0 55px !important;
+    background: #073b63 !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25) !important;
+}
 
-    .navbar-brand {
-        font-size: 1.8rem;
-        font-weight: 700;
-        color: white !important;
-    }
+/* WRAPPER */
+.nav-wrapper {
+    width: 100%;
+    height: 100%; /* 🔥 penting */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between;
+}
 
-    .navbar-brand span {
-        color: #00d2ff;
-    }
+/* BRAND FIX */
+.navbar-brand {
+    height: 100% !important; /* 🔥 jangan fix 86 lagi */
+    display: flex !important;
+    align-items: center !important;
+}
 
-    .nav-link {
-        color: white !important;
-        font-weight: 600;
-        margin: 0 0.5rem;
-        transition: all 0.3s ease;
-        position: relative;
-        text-decoration: none;
-    }
+/* LOGO */
+.logo-img {
+    height: 68px;
+    object-fit: contain;
+    display: block;
+    transition: all 0.35s ease;
+    transform: translateY(-6px); /* naik */
+}
 
-    .nav-link::before {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 2px;
-        background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-        transition: width 0.3s ease;
-    }
+.navbar.scrolled .logo-img {
+    height: 60px !important;
+    transform: translateY(-6px);
+}
 
-    .nav-link:hover::before,
-    .nav-link.active::before {
-        width: 80%;
-    }
 
-    .nav-link:hover {
-        transform: translateY(-2px);
-    }
+/* MENU */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 38px;
+    margin: 0;
+}
 
-    /* Dropdown Menu Styles */
-    .dropdown-menu {
-        background: rgba(0, 0, 0, 0.95);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 15px;
-        padding: 10px 0;
-        margin-top: 10px;
-    }
+.nav-menu .nav-link {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    letter-spacing: 0.5px;
+    padding: 10px 0 !important;
+    text-decoration: none !important;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    position: relative;
+}
 
-    .dropdown-item {
-        color: white;
-        padding: 10px 25px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
+.nav-menu .nav-link::before {
+    display: none !important;
+}
 
-    .dropdown-item:hover {
-        background: linear-gradient(135deg, #00d2ff, #3a7bd5);
-        color: white;
-        transform: translateX(5px);
-    }
+.nav-menu .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    width: 0;
+    height: 3px;
+    background: #f0b323;
+    border-radius: 20px;
+    transform: translateX(-50%);
+    transition: 0.3s ease;
+}
+
+.nav-menu .nav-link:hover::after,
+.nav-menu .nav-link.active::after {
+    width: 100%;
+}
+/* kanan */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+/* bahasa */
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.15);
+    color: #ffffff;
+    font-weight: 700;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+}
+
+.flag-id {
+    width: 22px;
+    height: 14px;
+    background: linear-gradient(to bottom, red 50%, white 50%);
+}
+
+/* search */
+.search-btn {
+    border: none;
+    background: transparent;
+    color: #ffffff;
+    font-size: 1.6rem;
+    cursor: pointer;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+}
+
+/* HAPUS PANAH DESTINASI (biar clean) */
+.dropdown-toggle::after {
+    display: none !important;
+}
+/* menu dropdown */
+.dropdown-menu {
+    background: rgba(3, 28, 48, 0.95);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 16px;
+    padding: 10px;
+    margin-top: 14px;
+    backdrop-filter: blur(10px);
+}
+
+.dropdown-item {
+    color: #ffffff !important;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+.dropdown-item:hover {
+    background: #00a8d6;
+    color: #ffffff !important;
+}
 
     .dropdown-divider {
         border-top: 1px solid rgba(255,255,255,0.1);
@@ -213,26 +302,30 @@
         font-size: 18px;
     }
 
-    .hero-btn {
-        display: inline-block;
-        background: #d4a52c;
-        color: #12304a;
-        padding: 16px 50px;
-        font-size: 0.85rem;
-        letter-spacing: 0.28em;
-        text-transform: uppercase;
-        text-decoration: none;
-        font-weight: 800;
-        border-radius: 40px;
-        transition: 0.3s ease;
-    }
+   .hero-btn {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 1rem;
+    font-weight: 800; /* ⬅️ bikin bold */
+    letter-spacing: 1.2px;
+    text-transform: capitalize;
 
-    .hero-btn:hover {
-        background: #f2c94c;
-        color: #12304a;
-        transform: translateY(-3px);
-    }
+    padding: 15px 45px;
+    border-radius: 50px;
 
+    background: linear-gradient(135deg, #e6b84f, #c79a2d);
+    color: #1b2b38;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.3);
+
+    transition: all 0.3s ease;
+}
+
+.hero-btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #f5cc60, #d4a83a);
+}
     @media (max-width: 992px) {
         .hero-title {
             font-size: 6rem;
@@ -262,12 +355,70 @@
     @stack('styles')
 </head>
 <body>
+    <script>
+window.addEventListener("scroll", function() {
+    const navbar = document.querySelector(".navbar");
+
+    if (window.scrollY > 50) {
+        navbar.classList.add("scrolled");
+    } else {
+        navbar.classList.remove("scrolled");
+    }
+});
+</script>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                Geo<span>Toba</span>
-            </a>
+   <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid nav-wrapper">
+
+        <!-- LOGO KIRI -->
+        <a class="navbar-brand" href="/">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo-img">
+        </a>
+
+        <!-- MENU TENGAH -->
+        <ul class="navbar-nav nav-menu">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/informasi">Informasi</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    Destinasi
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/galeri">Galeri</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/berita">Berita</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/kontak">Kontak</a>
+            </li>
+        </ul>
+
+        <!-- KANAN -->
+       <div class="dropdown">
+    <button class="lang-btn dropdown-toggle" data-bs-toggle="dropdown">
+        🌐 <span>{{ session('lang', 'ID') }}</span>
+    </button>
+
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{{ url('lang/id') }}">🇮🇩 Indonesia</a></li>
+        <li><a class="dropdown-item" href="{{ url('lang/en') }}">🇺🇸 English</a></li>
+    </ul>
+</div>
+
+            <button class="search-btn" type="button">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+    </div>
+</nav>
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -279,6 +430,8 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('informasi') ? 'active' : '' }}" href="{{ url('/informasi') }}">Informasi</a>
                     </li>
+
+                    
                     
                     <!-- DESTINASI DROPDOWN -->
                     <li class="nav-item dropdown">
@@ -322,6 +475,8 @@
         </div>
     </nav>
 
+    
+
     <!-- Main Content -->
     <main>
         @yield('content')
@@ -350,6 +505,7 @@
                         <li class="mb-2"><a href="{{ url('/galeri') }}">Galeri</a></li>
                         <li class="mb-2"><a href="{{ url('/berita') }}">Berita</a></li>
                         <li class="mb-2"><a href="{{ url('/kontak') }}">Kontak</a></li>
+                        
                     </ul>
                 </div>
                 
@@ -433,5 +589,17 @@
     </script>
     
     @stack('scripts')
+
+    <script>
+window.addEventListener('scroll', function () {
+    const navbar = document.querySelector('.navbar');
+
+    if (window.scrollY > 60) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+</script>
 </body>
 </html>

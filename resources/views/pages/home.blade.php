@@ -209,23 +209,23 @@
 }
 
 .hero-title {
-    font-family: 'Playfair Display', serif !important;
-    font-size: 10.5rem;
-    font-weight: 900;
-    line-height: 0.9;
+    font-family: 'Cinzel', serif !important;
+    font-size: 9.5rem;
+    font-weight: 700;
+    line-height: 0.95;
     margin: 0;
-    color: #fff8e8;
     text-align: center;
     letter-spacing: 12px;
     text-transform: uppercase;
 
-    transform: perspective(900px) rotateX(6deg) scaleY(1.08);
+    color: #fff8df !important;
+    background: none !important;
+    -webkit-text-fill-color: #fff8df !important;
 
     text-shadow:
-        2px 2px 0 rgba(188, 154, 70, 0.45),
-        0 4px 6px rgba(0, 0, 0, 0.55),
-        0 12px 28px rgba(0, 0, 0, 0.7),
-        0 0 18px rgba(255, 230, 170, 0.35);
+        0 2px 0 rgba(170, 135, 55, 0.65),
+        0 6px 12px rgba(0, 0, 0, 0.55),
+        0 14px 30px rgba(0, 0, 0, 0.55);
 }
 .hero-divider {
     width: 130px;
@@ -247,23 +247,29 @@
 
 .hero-btn {
     display: inline-block;
-    background: #d4a52c;
-    color: #12304a;
-    padding: 16px 48px;
-    font-size: 0.85rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    text-decoration: none;
-    font-weight: 800;
-    border-radius: 40px;
+    padding: 15px 46px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #e8b62f, #d49b1f);
+    color: #062b40 !important;
+    text-decoration: none !important;
+
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.82rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 4px !important;
+    text-transform: uppercase !important;
+
+    box-shadow:
+        0 10px 24px rgba(0,0,0,0.28),
+        inset 0 1px 0 rgba(255,255,255,0.35);
+    transition: all 0.3s ease;
 }
 
 .hero-btn:hover {
-    background: white;
-    color: #003366;
     transform: translateY(-3px);
+    background: linear-gradient(135deg, #ffd15a, #e4a927);
+    color: #062b40 !important;
 }
-
 @media (max-width: 992px) {
     .hero-title {
         font-size: 6rem;
