@@ -367,116 +367,95 @@ window.addEventListener("scroll", function() {
 });
 </script>
     <!-- Navbar -->
-   <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container-fluid nav-wrapper">
+  <!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top" id="navbar">
+    <div class="container nav-wrapper">
 
-        <!-- LOGO KIRI -->
-        <a class="navbar-brand" href="/">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="logo-img">
-        </a>
+       
 
-        <!-- MENU TENGAH -->
-        <ul class="navbar-nav nav-menu">
-            <li class="nav-item">
-                <a class="nav-link active" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/informasi">Informasi</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                    Destinasi
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/galeri">Galeri</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/berita">Berita</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/kontak">Kontak</a>
-            </li>
-        </ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <!-- KANAN -->
-       <div class="dropdown">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto nav-menu">
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ url('/') }}">
+                        {{ __('Home') }}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('informasi') ? 'active' : '' }}" href="{{ url('/informasi') }}">
+                        {{ __('Informasi') }}
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('destinasi*') ? 'active' : '' }}"
+                       href="#"
+                       id="destinasiDropdown"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        {{ __('Destinasi') }}
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="destinasiDropdown">
+                        <li><a class="dropdown-item" href="{{ url('/destinasi/alam') }}">{{ __('Destinasi Alam') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/destinasi/buatan') }}">{{ __('Destinasi Buatan') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ url('/destinasi/budaya') }}">{{ __('Destinasi Budaya') }}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url('/destinasi') }}">{{ __('Semua Destinasi') }}</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('galeri') ? 'active' : '' }}" href="{{ url('/galeri') }}">
+                        {{ __('Galeri') }}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}" href="{{ url('/berita') }}">
+                        {{ __('Berita') }}
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ url('/kontak') }}">
+                        {{ __('Kontak') }}
+                    </a>
+                </li>
+            </ul>
+
+            <div class="header-actions">
+                <div class="dropdown">
     <button class="lang-btn dropdown-toggle" data-bs-toggle="dropdown">
-        🌐 <span>{{ session('lang', 'ID') }}</span>
+        🌐 Language
     </button>
 
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{{ url('lang/id') }}">🇮🇩 Indonesia</a></li>
-        <li><a class="dropdown-item" href="{{ url('lang/en') }}">🇺🇸 English</a></li>
+        <li>
+            <a class="dropdown-item" href="#" onclick="setLang('id')">
+                🇮🇩 Indonesia
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item" href="#" onclick="setLang('en')">
+                🇺🇸 English
+            </a>
+        </li>
     </ul>
 </div>
-
-            <button class="search-btn" type="button">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </div>
-
-    </div>
-</nav>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ url('/') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('informasi') ? 'active' : '' }}" href="{{ url('/informasi') }}">Informasi</a>
-                    </li>
-
-                    
-                    
-                    <!-- DESTINASI DROPDOWN -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ request()->routeIs('destinasi*') ? 'active' : '' }}" 
-                           href="#" 
-                           id="destinasiDropdown" 
-                           role="button" 
-                           data-bs-toggle="dropdown" 
-                           aria-expanded="false">
-                            Destinasi
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="destinasiDropdown">
-                            <li><h6 class="dropdown-header">PILIH KATEGORI</h6></li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi/alam') }}">
-                                <i class="fas fa-mountain"></i> Destinasi Alam
-                            </a></li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi/buatan') }}">
-                                <i class="fas fa-building"></i> Destinasi Buatan
-                            </a></li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi/budaya') }}">
-                                <i class="fas fa-landmark"></i> Destinasi Budaya
-                            </a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi') }}">
-                                <i class="fas fa-globe"></i> Semua Destinasi
-                            </a></li>
-                        </ul>
-                    </li>
-                    
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('galeri') ? 'active' : '' }}" href="{{ url('/galeri') }}">Galeri</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}" href="{{ url('/berita') }}">Berita</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ url('/kontak') }}">Kontak</a>
-                    </li>
-                </ul>
+                <button class="search-btn" type="button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
             </div>
         </div>
-    </nav>
-
-    
-
+    </div>
+</nav>
     <!-- Main Content -->
     <main>
         @yield('content')
@@ -600,6 +579,31 @@ window.addEventListener('scroll', function () {
         navbar.classList.remove('scrolled');
     }
 });
+<!-- GOOGLE AUTO TRANSLATE -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<script>
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'id',
+        includedLanguages: 'id,en',
+        autoDisplay: false
+    }, 'google_translate_element');
+}
+
+function setLang(lang) {
+    const interval = setInterval(() => {
+        const select = document.querySelector(".goog-te-combo");
+        if (select) {
+            select.value = lang;
+            select.dispatchEvent(new Event("change"));
+            clearInterval(interval);
+        }
+    }, 300);
+}
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </script>
 </body>
 </html>
