@@ -34,6 +34,64 @@
         font-family: 'Poppins', sans-serif;
     }
 /* DEFAULT (di atas / hero) */
+/* FULL WIDTH NAVBAR */
+.navbar .container,
+.navbar .container-fluid {
+    max-width: 100% !important;
+    width: 100% !important;
+
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* WRAPPER */
+.nav-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    padding-left: 430px;
+    padding-right: 40px;
+}
+
+/* MENU TENGAH */
+.nav-center {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+    grid-column: 2;
+    justify-self: center;
+    width: 100%;
+
+}
+
+
+/* MENU */
+
+.nav-menu {
+    padding-left: 70px !important;
+}
+.nav-menu {
+    display: flex;
+    align-items: center;
+
+    gap: 48px !important;
+}
+
+/* KANAN */
+.header-actions {
+    justify-self: end;
+
+    display: flex;
+    align-items: center;
+
+    column-gap: 22px;
+}
+
+
 .navbar {
     position: fixed;
     top: 0;
@@ -50,6 +108,14 @@
     align-items: center;
 }
 
+.navbar-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
 .navbar.scrolled {
     height: 86px;
     padding: 0 55px !important;
@@ -59,18 +125,18 @@
 
 /* WRAPPER */
 .nav-wrapper {
+    display: grid;
+    grid-template-columns: 320px 1fr 320px;
+    align-items: center;
     width: 100%;
-    height: 100%; /* 🔥 penting */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between;
 }
-
 /* BRAND FIX */
 .navbar-brand {
-    height: 100% !important; /* 🔥 jangan fix 86 lagi */
-    display: flex !important;
-    align-items: center !important;
+    position: relative;
+    z-index: 20;
+
+    width: 300px;
+    flex-shrink: 0;
 }
 
 /* LOGO */
@@ -80,6 +146,9 @@
     display: block;
     transition: all 0.35s ease;
     transform: translateY(-6px); /* naik */
+    .logo-img {
+    max-width: 100%;
+}
 }
 
 .navbar.scrolled .logo-img {
@@ -88,26 +157,25 @@
 }
 
 
-/* MENU */
+//* MENU */
+
 .nav-menu {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 38px;
-    margin: 0;
+    gap: 52px;
+    margin: 0 !important;
+    padding: 0 !important;
 }
-
 .nav-menu .nav-link {
     font-family: 'Montserrat', sans-serif !important;
-    font-size: 1.05rem !important;
+    font-size: 1.02rem !important;
     font-weight: 700 !important;
     color: #ffffff !important;
     letter-spacing: 0.5px;
-    padding: 10px 0 !important;
     text-decoration: none !important;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
     position: relative;
 }
-
 .nav-menu .nav-link::before {
     display: none !important;
 }
@@ -116,7 +184,7 @@
     content: "";
     position: absolute;
     left: 50%;
-    bottom: -6px;
+    bottom: -8px;
     width: 0;
     height: 3px;
     background: #f0b323;
@@ -125,46 +193,87 @@
     transition: 0.3s ease;
 }
 
+
 .nav-menu .nav-link:hover::after,
 .nav-menu .nav-link.active::after {
     width: 100%;
 }
-/* kanan */
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 18px;
+
+
+
+.nav-wrapper {
+    padding-right: 20px;
 }
 
-/* bahasa */
+/* BAHASA */
 .lang-btn {
+    height: 46px;
+    padding: 0 16px;
+
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 16px;
+
+    border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.55);
-    border-radius: 10px;
-    background: rgba(255,255,255,0.15);
-    color: #ffffff;
+
+    background: rgba(255,255,255,0.12);
+    color: white;
+
     font-weight: 700;
-    cursor: pointer;
+
     backdrop-filter: blur(8px);
 }
 
-.flag-id {
-    width: 22px;
-    height: 14px;
-    background: linear-gradient(to bottom, red 50%, white 50%);
+/* SEARCH */
+.search-wrapper {
+    display: flex;
+    align-items: center;
+
+    column-gap: 14px;
+}
+.search-input {
+    width: 135px;
+    height: 46px;
+
+    padding: 0 16px;
+
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.55);
+
+    background: rgba(255,255,255,0.12);
+
+    color: white;
+    outline: none;
+
+    backdrop-filter: blur(8px);
 }
 
-/* search */
+.search-input::placeholder {
+    color: rgba(255,255,255,0.85);
+}
+
+
+.search-input:focus {
+    background: rgba(255,255,255,0.22);
+    border-color: #f0b323;
+}
+
 .search-btn {
-    border: none;
-    background: transparent;
-    color: #ffffff;
-    font-size: 1.6rem;
-    cursor: pointer;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+    width: 46px;
+    height: 46px;
+
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.55);
+
+    background: rgba(255,255,255,0.12) !important;
+    color: white !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    backdrop-filter: blur(8px);
 }
 
 /* HAPUS PANAH DESTINASI (biar clean) */
@@ -448,9 +557,22 @@ window.addEventListener("scroll", function() {
         </li>
     </ul>
 </div>
-                <button class="search-btn" type="button">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
+              <div class="search-wrapper">
+    <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="Cari..."
+        autocomplete="off"
+        list="searchHistoryList"
+    >
+
+    <datalist id="searchHistoryList"></datalist>
+
+    <button class="search-btn" type="button" id="searchBtn">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+</div>
             </div>
         </div>
     </div>
@@ -638,6 +760,53 @@ function googleTranslateElementInit() {
 </script>
 
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const historyList = document.getElementById('searchHistoryList');
+
+    let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+    function renderHistory() {
+        historyList.innerHTML = '';
+        searchHistory.slice(-5).reverse().forEach(item => {
+            const option = document.createElement('option');
+            option.value = item;
+            historyList.appendChild(option);
+        });
+    }
+
+    function saveSearch() {
+        const keyword = searchInput.value.trim();
+
+        if (keyword === '') return;
+
+        searchHistory = searchHistory.filter(item => item !== keyword);
+        searchHistory.push(keyword);
+
+        if (searchHistory.length > 5) {
+            searchHistory.shift();
+        }
+
+        localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+        renderHistory();
+
+        window.location.href = `/search?q=${encodeURIComponent(keyword)}`;
+    }
+
+    searchBtn.addEventListener('click', saveSearch);
+
+    searchInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            saveSearch();
+        }
+    });
+
+    renderHistory();
+});
+</script>
 </script>
 </body>
 </html>
