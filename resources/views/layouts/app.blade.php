@@ -464,6 +464,74 @@
     @stack('styles')
 </head>
 <body>
+    <audio id="bgMusic" loop>
+    <source src="{{ asset('audio/lagu.mp3') }}" type="audio/mpeg">
+</audio>
+
+<button id="musicToggle" class="music-toggle" type="button">
+    <i class="fa-solid fa-music"></i>
+</button>
+
+<style>
+.music-toggle {
+    position: fixed;
+    right: 28px;
+    bottom: 110px;
+    z-index: 99999;
+
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,0.5);
+    background: rgba(7, 59, 99, 0.85);
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.25rem;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.music-toggle.playing {
+    background: #f0b323;
+    color: #073b63;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const music = document.getElementById('bgMusic');
+    const btn = document.getElementById('musicToggle');
+
+    music.volume = 0.45;
+
+    function setIcon(isPlaying) {
+        btn.classList.toggle('playing', isPlaying);
+        btn.innerHTML = isPlaying
+            ? '<i class="fa-solid fa-pause"></i>'
+            : '<i class="fa-solid fa-play"></i>';
+    }
+
+    music.play()
+        .then(() => setIcon(true))
+        .catch(() => setIcon(false));
+
+    btn.addEventListener('click', function () {
+        if (music.paused) {
+            music.play();
+            setIcon(true);
+        } else {
+            music.pause();
+            setIcon(false);
+        }
+    });
+});
+</script>
     <script>
     <div id="google_translate_element" style="display:none;"></div>
 window.addEventListener("scroll", function() {
