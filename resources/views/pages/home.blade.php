@@ -3,6 +3,8 @@
     @section('content')
 
 <style>
+
+
     /* ==================== LOGO SECTION STYLE ==================== */
     .logo-container {
         position: fixed;

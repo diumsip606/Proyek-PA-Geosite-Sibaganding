@@ -61,7 +61,7 @@
     left: 50%;
     top: 50%;
 
-    transform: translate(-50%, -50%);
+     transform: translateX(140px) !important;
     grid-column: 2;
     justify-self: center;
     width: 100%;
@@ -72,15 +72,18 @@
 /* MENU */
 
 .nav-menu {
-    padding-left: 70px !important;
-}
-.nav-menu {
     display: flex;
     align-items: center;
 
-    gap: 48px !important;
-}
+    /* geser menu biar tidak ketutup logo */
+    padding-left: 220px !important;
 
+    /* jarak antar menu */
+    gap: 48px !important;
+
+    position: relative !important;
+    z-index: 999 !important;
+}
 /* KANAN */
 .header-actions {
     justify-self: end;
@@ -876,5 +879,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 </script>
+
 </body>
 </html>
