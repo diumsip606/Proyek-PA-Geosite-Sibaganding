@@ -181,17 +181,16 @@
     z-index: 2;
     transform: scale(1);
 }
-
-.slide-1 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding1.jpg'); }
-.slide-2 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding2.jpg'); }
-.slide-3 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding3.jpg'); }
-.slide-4 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding4.jpg'); }
-.slide-5 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding5.jpg'); }
-.slide-1 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding6.jpg'); }
-.slide-2 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding7.jpg'); }
-.slide-3 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding8.jpg'); }
-.slide-4 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding9.jpg'); }
-.slide-5 { background-image: linear-gradient(rgba(0, 36, 65, 0.58), rgba(0, 36, 65, 0.58)), url('/images/sibaganding10.jpg'); }
+.slide-1 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding1.jpg'); }
+.slide-2 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding2.jpg'); }
+.slide-3 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding3.jpg'); }
+.slide-4 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding4.jpg'); }
+.slide-5 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding5.jpg'); }
+.slide-6 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding6.jpg'); }
+.slide-7 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding7.jpg'); }
+.slide-8 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding8.jpg'); }
+.slide-9 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding9.jpg'); }
+.slide-10 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding10.jpg'); }
 
 .hero-content {
     position: absolute;
@@ -680,6 +679,79 @@
         .dot.active { width: 20px; }
     }
 
+    .map-section {
+    padding: 90px 0;
+    background: #eef6ff;
+}
+
+.map-wrapper {
+    position: relative;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.map-img {
+    width: 100%;
+    display: block;
+    border-radius: 22px;
+}
+
+.map-point {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: #f0b323;
+    border: 4px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 0 8px rgba(240,179,35,0.25);
+    z-index: 5;
+}
+
+.map-point:hover {
+    transform: scale(1.15);
+}
+
+.point-1 { top: 32%; left: 38%; }
+.point-2 { top: 45%; left: 52%; }
+.point-3 { top: 58%; left: 47%; }
+.point-4 { top: 40%; left: 65%; }
+
+.map-popup {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 210px;
+    padding: 16px;
+
+    background: rgba(7, 59, 99, 0.95);
+    color: white;
+
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+}
+
+.map-point:hover .map-popup {
+    opacity: 1;
+    visibility: visible;
+}
+
+.map-popup h5 {
+    margin-bottom: 10px;
+    color: #f0b323;
+    font-weight: 800;
+}
+
+.map-popup p {
+    margin: 4px 0;
+    font-size: 0.85rem;
+}
     
 </style>
 
@@ -718,31 +790,29 @@
     <!-- ==================== HERO SLIDER ==================== -->
     <section class="hero-section" id="home">
         <div class="slides-container">
-            <div class="slide slide-1 active"></div>
-            <div class="slide slide-2"></div>
-            <div class="slide slide-3"></div>
-            <div class="slide slide-4"></div>
-            <div class="slide slide-5"></div>
-             <div class="slide slide-6"></div>
-            <div class="slide slide-7"></div>
-            <div class="slide slide-8"></div>
-            <div class="slide slide-9"></div>
-              <div class="slide slide-10"></div>
-        </div>
-        
-        <div class="slider-dots">
-            <div class="dot active" data-slide="0"></div>
-            <div class="dot" data-slide="1"></div>
-            <div class="dot" data-slide="2"></div>
-            <div class="dot" data-slide="3"></div>
-            <div class="dot" data-slide="4"></div>
-             <div class="dot" data-slide="5"></div>
-            <div class="dot" data-slide="6"></div>
-            <div class="dot" data-slide="7"></div>
-            <div class="dot" data-slide="8"></div>
-              <div class="dot" data-slide="9"></div>
-            <div class="dot" data-slide="10"></div>
-        </div>
+    <div class="slide slide-1 active"></div>
+    <div class="slide slide-2"></div>
+    <div class="slide slide-3"></div>
+    <div class="slide slide-4"></div>
+    <div class="slide slide-5"></div>
+    <div class="slide slide-6"></div>
+    <div class="slide slide-7"></div>
+    <div class="slide slide-8"></div>
+    <div class="slide slide-9"></div>
+    <div class="slide slide-10"></div>
+</div>
+      <div class="slider-dots">
+    <div class="dot active" data-slide="0"></div>
+    <div class="dot" data-slide="1"></div>
+    <div class="dot" data-slide="2"></div>
+    <div class="dot" data-slide="3"></div>
+    <div class="dot" data-slide="4"></div>
+    <div class="dot" data-slide="5"></div>
+    <div class="dot" data-slide="6"></div>
+    <div class="dot" data-slide="7"></div>
+    <div class="dot" data-slide="8"></div>
+    <div class="dot" data-slide="9"></div>
+</div>
         
         <div class="hero-content">
             <div>
@@ -764,9 +834,9 @@
 <section class="map-section">
     <div class="container">
         <div class="section-title">
-            <h2>Peta Geosite Sibaganding</h2>
+            <h2>FAKTA UNIK SIBAGANDING  </h2>
             <div class="divider"></div>
-            <p>Arahkan kursor ke titik lokasi untuk melihat daftar geosite.</p>
+            <p>Arahkan kursor ke titik lokasi untuk melihat fakta unik Interaktif Sibaganding</p>
         </div>
 
         <div class="map-wrapper">
@@ -774,41 +844,38 @@
 
             <div class="map-point point-1">
                 <div class="map-popup">
-                    <h5>Titik 1</h5>
-                    <p>Geosite 1</p>
-                    <p>Geosite 2</p>
-                    <p>Geosite 3</p>
+                    <h5>Interaksi langsung dengan hewan liar</h5>
+                    <p>  Pengunjung dapat memberi makan langsung monyet ekor panjang dan siamang yang turun dari pohon di pinggir jalan raya, yang sering disebut sebagai Taman Wisata Kera Sibaganding.</p>
+                    
                 </div>
             </div>
 
             <div class="map-point point-2">
                 <div class="map-popup">
-                    <h5>Titik 2</h5>
-                    <p>Geosite 1</p>
-                    <p>Geosite 2</p>
-                    <p>Geosite 3</p>
+                    <h5> Kampung Warna Warni Tigarihit</h5>
+                    <p>Kampung Warna-Warni Tigarihit di Parapat dijuluki demikian karena dinding rumah warga di kawasan lereng tersebut dicat dengan aneka warna cerah yang mencolok. Inisiatif ini merupakan upaya kreatif masyarakat dan kolaborasi kementerian PUPR untuk memperindah kawasan, meningkatkan potensi wisata, serta memberikan nuansa segar di tepi Danau Toba.</p>
                 </div>
             </div>
 
             <div class="map-point point-3">
                 <div class="map-popup">
-                    <h5>Titik 3</h5>
-                    <p>Geosite 1</p>
-                    <p>Geosite 2</p>
-                    <p>Geosite 3</p>
+                    <h5>Lokasi Strategis di Danau Toba</h5>
+                    <p> Terletak dekat dengan kawasan wisata Parapat, menjadikannya perhentian populer bagi wisatawan yang menuju Danau Toba.</p>
                 </div>
             </div>
 
             <div class="map-point point-4">
                 <div class="map-popup">
-                    <h5>Titik 4</h5>
-                    <p>Geosite 1</p>
-                    <p>Geosite 2</p>
-                    <p>Geosite 3</p>
+                    <h5>04.Fenomena Batu Gantung</h5>
+                    <p>Batu Gantung di Danau Toba, Parapat, dinamakan demikian karena bentuk batunya yang menjorok keluar dari tebing dan menggantung ke bawah, menyerupai tubuh manusia terbalik. Secara legenda, batu ini diyakini sebagai penjelmaan seorang gadis bernama Seruni yang terjun ke jurang akibat perjodohan, lalu rambutnya tersangkut di tebing.</p>
+        
                 </div>
+                
             </div>
         </div>
     </div>
+
+    
 </section>
     <!-- ==================== ABOUT ==================== -->
     <section class="section section-light" id="about">
