@@ -182,20 +182,21 @@
 .nav-menu .nav-link::before {
     display: none !important;
 }
-
 .nav-menu .nav-link::after {
     content: "";
     position: absolute;
     left: 50%;
     bottom: -8px;
+
     width: 0;
     height: 3px;
+
     background: #f0b323;
     border-radius: 20px;
+
     transform: translateX(-50%);
     transition: 0.3s ease;
 }
-
 
 .nav-menu .nav-link:hover::after,
 .nav-menu .nav-link.active::after {

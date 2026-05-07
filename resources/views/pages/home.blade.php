@@ -5,6 +5,8 @@
 <style>
 
 
+
+
     /* ==================== LOGO SECTION STYLE ==================== */
     .logo-container {
         position: fixed;
@@ -363,6 +365,80 @@
         0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.8; }
         50% { transform: translateX(-50%) translateY(-10px); opacity: 0.4; }
     }
+
+    .map-section {
+    padding: 90px 0;
+    background: #eef6ff;
+}
+
+.map-wrapper {
+    position: relative;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.map-img {
+    width: 100%;
+    display: block;
+    border-radius: 22px;
+}
+
+.map-point {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: #f0b323;
+    border: 4px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 0 8px rgba(240,179,35,0.25);
+    z-index: 5;
+}
+
+.map-point:hover {
+    transform: scale(1.15);
+}
+
+.point-1 { top: 32%; left: 38%; }
+.point-2 { top: 45%; left: 52%; }
+.point-3 { top: 58%; left: 47%; }
+.point-4 { top: 40%; left: 65%; }
+
+.map-popup {
+    position: absolute;
+    bottom: 35px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 210px;
+    padding: 16px;
+
+    background: rgba(7, 59, 99, 0.95);
+    color: white;
+
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+}
+
+.map-point:hover .map-popup {
+    opacity: 1;
+    visibility: visible;
+}
+
+.map-popup h5 {
+    margin-bottom: 10px;
+    color: #f0b323;
+    font-weight: 800;
+}
+
+.map-popup p {
+    margin: 4px 0;
+    font-size: 0.85rem;
+}
     
     /* ==================== SECTION UMUM ==================== */
     .section { padding: 90px 0; }
@@ -717,6 +793,11 @@
             <div class="slide slide-3"></div>
             <div class="slide slide-4"></div>
             <div class="slide slide-5"></div>
+             <div class="slide slide-6"></div>
+            <div class="slide slide-7"></div>
+            <div class="slide slide-8"></div>
+            <div class="slide slide-9"></div>
+              <div class="slide slide-10"></div>
         </div>
         
         <div class="slider-dots">
@@ -725,6 +806,12 @@
             <div class="dot" data-slide="2"></div>
             <div class="dot" data-slide="3"></div>
             <div class="dot" data-slide="4"></div>
+             <div class="dot" data-slide="5"></div>
+            <div class="dot" data-slide="6"></div>
+            <div class="dot" data-slide="7"></div>
+            <div class="dot" data-slide="8"></div>
+              <div class="dot" data-slide="9"></div>
+            <div class="dot" data-slide="10"></div>
         </div>
         
         <div class="hero-content">
@@ -743,29 +830,56 @@
     </section>
 
     <!-- ==================== STATISTICS ==================== -->
-    <section class="section section-white">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item" data-aos="fade-up">
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">GEOSITES</div>
+    
+<section class="map-section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Peta Geosite Sibaganding</h2>
+            <div class="divider"></div>
+            <p>Arahkan kursor ke titik lokasi untuk melihat daftar geosite.</p>
+        </div>
+
+        <div class="map-wrapper">
+            <img src="{{ asset('images/peta-sibaganding.png') }}" alt="Peta Sibaganding" class="map-img">
+
+            <div class="map-point point-1">
+                <div class="map-popup">
+                    <h5>Titik 1</h5>
+                    <p>Geosite 1</p>
+                    <p>Geosite 2</p>
+                    <p>Geosite 3</p>
                 </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                    <div class="stat-number">74.000</div>
-                    <div class="stat-label">TAHUN SEJARAH</div>
+            </div>
+
+            <div class="map-point point-2">
+                <div class="map-popup">
+                    <h5>Titik 2</h5>
+                    <p>Geosite 1</p>
+                    <p>Geosite 2</p>
+                    <p>Geosite 3</p>
                 </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                    <div class="stat-number">15+</div>
-                    <div class="stat-label">WARISAN BUDAYA</div>
+            </div>
+
+            <div class="map-point point-3">
+                <div class="map-popup">
+                    <h5>Titik 3</h5>
+                    <p>Geosite 1</p>
+                    <p>Geosite 2</p>
+                    <p>Geosite 3</p>
                 </div>
-                <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                    <div class="stat-number">100+</div>
-                    <div class="stat-label">UMKM LOKAL</div>
+            </div>
+
+            <div class="map-point point-4">
+                <div class="map-popup">
+                    <h5>Titik 4</h5>
+                    <p>Geosite 1</p>
+                    <p>Geosite 2</p>
+                    <p>Geosite 3</p>
                 </div>
             </div>
         </div>
-    </section>
-
+    </div>
+</section>
     <!-- ==================== ABOUT ==================== -->
     <section class="section section-light" id="about">
         <div class="container">
