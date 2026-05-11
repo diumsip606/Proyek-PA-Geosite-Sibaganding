@@ -51,7 +51,7 @@
         }
         
         .sidebar-header h4 span {
-            color: #3b82f6;
+            color: #ff0000;
         }
         
         .sidebar-menu {
@@ -298,7 +298,7 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <h4>Geo<span>Toba</span></h4>
+            <h4>Geosite<span><br>Sibaganding</span></h4>
         </div>
         <div class="sidebar-menu">
             <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">

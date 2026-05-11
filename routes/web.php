@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\App;
+// use Illuminate\Support\Facades\App;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\BeritaController;
@@ -149,13 +149,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('/', function () {
 
-        $totalGaleri = App\Models\Galeri::count();
-        $totalBerita = App\Models\Berita::count();
-        $totalInformasi = App\Models\Informasi::count();
-        $totalViews =
-            App\Models\Berita::sum('views') +
-            App\Models\Galeri::sum('views') +
-            App\Models\Informasi::sum('views');
+        $totalGaleri = \App\Models\Galeri::count();
+        $totalBerita = \App\Models\Berita::count();
+        $totalInformasi = \App\Models\Informasi::count();
+        $totalViews = 0;
 
         return view('admin.dashboard', compact(
             'totalGaleri',
@@ -163,7 +160,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             'totalInformasi',
             'totalViews'
         ));
-
     })->name('admin.dashboard');
 
     Route::resource('galeri', GaleriController::class)->names('admin.galeri');

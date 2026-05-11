@@ -1,5 +1,4 @@
 <?php
-// app/Models/Galeri.php
 
 namespace App\Models;
 
@@ -12,27 +11,39 @@ class Galeri extends Model
 
     protected $table = 'galeris';
     
-    // Satpam sudah di-update: slug dan views diizinkan masuk
     protected $fillable = [
         'judul',
         'slug',
         'deskripsi',
         'gambar',
-        'kategori',
+        'kategori_id', // UBAH: dari 'kategori' menjadi 'kategori_id' agar sinkron dengan relasi
         'lokasi',
         'status',
         'views'
     ];
 
-    // tanggal_foto dihapus, cukup status saja yang di-cast ke boolean
     protected $casts = [
         'status' => 'boolean'
     ];
 
-    // Helper folder sudah disesuaikan dengan kategori Sibaganding
-    public static function getPathByKategori($kategori)
+    /**
+     * Relasi ke Model Kategori
+     * Karena sekarang dinamis, Galeri "milik" sebuah Kategori
+     */
+    public function kategori()
     {
-        return match($kategori) {
+        // Pastikan nama kolom di tabel galeris adalah 'kategori_id'
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
+
+    /**
+     * Helper folder (Opsional)
+     * Jika kamu menggunakan tabel dinamis, helper ini mungkin perlu disesuaikan 
+     * karena $kategori sekarang berupa objek, bukan string 'Biodiversity' lagi.
+     */
+    public static function getPathByKategori($namaKategori)
+    {
+        return match($namaKategori) {
             'Biodiversity' => 'image/biodiversity/galeri',
             'Geodiversity' => 'image/geodiversity/galeri',
             'Culture diversity' => 'image/culture/galeri',

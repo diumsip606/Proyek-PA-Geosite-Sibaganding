@@ -14,8 +14,8 @@ class GaleriController extends Controller
 {
     public function index()
     {
-        $galeri = Galeri::orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.galeri.index', compact('galeri'));
+        $galeris = Galeri::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.galeri.index', compact('galeris'));
     }
 
     public function create()
@@ -24,16 +24,17 @@ class GaleriController extends Controller
     }
 
     public function store(Request $request)
-    {
+    { 
         // Validasi
         $request->validate([
             'judul' => 'required|string|max:255',
-            'kategori' => 'required|in:Meat,Batu Bahisan,Liang Sipege,Balige',
+            'kategori' => 'required|in:Biodiversity,Geodiversity,Culture Diversity',
             'deskripsi' => 'required|string',
             'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'lokasi' => 'nullable|string',
             'tanggal_foto' => 'nullable|date',
-            'status' => 'nullable|boolean'
+            'status' => 'nullable|boolean',
+            
         ]);
 
         // Upload gambar
@@ -76,7 +77,7 @@ class GaleriController extends Controller
 
         $request->validate([
             'judul' => 'required|string|max:255',
-            'kategori' => 'required|in:Meat,Batu Bahisan,Liang Sipege,Balige',
+            'kategori' => 'required|in:Biodiversity,Geodiversity,Culture Diversity',
             'deskripsi' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'lokasi' => 'nullable|string',

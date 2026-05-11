@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use PHPUnit\Framework\Constraint\Constraint;
 
 return new class extends Migration
 {
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('gambar'); // path gambar
             // Batasi kategori hanya untuk 3 tab di UI kamu
-            $table->enum('kategori', ['Biodiversity', 'Geodiversity', 'Culture diversity']);
+            $table->foreignId('kategori_id')->constrained('kategori')->onDelete('cascade');
             $table->string('lokasi')->default('Geosite Sibaganding');
             $table->boolean('status')->default(true);
             $table->integer('views')->default(0);
