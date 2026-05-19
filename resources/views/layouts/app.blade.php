@@ -374,51 +374,6 @@
     <main style="margin-top: 100px;"> @yield('content')
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <h5>Geo<span style="color: #c6a43b;">Toba</span></h5>
-                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.7);">Sistem Informasi Geosite Danau Toba - Menyajikan informasi lengkap tentang keindahan geologi dan budaya Batak di kawasan Danau Toba.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-6 mb-4">
-                    <h5>Tautan</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="{{ url('/') }}">Beranda</a></li>
-                        <li class="mb-2"><a href="{{ url('/informasi') }}">Informasi</a></li>
-                        <li class="mb-2"><a href="{{ url('/galeri') }}">Galeri</a></li>
-                        <li class="mb-2"><a href="{{ url('/berita') }}">Berita</a></li>
-                        <li class="mb-2"><a href="{{ url('/kontak') }}">Kontak</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h5>Destinasi</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="{{ url('/destinasi/alam') }}">Destinasi Alam</a></li>
-                        <li class="mb-2"><a href="{{ url('/destinasi/buatan') }}">Destinasi Buatan</a></li>
-                        <li class="mb-2"><a href="{{ url('/destinasi/budaya') }}">Destinasi Budaya</a></li>
-                        <li class="mb-2"><a href="{{ url('/destinasi') }}">Semua Destinasi</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <h5>Kontak</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2" style="color: #c6a43b;"></i> Danau Toba, Sumatera Utara</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2" style="color: #c6a43b;"></i> +62 812 3456 7890</li>
-                        <li class="mb-2"><i class="fas fa-envelope me-2" style="color: #c6a43b;"></i> info@geotoba.com</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright"><p>&copy; 2026 GeoToba - Geopark Danau Toba. All rights reserved.</p></div>
-        </div>
-    </footer>
-
     <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
     <div id="google_translate_element" style="display:none;"></div>
