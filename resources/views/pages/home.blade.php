@@ -1666,6 +1666,403 @@
         font-size: 1.35rem;
     }
 }
+
+/* ==================== ADVENTURE / VIDEO / NEWS ==================== */
+.adventure-section {
+    padding: 115px 0 90px;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(198, 164, 59, 0.13), transparent 28%),
+        linear-gradient(180deg, #eaf4ff 0%, #f4f8fc 100%);
+    overflow: hidden;
+}
+
+.adventure-hero {
+    max-width: 760px;
+    margin: 0 auto 75px;
+    text-align: center;
+}
+
+.adventure-kicker {
+    display: inline-block;
+    color: #c6a43b;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.adventure-hero h2,
+.video-heading h3,
+.news-header h3,
+.explore-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #003366;
+    line-height: 1.1;
+}
+
+.adventure-hero h2 {
+    font-size: 3rem;
+    margin-bottom: 16px;
+}
+
+.adventure-hero p {
+    color: #406d92;
+    line-height: 1.85;
+    font-size: 0.98rem;
+}
+
+.video-story {
+    position: relative;
+}
+
+.video-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 35px;
+}
+
+.video-heading h3 {
+    font-size: 2.35rem;
+    margin-bottom: 12px;
+}
+
+.video-heading p {
+    max-width: 680px;
+    color: #406d92;
+    line-height: 1.75;
+    font-size: 0.94rem;
+}
+
+.video-slider,
+.news-slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 34px;
+}
+
+.video-track {
+    display: flex;
+    gap: 26px;
+    transition: transform 0.7s ease;
+}
+
+.video-card {
+    min-width: 100%;
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 0;
+    border-radius: 34px;
+    overflow: hidden;
+    background: #073b63;
+    box-shadow: 0 30px 80px rgba(0, 51, 102, 0.18);
+    border: 10px solid rgba(255,255,255,0.65);
+}
+
+.video-frame {
+    min-height: 420px;
+    background: #001d33;
+}
+
+.video-frame iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    border: none;
+    display: block;
+}
+
+.video-info {
+    padding: 42px;
+    background:
+        radial-gradient(circle at 95% 5%, rgba(198, 164, 59, 0.18), transparent 36%),
+        linear-gradient(145deg, #073b63, #03243d);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.video-info span {
+    color: #c6a43b;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    margin-bottom: 18px;
+}
+
+.video-info h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    line-height: 1.15;
+    color: #fff8df;
+    margin-bottom: 18px;
+}
+
+.video-info p {
+    color: rgba(255,255,255,0.78);
+    line-height: 1.8;
+    font-size: 0.95rem;
+}
+
+.video-arrow,
+.news-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.95);
+    background: rgba(6, 59, 92, 0.88);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s ease;
+    box-shadow: 0 12px 28px rgba(0,51,102,.22);
+}
+
+.video-arrow:hover,
+.news-arrow:hover {
+    background: #c6a43b;
+    color: #003366;
+}
+
+.video-prev,
+.news-prev {
+    left: 22px;
+}
+
+.video-next,
+.news-next {
+    right: 22px;
+}
+
+.video-mini-list {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+}
+
+.video-mini-list button {
+    border: none;
+    border-radius: 30px;
+    padding: 8px 16px;
+    background: rgba(0, 51, 102, 0.12);
+    color: #003366;
+    font-size: 0.72rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.video-mini-list button.active {
+    background: #c6a43b;
+    color: #003366;
+}
+
+/* NEWS */
+.news-preview-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #f4f8fc 0%, #e8f2fb 100%);
+    overflow: hidden;
+}
+
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 35px;
+    margin-bottom: 42px;
+}
+
+.news-header h3 {
+    font-size: 2.45rem;
+    margin-bottom: 12px;
+}
+
+.news-header p {
+    color: #406d92;
+    line-height: 1.75;
+    max-width: 620px;
+}
+
+.news-more {
+    white-space: nowrap;
+    padding: 12px 28px;
+    border-radius: 40px;
+    border: 1px solid #c6a43b;
+    color: #c6a43b;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: all .25s ease;
+}
+
+.news-more:hover {
+    background: #c6a43b;
+    color: #003366;
+}
+
+.news-track {
+    display: flex;
+    gap: 24px;
+    transition: transform .7s ease;
+}
+
+.news-card {
+    min-width: calc((100% - 48px) / 3);
+    border-radius: 28px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 24px 60px rgba(0, 51, 102, 0.13);
+    border: 1px solid rgba(0, 51, 102, 0.06);
+}
+
+.news-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.news-content {
+    padding: 26px;
+}
+
+.news-content span {
+    color: #c6a43b;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.news-content h4 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #003366;
+    font-size: 1.55rem;
+    line-height: 1.2;
+    margin: 12px 0;
+}
+
+.news-content p {
+    color: #406d92;
+    line-height: 1.7;
+    font-size: 0.88rem;
+    margin-bottom: 18px;
+}
+
+.news-content a {
+    color: #c6a43b;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* EXPLORE */
+.explore-section {
+    padding: 90px 0 110px;
+    background: linear-gradient(135deg, #073b63, #03243d);
+}
+
+.explore-box {
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 60px 40px;
+    border-radius: 34px;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(198, 164, 59, 0.18), transparent 42%),
+        rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 28px 80px rgba(0,0,0,0.18);
+}
+
+.explore-box h3 {
+    color: #fff8df;
+    font-size: 2.8rem;
+    margin-bottom: 18px;
+}
+
+.explore-box p {
+    color: rgba(255,255,255,0.78);
+    line-height: 1.8;
+    max-width: 650px;
+    margin: 0 auto 34px;
+}
+
+.explore-btn {
+    display: inline-block;
+    padding: 14px 42px;
+    border-radius: 45px;
+    background: #c6a43b;
+    color: #003366;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    transition: all .25s ease;
+}
+
+.explore-btn:hover {
+    background: #fff8df;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 992px) {
+    .video-card {
+        grid-template-columns: 1fr;
+    }
+
+    .news-card {
+        min-width: calc((100% - 24px) / 2);
+    }
+
+    .news-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 576px) {
+    .adventure-hero h2,
+    .explore-box h3 {
+        font-size: 2rem;
+    }
+
+    .video-heading h3,
+    .news-header h3 {
+        font-size: 1.8rem;
+    }
+
+    .video-frame,
+    .video-frame iframe {
+        min-height: 260px;
+    }
+
+    .video-info {
+        padding: 28px;
+    }
+
+    .video-info h4 {
+        font-size: 1.55rem;
+    }
+
+    .news-card {
+        min-width: 100%;
+    }
+}
 </style>
 
     <!-- ==================== LOGO SECTION ==================== -->
@@ -2175,25 +2572,188 @@
     </div>
 </section>
 
-    <!-- ==================== CTA ==================== -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content" data-aos="fade-up">
-                <h3>Mulai Petualangan Anda</h3>
-                <div class="divider"></div>
-                <p>Temukan keajaiban geologi dan kekayaan budaya Batak di Geopark Toba, warisan dunia yang diakui UNESCO.</p>
-                <a href="#destinasi" class="cta-btn">Jelajahi Sekarang</a>
+   <!-- ==================== PETUALANGAN / VIDEO / BERITA ==================== -->
+<section class="adventure-section">
+    <div class="container">
+
+        <!-- MULAI PETUALANGAN -->
+        <div class="adventure-hero" data-aos="fade-up">
+            <span class="adventure-kicker">Mulai Dari Sini</span>
+            <h2>Mulai Petualangan Anda</h2>
+            <div class="divider"></div>
+            <p>
+                Temukan cerita alam, geologi, budaya, dan pengalaman wisata yang membuat
+                Sibaganding menjadi bagian menarik dari Geopark Danau Toba.
+            </p>
+        </div>
+
+        <!-- VIDEO TESTIMONI -->
+        <div class="video-story" data-aos="fade-up">
+            <div class="video-heading">
+                <div>
+                    <span class="adventure-kicker">Cerita Pengunjung</span>
+                    <h3>Apa Kata Mereka Tentang Sibaganding?</h3>
+                    <p>
+                        Saksikan cerita, pengalaman, dan kesan pengunjung tentang keindahan alam,
+                        budaya, dan suasana Sibaganding.
+                    </p>
+                </div>
+            </div>
+
+            <div class="video-slider">
+                <div class="video-track" id="videoTrack">
+
+                    <div class="video-card">
+                        <div class="video-frame">
+                            <iframe src="https://www.youtube.com/embed/https://youtu.be/gViE6bQCCoc?si=BGVxaaNHseVdTLnI" title="Video Sibaganding 1" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span>01</span>
+                            <h4>Pesona Alam Sibaganding</h4>
+                            <p>Pengalaman pertama menikmati suasana alam dan panorama kawasan Sibaganding.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-frame">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Video Sibaganding 2" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span>02</span>
+                            <h4>Wisata Edukasi Geopark</h4>
+                            <p>Cerita tentang belajar geologi, alam, dan budaya di kawasan Geopark Toba.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-frame">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" title="Video Sibaganding 3" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span>03</span>
+                            <h4>Hutan dan Satwa Sibaganding</h4>
+                            <p>Kesan pengunjung saat melihat kekayaan hayati dan suasana hutan Sibaganding.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-frame">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_4" title="Video Sibaganding 4" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span>04</span>
+                            <h4>Budaya dan Cerita Lokal</h4>
+                            <p>Pengalaman mengenal budaya Batak dan kehidupan masyarakat sekitar kawasan.</p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-frame">
+                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_5" title="Video Sibaganding 5" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-info">
+                            <span>05</span>
+                            <h4>Perjalanan Menuju Sibaganding</h4>
+                            <p>Cuplikan perjalanan wisata dan suasana terbaik saat menjelajahi Sibaganding.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="video-arrow video-prev" type="button">&#10094;</button>
+                <button class="video-arrow video-next" type="button">&#10095;</button>
+            </div>
+
+            <div class="video-mini-list" id="videoDots">
+                <button class="active" type="button">01</button>
+                <button type="button">02</button>
+                <button type="button">03</button>
+                <button type="button">04</button>
+                <button type="button">05</button>
             </div>
         </div>
-    </section>
 
-    <script>
-       <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    </div>
+</section>
 
-<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+<!-- ==================== BERITA TERKINI ==================== -->
+<section class="news-preview-section">
+    <div class="container">
+        <div class="news-header" data-aos="fade-up">
+            <div>
+                <span class="adventure-kicker">Update Terbaru</span>
+                <h3>Berita Terkini Sibaganding</h3>
+                <p>Ikuti informasi terbaru seputar kegiatan, destinasi, dan pengembangan Geopark Sibaganding.</p>
+            </div>
 
+            <a href="{{ url('/berita') }}" class="news-more">Lihat Berita Lainnya →</a>
+        </div>
+
+        <div class="news-slider" data-aos="fade-up">
+            <div class="news-track" id="newsTrack">
+
+                <div class="news-card">
+                    <img src="{{ asset('images/galleri-1.jpg') }}" alt="Berita 1">
+                    <div class="news-content">
+                        <span>Berita • Geopark</span>
+                        <h4>Pengembangan Wisata Sibaganding Terus Diperkuat</h4>
+                        <p>Upaya pengenalan potensi alam, budaya, dan edukasi geopark semakin ditingkatkan.</p>
+                        <a href="{{ url('/berita') }}">Baca Selengkapnya →</a>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <img src="{{ asset('images/galleri-2.jpg') }}" alt="Berita 2">
+                    <div class="news-content">
+                        <span>Wisata • Alam</span>
+                        <h4>Sibaganding Menjadi Daya Tarik Baru di Kawasan Danau Toba</h4>
+                        <p>Keindahan alam dan akses wisata membuat kawasan ini semakin menarik dikunjungi.</p>
+                        <a href="{{ url('/berita') }}">Baca Selengkapnya →</a>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <img src="{{ asset('images/galleri-3.jpg') }}" alt="Berita 3">
+                    <div class="news-content">
+                        <span>Edukasi • Geologi</span>
+                        <h4>Geopark Toba Sebagai Ruang Belajar Alam Terbuka</h4>
+                        <p>Pengunjung dapat memahami proses terbentuknya Danau Toba melalui cerita geologi.</p>
+                        <a href="{{ url('/berita') }}">Baca Selengkapnya →</a>
+                    </div>
+                </div>
+
+                <div class="news-card">
+                    <img src="{{ asset('images/galleri-4.jpg') }}" alt="Berita 4">
+                    <div class="news-content">
+                        <span>Budaya • Lokal</span>
+                        <h4>Budaya Batak Menguatkan Cerita Wisata Sibaganding</h4>
+                        <p>Tradisi lokal menjadi bagian penting dalam pengalaman wisata di kawasan geopark.</p>
+                        <a href="{{ url('/berita') }}">Baca Selengkapnya →</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="news-arrow news-prev" type="button">&#10094;</button>
+            <button class="news-arrow news-next" type="button">&#10095;</button>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== JELAJAHI SIBAGANDING ==================== -->
+<section class="explore-section">
+    <div class="container">
+        <div class="explore-box" data-aos="zoom-in">
+            <span class="adventure-kicker">Siap Berkunjung?</span>
+            <h3>Jelajahi Sibaganding</h3>
+            <p>
+                Pilih destinasi terbaik, temukan cerita alam dan budaya, lalu mulai perjalanan Anda
+                menuju kawasan Geopark Danau Toba.
+            </p>
+            <a href="{{ url('/destinasi') }}" class="explore-btn">Jelajahi Sekarang</a>
+        </div>
+    </div>
+</section>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -2432,6 +2992,116 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+// ==================== VIDEO SLIDER ====================
+let videoCurrent = 0;
+const videoTrack = document.getElementById('videoTrack');
+const videoCards = document.querySelectorAll('.video-card');
+const videoDots = document.querySelectorAll('#videoDots button');
+const videoPrev = document.querySelector('.video-prev');
+const videoNext = document.querySelector('.video-next');
+
+function showVideoSlide(index) {
+    if (!videoTrack || !videoCards.length) return;
+
+    if (index < 0) {
+        videoCurrent = videoCards.length - 1;
+    } else if (index >= videoCards.length) {
+        videoCurrent = 0;
+    } else {
+        videoCurrent = index;
+    }
+
+    const cardWidth = videoCards[0].offsetWidth;
+    const gap = 26;
+    const move = videoCurrent * (cardWidth + gap);
+
+    videoTrack.style.transform = 'translateX(-' + move + 'px)';
+
+    videoDots.forEach(function (dot) {
+        dot.classList.remove('active');
+    });
+
+    if (videoDots[videoCurrent]) {
+        videoDots[videoCurrent].classList.add('active');
+    }
+}
+
+if (videoPrev) {
+    videoPrev.addEventListener('click', function () {
+        showVideoSlide(videoCurrent - 1);
+    });
+}
+
+if (videoNext) {
+    videoNext.addEventListener('click', function () {
+        showVideoSlide(videoCurrent + 1);
+    });
+}
+
+videoDots.forEach(function (dot, index) {
+    dot.addEventListener('click', function () {
+        showVideoSlide(index);
+    });
+});
+
+if (videoCards.length) {
+    showVideoSlide(0);
+}
+
+
+// ==================== NEWS SLIDER ====================
+let newsCurrent = 0;
+const newsTrack = document.getElementById('newsTrack');
+const newsCards = document.querySelectorAll('.news-card');
+const newsPrev = document.querySelector('.news-prev');
+const newsNext = document.querySelector('.news-next');
+
+function getNewsPerView() {
+    if (window.innerWidth <= 576) return 1;
+    if (window.innerWidth <= 992) return 2;
+    return 3;
+}
+
+function showNewsSlide(index) {
+    if (!newsTrack || !newsCards.length) return;
+
+    const perView = getNewsPerView();
+    const maxIndex = newsCards.length - perView;
+
+    if (index < 0) {
+        newsCurrent = maxIndex;
+    } else if (index > maxIndex) {
+        newsCurrent = 0;
+    } else {
+        newsCurrent = index;
+    }
+
+    const cardWidth = newsCards[0].offsetWidth;
+    const gap = 24;
+    const move = newsCurrent * (cardWidth + gap);
+
+    newsTrack.style.transform = 'translateX(-' + move + 'px)';
+}
+
+if (newsPrev) {
+    newsPrev.addEventListener('click', function () {
+        showNewsSlide(newsCurrent - 1);
+    });
+}
+
+if (newsNext) {
+    newsNext.addEventListener('click', function () {
+        showNewsSlide(newsCurrent + 1);
+    });
+}
+
+if (newsCards.length) {
+    showNewsSlide(0);
+
+    window.addEventListener('resize', function () {
+        showNewsSlide(newsCurrent);
+    });
+}
 </script>
 
 @endsection
