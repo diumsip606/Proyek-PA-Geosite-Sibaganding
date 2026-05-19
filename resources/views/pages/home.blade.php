@@ -2063,6 +2063,415 @@
         min-width: 100%;
     }
 }
+
+
+/* ==================== PENGURUS SIBAGANDING ==================== */
+.team-section {
+    padding: 110px 0;
+    background:
+        radial-gradient(circle at 12% 20%, rgba(198, 164, 59, 0.12), transparent 28%),
+        radial-gradient(circle at 88% 45%, rgba(0, 51, 102, 0.08), transparent 30%),
+        linear-gradient(180deg, #e8f2fb 0%, #f4f8fc 100%);
+    overflow: hidden;
+}
+
+.team-title {
+    margin-bottom: 70px;
+}
+
+.team-kicker {
+    display: inline-block;
+    color: #c6a43b;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.team-title h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    color: #003366;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 34px;
+    align-items: end;
+}
+
+.team-card {
+    position: relative;
+    border-radius: 34px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 28px 70px rgba(0, 51, 102, 0.14);
+    border: 8px solid rgba(255,255,255,0.68);
+    transition: all 0.35s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 35px 90px rgba(0, 51, 102, 0.22);
+}
+
+.team-center {
+    transform: translateY(-28px);
+}
+
+.team-center:hover {
+    transform: translateY(-38px);
+}
+
+.team-image {
+    height: 390px;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-center .team-image {
+    height: 450px;
+}
+
+.team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+}
+
+.team-card:hover .team-image img {
+    transform: scale(1.08);
+}
+
+.team-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0, 35, 70, 0.02) 0%,
+        rgba(0, 35, 70, 0.10) 45%,
+        rgba(0, 35, 70, 0.78) 100%
+    );
+}
+
+.team-info {
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    bottom: 28px;
+    z-index: 3;
+    color: white;
+}
+
+.team-info span {
+    display: inline-block;
+    color: #e7c24a;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.team-info h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    line-height: 1.15;
+    color: #fff8df;
+    margin-bottom: 12px;
+}
+
+.team-info p {
+    color: rgba(255,255,255,0.86);
+    line-height: 1.65;
+    font-size: 0.88rem;
+}
+
+.team-action {
+    text-align: center;
+    margin-top: 55px;
+}
+
+.team-contact-btn {
+    display: inline-block;
+    padding: 14px 42px;
+    border-radius: 45px;
+    background: #c6a43b;
+    color: #003366;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    box-shadow: 0 18px 40px rgba(198, 164, 59, 0.25);
+    transition: all 0.25s ease;
+}
+
+.team-contact-btn:hover {
+    background: #003366;
+    color: #fff8df;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 992px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        margin: 0 auto;
+    }
+
+    .team-center {
+        transform: none;
+    }
+
+    .team-center:hover {
+        transform: translateY(-10px);
+    }
+
+    .team-image,
+    .team-center .team-image {
+        height: 420px;
+    }
+}
+
+@media (max-width: 576px) {
+    .team-section {
+        padding: 75px 0;
+    }
+
+    .team-title h2 {
+        font-size: 2rem;
+    }
+
+    .team-image,
+    .team-center .team-image {
+        height: 340px;
+    }
+
+    .team-info h3 {
+        font-size: 1.55rem;
+    }
+
+    .team-info {
+        left: 22px;
+        right: 22px;
+        bottom: 22px;
+    }
+} 
+
+
+/* ==================== FOOTER ELEGANT ==================== */
+.footer-section {
+    background:
+        radial-gradient(circle at 15% 10%, rgba(198, 164, 59, 0.12), transparent 25%),
+        linear-gradient(135deg, #052f52 0%, #03243d 100%);
+    padding: 85px 0 28px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-section::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    right: -150px;
+    top: -150px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+}
+
+.footer-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.2fr 0.7fr 0.8fr 1fr 1.2fr;
+    gap: 42px;
+    align-items: flex-start;
+}
+
+.footer-brand h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 18px;
+    font-weight: 800;
+}
+
+.footer-brand h3 span {
+    color: #c6a43b;
+}
+
+.footer-brand p {
+    color: rgba(255,255,255,0.72);
+    line-height: 1.75;
+    font-size: 0.9rem;
+    max-width: 330px;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.09);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 800;
+    transition: all 0.25s ease;
+}
+
+.footer-social a:hover {
+    background: #c6a43b;
+    color: #003366;
+    transform: translateY(-3px);
+}
+
+.footer-links h4,
+.footer-contact h4,
+.footer-map h4 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 22px;
+    position: relative;
+}
+
+.footer-links h4::after,
+.footer-contact h4::after,
+.footer-map h4::after {
+    content: "";
+    width: 42px;
+    height: 2px;
+    background: #c6a43b;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.68);
+    text-decoration: none;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+}
+
+.footer-links a:hover {
+    color: #c6a43b;
+    transform: translateX(5px);
+}
+
+.footer-contact p {
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 14px;
+    font-size: 0.92rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.footer-contact p span {
+    color: #c6a43b;
+}
+
+.footer-contact-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 11px 24px;
+    border-radius: 35px;
+    background: #c6a43b;
+    color: #003366;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+}
+
+.footer-contact-btn:hover {
+    background: #fff8df;
+    transform: translateY(-3px);
+}
+
+.footer-map-box {
+    height: 190px;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 6px solid rgba(255,255,255,0.12);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.22);
+    background: rgba(255,255,255,0.06);
+}
+
+.footer-map-box iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    filter: grayscale(20%) contrast(1.05);
+}
+
+.footer-bottom {
+    position: relative;
+    z-index: 2;
+    margin-top: 62px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.82rem;
+}
+
+@media (max-width: 1100px) {
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-map {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-section {
+        padding: 65px 0 24px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+    }
+
+    .footer-map {
+        grid-column: span 1;
+    }
+
+    .footer-map-box {
+        height: 220px;
+    }
+}
 </style>
 
     <!-- ==================== LOGO SECTION ==================== -->
@@ -2605,8 +3014,13 @@
 
                     <div class="video-card">
                         <div class="video-frame">
-                            <iframe src="https://www.youtube.com/embed/https://youtu.be/gViE6bQCCoc?si=BGVxaaNHseVdTLnI" title="Video Sibaganding 1" allowfullscreen></iframe>
-                        </div>
+    <iframe 
+        src="https://www.youtube.com/embed/gYiE6bQCoc"
+        title="Video Sibaganding 1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+</div>
                         <div class="video-info">
                             <span>01</span>
                             <h4>Pesona Alam Sibaganding</h4>
@@ -2740,6 +3154,71 @@
     </div>
 </section>
 
+<!-- ==================== PENGURUS SIBAGANDING ==================== -->
+<section class="team-section">
+    <div class="container">
+        <div class="section-title team-title" data-aos="fade-up">
+            <span class="team-kicker">Tim Pengelola</span>
+            <h2>Pengurus Sibaganding</h2>
+            <div class="divider"></div>
+            <p>
+                Orang-orang yang berperan dalam menjaga, mengembangkan, dan memperkenalkan
+                potensi wisata, geologi, budaya, serta kekayaan alam Sibaganding.
+            </p>
+        </div>
+
+        <div class="team-grid">
+
+            <div class="team-card team-left" data-aos="fade-right">
+                <div class="team-image">
+                    <img src="{{ asset('images/pengurus-1.jpg') }}" alt="Pengurus Sibaganding 1">
+                </div>
+                <div class="team-info">
+                    <span>Koordinator Lapangan</span>
+                    <h3>Nama Pengurus 1</h3>
+                    <p>
+                        Bertugas mendampingi kegiatan lapangan, membantu pengunjung,
+                        dan memastikan aktivitas wisata berjalan dengan baik.
+                    </p>
+                </div>
+            </div>
+
+            <div class="team-card team-center" data-aos="zoom-in">
+                <div class="team-image">
+                    <img src="{{ asset('images/pengurus-2.jpg') }}" alt="Pengurus Sibaganding 2">
+                </div>
+                <div class="team-info">
+                    <span>Ketua Pengelola</span>
+                    <h3>Nama Pengurus 2</h3>
+                    <p>
+                        Bertanggung jawab mengoordinasikan pengelolaan kawasan,
+                        pengembangan program, dan kerja sama terkait Sibaganding.
+                    </p>
+                </div>
+            </div>
+
+            <div class="team-card team-right" data-aos="fade-left">
+                <div class="team-image">
+                    <img src="{{ asset('images/pengurus-3.jpg') }}" alt="Pengurus Sibaganding 3">
+                </div>
+                <div class="team-info">
+                    <span>Humas dan Informasi</span>
+                    <h3>Nama Pengurus 3</h3>
+                    <p>
+                        Bertugas menyampaikan informasi wisata, dokumentasi kegiatan,
+                        dan membantu komunikasi dengan pengunjung.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="team-action" data-aos="fade-up">
+            <a href="{{ url('/kontak') }}" class="team-contact-btn">Hubungi Pengurus</a>
+        </div>
+    </div>
+</section>
+
 <!-- ==================== JELAJAHI SIBAGANDING ==================== -->
 <section class="explore-section">
     <div class="container">
@@ -2754,6 +3233,72 @@
         </div>
     </div>
 </section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+                <h3>Geo<span>Toba</span></h3>
+                <p>
+                    Sistem Informasi Geosite Danau Toba — menyajikan informasi lengkap
+                    tentang keindahan geologi, budaya Batak, dan pesona Sibaganding.
+                </p>
+
+                <div class="footer-social">
+                    <a href="#">f</a>
+                    <a href="#">t</a>
+                    <a href="#">ig</a>
+                    <a href="#">yt</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Tautan</h4>
+                <a href="#home">Beranda</a>
+                <a href="#about">Informasi</a>
+                <a href="#galeri">Galeri</a>
+                <a href="{{ url('/berita') }}">Berita</a>
+                <a href="{{ url('/kontak') }}">Kontak</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Destinasi</h4>
+                <a href="{{ url('/geosite/biodiversity') }}">Biodiversity</a>
+                <a href="{{ url('/geosite/geodiversity') }}">Geodiversity</a>
+                <a href="{{ url('/geosite/culturediversity') }}">Culturediversity</a>
+                <a href="{{ url('/destinasi') }}">Semua Destinasi</a>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Kontak</h4>
+                <p><span>📍</span> Danau Toba, Sumatera Utara</p>
+                <p><span>☎</span> +62 812 3456 7890</p>
+                <p><span>✉</span> info@geotoba.com</p>
+
+                <a href="{{ url('/kontak') }}" class="footer-contact-btn">Hubungi Kami</a>
+            </div>
+
+            <div class="footer-map">
+                <h4>Peta Sibaganding</h4>
+
+                <div class="footer-map-box">
+                    <iframe
+                        src="https://www.google.com/maps?q=Sibaganding,%20Simalungun,%20Sumatera%20Utara&output=embed"
+                        loading="lazy"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 GeoToba — Geopark Danau Toba. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
 
