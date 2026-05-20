@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use Illuminate\Support\Facades\App;
+//use Illuminate\Support\Facades\App;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\BeritaController;
@@ -74,11 +74,12 @@ Route::get('/geosite/liang-sipege', function () {
 
 // GALERI
 Route::get('/galeri', function () {
-    $galeri = App\Models\Galeri::where('status', true)
+    $galeriByKategori = App\Models\Galeri::where('status', true)
         ->latest()
-        ->paginate(12);
+        ->get()
+        ->groupBy('kategori');
 
-    return view('pages.galeri', compact('galeri'));
+    return view('pages.galeri', compact('galeriByKategori'));
 })->name('galeri');
 
 // BERITA
