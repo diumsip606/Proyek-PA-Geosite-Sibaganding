@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Geosite Danau Toba')</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
+
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -66,6 +66,50 @@
         }
 
         /* MENU NAVIGASI */
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            border-radius: 16px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 16px -6px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-img:hover {
+            transform: scale(1.02) translateY(-2px);
+            box-shadow: 0 14px 24px -8px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-divider {
+            width: 1.5px;
+            height: 42px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.5), rgba(255,255,255,0.1));
+            border-radius: 2px;
+        }
+
+        .navbar-brand {
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: white !important;
+            margin: 0;
+            padding: 0 0 0 6px;
+            letter-spacing: -0.3px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-brand span {
+            color: #fdf7e3;
+            font-weight: 800;
+        }
+
         .nav-menu {
             gap: 15px; /* Jarak antar menu */
         }
@@ -166,7 +210,7 @@
         .dropdown-toggle::after {
             display: none !important;
         }
-        
+
         .dropdown-menu {
             background: rgba(3, 28, 48, 0.95);
             border: 1px solid rgba(255,255,255,0.12);
@@ -295,7 +339,7 @@
         .back-to-top.show { opacity: 1; visibility: visible; }
         .back-to-top:hover { background: white; transform: translateY(-4px); }
     </style>
-    
+
     @stack('styles')
 </head>
 <body>
@@ -308,9 +352,14 @@
     </button>
 
     <nav class="navbar navbar-expand-xl fixed-top" id="navbar"> <div class="container-fluid px-4 px-lg-5">
-            <a class="navbar-brand me-4" href="{{ url('/') }}">
-                <img src="{{ asset('image/Logo/logo-lengkap.png') }}" alt="Geotoba Logo" class="logo-img">
-            </a>
+        <!-- LOGO SECTION - LANGSUNG DARI FOLDER public/image/Logo/ -->
+        <div class="logo-wrapper">
+            <img src="{{ asset('images/footer-logo/logobankindonesia.jpg') }}" alt="Bank Indonesia" class="logo-img" loading="lazy">
+            <div class="logo-divider"></div>
+            <img src="{{ asset('images/footer-logo/del.jpg') }}" alt="Logo Del" class="logo-img" loading="lazy">
+            <div class="logo-divider"></div>
+            <a class="navbar-brand" href="{{ url('/') }}">Geosite<br><span>Sibaganding</span></a>
+        </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -347,7 +396,7 @@
                         <a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ url('/kontak') }}">{{ __('Kontak') }}</a>
                     </li>
                 </ul>
-                
+
                 <div class="d-flex align-items-center gap-3 ms-xl-4 mt-3 mt-xl-0 nav-actions-mobile">
                     <div class="dropdown">
                         <button class="lang-btn dropdown-toggle" data-bs-toggle="dropdown">
@@ -358,7 +407,7 @@
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="setLang('en')">🇺🇸 English</a></li>
                         </ul>
                     </div>
-                    
+
                     <div class="search-wrapper">
                         <input type="text" id="searchInput" class="search-input" placeholder="Cari..." autocomplete="off" list="searchHistoryList">
                         <datalist id="searchHistoryList"></datalist>
@@ -380,10 +429,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
+
     <script>
         AOS.init({ duration: 1000, once: true });
-        
+
         const navbar = document.getElementById('navbar');
         const backToTop = document.getElementById('backToTop');
 
@@ -400,7 +449,7 @@
                 backToTop.classList.remove('show');
             }
         });
-        
+
         backToTop.addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -421,7 +470,7 @@
             music.play().then(() => setIcon(true)).catch(() => setIcon(false));
 
             btn.addEventListener('click', function () {
-                if (music.paused) { music.play(); setIcon(true); } 
+                if (music.paused) { music.play(); setIcon(true); }
                 else { music.pause(); setIcon(false); }
             });
         });

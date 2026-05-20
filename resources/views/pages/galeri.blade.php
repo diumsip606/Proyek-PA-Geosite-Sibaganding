@@ -305,12 +305,10 @@ body{
     alt="Danau Toba">
 
     <div class="hero-content">
-        <h1>Explore GeoToba</h1>
+        <h1>Sibaganding</h1>
 
         <p>
-            Jelajahi keindahan budaya dan wisata
-            Tuktuk, Ambarita, dan Tomok
-            di kawasan Danau Toba
+            Galeri ke Indahan Sibaganding
         </p>
     </div>
 
