@@ -11,19 +11,19 @@ class KategoriSeeder extends Seeder
     {
         $kategori = [
             [
-                'nama' => 'Biodiversity', 
-                'slug' => 'biodiversity', 
+                'nama' => 'Biodiversity',
+                'slug' => 'biodiversity',
                 'deskripsi' => 'Keanekaragaman hayati di Geosite Sibaganding'
             ],
             [
-                'nama' => 'Geodiversity', 
-                'slug' => 'geodiversity', 
-                'deskripsi' => 'Keanekaragaman geologi dan formasi batuan'
+                'nama' => 'Geodiversity',
+                'slug' => 'geodiversity',
+                'deskripsi' => 'Keanekaragaman geologi dan formasi batuan di Geosite Sibaganding'
             ],
             [
-                'nama' => 'Culture diversity', 
-                'slug' => 'culture-diversity', 
-                'deskripsi' => 'Warisan budaya dan tradisi masyarakat lokal'
+                'nama' => 'Culture diversity',
+                'slug' => 'culture-diversity',
+                'deskripsi' => 'Warisan budaya dan tradisi masyarakat lokal di Geosite Sibaganding'
             ],
         ];
 
