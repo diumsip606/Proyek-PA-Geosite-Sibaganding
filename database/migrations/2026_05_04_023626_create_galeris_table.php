@@ -23,6 +23,9 @@ return new class extends Migration
             $table->string('lokasi')->default('Geosite Sibaganding');
             $table->boolean('status')->default(true);
             $table->integer('views')->default(0);
+
+            // gabung dengan tabel kategori
+            $table->foreignId('kategori_id')->constrained('kategori')->onDelete('cascade');
             $table->timestamps();
         });
     }

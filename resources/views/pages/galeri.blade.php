@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'GeoToba - Gallery')
+@section('title', 'Geosite Sibaganding - Gallery')
 
 @section('content')
 
@@ -15,7 +15,7 @@
 }
 
 body{
-    background:#f4f4f4;
+    background:#ffffff;
     overflow-x:hidden;
     font-family:'Poppins',sans-serif;
 }
@@ -87,50 +87,36 @@ body{
 .gallery-title h2{
     font-size:3.5rem;
     font-family:serif;
-    color:#111827;
+    color:#000000;
 }
 
 .gallery-title p{
-    color:#64748b;
+    color:#000000;;
     margin-top:10px;
 }
 
-/* ================= STACK AREA ================= */
-.stack-area{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:60px 0;
-    padding:40px 20px;
+/* ================= BAGIAN GALERI/FOTO DOKUMENTASI ================= */
+.stack-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Mengatur kolom responsif */
+    gap: 20px; /* Jarak antar gambar */
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.card-item{
-    position:relative;
-
-    width:180px;
-    height:300px;
-
-    margin-left:-80px;
-
-    border-radius:22px;
-    overflow:hidden;
-
-    background:#333;
-
-    box-shadow:
-        -10px 0 30px rgba(0,0,0,0.18);
-
-    transition:all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-    cursor:pointer;
-
-    z-index:1;
-
-    border:2px solid rgba(255,255,255,0.1);
-}
-
-.card-item:nth-child(8n+1){
-    margin-left:0;
+.card-item {
+    position: relative;
+    width: 100%; /* Mengikuti lebar grid */
+    height: 320px; /* Tinggi gambar dibuat seragam */
+    margin: 0; /* Menghapus margin negatif sebelumnya */
+    border: 8px solid #ffffff; /* Menambahkan bingkai putih tebal */
+    background: #333;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5); /* Efek bayangan figura */
+    transition: all .3s ease;
+    cursor: pointer;
+    border-radius: 0; /* Figura biasanya kotak, hapus radius */
 }
 
 .card-item img{
@@ -141,33 +127,17 @@ body{
 }
 
 .card-item::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:
-        linear-gradient(
-            to top,
-            rgba(0,0,0,0.6),
-            transparent 50%
-        );
+    display: none;
 }
 
 .card-item:hover{
-    z-index:100 !important;
-
-    transform:
-        translateY(-25px)
-        scale(1.15)
-        rotate(2deg);
-
-    box-shadow:
-        0 25px 50px rgba(0,0,0,0.45);
-
-    margin-right:40px;
+    transform: scale(1.15);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+    z-index:20;
 }
 
 .card-item:hover img{
-    transform:scale(1.05);
+    transform:scale(1.1);
 }
 
 /* ================= MODAL ================= */
@@ -280,9 +250,15 @@ body{
     }
 
     .card-item{
-        width:150px;
-        height:240px;
-        margin-left:-40px;
+        width: 100%;
+        height: 250px;
+        border: 5px solid #ffffff; /* Bingkai sedikit ditipiskan di HP */
+        margin: 0;
+    }
+
+    .stack-area {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Buat 2 kolom di HP */
+        gap: 15px;
     }
 
     .gallery-title h2{
@@ -318,7 +294,7 @@ body{
 <div class="gallery-wrapper">
 
     <div class="gallery-title">
-        <h2>Explore...</h2>
+        <h2>SIBAGANDING</h2>
         <p>Kumpulan dokumentasi wisata GeoToba</p>
     </div>
 
