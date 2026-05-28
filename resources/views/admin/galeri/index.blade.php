@@ -41,11 +41,11 @@
                         <td>{{ $galeris->firstItem() + $key }}</td>
                         <td>
                             @if($galeri->gambar)
-                            <img src="{{ asset('storage/' . $galeri->gambar) }}" 
-                                    style="width: 70px; height: 60px; object-fit: cover; border-radius: 5px;" 
-                                    alt="Gambar Galeri">                           
+                            <img src="{{ asset('storage/' . $galeri->gambar) }}"
+                                    style="width: 70px; height: 60px; object-fit: cover; border-radius: 5px;"
+                                    alt="Gambar Galeri">
                             @else
-                                <div class="bg-secondary text-white text-center" 
+                                <div class="bg-secondary text-white text-center"
                                      style="width: 60px; height: 60px; line-height: 60px; border-radius: 5px;">
                                     <i class="fas fa-image"></i>
                                 </div>
@@ -65,17 +65,30 @@
                                 <span class="badge bg-danger">Tidak Aktif</span>
                             @endif
                         </td>
-                        <td>
-                            <a href="{{ route('admin.galeri.edit', $galeri->id) }}" class="btn btn-sm btn-warning me-2">
+<td>
+                            <a href="{{ route('admin.galeri.edit', $galeri->id) }}" class="btn btn-sm btn-warning me-2" title="Edit">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <form action="{{ route('admin.galeri.destroy', $galeri->id) }}" method="POST" onsubmit="return confirm('Yakin?')" style="display: inline;">
+
+                            <form action="{{ route('admin.galeri.destroy', $galeri->id) }}" method="POST" onsubmit="return confirm('Yakin?')" style="display: inline-block; margin-right: 8px;">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">
+                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
+
+                            @if($galeri->is_hero)
+                                <span class="badge bg-success" style="padding: 6px 10px;">Hero Aktif</span>
+                            @else
+                                <form action="{{ route('admin.galeri.set_hero', $galeri->id) }}" method="POST" style="display: inline-block;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-info text-white" onclick="return confirm('Jadikan gambar ini sebagai background halaman galerry?')" title="Jadikan Hero Halaman Depan">
+                                        <i class="fas fa-star me-1"></i> Jadikan Background Utama
+                                    </button>
+                                </form>
+                            @endif
                         </td>
+
                     </tr>
                     @empty
                     <tr><td colspan="7" class="text-center">Tidak ada data</td></tr>

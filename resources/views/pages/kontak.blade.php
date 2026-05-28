@@ -22,19 +22,19 @@
         transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         border: 1px solid rgba(255, 255, 255, 0.8);
     }
-    
+
     .logo-container:hover {
         background: white;
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
         transform: translateY(-2px);
     }
-    
+
     .flag-logo-wrapper {
         display: flex;
         align-items: center;
         gap: 12px;
     }
-    
+
     .flag-img {
         width: 100px;
         height: auto;
@@ -43,18 +43,18 @@
         transition: transform 0.2s ease;
         border: 1px solid rgba(255,255,255,0.3);
     }
-    
+
     .flag-img:hover {
         transform: scale(1.05);
     }
-    
+
     .logo-divider {
         width: 2px;
         height: 35px;
         background: #e0e0e0;
         border-radius: 2px;
     }
-    
+
     .del-logo-wrapper {
         display: flex;
         align-items: center;
@@ -62,28 +62,28 @@
         cursor: pointer;
         transition: all 0.2s ease;
     }
-    
+
     .del-logo-wrapper:hover {
         transform: scale(1.02);
     }
-    
+
     .del-img {
         width: 50px;
         height: auto;
         border-radius: 8px;
         transition: transform 0.2s ease;
     }
-    
+
     .del-img:hover {
         transform: scale(1.05);
     }
-    
+
     .geotoba-wrapper {
         display: flex;
         align-items: center;
         gap: 12px;
     }
-    
+
     .geotoba-text {
         font-size: 1.5rem;
         font-weight: 800;
@@ -95,14 +95,14 @@
         font-family: 'Inter', 'Poppins', sans-serif;
         line-height: 1.2;
     }
-    
+
     .geotoba-sub {
         font-size: 0.7rem;
         font-weight: 500;
         color: #5a6e7c;
         letter-spacing: 0.5px;
     }
-    
+
     @media (max-width: 768px) {
         .logo-container {
             top: 12px;
@@ -126,7 +126,7 @@
             height: 28px;
         }
     }
-    
+
     @media (max-width: 576px) {
         .logo-container {
             padding: 5px 14px;
@@ -165,7 +165,7 @@
         margin-top: 76px;
         position: relative;
     }
-    
+
     .kontak-hero::before {
         content: '';
         position: absolute;
@@ -175,7 +175,7 @@
         height: 80px;
         background: linear-gradient(to top, #fafaf8, transparent);
     }
-    
+
     .kontak-hero h1 {
         font-size: 3.5rem;
         font-weight: 400;
@@ -183,19 +183,19 @@
         letter-spacing: 0.02em;
         margin-bottom: 15px;
     }
-    
+
     .kontak-hero p {
         font-size: 1rem;
         opacity: 0.85;
         letter-spacing: 0.2em;
         text-transform: uppercase;
     }
-    
+
     /* ==================== KONTAK SECTION ==================== */
     .kontak-section {
         padding: 60px 0;
     }
-    
+
     .kontak-card {
         background: white;
         border-radius: 20px;
@@ -206,12 +206,12 @@
         border: 1px solid #f0f0f0;
         height: 100%;
     }
-    
+
     .kontak-card:hover {
         transform: translateY(-6px);
         box-shadow: 0 15px 35px rgba(0,0,0,0.1);
     }
-    
+
     .kontak-icon {
         width: 65px;
         height: 65px;
@@ -222,26 +222,26 @@
         justify-content: center;
         margin: 0 auto 18px;
     }
-    
+
     .kontak-icon i {
         font-size: 28px;
         color: #c6a43b;
     }
-    
+
     .kontak-card h4 {
         font-size: 1.15rem;
         font-weight: 600;
         margin-bottom: 12px;
         color: #1a1a1a;
     }
-    
+
     .kontak-card p {
         color: #666;
         margin-bottom: 5px;
         font-size: 0.85rem;
         line-height: 1.5;
     }
-    
+
     /* ==================== FORM ==================== */
     .form-card {
         background: white;
@@ -251,7 +251,7 @@
         border: 1px solid #f0f0f0;
         height: 100%;
     }
-    
+
     .form-card h3 {
         font-size: 1.5rem;
         font-family: 'Cormorant Garamond', serif;
@@ -259,7 +259,7 @@
         margin-bottom: 20px;
         color: #1a1a1a;
     }
-    
+
     .form-control, .form-select {
         border: 1px solid #e0e0e0;
         border-radius: 12px;
@@ -267,13 +267,13 @@
         font-size: 0.85rem;
         transition: all 0.3s ease;
     }
-    
+
     .form-control:focus, .form-select:focus {
         border-color: #c6a43b;
         box-shadow: 0 0 0 3px rgba(198, 164, 59, 0.08);
         outline: none;
     }
-    
+
     .btn-send {
         background: #1a1a1a;
         color: white;
@@ -287,13 +287,13 @@
         font-size: 0.75rem;
         text-transform: uppercase;
     }
-    
+
     .btn-send:hover {
         background: #c6a43b;
         color: #1a1a1a;
         transform: translateY(-2px);
     }
-    
+
     /* ==================== MAPS ==================== */
     .map-card {
         border-radius: 24px;
@@ -303,32 +303,32 @@
         background: white;
         height: 100%;
     }
-    
+
     .map-card iframe {
         width: 100%;
         height: 280px;
         border: 0;
     }
-    
+
     .map-info {
         padding: 20px;
         text-align: center;
     }
-    
+
     .map-info h4 {
         font-size: 1.15rem;
         font-weight: 600;
         margin-bottom: 15px;
         color: #1a1a1a;
     }
-    
+
     .social-icons {
         display: flex;
         justify-content: center;
         gap: 12px;
         margin-bottom: 20px;
     }
-    
+
     .social-icons a {
         display: inline-flex;
         align-items: center;
@@ -341,26 +341,26 @@
         transition: all 0.3s ease;
         text-decoration: none;
     }
-    
+
     .social-icons a:hover {
         background: #c6a43b;
         color: white;
         transform: translateY(-3px);
     }
-    
+
     .jam-operasional p {
         margin-bottom: 5px;
         font-size: 0.85rem;
         color: #666;
     }
-    
+
     .jam-operasional h5 {
         font-size: 0.9rem;
         font-weight: 600;
         margin-bottom: 8px;
         color: #1a1a1a;
     }
-    
+
     /* ==================== RESPONSIVE ==================== */
     @media (max-width: 768px) {
         .kontak-hero h1 {
@@ -376,7 +376,7 @@
             margin-bottom: 25px;
         }
     }
-    
+
     @media (max-width: 576px) {
         .kontak-hero h1 {
             font-size: 1.8rem;
@@ -389,34 +389,6 @@
         }
     }
 </style>
-
-<!-- ==================== LOGO SECTION ==================== -->
-<div class="logo-container">
-    <div class="flag-logo-wrapper">
-        <img src="[GANTI_LINK_BENDERA]" 
-             alt="Bendera Indonesia" 
-             class="flag-img"
-             title="Indonesia">
-    </div>
-    
-    <div class="logo-divider"></div>
-    
-    <div class="del-logo-wrapper">
-        <img src="[GANTI_LINK_DEL]" 
-             alt="D el" 
-             class="del-img"
-             title="D el">
-    </div>
-    
-    <div class="logo-divider"></div>
-    
-    <div class="geotoba-wrapper">
-        <div style="display: flex; flex-direction: column; line-height: 1.2;">
-            <span class="geotoba-text">GEOTOBA</span>
-            <span class="geotoba-sub">Geopark Danau Toba</span>
-        </div>
-    </div>
-</div>
 
 <!-- HERO -->
 <section class="kontak-hero">
@@ -442,7 +414,7 @@
                     <p>Sumatera Utara, Indonesia</p>
                 </div>
             </div>
-            
+
             <!-- TELEPON -->
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="kontak-card">
@@ -455,7 +427,7 @@
                     <p>(0622) 12345</p>
                 </div>
             </div>
-            
+
             <!-- EMAIL -->
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="kontak-card">
@@ -469,7 +441,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="row g-4">
             <!-- FORM KONTAK -->
             <div class="col-lg-6" data-aos="fade-right">
@@ -505,13 +477,13 @@
                     </form>
                 </div>
             </div>
-            
+
             <!-- MAPS & SOSIAL -->
             <div class="col-lg-6" data-aos="fade-left">
                 <div class="map-card">
-                    <iframe 
+                    <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0!2d99.0835095!3d2.3339262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0415b8f7da39%3A0xc6beb74287f355a5!2sBalige%2C%20Toba%20Samosir%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
-                        allowfullscreen="" 
+                        allowfullscreen=""
                         loading="lazy">
                     </iframe>
                     <div class="map-info">

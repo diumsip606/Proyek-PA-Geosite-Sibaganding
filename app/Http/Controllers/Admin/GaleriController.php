@@ -24,7 +24,7 @@ class GaleriController extends Controller
     }
 
     public function store(Request $request)
-    { 
+    {
         // Validasi
         $request->validate([
             'judul' => 'required|string|max:255',
@@ -34,7 +34,7 @@ class GaleriController extends Controller
             'lokasi' => 'nullable|string',
             'tanggal_foto' => 'nullable|date',
             'status' => 'nullable|boolean',
-            
+
         ]);
 
         // Upload gambar
@@ -125,16 +125,32 @@ class GaleriController extends Controller
     public function destroy($id)
     {
         $galeri = Galeri::findOrFail($id);
-        
+
         // Hapus file gambar
         $gambarPath = str_replace('storage/', 'public/', $galeri->gambar);
         if (Storage::exists($gambarPath)) {
             Storage::delete($gambarPath);
         }
-        
+
         $galeri->delete();
 
         return redirect()->route('admin.galeri.index')
             ->with('success', 'Galeri berhasil dihapus');
+    }
+
+    //ini admin edit galeri utama untuk background
+    public function setHero($id)
+    {
+        // 1. Cari semua foto yang is_hero = true, lalu ubah jadi false (reset hero)
+        Galeri::where('is_hero', true)->update(['is_hero' => false]);
+
+        // 2. Cari foto yang baru dipilih, ubah is_hero jadi true
+        $galeri = Galeri::findOrFail($id);
+        $galeri->is_hero = true;
+        $galeri->save();
+
+        // 3. Kembali ke halaman admin dengan pesan sukses
+        return redirect()->route('admin.galeri.index')
+            ->with('success', 'Gambar Hero berhasil diperbarui!');
     }
 }

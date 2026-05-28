@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('lokasi')->default('Geosite Sibaganding');
             $table->boolean('status')->default(true);
             $table->integer('views')->default(0);
-            
+
+            $table->boolean('is_hero')->default(false);
             $table->timestamps();
         });
     }

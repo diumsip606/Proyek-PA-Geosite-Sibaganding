@@ -277,7 +277,7 @@ body{
     <div class="hero-overlay"></div>
 
    <img
-    src="{{ asset('image/tuktuk/Tuktuk1.jpg') }}"
+    src="{{ asset('image/tuktuk/Tuktuk.jpg') }}"
     alt="Danau Toba">
 
     <div class="hero-content">
@@ -295,7 +295,7 @@ body{
 
     <div class="gallery-title">
         <h2>SIBAGANDING</h2>
-        <p>Kumpulan dokumentasi wisata GeoToba</p>
+        <p>Kumpulan dokumentasi wisata Geosite Sibaganding</p>
     </div>
 
     <div class="stack-area">

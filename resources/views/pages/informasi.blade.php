@@ -30,28 +30,28 @@
     .flag-img { width: 100px; height: auto; border-radius: 6px; }
     .logo-divider { width: 2px; height: 35px; background: rgba(255,255,255,0.3); }
     .del-img { width: 50px; height: auto; border-radius: 8px; }
-    .geotoba-text { 
-        font-size: 1.5rem; 
-        font-weight: 800; 
-        letter-spacing: 1px; 
+    .geotoba-text {
+        font-size: 1.5rem;
+        font-weight: 800;
+        letter-spacing: 1px;
         color: white;
         font-family: 'Inter', 'Poppins', sans-serif;
     }
-    .geotoba-sub { 
-        font-size: 0.7rem; 
-        font-weight: 500; 
+    .geotoba-sub {
+        font-size: 0.7rem;
+        font-weight: 500;
         color: rgba(255,255,255,0.8);
         letter-spacing: 0.5px;
     }
-    @media (max-width: 768px) { 
-        .flag-img { width: 60px; } 
-        .del-img { width: 35px; } 
-        .geotoba-text { font-size: 1.2rem; } 
+    @media (max-width: 768px) {
+        .flag-img { width: 60px; }
+        .del-img { width: 35px; }
+        .geotoba-text { font-size: 1.2rem; }
     }
-    @media (max-width: 576px) { 
-        .flag-img { width: 45px; } 
-        .del-img { width: 28px; } 
-        .geotoba-text { font-size: 0.9rem; } 
+    @media (max-width: 576px) {
+        .flag-img { width: 45px; }
+        .del-img { width: 28px; }
+        .geotoba-text { font-size: 0.9rem; }
     }
 
     /* ========== HERO ========== */
@@ -67,16 +67,16 @@
         color: white;
         margin-top: 76px;
     }
-    .sejarah-hero h1 { 
-        font-size: 3.5rem; 
-        font-family: 'Cormorant Garamond', serif; 
+    .sejarah-hero h1 {
+        font-size: 3.5rem;
+        font-family: 'Cormorant Garamond', serif;
         margin-bottom: 12px;
         text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
     }
-    .sejarah-hero p { 
-        font-size: 0.9rem; 
-        letter-spacing: 0.2em; 
-        text-transform: uppercase; 
+    .sejarah-hero p {
+        font-size: 0.9rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
         opacity: 0.85;
     }
 
@@ -85,10 +85,10 @@
     .bg-light { background: linear-gradient(135deg, #e0ecf7 0%, #d4e4f2 100%); }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
     .section-title { text-align: center; margin-bottom: 45px; }
-    .section-title h2 { 
-        font-size: 2rem; 
-        font-family: 'Cormorant Garamond', serif; 
-        color: #003366; 
+    .section-title h2 {
+        font-size: 2rem;
+        font-family: 'Cormorant Garamond', serif;
+        color: #003366;
     }
     .divider { width: 50px; height: 2px; background: #c6a43b; margin: 10px auto 0; }
     .section-title p { color: #2c5f8a; margin-top: 15px; }
@@ -99,11 +99,11 @@
     .sejarah-item.reverse { flex-direction: row-reverse; }
     .sejarah-text { flex: 1; line-height: 1.8; color: #2c5f8a; font-size: 0.95rem; }
     .sejarah-text p { margin-bottom: 15px; }
-    .sejarah-image { 
-        flex: 1; 
-        border-radius: 16px; 
-        overflow: hidden; 
-        box-shadow: 0 10px 25px rgba(0, 51, 102, 0.15); 
+    .sejarah-image {
+        flex: 1;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 51, 102, 0.15);
     }
     .sejarah-image img { width: 100%; height: 260px; object-fit: cover; transition: 0.3s; }
     .sejarah-image:hover img { transform: scale(1.02); }
@@ -126,30 +126,30 @@
         transition: 0.3s;
         box-shadow: 0 5px 15px rgba(0, 51, 102, 0.05);
     }
-    .timeline-item:hover { 
-        transform: translateY(-5px); 
+    .timeline-item:hover {
+        transform: translateY(-5px);
         box-shadow: 0 15px 30px rgba(0, 51, 102, 0.15);
         border-color: #c6a43b;
     }
-    .timeline-year { 
-        font-size: 1.3rem; 
-        font-weight: 700; 
-        color: #c6a43b; 
-        margin-bottom: 8px; 
+    .timeline-year {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #c6a43b;
+        margin-bottom: 8px;
     }
-    .timeline-title { 
-        font-weight: 600; 
-        margin-bottom: 8px; 
-        color: #003366; 
+    .timeline-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #003366;
     }
     .timeline-desc { font-size: 0.75rem; color: #2c5f8a; }
 
     /* ========== FAKTA ========== */
-    .fakta-grid { 
-        display: grid; 
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 25px; 
-        margin-top: 30px; 
+    .fakta-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        margin-top: 30px;
     }
     .fakta-card {
         background: white;
@@ -160,21 +160,21 @@
         transition: 0.3s;
         box-shadow: 0 5px 15px rgba(0, 51, 102, 0.05);
     }
-    .fakta-card:hover { 
-        transform: translateY(-5px); 
+    .fakta-card:hover {
+        transform: translateY(-5px);
         box-shadow: 0 15px 30px rgba(0, 51, 102, 0.15);
         background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
     }
-    .fakta-number { 
-        font-size: 2rem; 
-        font-weight: 700; 
-        color: #c6a43b; 
-        margin-bottom: 8px; 
+    .fakta-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #c6a43b;
+        margin-bottom: 8px;
     }
-    .fakta-title { 
-        font-weight: 600; 
-        margin-bottom: 8px; 
-        color: #003366; 
+    .fakta-title {
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #003366;
     }
     .fakta-desc { font-size: 0.8rem; color: #2c5f8a; }
 
@@ -258,18 +258,6 @@
         .sejarah-hero h1 { font-size: 1.8rem; }
     }
 </style>
-
-<!-- LOGO -->
-<div class="logo-container">
-    <div><img src="[GANTI_LINK_BENDERA]" alt="Bendera" class="flag-img"></div>
-    <div class="logo-divider"></div>
-    <div><img src="[GANTI_LINK_DEL]" alt="D el" class="del-img"></div>
-    <div class="logo-divider"></div>
-    <div>
-        <div class="geotoba-text">GEOTOBA</div>
-        <div class="geotoba-sub">Geopark Danau Toba</div>
-    </div>
-</div>
 
 <!-- HERO -->
 <section class="sejarah-hero">

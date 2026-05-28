@@ -421,22 +421,6 @@
 }
 </style>
 
-<!-- LOGO -->
-<div class="logo-container">
-    <div>
-        <img src="[GANTI_LINK_BENDERA]" alt="Bendera" class="flag-img">
-    </div>
-    <div class="logo-divider"></div>
-    <div>
-        <img src="[GANTI_LINK_DEL]" alt="D el" class="del-img">
-    </div>
-    <div class="logo-divider"></div>
-    <div>
-        <div class="geotoba-text">GEOTOBA</div>
-        <div class="geotoba-sub">Geopark Danau Toba</div>
-    </div>
-</div>
-
 <!-- HERO dengan background berita.jpg -->
 <section class="berita-hero">
     <div>
@@ -477,9 +461,9 @@
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
         const beritaToShow = beritaData.slice(startIndex, endIndex);
-        
+
         const grid = document.getElementById('beritaGrid');
-        
+
         if (beritaData.length === 0) {
             // Tampilkan pesan kosong
             grid.innerHTML = `
@@ -493,12 +477,12 @@
             document.getElementById('pagination').innerHTML = '';
             return;
         }
-        
+
         if (beritaToShow.length === 0) {
             grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px"><p>Tidak ada berita</p></div>';
             return;
         }
-        
+
         grid.innerHTML = beritaToShow.map(berita => `
             <div class="berita-card" onclick="openModal(${berita.id})">
                 <div class="berita-image">
@@ -512,35 +496,35 @@
                 </div>
             </div>
         `).join('');
-        
+
         renderPagination();
     }
-    
+
     function renderPagination() {
         const totalPages = Math.ceil(beritaData.length / itemsPerPage);
         const paginationDiv = document.getElementById('pagination');
-        
+
         if (totalPages <= 1) {
             paginationDiv.innerHTML = '';
             return;
         }
-        
+
         let paginationHtml = '';
-        
+
         // Tombol Previous
         paginationHtml += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>« Sebelumnya</button>`;
-        
+
         // Nomor halaman
         for (let i = 1; i <= totalPages; i++) {
             paginationHtml += `<button onclick="changePage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</button>`;
         }
-        
+
         // Tombol Next
         paginationHtml += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Selanjutnya »</button>`;
-        
+
         paginationDiv.innerHTML = paginationHtml;
     }
-    
+
     function changePage(page) {
         const totalPages = Math.ceil(beritaData.length / itemsPerPage);
         if (page < 1 || page > totalPages) return;
@@ -548,11 +532,11 @@
         renderBerita();
         window.scrollTo({ top: 300, behavior: 'smooth' });
     }
-    
+
     function openModal(id) {
         const berita = beritaData.find(b => b.id === id);
         if (!berita) return;
-        
+
         document.getElementById('modalImage').src = berita.image;
         document.getElementById('modalDate').innerText = berita.date;
         document.getElementById('modalTitle').innerText = berita.title;
@@ -560,19 +544,19 @@
         document.getElementById('modal').classList.add('active');
         document.body.style.overflow = 'hidden';
     }
-    
+
     function closeModal() {
         document.getElementById('modal').classList.remove('active');
         document.body.style.overflow = '';
     }
-    
+
     // Tutup modal dengan ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeModal();
         }
     });
-    
+
     renderBerita();
 </script>
 

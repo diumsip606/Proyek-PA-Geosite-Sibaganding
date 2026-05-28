@@ -169,4 +169,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])
         ->name('admin.galeri.toggle-status');
+
+    //ini mengarah ke edit background galeri
+    Route::post('galeri/{id}/set-hero', [GaleriController::class, 'setHero'])
+        ->name('admin.galeri.set_hero');
 });

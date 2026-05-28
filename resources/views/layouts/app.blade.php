@@ -17,6 +17,7 @@
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -323,7 +324,7 @@
         @media (max-width: 992px) { .hero-title { font-size: 6rem; letter-spacing: 8px; } }
         @media (max-width: 576px) { .hero-title { font-size: 3rem; letter-spacing: 4px; } .hero-subtitle { font-size: 0.7rem; letter-spacing: 0.35em; } .hero-subtitle::before, .hero-subtitle::after { width: 35px; margin: 0 8px; } }
 
-        /*======== FOOTER ======== */
+        /*======== FOOTER CSS TOMBOL UNTUK SCROLL BACK KEATAS ======== */
         :root { --blue-dark: #003366; --gold: #c6a43b; }
         .footer { background: var(--blue-dark); color: white; padding: 40px 0 20px; margin-top: 0; }
         .footer h5 { font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; position: relative; display: inline-block; }
@@ -338,6 +339,213 @@
         .back-to-top { position: fixed; bottom: 25px; right: 25px; width: 44px; height: 44px; border-radius: 22px; background: var(--gold); color: var(--blue-dark); display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .back-to-top.show { opacity: 1; visibility: visible; }
         .back-to-top:hover { background: white; transform: translateY(-4px); }
+
+        /* ==================== FOOTER  ==================== */
+.footer-section {
+    background:
+        radial-gradient(circle at 15% 10%, rgba(198, 164, 59, 0.12), transparent 25%),
+        linear-gradient(135deg, #052f52 0%, #03243d 100%);
+    padding: 85px 0 28px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-section::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    right: -150px;
+    top: -150px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+}
+
+.footer-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.2fr 0.7fr 0.8fr 1fr 1.2fr;
+    gap: 42px;
+    align-items: flex-start;
+}
+
+.footer-brand h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 18px;
+    font-weight: 800;
+}
+
+.footer-brand h3 span {
+    color: #c6a43b;
+}
+
+.footer-brand p {
+    color: rgba(255,255,255,0.72);
+    line-height: 1.75;
+    font-size: 0.9rem;
+    max-width: 330px;
+}
+
+.footer-social {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.footer-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.09);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 800;
+    transition: all 0.25s ease;
+}
+
+.footer-social a:hover {
+    background: #c6a43b;
+    color: #003366;
+    transform: translateY(-3px);
+}
+
+.footer-links h4,
+.footer-contact h4,
+.footer-map h4 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 22px;
+    position: relative;
+}
+
+.footer-links h4::after,
+.footer-contact h4::after,
+.footer-map h4::after {
+    content: "";
+    width: 42px;
+    height: 2px;
+    background: #c6a43b;
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.68);
+    text-decoration: none;
+    margin-bottom: 14px;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+}
+
+.footer-links a:hover {
+    color: #c6a43b;
+    transform: translateX(5px);
+}
+
+.footer-contact p {
+    color: rgba(255,255,255,0.78);
+    margin-bottom: 14px;
+    font-size: 0.92rem;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.footer-contact p span {
+    color: #c6a43b;
+}
+
+.footer-contact-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 11px 24px;
+    border-radius: 35px;
+    background: #c6a43b;
+    color: #003366;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+}
+
+.footer-contact-btn:hover {
+    background: #fff8df;
+    transform: translateY(-3px);
+}
+
+.footer-map-box {
+    height: 190px;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 6px solid rgba(255,255,255,0.12);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.22);
+    background: rgba(255,255,255,0.06);
+}
+
+.footer-map-box iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    filter: grayscale(20%) contrast(1.05);
+}
+
+.footer-bottom {
+    position: relative;
+    z-index: 2;
+    margin-top: 62px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: rgba(255,255,255,0.55);
+    font-size: 0.82rem;
+}
+
+@media (max-width: 1100px) {
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-map {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-section {
+        padding: 65px 0 24px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+    }
+
+    .footer-map {
+        grid-column: span 1;
+    }
+
+    .footer-map-box {
+        height: 220px;
+    }
     </style>
 
     @stack('styles')
@@ -541,4 +749,71 @@
 
     @stack('scripts')
 </body>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+                <h3>Geo<span>Toba</span></h3>
+                <p>
+                    Sistem Informasi Geosite Danau Toba — menyajikan informasi lengkap
+                    tentang keindahan geologi, budaya Batak, dan pesona Sibaganding.
+                </p>
+
+                <div class="footer-social">
+                    <a href="#">f</a>
+                    <a href="#">t</a>
+                    <a href="#">ig</a>
+                    <a href="#">yt</a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h4>Tautan</h4>
+                <a href="#home">Beranda</a>
+                <a href="#about">Informasi</a>
+                <a href="#galeri">Galeri</a>
+                <a href="{{ url('/berita') }}">Berita</a>
+                <a href="{{ url('/kontak') }}">Kontak</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Destinasi</h4>
+                <a href="{{ url('/geosite/biodiversity') }}">Biodiversity</a>
+                <a href="{{ url('/geosite/geodiversity') }}">Geodiversity</a>
+                <a href="{{ url('/geosite/culturediversity') }}">Culturediversity</a>
+                <a href="{{ url('/destinasi') }}">Semua Destinasi</a>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Kontak</h4>
+                <p><span>📍</span> Danau Toba, Sumatera Utara</p>
+                <p><span>☎</span> +62 812 3456 7890</p>
+                <p><span>✉</span> info@geotoba.com</p>
+
+                <a href="{{ url('/kontak') }}" class="footer-contact-btn">Hubungi Kami</a>
+            </div>
+
+            <div class="footer-map">
+                <h4>Peta Sibaganding</h4>
+
+                <div class="footer-map-box">
+                    <iframe
+                        src="https://www.google.com/maps?q=Sibaganding,%20Simalungun,%20Sumatera%20Utara&output=embed"
+                        loading="lazy"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 GeoToba — Geopark Danau Toba. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
 </html>
