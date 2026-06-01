@@ -52,9 +52,9 @@ Route::get('/informasi', function () {
 
 // DESTINASI
 Route::get('/destinasi', [DestinasiController::class, 'index'])->name('destinasi');
-Route::get('/destinasi/alam', [DestinasiController::class, 'alam'])->name('destinasi.alam');
-Route::get('/destinasi/buatan', [DestinasiController::class, 'buatan'])->name('destinasi.buatan');
-Route::get('/destinasi/budaya', [DestinasiController::class, 'budaya'])->name('destinasi.budaya');
+Route::get('/destinasi/biodiversity', [DestinasiController::class, 'alam'])->name('destinasi.alam');
+Route::get('/destinasi/geodiversity', [DestinasiController::class, 'buatan'])->name('destinasi.buatan');
+Route::get('/destinasi/culturediversity', [DestinasiController::class, 'budaya'])->name('destinasi.budaya');
 
 // DETAIL DESTINASI
 Route::get('/destinasi/{id}', [DestinasiController::class, 'show'])->name('destinasi.show');

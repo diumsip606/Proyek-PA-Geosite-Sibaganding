@@ -587,9 +587,9 @@
                             {{ __('Destinasi') }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="destinasiDropdown">
-                            <li><a class="dropdown-item" href="{{ url('/destinasi/alam') }}">{{ __('Destinasi Alam') }}</a></li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi/buatan') }}">{{ __('Destinasi Buatan') }}</a></li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi/budaya') }}">{{ __('Destinasi Budaya') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/destinasi/biodiversity') }}">{{ __('Biodiversity') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/destinasi/geodiversity') }}">{{ __('Geodiversity') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/destinasi/culturediversity') }}">{{ __('Culturediversity') }}</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="{{ url('/destinasi') }}">{{ __('Semua Destinasi') }}</a></li>
                         </ul>
