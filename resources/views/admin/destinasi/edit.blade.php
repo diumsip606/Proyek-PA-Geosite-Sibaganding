@@ -28,16 +28,19 @@
                 {{-- Kategori --}}
                 <div class="col-md-4">
                     <label class="form-label fw-semibold">Kategori <span class="text-danger">*</span></label>
-                    <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
+
+                    <select name="kategori_id" class="form-select @error('kategori_id') is-invalid @enderror" required>
                         <option value="">-- Pilih Kategori --</option>
                         @foreach($kategoriList as $kat)
-                            <option value="{{ $kat }}"
-                                {{ old('kategori', $destinasi->kategori) == $kat ? 'selected' : '' }}>
-                                {{ $kat }}
+                            {{-- Cocokkan ID kategori dari database dengan ID di list --}}
+                            <option value="{{ $kat->id }}"
+                                {{ old('kategori_id', $destinasi->kategori_id) == $kat->id ? 'selected' : '' }}>
+                                {{ $kat->nama }}
                             </option>
                         @endforeach
                     </select>
-                    @error('kategori') <div class="invalid-feedback">{{ $message }}</div> @enderror
+
+                    @error('kategori_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 {{-- Lokasi --}}

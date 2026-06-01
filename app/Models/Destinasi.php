@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destinasi extends Model
 {
+    // Tambahkan baris ini agar semua data dari form diizinkan masuk ke database
+    protected $guarded = ['id'];
+    
     // Menggunakan nama tabel tanpa 's'
     protected $table = 'destinasi';
 

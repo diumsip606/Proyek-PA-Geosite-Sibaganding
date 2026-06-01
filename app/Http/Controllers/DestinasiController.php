@@ -1,14 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Destinasi;
 use App\Models\Review;
-
 class DestinasiController extends Controller
 {
-    // Halaman utama destinasi (semua kategori)
     public function index()
     {
         // Menampilkan semua destinasi yang statusnya aktif (true)
@@ -56,11 +52,6 @@ class DestinasiController extends Controller
         return view('destinasi.kategori', compact('kategori','deskripsi','destinasi'));
     }
 
-    // ============================================
-    // DETAIL & REVIEW
-    // ============================================
-
-    // DETAIL
     public function show($id)
     {
         // Sekalian memuat data relasi kategori, galeri, dan review agar bisa ditampilkan di detail
@@ -68,16 +59,5 @@ class DestinasiController extends Controller
         return view('destinasi.detail', compact('data'));
     }
 
-    // SIMPAN REVIEW
-    public function storeReview(Request $request, $id)
-    {
-        Review::create([
-            'destinasi_id' => $id,
-            'nama' => $request->nama,
-            'komentar' => $request->komentar,
-            'rating' => $request->rating
-        ]);
 
-        return back();
-    }
 }

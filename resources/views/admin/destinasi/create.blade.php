@@ -27,15 +27,19 @@
                 {{-- Kategori --}}
                 <div class="col-md-4">
                     <label class="form-label fw-semibold">Kategori <span class="text-danger">*</span></label>
-                    <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
+
+                    {{-- Ubah name menjadi kategori_id --}}
+                    <select name="kategori_id" class="form-select @error('kategori_id') is-invalid @enderror" required>
                         <option value="">-- Pilih Kategori --</option>
                         @foreach($kategoriList as $kat)
-                            <option value="{{ $kat }}" {{ old('kategori') == $kat ? 'selected' : '' }}>
-                                {{ $kat }}
+                            {{-- Value pakai ID, teks yang tampil pakai nama --}}
+                            <option value="{{ $kat->id }}" {{ old('kategori_id') == $kat->id ? 'selected' : '' }}>
+                                {{ $kat->nama }}
                             </option>
                         @endforeach
                     </select>
-                    @error('kategori') <div class="invalid-feedback">{{ $message }}</div> @enderror
+
+                    @error('kategori_id') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
                 {{-- Lokasi --}}
@@ -76,7 +80,7 @@
                 {{-- Status --}}
                 <div class="col-md-4 d-flex align-items-end">
                     <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" name="status" id="status"
+                        <input class="form-check-input" type="checkbox" name="status" id="status" value="1"
                                {{ old('status', '1') ? 'checked' : '' }}>
                         <label class="form-check-label fw-semibold" for="status">Aktif / Tampilkan</label>
                     </div>
