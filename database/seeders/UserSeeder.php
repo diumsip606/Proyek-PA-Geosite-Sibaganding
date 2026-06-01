@@ -10,10 +10,13 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        User::create([
-            'name' => 'Admin GeoToba',
-            'email' => 'admin@geotoba.com',
-            'password' => Hash::make('password123'),
+        User::UpdateOrCreate(
+            // Parameter 1: Kunci pencarian (Cari user dengan email ini)
+            ['email' => 'adminsibaganding@gmail.com'],
+
+            // Parameter 2: Data yang diisi jika user baru, atau di-update jika user sudah ada
+            ['name' => 'Admin Geosite',
+            'password' => Hash::make('SibagandinG_Geosite'),
         ]);
     }
 }

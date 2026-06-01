@@ -4,60 +4,54 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Destinasi;
-use App\Models\Review; // Tambahan penting agar fungsi storeReview tidak error
+use App\Models\Review;
 
 class DestinasiController extends Controller
 {
     // Halaman utama destinasi (semua kategori)
     public function index()
     {
-        // Menggunakan with('kategori') agar performa query lebih cepat dan ringan
-        $destinasi = Destinasi::with('kategori')->get();
+        // Menampilkan semua destinasi yang statusnya aktif (true)
+        $destinasi = Destinasi::with('kategori')->where('status', true)->get();
         return view('destinasi.index', compact('destinasi'));
     }
 
     // ============================================
-    // KATEGORI
+    // 3 PILAR GEOPARK
     // ============================================
 
-    // Destinasi Alam
-    public function alam()
+    public function geodiversity()
     {
-        $kategori = 'Alam';
-        $deskripsi = 'Destinasi wisata alam di Sibaganding yang menampilkan keindahan geologi, perbukitan, dan panorama Danau Toba.';
+        $kategori = 'Geodiversity';
+        $deskripsi = 'Keragaman geologi, seperti batuan, mineral, fosil, dan struktur geologi yang menjadi jejak sejarah bumi di Sibaganding.';
 
-        // Memanggil semua kategori yang berawalan kata "Alam" (Biodiversity, Geodiversity, Culture)
         $destinasi = Destinasi::whereHas('kategori', function($query) {
-            $query->where('nama', 'like', 'Alam%');
-        })->get();
+            $query->where('nama', 'Geodiversity');
+        })->where('status', true)->get();
 
         return view('destinasi.kategori', compact('kategori','deskripsi','destinasi'));
     }
 
-    // Destinasi Buatan
-    public function buatan()
+    public function biodiversity()
     {
-        $kategori = 'Buatan';
-        $deskripsi = 'Destinasi wisata buatan yang dikembangkan sebagai daya tarik wisata, seperti taman, ikon, dan spot foto menarik.';
+        $kategori = 'Biodiversity';
+        $deskripsi = 'Keanekaragaman hayati, flora dan fauna endemik yang hidup dan dilindungi di kawasan Geosite Sibaganding.';
 
-        // Memanggil kategori yang namanya persis "Buatan"
         $destinasi = Destinasi::whereHas('kategori', function($query) {
-            $query->where('nama', 'Buatan');
-        })->get();
+            $query->where('nama', 'Biodiversity');
+        })->where('status', true)->get();
 
         return view('destinasi.kategori', compact('kategori','deskripsi','destinasi'));
     }
 
-    // Destinasi Budaya
-    public function budaya()
+    public function cultureDiversity()
     {
-        $kategori = 'Budaya';
-        $deskripsi = 'Destinasi wisata budaya yang menampilkan adat istiadat, warisan leluhur, dan kehidupan masyarakat Batak Toba.';
+        $kategori = 'Culture Diversity';
+        $deskripsi = 'Keragaman budaya, adat istiadat, dan warisan leluhur masyarakat lokal yang hidup selaras dengan alam di Sibaganding.';
 
-        // Memanggil kategori yang namanya persis "Budaya"
         $destinasi = Destinasi::whereHas('kategori', function($query) {
-            $query->where('nama', 'Budaya');
-        })->get();
+            $query->where('nama', 'Culture Diversity');
+        })->where('status', true)->get();
 
         return view('destinasi.kategori', compact('kategori','deskripsi','destinasi'));
     }
@@ -69,7 +63,7 @@ class DestinasiController extends Controller
     // DETAIL
     public function show($id)
     {
-        // Sekalian memuat data relasi kategori agar bisa ditampilkan di halaman detail
+        // Sekalian memuat data relasi kategori, galeri, dan review agar bisa ditampilkan di detail
         $data = Destinasi::with(['kategori', 'galeri', 'review'])->findOrFail($id);
         return view('destinasi.detail', compact('data'));
     }
