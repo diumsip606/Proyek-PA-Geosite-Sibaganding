@@ -4,50 +4,56 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Galeri extends Model
 {
     use HasFactory;
 
     protected $table = 'galeris';
-    
+
     protected $fillable = [
         'judul',
         'slug',
         'deskripsi',
         'gambar',
-        'kategori_id', // UBAH: dari 'kategori' menjadi 'kategori_id' agar sinkron dengan relasi
+        'kategori_id',
         'lokasi',
         'status',
-        'views'
+        'is_hero',
+        'views',
     ];
 
     protected $casts = [
-        'status' => 'boolean'
+        'status'  => 'boolean',
+        'is_hero' => 'boolean',
     ];
 
     /**
      * Relasi ke Model Kategori
-     * Karena sekarang dinamis, Galeri "milik" sebuah Kategori
      */
     public function kategori()
     {
-        // Pastikan nama kolom di tabel galeris adalah 'kategori_id'
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
     /**
-     * Helper folder (Opsional)
-     * Jika kamu menggunakan tabel dinamis, helper ini mungkin perlu disesuaikan 
-     * karena $kategori sekarang berupa objek, bukan string 'Biodiversity' lagi.
+     * Scope: hanya yang aktif
      */
-    public static function getPathByKategori($namaKategori)
+    public function scopeAktif($query)
     {
-        return match($namaKategori) {
-            'Biodiversity' => 'image/biodiversity/galeri',
-            'Geodiversity' => 'image/geodiversity/galeri',
-            'Culture diversity' => 'image/culture/galeri',
-            default => 'image/galeri',
-        };
+        return $query->where('status', true);
+    }
+
+    /**
+     * Auto-generate slug sebelum simpan
+     */
+    protected static function booted()
+    {
+        static::creating(function ($galeri) {
+            if (empty($galeri->slug)) {
+                $galeri->slug = Str::slug($galeri->judul) . '-' . time();
+            }
+        });
     }
 }
