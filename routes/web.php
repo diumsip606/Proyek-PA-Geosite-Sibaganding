@@ -10,18 +10,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\InformasiController;
-<<<<<<< HEAD
-use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController; // Tambahan untuk Controller Admin
-use App\Http\Controllers\Admin\HeroSliderController;
-use App\Http\Controllers\Admin\FaktaUnikController;
-use App\Http\Controllers\Admin\WarisanGeologiController;
-use App\Http\Controllers\Admin\VideoYoutubeController;
-use App\Http\Controllers\DestinasiController; // Controller untuk Pengunjung
-=======
-use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController;
-use App\Http\Controllers\DestinasiController;
-use App\Http\Controllers\GaleriController as PublicGaleriController;
->>>>>>> f8c5b90edf7bac11bcc353fae022529808cd722e
 use App\Http\Controllers\HomeController;
 
 
