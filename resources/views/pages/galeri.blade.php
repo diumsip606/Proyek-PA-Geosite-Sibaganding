@@ -141,93 +141,103 @@ body{
 }
 
 /* ================= MODAL ================= */
-.modal-overlay{
-    position:fixed;
-    inset:0;
-
-    background:rgba(0,0,0,0.9);
-
-    z-index:9999;
-
-    display:none;
-    align-items:center;
-    justify-content:center;
-
-    backdrop-filter:blur(10px);
-
-    padding:20px;
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    padding: 20px;
 }
 
-.modal-box{
-    background:#1a1a1a;
-
-    width:90%;
-    max-width:1000px;
-
-    display:grid;
-    grid-template-columns:1.2fr 1fr;
-
-    border-radius:24px;
-    overflow:hidden;
-
-    animation:zoomIn .4s ease;
+.modal-box {
+    background: #1a1a1a;
+    width: 100%;
+    max-width: 700px; /* Diperkecil agar pas untuk layout vertikal */
+    max-height: 90vh; /* Membatasi tinggi maksimal agar tidak tembus layar */
+    display: flex;
+    flex-direction: column; /* Mengubah susunan menjadi atas-bawah */
+    border-radius: 20px;
+    overflow: hidden;
+    animation: zoomIn .3s ease;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
 }
 
-@keyframes zoomIn{
-    from{
-        opacity:0;
-        transform:scale(.8);
-    }
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
+@keyframes zoomIn {
+    from { opacity: 0; transform: scale(.9); }
+    to { opacity: 1; transform: scale(1); }
 }
 
-.modal-img-part{
-    background:black;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.modal-img-part {
+    width: 100%;
+    height: 350px; /* Tinggi gambar dibuat statis */
+    background: #000;
+    flex-shrink: 0;
 }
 
-.modal-img-part img{
-    width:100%;
-    max-height:80vh;
-    object-fit:contain;
+.modal-img-part img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Gambar memenuhi area atas */
 }
 
-.modal-text-part{
-    padding:40px;
-    color:white;
-    text-align:left;
+.modal-text-part {
+    padding: 30px 40px;
+    color: white;
+    text-align: left;
+    overflow-y: auto; /* MENGAKTIFKAN SCROLL JIKA TEKS PANJANG */
 }
 
-.modal-text-part small{
-    color:cyan;
-    letter-spacing:2px;
+/* Custom Scrollbar untuk bagian teks */
+.modal-text-part::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-text-part::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+.modal-text-part::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 10px;
+}
+.modal-text-part::-webkit-scrollbar-thumb:hover {
+    background: #0dcaf0;
 }
 
-.modal-text-part h2{
-    font-size:2rem;
-    margin:10px 0;
+.modal-text-part small {
+    color: #0dcaf0;
+    letter-spacing: 2px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-transform: uppercase;
 }
 
-.modal-text-part p{
-    color:#bbb;
-    line-height:1.7;
+.modal-text-part h2 {
+    font-size: 1.8rem;
+    margin: 10px 0 15px 0;
 }
 
-.close-btn{
-    position:absolute;
-    top:20px;
-    right:25px;
+.modal-text-part p {
+    color: #bbb;
+    line-height: 1.7;
+    margin: 0;
+}
 
-    color:white;
-    font-size:2rem;
-
-    cursor:pointer;
-    z-index:10000;
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10000;
+    transition: 0.2s;
+}
+.close-btn:hover {
+    color: #0dcaf0;
+    transform: scale(1.1);
 }
 
 /* ================= MOBILE ================= */
@@ -245,8 +255,17 @@ body{
         font-size:1rem;
     }
 
-    .modal-box{
-        grid-template-columns:1fr;
+    .modal-box {
+        max-height: 95vh;
+    }
+    .modal-img-part {
+        height: 250px; /* Gambar lebih pendek di HP */
+    }
+    .modal-text-part {
+        padding: 20px;
+    }
+    .modal-text-part h2 {
+        font-size: 1.4rem;
     }
 
     .card-item{
@@ -312,16 +331,18 @@ body{
                         $src = asset('storage/' . $item->gambar);
                     }
 
+
+
                 @endphp
 
                 <div class="card-item"
+                    data-src="{{ $src }}"
+                    data-title="{{ $item->judul }}"
+                    data-desc="{{ $item->deskripsi }}"
 
-                    onclick="openPhoto(
-                        '{{ $src }}',
-                        '{{ addslashes($item->judul) }}',
-                        '{{ addslashes($item->deskripsi) }}',
-                        '{{ strtoupper($kategori) }}'
-                    )">
+                    data-tag="{{ is_string($kategori) && json_decode($kategori) ? json_decode($kategori)->nama ?? 'Tanpa Kategori' : $kategori }}"
+
+                    onclick="openPhoto(this)">
 
                     <img
                         src="{{ $src }}"
@@ -366,17 +387,20 @@ body{
 
 <script>
 
-/* ================= OPEN PHOTO ================= */
-function openPhoto(src, title, desc, tag){
+/* ================= JAVASCRIPT OPEN PHOTO ================= */
+function openPhoto(element){
+    // Menarik data dinamis dengan aman dari atribut HTML
+    let src = element.getAttribute('data-src');
+    let title = element.getAttribute('data-title');
+    let desc = element.getAttribute('data-desc');
+    let tag = element.getAttribute('data-tag');
 
     document.getElementById('mImg').src = src;
     document.getElementById('mTitle').innerText = title;
     document.getElementById('mTag').innerText = tag;
-    document.getElementById('mDesc').innerText =
-        desc || 'Tidak ada deskripsi.';
+    document.getElementById('mDesc').innerText = desc || 'Tidak ada deskripsi.';
 
     document.getElementById('pModal').style.display = 'flex';
-
     document.body.style.overflow = 'hidden';
 }
 

@@ -1,510 +1,578 @@
-    @extends('layouts.app')
+@extends('layouts.app')
 
-    @section('title', 'Destinasi Geosite - Danau Toba')
+@section('title', 'Destinasi Geosite - Danau Toba')
 
-    @section('content')
+@section('content')
 
-    <style>
-        /* Hero Section */
+<style>
+    /* ==================== HERO SECTION ==================== */
+    .destinasi-hero {
+        height: 85vh;
+        min-height: 600px;
+        position: relative;
+        overflow: hidden;
+        margin-top: 0;
+    }
+    
+    .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/image/destinasi-hero.jpg');
+        background-size: cover;
+        background-position: center;
+        animation: zoomSlow 20s ease-out infinite;
+    }
+    
+    @keyframes zoomSlow {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.1); }
+    }
+    
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 10;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        padding: 0 20px;
+    }
+    
+    .hero-badge {
+        display: inline-block;
+        padding: 6px 20px;
+        background: rgba(198, 164, 59, 0.2);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(198, 164, 59, 0.5);
+        border-radius: 50px;
+        font-size: 0.7rem;
+        letter-spacing: 3px;
+        margin-bottom: 25px;
+        animation: fadeInUp 0.8s ease;
+    }
+    
+    .hero-content h1 {
+        font-size: 4.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        animation: fadeInUp 0.8s ease 0.1s both;
+        text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    
+    .hero-content h1 span {
+        color: #c6a43b;
+    }
+    
+    .hero-content p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        opacity: 0.9;
+        animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    
+    .hero-scroll {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+        cursor: pointer;
+        z-index: 10;
+    }
+    
+    .hero-scroll a {
+        color: white;
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .hero-scroll .line {
+        width: 20px;
+        height: 35px;
+        border: 1px solid rgba(255,255,255,0.5);
+        border-radius: 15px;
+        position: relative;
+    }
+    
+    .hero-scroll .line::before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 8px;
+        background: white;
+        border-radius: 2px;
+        animation: scrollMove 1.5s infinite;
+    }
+    
+    @keyframes scrollMove {
+        0% { top: 5px; opacity: 1; }
+        80% { top: 20px; opacity: 0; }
+        100% { top: 5px; opacity: 0; }
+    }
+    
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(40px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateX(-50%) translateY(0); }
+        50% { transform: translateX(-50%) translateY(-10px); }
+    }
+    
+    /* ==================== CATEGORY SECTION ==================== */
+    .category-section {
+        padding: 100px 0;
+        background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+    }
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    
+    .section-header .subtitle {
+        display: inline-block;
+        font-size: 0.7rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        color: #c6a43b;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+    
+    .section-header h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #1a1a1a;
+    }
+    
+    .section-header .divider {
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #c6a43b, #e8c45a);
+        margin: 0 auto 20px;
+        border-radius: 3px;
+    }
+    
+    .section-header p {
+        color: #666;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    /* Category Cards Premium */
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    
+    .category-card {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        cursor: pointer;
+        background: white;
+    }
+    
+    .category-card:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+    }
+    
+    .category-card .card-image {
+        position: relative;
+        height: 300px;
+        overflow: hidden;
+    }
+    
+    .category-card .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.8s ease;
+    }
+    
+    .category-card:hover .card-image img {
+        transform: scale(1.1);
+    }
+    
+    .card-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+    }
+    
+    .card-badge {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 8px 18px;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 30px;
+        color: white;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        z-index: 2;
+    }
+    
+    .card-badge i {
+        margin-right: 5px;
+        color: #c6a43b;
+    }
+    
+    .card-content {
+        padding: 25px;
+        text-align: center;
+        position: relative;
+        background: white;
+    }
+    
+    .card-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #c6a43b, #e8c45a);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: -50px auto 15px;
+        position: relative;
+        z-index: 2;
+        box-shadow: 0 10px 20px rgba(198, 164, 59, 0.3);
+    }
+    
+    .card-icon i {
+        font-size: 28px;
+        color: white;
+    }
+    
+    .card-content h3 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #1a1a1a;
+    }
+    
+    .card-content p {
+        font-size: 0.85rem;
+        color: #666;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+    
+    .card-stats {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .stat {
+        text-align: center;
+    }
+    
+    .stat-number {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #c6a43b;
+    }
+    
+    .stat-label {
+        font-size: 0.6rem;
+        color: #999;
+        text-transform: uppercase;
+    }
+    
+    .card-btn {
+        display: inline-block;
+        padding: 10px 30px;
+        background: transparent;
+        border: 2px solid #c6a43b;
+        color: #c6a43b;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .card-btn:hover {
+        background: #c6a43b;
+        color: #1a1a1a;
+        transform: translateY(-3px);
+    }
+    
+    /* ==================== STATS SECTION ==================== */
+    .stats-section {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .stats-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(198,164,59,0.05) 0%, transparent 70%);
+        animation: rotate 30s linear infinite;
+    }
+    
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .stat-item {
+        text-align: center;
+        padding: 30px;
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .stat-item:hover {
+        transform: translateY(-5px);
+        background: rgba(255,255,255,0.1);
+        border-color: #c6a43b;
+    }
+    
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #c6a43b;
+        margin-bottom: 10px;
+    }
+    
+    .stat-label {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.7);
+    }
+    
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 992px) {
+        .hero-content h1 {
+            font-size: 3rem;
+        }
+        .category-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .features-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 768px) {
         .destinasi-hero {
-            height: 50vh;
-            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.5)),
-                        url('/image/destinasi-hero.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            margin-top: 76px;
-            position: relative;
+            height: 70vh;
+            min-height: 500px;
         }
-        
-        .destinasi-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.5) 100%);
+        .hero-content h1 {
+            font-size: 2.2rem;
         }
-        
-        .destinasi-hero .container {
-            position: relative;
-            z-index: 2;
+        .hero-content p {
+            font-size: 0.9rem;
         }
-        
-        /* Filter Buttons */
-        .filter-btn {
-            background: transparent;
-            border: 2px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 10px 24px;
-            border-radius: 50px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin: 0 5px;
-            cursor: pointer;
+        .category-grid {
+            grid-template-columns: 1fr;
         }
-        
-        .filter-btn:hover, .filter-btn.active {
-            background: #c6a43b;
-            border-color: #c6a43b;
-            color: #1a1a1a;
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
         }
-        
-        /* Destination Cards */
-        .destinasi-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            padding: 60px 0;
+        .features-grid {
+            grid-template-columns: 1fr;
         }
-        
-        .dest-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            cursor: pointer;
-            position: relative;
+        .section-header h2 {
+            font-size: 1.8rem;
         }
-        
-        .dest-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
-        }
-        
-        .dest-card:hover .dest-img {
-            transform: scale(1.08);
-        }
-        
-        .dest-img-wrapper {
-            position: relative;
-            overflow: hidden;
-            height: 280px;
-        }
-        
-        .dest-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
-        
-        .dest-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #c6a43b;
-            color: #1a1a1a;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            z-index: 2;
-        }
-        
-        .dest-badge.geologi {
-            background: #2c5f8a;
-            color: white;
-        }
-        
-        .dest-badge.budaya {
-            background: #8B4513;
-            color: white;
-        }
-        
-        .dest-badge.petualangan {
-            background: #e67e22;
-            color: white;
-        }
-        
-        .dest-badge.kota {
-            background: #3498db;
-            color: white;
-        }
-        
-        .dest-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            padding: 30px 20px 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .dest-card:hover .dest-overlay {
-            opacity: 1;
-        }
-        
-        .dest-overlay p {
-            color: white;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-        }
-        
-        .dest-info {
-            padding: 25px;
-            text-align: center;
-        }
-        
-        .dest-info h3 {
-            font-size: 1.6rem;
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #1a1a1a;
-        }
-        
-        .dest-location {
-            font-size: 0.8rem;
-            color: #c6a43b;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        
-        .dest-location i {
-            font-size: 0.7rem;
-        }
-        
-        .dest-desc {
-            font-size: 0.85rem;
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-        
-        .dest-tags {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .dest-tags span {
-            background: #f5f4f0;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            color: #333;
-        }
-        
-        .btn-destinasi {
-            display: inline-block;
-            background: transparent;
-            border: 2px solid #c6a43b;
-            color: #c6a43b;
-            padding: 10px 28px;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-        
-        .btn-destinasi:hover {
-            background: #c6a43b;
-            color: #1a1a1a;
-            text-decoration: none;
-        }
-        
-        /* Feature Section */
-        .feature-section {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: white;
-            padding: 80px 0;
-        }
-        
-        .feature-item {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(198, 164, 59, 0.15);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .feature-item:hover .feature-icon {
-            background: #c6a43b;
-            transform: scale(1.1);
-        }
-        
-        .feature-icon i {
-            font-size: 35px;
-            color: #c6a43b;
-        }
-        
-        .feature-item:hover .feature-icon i {
-            color: white;
-        }
-        
-        .feature-item h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .feature-item p {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.6);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .destinasi-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-            
-            .filter-btn {
-                padding: 6px 16px;
-                font-size: 0.75rem;
-            }
-            
-            .dest-info h3 {
-                font-size: 1.3rem;
-            }
-        }
-    </style>
+    }
+</style>
 
-    <!-- HERO SECTION -->
-    <section class="destinasi-hero">
-        <div class="container">
-            <h1 class="display-3 fw-bold mb-3" data-aos="fade-up">Destinasi Geosite</h1>
-            <p class="lead mb-4" data-aos="fade-up" data-aos-delay="100">Jelajahi 4 Geosite Unggulan Caldera Danau Toba</p>
-            <div data-aos="fade-up" data-aos-delay="200">
-                <button class="filter-btn active" data-filter="all">Semua</button>
-                <button class="filter-btn" data-filter="geologi">Geologi</button>
-                <button class="filter-btn" data-filter="budaya">Budaya</button>
-                <button class="filter-btn" data-filter="petualangan">Petualangan</button>
-            </div>
+<!-- ==================== HERO SECTION ==================== -->
+<section class="destinasi-hero">
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <span class="hero-badge" data-aos="fade-up">EXPLORE THE GEOSITE</span>
+        <h1 data-aos="fade-up" data-aos-delay="100">Destinasi <span>GeoToba</span></h1>
+        <p data-aos="fade-up" data-aos-delay="200">Jelajahi keindahan geologi, budaya, dan pesona alam Caldera Danau Toba yang diakui UNESCO</p>
+    </div>
+    <div class="hero-scroll">
+        <a href="#categories">
+            <span>SCROLL</span>
+            <div class="line"></div>
+        </a>
+    </div>
+</section>
+
+<!-- ==================== CATEGORY SECTION ==================== -->
+<section class="category-section" id="categories">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="subtitle">PILIH KATEGORI</span>
+            <h2>Temukan Destinasi Favoritmu</h2>
+            <div class="divider"></div>
+            <p>Nikmati pengalaman wisata yang berbeda di setiap kategorinya</p>
         </div>
-    </section>
-
-    <!-- DESTINASI GRID -->
-    <section class="container">
-        <div class="destinasi-grid" id="destinasiGrid">
-            
-            <!-- BALIGE -->
-            <div class="dest-card" data-category="budaya kota" data-aos="fade-up" data-aos-delay="0">
-                <div class="dest-img-wrapper">
-                    <img src="/image/balige.jpg" class="dest-img" alt="Balige">
-                    <span class="dest-badge budaya">KOTA BUDAYA</span>
-                    <div class="dest-overlay">
-                        <p><i class="fas fa-map-marker-alt me-1"></i> Kabupaten Toba Samosir</p>
-                        <p><i class="fas fa-clock me-1"></i> 08:00 - 18:00 WIB</p>
-                    </div>
-                </div>
-                <div class="dest-info">
-                    <h3>Balige</h3>
-                    <div class="dest-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Tepi Danau Toba</span>
-                    </div>
-                    <p class="dest-desc">Ibu kota Kabupaten Toba Samosir dengan panorama Danau Toba yang spektakuler. Museum Batak TB Silalahi, Pantai Bulung Cina, dan kuliner khas Batak menanti Anda.</p>
-                    <div class="dest-tags">
-                        <span>🏛️ Museum Batak</span>
-                        <span>🏖️ Pantai</span>
-                        <span>🍴 Kuliner</span>
-                        <span>📸 Spot Foto</span>
-                    </div>
-                    <a href="#" class="btn-destinasi">Informasi Kota →</a>
-                </div>
-            </div>
-            
-            <!-- MEAT -->
-            <div class="dest-card" data-category="budaya sejarah" data-aos="fade-up" data-aos-delay="100">
-                <div class="dest-img-wrapper">
-                    <img src="/image/meat.jpg" class="dest-img" alt="Meat">
-                    <span class="dest-badge budaya">DESA ADAT</span>
-                    <div class="dest-overlay">
-                        <p><i class="fas fa-map-marker-alt me-1"></i> Pulau Sibandang</p>
-                        <p><i class="fas fa-clock me-1"></i> 08:00 - 17:00 WIB</p>
-                    </div>
-                </div>
-                <div class="dest-info">
-                    <h3>Meat</h3>
-                    <div class="dest-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Pulau Sibandang, Danau Toba</span>
-                    </div>
-                    <p class="dest-desc">Desa adat dengan makam Opung Raja Hunsa, situs bersejarah yang dihormati masyarakat setempat. Pusat pelestarian budaya Batak dengan rumah adat tradisional.</p>
-                    <div class="dest-tags">
-                        <span>🏛️ Makam Raja</span>
-                        <span>🪶 Tari Tortor</span>
-                        <span>🧵 Tenun Ulos</span>
-                        <span>🏠 Rumah Adat</span>
-                    </div>
-                    <a href="{{ url('/geosite/meat') }}" class="btn-destinasi">Jelajahi →</a>
-                </div>
-            </div>
-            
-            <!-- BATU BAHISAN -->
-            <div class="dest-card" data-category="geologi fotografi" data-aos="fade-up" data-aos-delay="200">
-                <div class="dest-img-wrapper">
-                    <img src="/image/batu-bahisan.jpg" class="dest-img" alt="Batu Bahisan">
-                    <span class="dest-badge geologi">GEOLOGI UNIK</span>
-                    <div class="dest-overlay">
-                        <p><i class="fas fa-map-marker-alt me-1"></i> Pulau Sibandang</p>
-                        <p><i class="fas fa-clock me-1"></i> 06:00 - 18:00 WIB</p>
-                    </div>
-                </div>
-                <div class="dest-info">
-                    <h3>Batu Bahisan</h3>
-                    <div class="dest-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Pulau Sibandang, Danau Toba</span>
-                    </div>
-                    <p class="dest-desc">Formasi batuan unik hasil erosi ribuan tahun. Spot favorit untuk fotografi landscape, sunrise, dan sunset dengan latar Danau Toba yang memukau.</p>
-                    <div class="dest-tags">
-                        <span>🗻 Formasi Batu</span>
-                        <span>📸 Instagramable</span>
-                        <span>🌅 Sunrise</span>
-                        <span>🥾 Trekking</span>
-                    </div>
-                    <a href="{{ url('/geosite/batu-bahisan') }}" class="btn-destinasi">Jelajahi →</a>
-                </div>
-            </div>
-            
-            <!-- LIANG SIPEGE -->
-            <div class="dest-card" data-category="petualangan geologi" data-aos="fade-up" data-aos-delay="300">
-                <div class="dest-img-wrapper">
-                    <img src="/image/liang-sipege.jpg" class="dest-img" alt="Liang Sipege">
-                    <span class="dest-badge petualangan">PETUALANGAN</span>
-                    <div class="dest-overlay">
-                        <p><i class="fas fa-map-marker-alt me-1"></i> Pulau Sibandang</p>
-                        <p><i class="fas fa-clock me-1"></i> 08:00 - 17:00 WIB</p>
-                    </div>
-                </div>
-                <div class="dest-info">
-                    <h3>Liang Sipege</h3>
-                    <div class="dest-location">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Pulau Sibandang, Danau Toba</span>
-                    </div>
-                    <p class="dest-desc">Goa alami dengan stalaktit dan stalakmit yang menakjubkan. Cocok untuk petualangan caving, eksplorasi, dan edukasi geologi.</p>
-                    <div class="dest-tags">
-                        <span>🕳️ Goa Alami</span>
-                        <span>⛰️ Stalaktit</span>
-                        <span>🧗 Caving</span>
-                        <span>📚 Edukasi</span>
-                    </div>
-                    <a href="{{ url('/geosite/liang-sipege') }}" class="btn-destinasi">Jelajahi →</a>
-                </div>
-            </div>
-            
-        </div>
-    </section>
-
-    <!-- FEATURE SECTION -->
-    <section class="feature-section">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 fw-light mb-3">Mengapa Harus ke Geosite Toba?</h2>
-                <div style="width: 60px; height: 3px; background: #c6a43b; margin: 0 auto;"></div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="0">
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-mountain"></i>
-                        </div>
-                        <h4>Geologi Unik</h4>
-                        <p>Formasi batuan vulkanik hasil letusan supervolcano 74.000 tahun lalu</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-landmark"></i>
-                        </div>
-                        <h4>Budaya Batak</h4>
-                        <p>Warisan budaya yang masih terjaga, tarian tradisional, dan tenun ulos</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-camera"></i>
-                        </div>
-                        <h4>Spot Foto</h4>
-                        <p>Destinasi Instagramable dengan pemandangan Danau Toba yang memukau</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-umbrella-beach"></i>
-                        </div>
-                        <h4>Wisata Seru</h4>
-                        <p>Aktivitas trekking, caving, camping, dan wisata budaya</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // Filter functionality
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.dest-card');
         
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Update active button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                const filterValue = button.getAttribute('data-filter');
-                
-                cards.forEach(card => {
-                    const category = card.getAttribute('data-category');
+        <div class="category-grid">
+            <!-- Biodiversity -->
+            <div class="category-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="card-image">
+                    <img src="/image/destinasi/biodiversity.jpg" alt="biodiversity">
+                    <div class="card-overlay"></div>
+                    <span class="card-badge"><i class="fas fa-tag"></i> NATURE</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3>Biodiversity</h3>
+                    <p>Jelajahi keindahan alam Danau Toba yang memukau, goa alami dengan stalaktit, formasi batuan unik, dan air terjun yang menyegarkan.</p>
                     
-                    if (filterValue === 'all' || category.includes(filterValue)) {
-                        card.style.display = 'block';
-                        card.style.animation = 'fadeInUp 0.5s ease';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-    </script>
+                    <a href="{{ url('/destinasi/biodiversity') }}" class="card-btn">Jelajahi →</a>
+                </div>
+            </div>
+            
+            <!-- Geodiversity -->
+            <div class="category-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="card-image">
+                    <img src="{{ asset('images/geodiversity.JPG') }}" alt="geodiversity">
+                    <div class="card-overlay"></div>
+                    <span class="card-badge"><i class="fas fa-tag"></i> URBAN</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Geodiversity</h3>
+                    <p>Nikmati wisata buatan yang ikonik, patung megah, taman kota dengan view danau, dan jembatan dengan pemandangan spektakuler.</p>
+                    
+                    <a href="{{ url('/destinasi/geodiversity') }}" class="card-btn">Jelajahi →</a>
+                </div>
+            </div>
+            
+            <!-- Culturediversity -->
+            <div class="category-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="card-image">
+                    <img src="{{ asset('images/culturediversity.JPG') }}" alt="Culturediversity">   
+                    <div class="card-overlay"></div>
+                    <span class="card-badge"><i class="fas fa-tag"></i> HERITAGE</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-icon">
+                        <i class="fas fa-landmark"></i>
+                    </div>
+                    <h3>Culturediversity</h3>
+                    <p>Rasakan kearifan lokal Batak Toba, kunjungi desa adat, museum sejarah, dan pusat kerajinan tenun ulos khas.</p>
+                    
+                    <a href="{{ url('/destinasi/culturediversity') }}" class="card-btn">Jelajahi →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- AOS -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50
-        });
-    </script>
+<!-- ==================== STATS SECTION ==================== -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
+                <div class="stat-number">74.000+</div>
+                <div class="stat-label">TAHUN SEJARAH CALDERA</div>
+            </div>
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="stat-number">9</div>
+                <div class="stat-label">GEOSITE UNGGULAN</div>
+            </div>
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">WARISAN BUDAYA</div>
+            </div>
+            <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">UMKM LOKAL</div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    @endsection
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<!-- AOS -->
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 50
+    });
+    
+    // Smooth scroll
+    document.querySelector('.hero-scroll a').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector('#categories').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+</script>
+
+@endsection

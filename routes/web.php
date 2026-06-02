@@ -1,12 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-//use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\App;
+use App\Models\Informasi;
+use App\Models\Galeri;
+use App\Models\Berita;
+use App\Models\Kategori;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\InformasiController;
-use App\Http\Controllers\DestinasiController;
+use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController; // Tambahan untuk Controller Admin
+use App\Http\Controllers\DestinasiController; // Controller untuk Pengunjung
 use App\Http\Controllers\HomeController;
 
 /*
@@ -43,38 +48,25 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // INFORMASI
 Route::get('/informasi', function () {
-    $informasi = App\Models\Informasi::where('status', true)
+    $informasi = Informasi::where('status', true)
         ->latest()
         ->paginate(10);
 
     return view('pages.informasi', compact('informasi'));
 })->name('informasi');
 
-// DESTINASI
+// DESTINASI (Menggunakan 3 Pilar)
 Route::get('/destinasi', [DestinasiController::class, 'index'])->name('destinasi');
-Route::get('/destinasi/alam', [DestinasiController::class, 'alam'])->name('destinasi.alam');
-Route::get('/destinasi/buatan', [DestinasiController::class, 'buatan'])->name('destinasi.buatan');
-Route::get('/destinasi/budaya', [DestinasiController::class, 'budaya'])->name('destinasi.budaya');
+Route::get('/destinasi/geodiversity', [DestinasiController::class, 'geodiversity'])->name('destinasi.geodiversity');
+Route::get('/destinasi/biodiversity', [DestinasiController::class, 'biodiversity'])->name('destinasi.biodiversity');
+Route::get('/destinasi/culture-diversity', [DestinasiController::class, 'cultureDiversity'])->name('destinasi.culture-diversity');
 
 // DETAIL DESTINASI
 Route::get('/destinasi/{id}', [DestinasiController::class, 'show'])->name('destinasi.show');
 
-// GEOSITE
-Route::get('/geosite/meat', function () {
-    return view('geosite.meat');
-})->name('geosite.meat');
-
-Route::get('/geosite/batu-bahisan', function () {
-    return view('geosite.batu-bahisan');
-})->name('geosite.batu-bahisan');
-
-Route::get('/geosite/liang-sipege', function () {
-    return view('geosite.liang-sipege');
-})->name('geosite.liang-sipege');
-
 // GALERI
 Route::get('/galeri', function () {
-    $galeriByKategori = App\Models\Galeri::where('status', true)
+    $galeriByKategori = Galeri::where('status', true)
         ->latest()
         ->get()
         ->groupBy('kategori');
@@ -84,19 +76,19 @@ Route::get('/galeri', function () {
 
 // BERITA
 Route::get('/berita', function () {
-    $berita = App\Models\Berita::with('kategori')
+    $berita = Berita::with('kategori')
         ->where('status', true)
         ->latest()
         ->paginate(9);
 
-    $kategori = App\Models\Kategori::all();
+    $kategori = Kategori::all();
 
     return view('pages.berita', compact('berita', 'kategori'));
 })->name('berita');
 
 // DETAIL BERITA
 Route::get('/berita/{slug}', function ($slug) {
-    $berita = App\Models\Berita::with('kategori')
+    $berita = Berita::with('kategori')
         ->where('slug', $slug)
         ->firstOrFail();
 
@@ -107,7 +99,7 @@ Route::get('/berita/{slug}', function ($slug) {
 
 // DETAIL GALERI
 Route::get('/galeri/{slug}', function ($slug) {
-    $galeri = App\Models\Galeri::where('slug', $slug)->firstOrFail();
+    $galeri = Galeri::where('slug', $slug)->firstOrFail();
     $galeri->increment('views');
 
     return view('pages.galeri-detail', compact('galeri'));
@@ -150,9 +142,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('/', function () {
 
-        $totalGaleri = \App\Models\Galeri::count();
-        $totalBerita = \App\Models\Berita::count();
-        $totalInformasi = \App\Models\Informasi::count();
+        $totalGaleri = Galeri::count();
+        $totalBerita = Berita::count();
+        $totalInformasi = Informasi::count();
         $totalViews = 0;
 
         return view('admin.dashboard', compact(
@@ -167,10 +159,13 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('berita', BeritaController::class)->names('admin.berita');
     Route::resource('informasi', InformasiController::class)->names('admin.informasi');
 
+    // Rute untuk Admin Destinasi
+    Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
+
     Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])
         ->name('admin.galeri.toggle-status');
 
-    //ini mengarah ke edit background galeri
+    // ini mengarah ke edit background galeri
     Route::post('galeri/{id}/set-hero', [GaleriController::class, 'setHero'])
         ->name('admin.galeri.set_hero');
 });

@@ -1,7 +1,3 @@
-<h1>{{ $kategori }}</h1>
-<p>{{ $deskripsi }}</p>
-<hr>
-
 @extends('layouts.app')
 
 @section('title', 'Destinasi ' . $kategori . ' - Geosite Danau Toba')
@@ -17,7 +13,7 @@
         overflow: hidden;
         margin-top: 0;
     }
-    
+
     .kategori-hero .hero-bg {
         position: absolute;
         top: 0;
@@ -27,7 +23,7 @@
         background-size: cover;
         background-position: center;
     }
-    
+
     .hero-overlay {
         position: absolute;
         top: 0;
@@ -36,7 +32,7 @@
         height: 100%;
         background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
     }
-    
+
     .hero-content {
         position: relative;
         z-index: 10;
@@ -49,7 +45,7 @@
         color: white;
         padding: 0 20px;
     }
-    
+
     .back-btn {
         position: absolute;
         top: 30px;
@@ -68,13 +64,13 @@
         align-items: center;
         gap: 8px;
     }
-    
+
     .back-btn:hover {
         background: #c6a43b;
         color: #1a1a1a;
         transform: translateX(-5px);
     }
-    
+
     .hero-badge {
         display: inline-block;
         padding: 6px 20px;
@@ -86,32 +82,32 @@
         letter-spacing: 3px;
         margin-bottom: 20px;
     }
-    
+
     .hero-content h1 {
         font-size: 3.5rem;
         font-weight: 800;
         margin-bottom: 15px;
     }
-    
+
     .hero-content p {
         font-size: 1rem;
         max-width: 600px;
         margin: 0 auto;
         opacity: 0.9;
     }
-    
+
     /* ==================== DESTINASI GRID ==================== */
     .destinasi-section {
         padding: 80px 0;
         background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
     }
-    
+
     .destinasi-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 30px;
     }
-    
+
     .dest-card {
         background: white;
         border-radius: 24px;
@@ -120,29 +116,29 @@
         transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         cursor: pointer;
     }
-    
+
     .dest-card:hover {
         transform: translateY(-15px);
         box-shadow: 0 30px 60px rgba(0,0,0,0.15);
     }
-    
+
     .card-image {
         position: relative;
         height: 260px;
         overflow: hidden;
     }
-    
+
     .card-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.6s ease;
     }
-    
+
     .dest-card:hover .card-image img {
         transform: scale(1.08);
     }
-    
+
     .card-badge {
         position: absolute;
         top: 20px;
@@ -156,18 +152,18 @@
         letter-spacing: 1px;
         z-index: 2;
     }
-    
+
     .card-content {
         padding: 25px;
     }
-    
+
     .card-title {
         font-size: 1.4rem;
         font-weight: 700;
         margin-bottom: 8px;
         color: #1a1a1a;
     }
-    
+
     .card-location {
         display: inline-flex;
         align-items: center;
@@ -179,25 +175,25 @@
         color: #c6a43b;
         margin-bottom: 15px;
     }
-    
+
     .card-location i {
         font-size: 0.6rem;
     }
-    
+
     .card-desc {
         font-size: 0.85rem;
         color: #666;
         line-height: 1.7;
         margin-bottom: 20px;
     }
-    
+
     .card-tags {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
         margin-bottom: 25px;
     }
-    
+
     .card-tags span {
         background: #f5f4f0;
         padding: 4px 12px;
@@ -206,12 +202,12 @@
         color: #555;
         transition: all 0.3s ease;
     }
-    
+
     .card-tags span:hover {
         background: #c6a43b;
         color: white;
     }
-    
+
     .card-btn {
         display: inline-flex;
         align-items: center;
@@ -228,13 +224,13 @@
         transition: all 0.3s ease;
         text-decoration: none;
     }
-    
+
     .card-btn:hover {
         background: #c6a43b;
         color: #1a1a1a;
         gap: 15px;
     }
-    
+
     /* Empty State */
     .empty-state {
         grid-column: 1 / -1;
@@ -243,19 +239,19 @@
         background: white;
         border-radius: 24px;
     }
-    
+
     .empty-state i {
         font-size: 4rem;
         color: #ddd;
         margin-bottom: 20px;
     }
-    
+
     .empty-state h3 {
         font-size: 1.5rem;
         color: #666;
         margin-bottom: 10px;
     }
-    
+
     /* Responsive */
     @media (max-width: 992px) {
         .destinasi-grid {
@@ -265,7 +261,7 @@
             font-size: 2.5rem;
         }
     }
-    
+
     @media (max-width: 768px) {
         .kategori-hero {
             height: 50vh;
@@ -316,11 +312,11 @@
                         <i class="fas fa-map-marker-alt"></i> {{ $item->lokasi }}
                     </div>
                     <p class="card-desc">{{ $item->deskripsi }}</p>
-                    <div class="card-tags">
-                        @foreach($item->tags as $tag)
-                        <span>#{{ $tag }}</span>
-                        @endforeach
-                    </div>
+                <div class="card-tags">
+                    @foreach($item->tags ?? [] as $tag)
+                    <span>#{{ $tag }}</span>
+                    @endforeach
+                </div>
                     <a href="{{ $item->url }}" class="card-btn">
                         Jelajahi <i class="fas fa-arrow-right"></i>
                     </a>
