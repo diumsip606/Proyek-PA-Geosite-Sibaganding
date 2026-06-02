@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destinasi extends Model
 {
+<<<<<<< HEAD
+    
+=======
     protected $casts = [
         'tags' => 'array', // Memaksa kolom tags selalu menjadi array (jika null, akan jadi array kosong [])
     ];
@@ -14,12 +17,13 @@ class Destinasi extends Model
     protected $guarded = ['id'];
 
     // Menggunakan nama tabel tanpa 's'
+>>>>>>> f1bbeaed70d0aefc023c8947757b26e86d54fad2
     protected $table = 'destinasi';
 
     protected $fillable = [
         'nama',
         'slug',
-        'kategori_id', // <--- UBAH INI: Tambahkan '_id' karena kita pakai relasi
+        'kategori_id', 
         'lokasi',
         'deskripsi',
         'sejarah',
@@ -30,17 +34,13 @@ class Destinasi extends Model
         'gambar'
     ];
 
-    // ---------------------------------------------------
-    // RELASI BARU: Ke tabel Kategori (Dari Langkah 3)
-    // ---------------------------------------------------
+   
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
-    // ---------------------------------------------------
-    // RELASI LAMA: Ke galeri & review (Biarkan saja)
-    // ---------------------------------------------------
+    
     public function galeri()
     {
         return $this->hasMany(Galeri::class);
