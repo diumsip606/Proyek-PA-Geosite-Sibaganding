@@ -53,16 +53,19 @@
                         </td>
                         <td>
                             @php
-                                $badgeColor = match($item->kategori) {
-                                    'Alam'   => 'success',
-                                    'Buatan' => 'primary',
-                                    'Budaya' => 'warning',
-                                    default  => 'secondary',
+                                // Ambil nama kategori dengan aman (cegah error jika data kosong)
+                                $namaKategori = $item->kategori->nama ?? 'Tidak Ada';
+
+                                // Sesuaikan dengan 3 pilar geosite kamu
+                                $badgeColor = match($namaKategori) {
+                                    'Biodiversity'       => 'success',
+                                    'Geodiversity'       => 'primary',
+                                    'Culture Diversity'  => 'warning', // Sesuaikan jika namanya 'Cultural Diversity'
+                                    default              => 'secondary',
                                 };
                             @endphp
-                            <span class="badge bg-{{ $badgeColor }}">{{ $item->kategori }}</span>
-                        </td>
-                        <td><small>{{ $item->lokasi }}</small></td>
+                            <span class="badge bg-{{ $badgeColor }}">{{ $namaKategori }}</span>
+                        </td>                        <td><small>{{ $item->lokasi }}</small></td>
                         <td>
                             <span class="badge {{ $item->status ? 'bg-success' : 'bg-danger' }}">
                                 {{ $item->status ? 'Aktif' : 'Nonaktif' }}

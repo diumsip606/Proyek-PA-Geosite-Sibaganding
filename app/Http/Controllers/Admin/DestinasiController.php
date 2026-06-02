@@ -41,7 +41,8 @@ class DestinasiController extends Controller
         $validatedData['slug'] = Str::slug($request->nama);
 
         // 3. Set Admin yang Menambahkan
-        $validatedData['admin_id'] = auth()->id();
+        // Ubah auth()->id() menjadi pemanggilan Facade Auth seperti ini:
+        $validatedData['admin_id'] = \Illuminate\Support\Facades\Auth::id();
 
         // 4. Tangani Status (Kalau checkbox tidak dicentang, nilainya false)
         $validatedData['status'] = $request->has('status') ? true : false;

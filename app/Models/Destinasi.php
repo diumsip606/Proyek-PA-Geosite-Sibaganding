@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destinasi extends Model
 {
+    protected $casts = [
+        'tags' => 'array', // Memaksa kolom tags selalu menjadi array (jika null, akan jadi array kosong [])
+    ];
+    
     // Tambahkan baris ini agar semua data dari form diizinkan masuk ke database
     protected $guarded = ['id'];
-    
+
     // Menggunakan nama tabel tanpa 's'
     protected $table = 'destinasi';
 
