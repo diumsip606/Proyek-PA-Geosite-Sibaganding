@@ -340,7 +340,7 @@ body{
                     data-title="{{ $item->judul }}"
                     data-desc="{{ $item->deskripsi }}"
 
-                    data-tag="{{ is_string($kategori) && json_decode($kategori) ? json_decode($kategori)->NAMA ?? 'Tanpa Kategori' : $kategori }}"
+                    data-tag="{{ is_string($kategori) && json_decode($kategori) ? json_decode($kategori)->nama ?? 'Tanpa Kategori' : $kategori }}"
 
                     onclick="openPhoto(this)">
 
