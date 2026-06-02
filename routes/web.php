@@ -10,12 +10,18 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\InformasiController;
+<<<<<<< HEAD
 use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController; // Tambahan untuk Controller Admin
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\FaktaUnikController;
 use App\Http\Controllers\Admin\WarisanGeologiController;
 use App\Http\Controllers\Admin\VideoYoutubeController;
 use App\Http\Controllers\DestinasiController; // Controller untuk Pengunjung
+=======
+use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController;
+use App\Http\Controllers\DestinasiController;
+use App\Http\Controllers\GaleriController as PublicGaleriController;
+>>>>>>> f8c5b90edf7bac11bcc353fae022529808cd722e
 use App\Http\Controllers\HomeController;
 
 
@@ -70,14 +76,7 @@ Route::get('/destinasi/culture-diversity', [DestinasiController::class, 'culture
 Route::get('/destinasi/{id}', [DestinasiController::class, 'show'])->name('destinasi.show');
 
 // GALERI
-Route::get('/galeri', function () {
-    $galeriByKategori = Galeri::where('status', true)
-        ->latest()
-        ->get()
-        ->groupBy('kategori');
-
-    return view('pages.galeri', compact('galeriByKategori'));
-})->name('galeri');
+Route::get('/galeri', [PublicGaleriController::class, 'index'])->name('galeri');
 
 // BERITA
 Route::get('/berita', function () {
@@ -177,4 +176,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // ini mengarah ke edit background galeri
     Route::post('galeri/{id}/set-hero', [GaleriController::class, 'setHero'])
         ->name('admin.galeri.set_hero');
+    Route::post('galeri/{id}/unset-hero', [GaleriController::class, 'unsetHero'])
+        ->name('admin.galeri.unset_hero');
 });

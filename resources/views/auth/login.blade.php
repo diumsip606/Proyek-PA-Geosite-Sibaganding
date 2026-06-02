@@ -27,7 +27,7 @@
             <div class="col-md-5">
                 <div class="card shadow">
                     <div class="card-header bg-dark text-white text-center">
-                        <h4 class="mb-0">🔐 Login Admin GeoToba</h4>
+                        <h4 class="mb-0">🔐 Login Admin Sibaganding</h4>
                     </div>
                     <div class="card-body">
                         @if(session('success'))

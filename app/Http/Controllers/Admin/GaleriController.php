@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Galeri;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -14,61 +15,66 @@ class GaleriController extends Controller
 {
     public function index()
     {
-        $galeris = Galeri::orderBy('created_at', 'desc')->paginate(10);
+        $galeris = Galeri::with('kategori')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         return view('admin.galeri.index', compact('galeris'));
     }
 
     public function create()
     {
-        return view('admin.galeri.create');
+        $kategoris = Kategori::orderBy('nama')->get();
+        return view('admin.galeri.create', compact('kategoris'));
     }
 
     public function store(Request $request)
     {
-        // Validasi
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'kategori' => 'required|in:Biodiversity,Geodiversity,Culture Diversity',
-            'deskripsi' => 'required|string',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'lokasi' => 'nullable|string',
-            'tanggal_foto' => 'nullable|date',
-            'status' => 'nullable|boolean',
-
+            'judul'        => 'required|string|max:255',
+            'kategori_id'  => 'required|exists:kategori,id',
+            'deskripsi'    => 'required|string',
+            'gambar'       => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'lokasi'       => 'nullable|string|max:255',
+            'status'       => 'nullable|boolean',
+            'is_hero'      => 'nullable|boolean',
         ]);
 
-        // Upload gambar
-        $gambar = $request->file('gambar');
-        $folder = Galeri::getPathByKategori($request->kategori);
-        $filename = time() . '_' . Str::slug($request->judul) . '.' . $gambar->getClientOriginalExtension();
-        $path = $gambar->storeAs($folder, $filename, 'public');
-        $gambarPath = str_replace('public/', 'storage/', $path);
+        // Ambil nama kategori untuk folder
+        $kategori  = Kategori::findOrFail($request->kategori_id);
+        $folder    = $this->getFolderByKategori($kategori->nama);
 
-        // Format tanggal_foto
-        $tanggal_foto = null;
-        if ($request->tanggal_foto) {
-            $tanggal_foto = Carbon::parse($request->tanggal_foto)->format('Y-m-d');
+        // Upload gambar
+        $gambar    = $request->file('gambar');
+        $filename  = time() . '_' . Str::slug($request->judul) . '.' . $gambar->getClientOriginalExtension();
+        $path      = $gambar->storeAs($folder, $filename, 'public');
+
+        $isHero = $request->has('is_hero') ? 1 : 0;
+        if ($isHero) {
+            Galeri::where('is_hero', true)->update(['is_hero' => false]);
         }
 
         // Simpan ke database
         Galeri::create([
-            'judul' => $request->judul,
-            'kategori' => $request->kategori,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => $gambarPath,
-            'lokasi' => $request->lokasi,
-            'tanggal_foto' => $tanggal_foto,
-            'status' => $request->has('status') ? 1 : 0,
+            'judul'       => $request->judul,
+            'slug'        => Str::slug($request->judul) . '-' . time(),
+            'kategori_id' => $request->kategori_id,
+            'deskripsi'   => $request->deskripsi,
+            'gambar'      => $path,
+            'lokasi'      => $request->lokasi ?? 'Geosite Sibaganding',
+            'status'      => $request->has('status') ? 1 : 0,
+            'is_hero'     => $isHero,
         ]);
 
         return redirect()->route('admin.galeri.index')
-            ->with('success', 'Galeri berhasil ditambahkan');
+            ->with('success', 'Galeri berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
-        $galeri = Galeri::findOrFail($id);
-        return view('admin.galeri.edit', compact('galeri'));
+        $galeri    = Galeri::with('kategori')->findOrFail($id);
+        $kategoris = Kategori::orderBy('nama')->get();
+        return view('admin.galeri.edit', compact('galeri', 'kategoris'));
     }
 
     public function update(Request $request, $id)
@@ -76,81 +82,105 @@ class GaleriController extends Controller
         $galeri = Galeri::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'kategori' => 'required|in:Biodiversity,Geodiversity,Culture Diversity',
-            'deskripsi' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'lokasi' => 'nullable|string',
-            'tanggal_foto' => 'nullable|date',
-            'status' => 'nullable|boolean'
+            'judul'       => 'required|string|max:255',
+            'kategori_id' => 'required|exists:kategori,id',
+            'deskripsi'   => 'required|string',
+            'gambar'      => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'lokasi'      => 'nullable|string|max:255',
+            'status'      => 'nullable|boolean',
+            'is_hero'     => 'nullable|boolean',
         ]);
 
-        // Format tanggal_foto
-        $tanggal_foto = null;
-        if ($request->tanggal_foto) {
-            $tanggal_foto = Carbon::parse($request->tanggal_foto)->format('Y-m-d');
+        $isHero = $request->has('is_hero') ? 1 : 0;
+        if ($isHero) {
+            Galeri::where('is_hero', true)->update(['is_hero' => false]);
         }
 
         $data = [
-            'judul' => $request->judul,
-            'kategori' => $request->kategori,
-            'deskripsi' => $request->deskripsi,
-            'lokasi' => $request->lokasi,
-            'tanggal_foto' => $tanggal_foto,
-            'status' => $request->has('status') ? 1 : 0,
+            'judul'       => $request->judul,
+            'slug'        => Str::slug($request->judul) . '-' . $galeri->id,
+            'kategori_id' => $request->kategori_id,
+            'deskripsi'   => $request->deskripsi,
+            'lokasi'      => $request->lokasi ?? 'Geosite Sibaganding',
+            'status'      => $request->has('status') ? 1 : 0,
+            'is_hero'     => $isHero,
         ];
 
         // Upload gambar baru jika ada
         if ($request->hasFile('gambar')) {
             // Hapus gambar lama
-            $oldPath = str_replace('storage/', 'public/', $galeri->gambar);
-            if (Storage::exists($oldPath)) {
-                Storage::delete($oldPath);
+            if ($galeri->gambar && Storage::disk('public')->exists($galeri->gambar)) {
+                Storage::disk('public')->delete($galeri->gambar);
             }
 
-            // Upload gambar baru
-            $gambar = $request->file('gambar');
-            $folder = Galeri::getPathByKategori($request->kategori);
-            $filename = time() . '_' . Str::slug($request->judul) . '.' . $gambar->getClientOriginalExtension();
-            $path = $gambar->storeAs($folder, $filename, 'public');
-            $data['gambar'] = str_replace('public/', 'storage/', $path);
+            $kategori        = Kategori::findOrFail($request->kategori_id);
+            $folder          = $this->getFolderByKategori($kategori->nama);
+            $gambar          = $request->file('gambar');
+            $filename        = time() . '_' . Str::slug($request->judul) . '.' . $gambar->getClientOriginalExtension();
+            $data['gambar']  = $gambar->storeAs($folder, $filename, 'public');
         }
 
         $galeri->update($data);
 
         return redirect()->route('admin.galeri.index')
-            ->with('success', 'Galeri berhasil diupdate');
+            ->with('success', 'Galeri berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
         $galeri = Galeri::findOrFail($id);
 
-        // Hapus file gambar
-        $gambarPath = str_replace('storage/', 'public/', $galeri->gambar);
-        if (Storage::exists($gambarPath)) {
-            Storage::delete($gambarPath);
+        // Hapus file gambar dari storage
+        if ($galeri->gambar && Storage::disk('public')->exists($galeri->gambar)) {
+            Storage::disk('public')->delete($galeri->gambar);
         }
 
         $galeri->delete();
 
         return redirect()->route('admin.galeri.index')
-            ->with('success', 'Galeri berhasil dihapus');
+            ->with('success', 'Galeri berhasil dihapus!');
     }
 
-    //ini admin edit galeri utama untuk background
+    public function toggleStatus($id)
+    {
+        $galeri         = Galeri::findOrFail($id);
+        $galeri->status = !$galeri->status;
+        $galeri->save();
+
+        return redirect()->back()
+            ->with('success', 'Status galeri berhasil diubah!');
+    }
+
     public function setHero($id)
     {
-        // 1. Cari semua foto yang is_hero = true, lalu ubah jadi false (reset hero)
+        // Reset semua is_hero
         Galeri::where('is_hero', true)->update(['is_hero' => false]);
 
-        // 2. Cari foto yang baru dipilih, ubah is_hero jadi true
-        $galeri = Galeri::findOrFail($id);
+        // Set hero baru
+        $galeri          = Galeri::findOrFail($id);
         $galeri->is_hero = true;
         $galeri->save();
 
-        // 3. Kembali ke halaman admin dengan pesan sukses
         return redirect()->route('admin.galeri.index')
-            ->with('success', 'Gambar Hero berhasil diperbarui!');
+            ->with('success', 'Gambar hero halaman galeri berhasil diperbarui!');
+    }
+
+    public function unsetHero($id)
+    {
+        $galeri          = Galeri::findOrFail($id);
+        $galeri->is_hero = false;
+        $galeri->save();
+
+        return redirect()->route('admin.galeri.index')
+            ->with('success', 'Gambar hero berhasil dinonaktifkan!');
+    }
+
+    /**
+     * Helper: tentukan folder berdasarkan nama kategori
+     */
+    private function getFolderByKategori(string $namaKategori): string
+    {
+        $slug = Str::slug($namaKategori);
+        return "image/galeri/{$slug}";
     }
 }
