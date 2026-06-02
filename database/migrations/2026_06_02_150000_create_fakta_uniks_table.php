@@ -8,22 +8,21 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('informasi', function (Blueprint $table) {
+        Schema::create('fakta_uniks', function (Blueprint $table) {
             $table->id();
+            $table->string('nomor');
             $table->string('judul');
-            $table->string('slug')->nullable()->unique();
-            $table->longText('konten')->nullable();
-            $table->string('gambar')->nullable();
-            $table->string('kategori')->nullable();
-            $table->string('penulis')->nullable();
+            $table->text('deskripsi');
+            $table->string('tag')->nullable();
+            $table->double('x_koordinat')->default(50.0);
+            $table->double('y_koordinat')->default(50.0);
             $table->boolean('status')->default(true);
-            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('informasi');
+        Schema::dropIfExists('fakta_uniks');
     }
 };
