@@ -24,12 +24,15 @@ class BeritaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'judul' => 'required',
-            'konten' => 'required',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'tanggal_terbit' => 'required',
-        ]);
+       $request->validate([
+    'judul' => 'required',
+    'konten' => 'required',
+    'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+    'tanggal_terbit' => 'required',
+], [
+    'gambar.max' => 'Ukuran gambar maksimal 2MB!',
+    'gambar.required' => 'Gambar wajib diisi!',
+]);
 
         $gambar = $request->file('gambar');
         $namaGambar = time() . '_' . $gambar->getClientOriginalName();

@@ -68,6 +68,9 @@ Route::get('/destinasi/{id}', [DestinasiController::class, 'show'])->name('desti
 // GALERI
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
+//BERITA
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+
 // BERITA
 Route::get('/berita', function () {
     $berita = Berita::with('kategori')
