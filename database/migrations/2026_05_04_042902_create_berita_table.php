@@ -11,10 +11,15 @@ return new class extends Migration
         Schema::create('berita', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('slug')->nullable();
-            $table->text('deskripsi')->nullable();
+            $table->string('slug')->nullable()->unique();
+            $table->longText('konten')->nullable();
             $table->string('gambar')->nullable();
+            $table->unsignedBigInteger('kategori_id')->nullable();
+            $table->string('penulis')->nullable();
+            $table->date('tanggal_terbit')->nullable();
             $table->boolean('status')->default(true);
+            $table->integer('views')->default(0);
+            $table->integer('komentar')->default(0);
             $table->timestamps();
         });
     }

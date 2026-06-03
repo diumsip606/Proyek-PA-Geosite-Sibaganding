@@ -9,13 +9,12 @@ class Destinasi extends Model
     protected $casts = [
         'tags' => 'array',
     ];
-    
+
     protected $table = 'destinasi';
 
     protected $fillable = [
         'nama',
         'slug',
-        'kategori_id', 
         'lokasi',
         'deskripsi',
         'sejarah',
@@ -26,13 +25,12 @@ class Destinasi extends Model
         'gambar_utama'
     ];
 
-   
     public function kategori()
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
 
-    
+
 
     public function review()
     {

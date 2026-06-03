@@ -10,10 +10,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\InformasiController;
-use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController;
-use App\Http\Controllers\DestinasiController;
-use App\Http\Controllers\GaleriController as PublicGaleriController;
 use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -154,6 +152,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('galeri', GaleriController::class)->names('admin.galeri');
     Route::resource('berita', BeritaController::class)->names('admin.berita');
     Route::resource('informasi', InformasiController::class)->names('admin.informasi');
+    Route::resource('hero-slider', HeroSliderController::class)->names('admin.hero-slider');
+    Route::resource('fakta-unik', FaktaUnikController::class)->names('admin.fakta-unik');
+    Route::resource('warisan-geologi', WarisanGeologiController::class)->names('admin.warisan-geologi');
+    Route::resource('video-youtube', VideoYoutubeController::class)->names('admin.video-youtube');
 
     // Rute untuk Admin Destinasi
     Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');

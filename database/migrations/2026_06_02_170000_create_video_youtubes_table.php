@@ -8,22 +8,19 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('informasi', function (Blueprint $table) {
+        Schema::create('video_youtubes', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('slug')->nullable()->unique();
-            $table->longText('konten')->nullable();
-            $table->string('gambar')->nullable();
-            $table->string('kategori')->nullable();
-            $table->string('penulis')->nullable();
+            $table->text('deskripsi');
+            $table->string('youtube_id');
+            $table->integer('urutan')->default(1);
             $table->boolean('status')->default(true);
-            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('informasi');
+        Schema::dropIfExists('video_youtubes');
     }
 };

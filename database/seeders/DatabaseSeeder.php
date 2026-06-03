@@ -12,8 +12,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             KategoriSeeder::class,
             GaleriSeeder::class,
-#            BeritaSeeder::class,
-#            InformasiSeeder::class,
+            HeroSliderSeeder::class,
+            FaktaUnikSeeder::class,
+            WarisanGeologiSeeder::class,
+            VideoYoutubeSeeder::class,
+            BeritaSeeder::class,
+            InformasiSeeder::class,
         ]);
     }
 }

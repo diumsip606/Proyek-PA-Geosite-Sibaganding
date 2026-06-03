@@ -8,22 +8,22 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('informasi', function (Blueprint $table) {
+        Schema::create('warisan_geologis', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
-            $table->string('slug')->nullable()->unique();
-            $table->longText('konten')->nullable();
-            $table->string('gambar')->nullable();
-            $table->string('kategori')->nullable();
-            $table->string('penulis')->nullable();
+            $table->string('sub_judul');
+            $table->text('deskripsi');
+            $table->string('gambar');
+            $table->string('card_angka');
+            $table->string('card_teks');
+            $table->integer('urutan')->default(1);
             $table->boolean('status')->default(true);
-            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('informasi');
+        Schema::dropIfExists('warisan_geologis');
     }
 };

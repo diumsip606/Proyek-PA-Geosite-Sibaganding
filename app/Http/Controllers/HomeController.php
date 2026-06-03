@@ -4,35 +4,55 @@ namespace App\Http\Controllers;
 
 use App\Models\Galeri;
 use App\Models\Berita;
+use App\Models\HeroSlider;
+use App\Models\FaktaUnik;
+use App\Models\WarisanGeologi;
+use App\Models\VideoYoutube;
 
 class HomeController extends Controller
 {
-   public function index()
-{
-    $galeri = Galeri::where('status', true)->latest()->take(6)->get();
-    $berita = Berita::with('kategori')->where('status', true)->latest()->take(3)->get();
-    
-    $destinasi = [
-        (object)[
-            'slug' => 'meat',
-            'nama' => 'Meat',
-            'gambar' => '/images/meat/thumbnail.jpg',
-            'deskripsi' => 'Desa adat dengan makam Raja Hunsa dan budaya Batak'
-        ],
-        (object)[
-            'slug' => 'batu-bahisan',
-            'nama' => 'Batu Bahisan',
-            'gambar' => '/images/batu-bahisan/thumbnail.jpg',
-            'deskripsi' => 'Formasi batuan unik dengan spot foto Instagramable'
-        ],
-        (object)[
-            'slug' => 'liang-sipege',
-            'nama' => 'Liang Sipege',
-            'gambar' => '/images/liang-sipege/thumbnail.jpg',
-            'deskripsi' => 'Goa alami dengan stalaktit dan stalakmit'
-        ]
-    ];
-    
-    return view('pages.home', compact('galeri', 'berita', 'destinasi'));
+    public function index()
+    {
+        $sliders = HeroSlider::where('status', true)->orderBy('urutan', 'asc')->get();
+        $faktaUniks = FaktaUnik::where('status', true)->orderBy('nomor', 'asc')->get();
+        $warisanGeologis = WarisanGeologi::where('status', true)->orderBy('urutan', 'asc')->get();
+        $videoYoutubes = VideoYoutube::where('status', true)->orderBy('urutan', 'asc')->get();
+
+        // Ambil galeri keindahan terbaru (maks 10 untuk slider beranda)
+        $galeri = Galeri::where('status', true)->latest()->take(10)->get();
+
+        // Ambil berita terkini terbaru (maks 4 untuk slider beranda)
+        $berita = Berita::with('kategori')->where('status', true)->latest()->take(4)->get();
+        
+        $destinasi = [
+            (object)[
+                'slug' => 'meat',
+                'nama' => 'Meat',
+                'gambar' => '/images/meat/thumbnail.jpg',
+                'deskripsi' => 'Desa adat dengan makam Raja Hunsa dan budaya Batak'
+            ],
+            (object)[
+                'slug' => 'batu-bahisan',
+                'nama' => 'Batu Bahisan',
+                'gambar' => '/images/batu-bahisan/thumbnail.jpg',
+                'deskripsi' => 'Formasi batuan unik dengan spot foto Instagramable'
+            ],
+            (object)[
+                'slug' => 'liang-sipege',
+                'nama' => 'Liang Sipege',
+                'gambar' => '/images/liang-sipege/thumbnail.jpg',
+                'deskripsi' => 'Goa alami dengan stalaktit dan stalakmit'
+            ]
+        ];
+        
+        return view('pages.home', compact(
+            'sliders', 
+            'faktaUniks', 
+            'warisanGeologis', 
+            'videoYoutubes', 
+            'galeri', 
+            'berita', 
+            'destinasi'
+        ));
     }
 }
