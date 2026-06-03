@@ -7,8 +7,8 @@
 <style>
     /* ==================== HERO SECTION ==================== */
     .kategori-hero {
-    height: 60vh;
-    min-height: 450px;
+    height: 50vh;
+    min-height: 350px;
     position: relative;
     overflow: hidden;
     margin-top: 0;
@@ -98,7 +98,7 @@
 
     .hero-content h1 {
     font-family: 'Cinzel', serif;
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: 700;
     margin-bottom: 15px;
     letter-spacing: 6px;
@@ -124,7 +124,7 @@
 
     .hero-content p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
+    font-size: 1rem;
     width: 100%;
     margin: 0 auto;
     opacity: 0.9;
@@ -138,7 +138,7 @@
 
     /* ==================== DESTINASI GRID ==================== */
     .destinasi-section {
-        padding: 80px 0;
+        padding: 150px 0;
         background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
     }
 
@@ -323,7 +323,10 @@
 </style>
 
 <!-- ==================== HERO SECTION ==================== -->
-<section class="kategori-hero">
+<section class="kategori-hero"
+    @if($heroImage)
+        style="background: linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url('{{ asset('storage/' . $heroImage) }}') center/cover no-repeat;"
+    @endif>
     <a href="{{ url('/destinasi') }}" class="back-btn">
         <i class="fas fa-arrow-left"></i> Kembali
     </a>

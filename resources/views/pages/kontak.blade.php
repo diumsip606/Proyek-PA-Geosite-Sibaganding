@@ -811,7 +811,10 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> ddafec209b7e57a92d5944653725b660b0415adb
         <!-- PENGURUS/TEAM SECTION -->
         <div class="team-section mb-5" data-aos="fade-up">
             <div class="team-title">

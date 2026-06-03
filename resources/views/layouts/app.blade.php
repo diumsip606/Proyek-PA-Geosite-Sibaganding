@@ -449,15 +449,22 @@
     align-items: flex-start;
 }
 
-.footer-brand h3 {
-    font-size: 1.5rem;
-    color: #fff;
-    margin-bottom: 18px;
+.footer-brand .footer-logo-brand {
+    font-size: 1.65rem;
     font-weight: 800;
+    color: white !important;
+    margin: 0 0 18px 0;
+    padding: 0 0 0 6px;
+    letter-spacing: -0.3px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    display: block;
+    text-decoration: none;
+    line-height: 1.2;
 }
 
-.footer-brand h3 span {
-    color: #c6a43b;
+.footer-brand .footer-logo-brand span {
+    color: #fdf7e3;
+    font-weight: 800;
 }
 
 .footer-brand p {
@@ -870,7 +877,7 @@
         <div class="footer-grid">
 
             <div class="footer-brand">
-                <h3>Geo<span>Toba</span></h3>
+                <a class="footer-logo-brand" href="{{ url('/') }}">Geosite<br><span>Sibaganding</span></a>
                 <p>
                     Sistem Informasi Geosite Danau Toba — menyajikan informasi lengkap
                     tentang keindahan geologi, budaya Batak, dan pesona Sibaganding.
@@ -953,7 +960,7 @@
         </div>
 
         <div class="footer-bottom">
-            <p>© 2026 GeoToba — Geopark Danau Toba. All rights reserved.</p>
+            <p>© 2026 Geosite Sibaganding — Geopark Danau Toba. All rights reserved.</p>
         </div>
     </div>
 </footer>

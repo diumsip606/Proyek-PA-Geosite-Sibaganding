@@ -46,7 +46,6 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
-        // Pengurus untuk Beranda
         $pengurus = Informasi::where('kategori', 'Pengurus')
             ->where('status', true)
             ->latest()

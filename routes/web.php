@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController;
 use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\InformasiController;
+use App\Http\Controllers\Admin\KontakInfoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\WarisanGeologiController;
 use App\Http\Controllers\Admin\FaktaUnikController;
@@ -56,9 +57,7 @@ Route::get('/lang/{lang}', function ($lang) {
 // HOME
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// INFORMASI
 Route::get('/informasi', function () {
-
     $informasi = Informasi::where('status', true)
         ->where('kategori', '!=', 'Pengurus')
         ->latest()
@@ -130,10 +129,7 @@ Route::get('/budaya', [HomeController::class, 'budaya'])->name('budaya');
 
 // KONTAK
 Route::get('/kontak', function () {
-    $pengurus = Informasi::where('kategori', 'Pengurus')
-        ->where('status', true)
-        ->latest()
-        ->get();
+    $pengurus = \App\Models\Informasi::where('kategori', 'Pengurus')->where('status', true)->get();
 
     $kontakInfos = \App\Models\KontakInfo::active()
         ->orderBy('urutan')
