@@ -11,6 +11,7 @@ class FaktaUnikController extends Controller
     public function index()
     {
         $faktas = FaktaUnik::orderBy('nomor', 'asc')->paginate(10);
+
         return view('admin.fakta-unik.index', compact('faktas'));
     }
 
@@ -38,16 +39,18 @@ class FaktaUnikController extends Controller
             'tag' => $request->tag,
             'x_koordinat' => $request->x_koordinat,
             'y_koordinat' => $request->y_koordinat,
-            'status' => $request->has('status') ? true : false,
+            'status' => $request->has('status') ? 1 : 0,
         ]);
 
-        return redirect()->route('admin.fakta-unik.index')
+        return redirect()
+            ->route('admin.fakta-unik.index')
             ->with('success', 'Titik Fakta Unik berhasil ditambahkan.');
     }
 
     public function edit($id)
     {
         $fakta = FaktaUnik::findOrFail($id);
+
         return view('admin.fakta-unik.edit', compact('fakta'));
     }
 
@@ -72,10 +75,11 @@ class FaktaUnikController extends Controller
             'tag' => $request->tag,
             'x_koordinat' => $request->x_koordinat,
             'y_koordinat' => $request->y_koordinat,
-            'status' => $request->has('status') ? true : false,
+            'status' => $request->has('status') ? 1 : 0,
         ]);
 
-        return redirect()->route('admin.fakta-unik.index')
+        return redirect()
+            ->route('admin.fakta-unik.index')
             ->with('success', 'Titik Fakta Unik berhasil diperbarui.');
     }
 
@@ -84,7 +88,8 @@ class FaktaUnikController extends Controller
         $fakta = FaktaUnik::findOrFail($id);
         $fakta->delete();
 
-        return redirect()->route('admin.fakta-unik.index')
+        return redirect()
+            ->route('admin.fakta-unik.index')
             ->with('success', 'Titik Fakta Unik berhasil dihapus.');
     }
 }

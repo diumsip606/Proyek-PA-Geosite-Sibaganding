@@ -322,9 +322,10 @@
             <a href="{{ route('admin.fakta-unik.index') }}" class="{{ request()->routeIs('admin.fakta-unik.*') ? 'active' : '' }}">
                 <i class="fas fa-map-pin"></i> Fakta Unik (10 Titik)
             </a>
-            <a href="{{ route('admin.warisan-geologi.index') }}" class="{{ request()->routeIs('admin.warisan-geologi.*') ? 'active' : '' }}">
-                <i class="fas fa-landmark"></i> Warisan Geologi
-            </a>
+  <a href="{{ route('admin.warisan-geologi.index') }}" class="{{ request()->routeIs('admin.warisan-geologi.*') ? 'active' : '' }}">
+    <i class="fas fa-landmark"></i> Warisan Geologi
+</a>
+
             <a href="{{ route('admin.video-youtube.index') }}" class="{{ request()->routeIs('admin.video-youtube.*') ? 'active' : '' }}">
                 <i class="fab fa-youtube"></i> Video Youtube
             </a>
