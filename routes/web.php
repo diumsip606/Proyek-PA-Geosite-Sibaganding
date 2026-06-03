@@ -14,10 +14,6 @@ use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\WarisanGeologiController;
-use App\Http\Controllers\Admin\FaktaUnikController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -111,8 +107,27 @@ Route::get('/budaya', [HomeController::class, 'budaya'])->name('budaya');
 
 // KONTAK
 Route::get('/kontak', function () {
-    return view('pages.kontak');
+    $kontakInfos = \App\Models\KontakInfo::active()
+        ->orderBy('urutan')
+        ->get()
+        ->groupBy('tipe');
+
+    $alamat = $kontakInfos->get('alamat', collect());
+    $telepon = $kontakInfos->get('telepon', collect());
+    $email = $kontakInfos->get('email', collect());
+    $sosialMedia = $kontakInfos->get('sosial_media', collect());
+    $jamOperasional = $kontakInfos->get('jam_operasional', collect());
+
+    return view('pages.kontak', compact(
+        'alamat',
+        'telepon',
+        'email',
+        'sosialMedia',
+        'jamOperasional'
+    ));
 })->name('kontak');
+Route::post('/kontak', [\App\Http\Controllers\PesanController::class, 'store'])->name('kontak.store');
+
 
 
 /*
@@ -144,14 +159,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         $totalGaleri = Galeri::count();
         $totalBerita = Berita::count();
         $totalInformasi = Informasi::count();
-        $totalDestinasi = \App\Models\Destinasi::count();
-        $totalViews = \App\Models\Visitor::count();
+        $totalViews = 0;
 
         return view('admin.dashboard', compact(
             'totalGaleri',
             'totalBerita',
             'totalInformasi',
-            'totalDestinasi',
             'totalViews'
         ));
     })->name('admin.dashboard');
@@ -169,7 +182,14 @@ Route::resource('fakta-unik', FaktaUnikController::class)->names('admin.fakta-un
     // Rute untuk Admin Destinasi
     Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
 
-    Route::post('galeri/toggle-status/{id}', [AdminGaleriController::class, 'toggleStatus'])
+    Route::post('galeri/toggle-status/{id}', [AdminGaleriController::class, 'toggleStatus']);
+    // Rute untuk Admin Pesan (Pesan Masuk)
+    Route::resource('pesan', \App\Http\Controllers\Admin\PesanController::class)->names('admin.pesan');
+
+    // Rute untuk Admin Info Kontak
+    Route::resource('kontak-info', KontakInfoController::class)->names('admin.kontak-info');
+
+    Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])
         ->name('admin.galeri.toggle-status');
 
     // ini mengarah ke edit background galeri

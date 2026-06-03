@@ -248,48 +248,7 @@
             backdrop-filter: blur(8px);
         }
 
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            column-gap: 8px;
-        }
 
-        .search-input {
-            width: 130px;
-            height: 42px;
-            padding: 0 14px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.4);
-            background: rgba(255,255,255,0.1);
-            color: white;
-            outline: none;
-            font-size: 0.9rem;
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
-
-        .search-input::placeholder {
-            color: rgba(255,255,255,0.8);
-        }
-
-        .search-input:focus {
-            background: rgba(255,255,255,0.2);
-            border-color: #f0b323;
-            width: 160px; /* Sedikit memanjang saat diklik */
-        }
-
-        .search-btn {
-            width: 42px;
-            height: 42px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,255,255,0.4);
-            background: rgba(255,255,255,0.1) !important;
-            color: white !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(8px);
-        }
 
         /* DROPDOWN MENU */
         .dropdown-toggle::after {
@@ -362,12 +321,7 @@
                 align-items: flex-start !important;
                 gap: 15px !important;
             }
-            .search-wrapper {
-                width: 100%;
-            }
-            .search-input {
-                width: 100%;
-            }
+
         }
 
         /* MUSIC BUTTON & TOOLTIP CONTAINER */
@@ -668,7 +622,42 @@
     }
 
     .footer-map-box {
-        height: 220px;
+    }
+
+    /* HEADER RESPONSIVENESS FIXES */
+    @media (max-width: 992px) {
+        .logo-img {
+            height: 48px !important;
+        }
+        .logo-divider {
+            height: 32px !important;
+        }
+        .navbar-brand {
+            font-size: 1.35rem !important;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .navbar {
+            padding: 10px 0 !important;
+        }
+        .logo-wrapper {
+            gap: 8px !important;
+        }
+        .logo-img {
+            height: 38px !important;
+            border-radius: 8px !important;
+        }
+        .logo-divider {
+            height: 26px !important;
+        }
+        .navbar-brand {
+            font-size: 1.05rem !important;
+            line-height: 1.2 !important;
+        }
+        .footer-social {
+            justify-content: center;
+        }
     }
     </style>
 
@@ -743,13 +732,7 @@
                         </ul>
                     </div>
 
-                    <div class="search-wrapper">
-                        <input type="text" id="searchInput" class="search-input" placeholder="Cari..." autocomplete="off" list="searchHistoryList">
-                        <datalist id="searchHistoryList"></datalist>
-                        <button class="search-btn" type="button" id="searchBtn">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -846,39 +829,7 @@
             });
         });
 
-        // Search Script
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchInput = document.getElementById('searchInput');
-            const searchBtn = document.getElementById('searchBtn');
-            const historyList = document.getElementById('searchHistoryList');
-            let searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
 
-            function renderHistory() {
-                historyList.innerHTML = '';
-                searchHistory.slice(-5).reverse().forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    historyList.appendChild(option);
-                });
-            }
-
-            function saveSearch() {
-                const keyword = searchInput.value.trim();
-                if (keyword === '') return;
-                searchHistory = searchHistory.filter(item => item !== keyword);
-                searchHistory.push(keyword);
-                if (searchHistory.length > 5) searchHistory.shift();
-                localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-                renderHistory();
-                window.location.href = `/search?q=${encodeURIComponent(keyword)}`;
-            }
-
-            searchBtn.addEventListener('click', saveSearch);
-            searchInput.addEventListener('keydown', function (e) {
-                if (e.key === 'Enter') saveSearch();
-            });
-            renderHistory();
-        });
 
         // Translate Scripts
         function setLang(lang) {
@@ -926,10 +877,18 @@
                 </p>
 
                 <div class="footer-social">
-                    <a href="#">f</a>
-                    <a href="#">t</a>
-                    <a href="#">ig</a>
-                    <a href="#">yt</a>
+                    @if(isset($sosialMedia) && $sosialMedia->count() > 0)
+                        @foreach($sosialMedia as $item)
+                            <a href="{{ $item->nilai }}" target="_blank" title="{{ $item->label ?? '' }}">
+                                <i class="{{ $item->icon ?? 'fas fa-link' }}"></i>
+                            </a>
+                        @endforeach
+                    @else
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    @endif
                 </div>
             </div>
 
@@ -952,9 +911,29 @@
 
             <div class="footer-contact">
                 <h4>Kontak</h4>
-                <p><span>📍</span> Danau Toba, Sumatera Utara</p>
-                <p><span>☎</span> +62 812 3456 7890</p>
-                <p><span>✉</span> info@geotoba.com</p>
+                @if(isset($alamat) && $alamat->count() > 0)
+                    @foreach($alamat as $item)
+                        <p><span>📍</span> {{ $item->nilai }}</p>
+                    @endforeach
+                @else
+                    <p><span>📍</span> Danau Toba, Sumatera Utara</p>
+                @endif
+
+                @if(isset($telepon) && $telepon->count() > 0)
+                    @foreach($telepon as $item)
+                        <p><span>☎</span> {{ $item->nilai }}{{ $item->label ? ' (' . $item->label . ')' : '' }}</p>
+                    @endforeach
+                @else
+                    <p><span>☎</span> +62 812 3456 7890</p>
+                @endif
+
+                @if(isset($email) && $email->count() > 0)
+                    @foreach($email as $item)
+                        <p><span>✉</span> {{ $item->nilai }}</p>
+                    @endforeach
+                @else
+                    <p><span>✉</span> info@geotoba.com</p>
+                @endif
 
                 <a href="{{ url('/kontak') }}" class="footer-contact-btn">Hubungi Kami</a>
             </div>

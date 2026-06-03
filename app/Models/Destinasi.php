@@ -25,7 +25,7 @@ class Destinasi extends Model
         'rute',
         'maps',
         'qr',
-        'gambar_utama'
+        'gambar'
     ];
 
     public function kategori()
