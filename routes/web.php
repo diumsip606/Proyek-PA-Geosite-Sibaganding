@@ -169,12 +169,12 @@ Route::resource('fakta-unik', FaktaUnikController::class)->names('admin.fakta-un
     // Rute untuk Admin Destinasi
     Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
 
-    Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])
+    Route::post('galeri/toggle-status/{id}', [AdminGaleriController::class, 'toggleStatus'])
         ->name('admin.galeri.toggle-status');
 
     // ini mengarah ke edit background galeri
-    Route::post('galeri/{id}/set-hero', [GaleriController::class, 'setHero'])
+    Route::post('galeri/{id}/set-hero', [AdminGaleriController::class, 'setHero'])
         ->name('admin.galeri.set_hero');
-    Route::post('galeri/{id}/unset-hero', [GaleriController::class, 'unsetHero'])
+    Route::post('galeri/{id}/unset-hero', [AdminGaleriController::class, 'unsetHero'])
         ->name('admin.galeri.unset_hero');
 });
