@@ -5,25 +5,31 @@
 @section('content')
 <!-- Stats Row -->
 <div class="row g-3">
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md">
+        <div class="stat-card">
+            <div class="stat-number">{{ $totalDestinasi ?? 0 }}</div>
+            <div class="stat-label">Total Destinasi</div>
+        </div>
+    </div>
+    <div class="col-6 col-md">
         <div class="stat-card">
             <div class="stat-number">{{ $totalGaleri ?? 0 }}</div>
             <div class="stat-label">Total Galeri</div>
         </div>
     </div>
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md">
         <div class="stat-card">
             <div class="stat-number">{{ $totalBerita ?? 0 }}</div>
             <div class="stat-label">Total Berita</div>
         </div>
     </div>
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md">
         <div class="stat-card">
             <div class="stat-number">{{ $totalInformasi ?? 0 }}</div>
             <div class="stat-label">Total Informasi</div>
         </div>
     </div>
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md">
         <div class="stat-card">
             <div class="stat-number">{{ number_format($totalViews ?? 0) }}</div>
             <div class="stat-label">Total Views</div>
@@ -55,9 +61,11 @@
 
 <!-- Quick Actions -->
 <div class="action-buttons">
+    <a href="{{ route('admin.destinasi.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Destinasi</a>
     <a href="{{ route('admin.galeri.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Galeri</a>
     <a href="{{ route('admin.berita.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Berita</a>
     <a href="{{ route('admin.informasi.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Informasi</a>
+    <a href="{{ url('/destinasi') }}" target="_blank" class="action-btn"><i class="fas fa-globe"></i> Hal. Destinasi</a>
     <a href="{{ url('/') }}" target="_blank" class="action-btn"><i class="fas fa-globe"></i> Website</a>
 </div>
 @endsection

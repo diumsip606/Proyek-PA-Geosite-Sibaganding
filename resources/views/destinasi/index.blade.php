@@ -517,7 +517,7 @@
 
 <!-- ==================== HERO SECTION ==================== -->
 <section class="destinasi-hero">
-    <div class="hero-background"></div>
+    <div class="hero-background" style="background-image: url('{{ $heroImage ? asset('storage/' . $heroImage) : '/image/destinasi-hero.jpg' }}');"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
         <span class="hero-badge" data-aos="fade-up">EXPLORE THE GEOSITE</span>
@@ -546,7 +546,7 @@
             <!-- Biodiversity -->
             <div class="category-card" data-aos="fade-up" data-aos-delay="0">
                 <div class="card-image">
-                    <img src="/image/destinasi/bbiodiversity.jpg" alt="biodiversity">
+                    <img src="{{ $bioImage ? asset('storage/' . $bioImage) : '/image/destinasi/bbiodiversity.jpg' }}" alt="biodiversity">
                     <div class="card-overlay"></div>
                     <span class="card-badge"><i class="fas fa-tag"></i> NATURE</span>
                 </div>
@@ -564,7 +564,7 @@
             <!-- Geodiversity -->
             <div class="category-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="card-image">
-                    <img src="/image/destinasi/geodiversity.jpg" alt="geodiversity">
+                    <img src="{{ $geoImage ? asset('storage/' . $geoImage) : '/image/destinasi/geodiversity.jpg' }}" alt="geodiversity">
                     <div class="card-overlay"></div>
                     <span class="card-badge"><i class="fas fa-tag"></i> URBAN</span>
                 </div>
@@ -582,7 +582,7 @@
             <!-- Culturediversity -->
             <div class="category-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="card-image">
-                    <img src="/image/destinasi/culturediversity.jpg" alt="culturediversity">
+                    <img src="{{ $cultureImage ? asset('storage/' . $cultureImage) : '/image/destinasi/culturediversity.jpg' }}" alt="culturediversity">
                     <div class="card-overlay"></div>
                     <span class="card-badge"><i class="fas fa-tag"></i> HERITAGE</span>
                 </div>

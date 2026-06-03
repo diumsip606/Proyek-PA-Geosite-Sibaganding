@@ -6,18 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Destinasi extends Model
 {
-<<<<<<< HEAD
-    
-=======
     protected $casts = [
-        'tags' => 'array', // Memaksa kolom tags selalu menjadi array (jika null, akan jadi array kosong [])
+        'tags' => 'array',
     ];
     
-    // Tambahkan baris ini agar semua data dari form diizinkan masuk ke database
-    protected $guarded = ['id'];
-
-    // Menggunakan nama tabel tanpa 's'
->>>>>>> f1bbeaed70d0aefc023c8947757b26e86d54fad2
     protected $table = 'destinasi';
 
     protected $fillable = [
@@ -31,7 +23,7 @@ class Destinasi extends Model
         'rute',
         'maps',
         'qr',
-        'gambar'
+        'gambar_utama'
     ];
 
    
@@ -41,10 +33,6 @@ class Destinasi extends Model
     }
 
     
-    public function galeri()
-    {
-        return $this->hasMany(Galeri::class);
-    }
 
     public function review()
     {

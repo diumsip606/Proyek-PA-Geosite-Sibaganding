@@ -139,12 +139,14 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         $totalGaleri = Galeri::count();
         $totalBerita = Berita::count();
         $totalInformasi = Informasi::count();
-        $totalViews = 0;
+        $totalDestinasi = \App\Models\Destinasi::count();
+        $totalViews = \App\Models\Visitor::count();
 
         return view('admin.dashboard', compact(
             'totalGaleri',
             'totalBerita',
             'totalInformasi',
+            'totalDestinasi',
             'totalViews'
         ));
     })->name('admin.dashboard');
