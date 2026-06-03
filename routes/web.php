@@ -7,10 +7,14 @@ use App\Models\Galeri;
 use App\Models\Berita;
 use App\Models\Kategori;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
+use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController;
+use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\HomeController;
+
 
 
 /*
@@ -64,7 +68,7 @@ Route::get('/destinasi/culture-diversity', [DestinasiController::class, 'culture
 Route::get('/destinasi/{id}', [DestinasiController::class, 'show'])->name('destinasi.show');
 
 // GALERI
-Route::get('/galeri', [PublicGaleriController::class, 'index'])->name('galeri');
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
 // BERITA
 Route::get('/berita', function () {
@@ -149,7 +153,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         ));
     })->name('admin.dashboard');
 
-    Route::resource('galeri', GaleriController::class)->names('admin.galeri');
+    Route::resource('galeri', AdminGaleriController::class)->names('admin.galeri');
     Route::resource('berita', BeritaController::class)->names('admin.berita');
     Route::resource('informasi', InformasiController::class)->names('admin.informasi');
     Route::resource('hero-slider', HeroSliderController::class)->names('admin.hero-slider');
