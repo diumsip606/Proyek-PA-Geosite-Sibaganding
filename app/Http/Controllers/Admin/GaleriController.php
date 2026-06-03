@@ -175,12 +175,9 @@ class GaleriController extends Controller
             ->with('success', 'Gambar hero berhasil dinonaktifkan!');
     }
 
-    /**
-     * Helper: tentukan folder berdasarkan nama kategori
-     */
-    private function getFolderByKategori(string $namaKategori): string
-    {
-        $slug = Str::slug($namaKategori);
-        return "image/galeri/{$slug}";
-    }
+   private function getFolderByKategori(string $namaKategori): string
+{
+    $slug = Str::slug($namaKategori);
+    return "galeri/{$slug}";
+}
 }

@@ -13,17 +13,38 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $sliders = HeroSlider::where('status', true)->orderBy('urutan', 'asc')->get();
-        $faktaUniks = FaktaUnik::where('status', true)->orderBy('nomor', 'asc')->get();
-        $warisanGeologis = WarisanGeologi::where('status', true)->orderBy('urutan', 'asc')->get();
-        $videoYoutubes = VideoYoutube::where('status', true)->orderBy('urutan', 'asc')->get();
+        $sliders = HeroSlider::where('status', true)
+            ->orderBy('urutan', 'asc')
+            ->get();
 
-        // Ambil galeri keindahan terbaru (maks 10 untuk slider beranda)
-        $galeri = Galeri::where('status', true)->latest()->take(10)->get();
+        $faktaUniks = FaktaUnik::where('status', true)
+            ->orderBy('nomor', 'asc')
+            ->get();
 
-        // Ambil berita terkini terbaru (maks 4 untuk slider beranda)
-        $berita = Berita::with('kategori')->where('status', true)->latest()->take(4)->get();
-        
+        $warisanGeologis = WarisanGeologi::where('status', true)
+            ->orderBy('urutan', 'asc')
+            ->get();
+
+        $videoYoutubes = VideoYoutube::where('status', true)
+            ->orderBy('urutan', 'asc')
+            ->get();
+
+        // Galeri untuk section Galeri Keindahan di Beranda
+        $galeriPreview = Galeri::where('status', true)
+            ->latest()
+            ->take(10)
+            ->get();
+
+        // Kalau masih ada bagian lain yang pakai variabel $galeri, samakan isinya
+        $galeri = $galeriPreview;
+
+        // Berita terkini untuk Beranda
+        $berita = Berita::with('kategori')
+            ->where('status', true)
+            ->latest()
+            ->take(4)
+            ->get();
+
         $destinasi = [
             (object)[
                 'slug' => 'meat',
@@ -44,14 +65,15 @@ class HomeController extends Controller
                 'deskripsi' => 'Goa alami dengan stalaktit dan stalakmit'
             ]
         ];
-        
+
         return view('pages.home', compact(
-            'sliders', 
-            'faktaUniks', 
-            'warisanGeologis', 
-            'videoYoutubes', 
-            'galeri', 
-            'berita', 
+            'sliders',
+            'faktaUniks',
+            'warisanGeologis',
+            'videoYoutubes',
+            'galeriPreview',
+            'galeri',
+            'berita',
             'destinasi'
         ));
     }

@@ -3133,38 +3133,54 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 
         <div class="gallery-slider" data-aos="fade-up">
             <div class="gallery-track" id="galleryTrack">
-                @forelse($galeri as $i => $item)
-                <div class="gallery-card">
-                    @php
-                        $gambarGaleri = $item->gambar
-                            ? (str_starts_with($item->gambar, '/') || str_starts_with($item->gambar, 'http') || str_starts_with($item->gambar, 'storage/')
-                                ? asset($item->gambar)
-                                : asset('storage/' . $item->gambar))
-                            : asset('images/galleri-'.($i+1).'.jpg');
-                    @endphp
-                    <img src="{{ $gambarGaleri }}" alt="{{ $item->judul ?? 'Galeri '.($i+1) }}">
-                    <div class="gallery-caption">
-                        <span>{{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}</span>
-                        <h4>{{ $item->judul ?? 'Keindahan Sibaganding' }}</h4>
-                    </div>
-                </div>
-                @empty
+              @forelse($galeri as $i => $item)
+<div class="gallery-card">
+   @php
+    $rawGambar = $item->gambar ? ltrim($item->gambar, '/') : null;
+
+    if ($rawGambar) {
+        if (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
+            $gambarGaleri = $rawGambar;
+        } elseif (str_starts_with($rawGambar, 'storage/')) {
+            $gambarGaleri = asset($rawGambar);
+        } else {
+            $gambarGaleri = asset('storage/' . $rawGambar);
+        }
+    } else {
+        $gambarGaleri = asset('images/sibaganding1.JPG');
+    }
+@endphp
+
+
+<img 
+    src="{{ $gambarGaleri }}" 
+    alt="{{ $item->judul ?? 'Galeri '.($i+1) }}"
+    onerror="this.onerror=null; this.src='{{ asset('images/sibaganding1.JPG') }}';"
+>
+
+    <div class="gallery-caption">
+        <span>{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+        <h4>{{ $item->judul ?? 'Keindahan Sibaganding' }}</h4>
+    </div>
+</div>
+@empty
                 {{-- 10 gambar default menggunakan galleri-1 s/d galleri-10 yang sudah ada --}}
-                @php
-                    $galeriTitles = [
-                        1 => 'Monyet Ekor Panjang Sibaganding',
-                        2 => 'Batu Gantung',
-                        3 => 'Legenda Batu Gantung',
-                        4 => 'Panorama Danau Toba',
-                        5 => 'Hutan Pinus Sibaganding',
-                        6 => 'Budaya Batak Lokal',
-                        7 => 'Kaldera Toba dari Ketinggian',
-                        8 => 'Sumber Mata Air Alami',
-                        9 => 'Tradisi Pertanian Lokal',
-                        10 => 'Tebing Geologi Sibaganding',
-                    ];
-                    $galeriExts = [1=>'jpg',2=>'JPG',3=>'jpg',4=>'jpg',5=>'JPG',6=>'JPG',7=>'JPG',8=>'JPG',9=>'jpg',10=>'jpg'];
-                @endphp
+               @php
+    $defaultGallery = [
+        0 => asset('images/galleri-1.jpg'),
+        1 => asset('images/galleri-2.JPG'),
+        2 => asset('images/galleri-3.jpg'),
+        3 => asset('images/galleri-4.jpg'),
+        4 => asset('images/galleri-5.JPG'),
+        5 => asset('images/galleri-6.JPG'),
+        6 => asset('images/galleri-7.JPG'),
+        7 => asset('images/galleri-8.JPG'),
+        8 => asset('images/galleri-9.jpg'),
+        9 => asset('images/galleri-10.jpg'),
+    ];
+
+    $fallbackGambar = $defaultGallery[$i % 10];
+@endphp
                 @for($g = 1; $g <= 10; $g++)
                 <div class="gallery-card">
                     <img src="{{ asset('images/galleri-'.$g.'.'.$galeriExts[$g]) }}" alt="{{ $galeriTitles[$g] }}" onerror="this.src='{{ asset('images/sibaganding1.JPG') }}'">
