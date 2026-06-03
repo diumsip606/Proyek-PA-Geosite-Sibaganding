@@ -5,7 +5,6 @@
 @section('content')
 <!-- Stats Row -->
 <div class="row g-3">
-<<<<<<< HEAD
     <div class="col-6 col-md-4 col-lg-3">
         <div class="stat-card">
             <div class="stat-number">{{ $totalDestinasi ?? 0 }}</div>
@@ -13,35 +12,23 @@
         </div>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-=======
-    <div class="col-6 col-md-3">
->>>>>>> c6b1f46a5c477ae0a4cec1c7fe9c0cfc2aec48e5
         <div class="stat-card">
             <div class="stat-number">{{ $totalGaleri ?? 0 }}</div>
             <div class="stat-label">Total Galeri</div>
         </div>
     </div>
-<<<<<<< HEAD
     <div class="col-6 col-md-4 col-lg-3">
-=======
-    <div class="col-6 col-md-3">
->>>>>>> c6b1f46a5c477ae0a4cec1c7fe9c0cfc2aec48e5
         <div class="stat-card">
             <div class="stat-number">{{ $totalBerita ?? 0 }}</div>
             <div class="stat-label">Total Berita</div>
         </div>
     </div>
-<<<<<<< HEAD
     <div class="col-6 col-md-4 col-lg-3">
-=======
-    <div class="col-6 col-md-3">
->>>>>>> c6b1f46a5c477ae0a4cec1c7fe9c0cfc2aec48e5
         <div class="stat-card">
             <div class="stat-number">{{ $totalInformasi ?? 0 }}</div>
             <div class="stat-label">Total Informasi</div>
         </div>
     </div>
-<<<<<<< HEAD
     <div class="col-6 col-md-4 col-lg-3">
         <div class="stat-card">
             <div class="stat-number">{{ $totalUmkm ?? 0 }}</div>
@@ -55,16 +42,12 @@
         </div>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-        <div class="stat-card">
-=======
-    <div class="col-6 col-md-3">
         <div class="stat-card" style="border-left-color: #ef4444;">
->>>>>>> c6b1f46a5c477ae0a4cec1c7fe9c0cfc2aec48e5
             <div class="stat-number">{{ number_format($totalViews ?? 0) }}</div>
             <div class="stat-label">Total Views</div>
         </div>
     </div>
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md-4 col-lg-3">
         <div class="stat-card" style="border-left-color: #10b981;">
             <div class="stat-number">{{ $totalPesan ?? 0 }}</div>
             <div class="stat-label">Pesan Masuk</div>
@@ -95,7 +78,6 @@
 </div>
 
 <!-- Quick Actions -->
-<<<<<<< HEAD
 <div class="action-buttons flex-wrap">
     <a href="{{ route('admin.destinasi.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Destinasi</a>
     <a href="{{ route('admin.galeri.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Galeri</a>
@@ -103,14 +85,7 @@
     <a href="{{ route('admin.informasi.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Informasi</a>
     <a href="{{ route('admin.umkm.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> UMKM</a>
     <a href="{{ route('admin.penginapan.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Hotel</a>
-    <a href="{{ url('/destinasi') }}" target="_blank" class="action-btn"><i class="fas fa-globe"></i> Hal. Destinasi</a>
-=======
-<div class="action-buttons">
-    <a href="{{ route('admin.galeri.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Galeri</a>
-    <a href="{{ route('admin.berita.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Berita</a>
-    <a href="{{ route('admin.informasi.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Informasi</a>
     <a href="{{ route('admin.pesan.index') }}" class="action-btn"><i class="fas fa-envelope"></i> Pesan Masuk</a>
->>>>>>> c6b1f46a5c477ae0a4cec1c7fe9c0cfc2aec48e5
     <a href="{{ url('/') }}" target="_blank" class="action-btn"><i class="fas fa-globe"></i> Website</a>
 </div>
 @endsection

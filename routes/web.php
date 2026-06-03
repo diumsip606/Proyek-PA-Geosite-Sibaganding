@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController;
 use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\InformasiController;
+use App\Http\Controllers\Admin\KontakInfoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\WarisanGeologiController;
 use App\Http\Controllers\Admin\FaktaUnikController;
@@ -59,7 +60,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // INFORMASI
 Route::get('/informasi', function () {
 
-    $informasi = Informasi::where('status', true)
+    $informasi = Informasi::where('kategori', '!=', 'Pengurus')
+        ->where('status', true)
         ->latest()
         ->paginate(10);
 
@@ -129,7 +131,7 @@ Route::get('/budaya', [HomeController::class, 'budaya'])->name('budaya');
 
 // KONTAK
 Route::get('/kontak', function () {
-    $pengurus = collect();
+    $pengurus = \App\Models\Informasi::where('kategori', 'Pengurus')->where('status', true)->get();
 
     $kontakInfos = \App\Models\KontakInfo::active()
         ->orderBy('urutan')
@@ -188,6 +190,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         $totalViews = \App\Models\Visitor::count();
         $totalUmkm = \App\Models\Umkm::count();
         $totalPenginapan = \App\Models\Penginapan::count();
+        $totalPesan = \App\Models\Pesan::count();
 
         return view('admin.dashboard', compact(
             'totalGaleri',
@@ -196,7 +199,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
             'totalDestinasi',
             'totalViews',
             'totalUmkm',
-            'totalPenginapan'
+            'totalPenginapan',
+            'totalPesan'
         ));
     })->name('admin.dashboard');
 

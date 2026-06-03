@@ -811,8 +811,6 @@
                 </div>
             </div>
         </div>
-
-<<<<<<< HEAD
         <!-- PENGURUS/TEAM SECTION -->
         <div class="team-section mb-5" data-aos="fade-up">
             <div class="team-title">
@@ -906,8 +904,6 @@
                 @endforelse
             </div>
         </div>
-=======
->>>>>>> 83f11f0d6598cfc10d99f3793a4c2f8882a7071d
 
         <div class="row g-4">
             <!-- FORM KONTAK -->
