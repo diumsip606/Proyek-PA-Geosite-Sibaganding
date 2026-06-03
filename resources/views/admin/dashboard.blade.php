@@ -24,9 +24,15 @@
         </div>
     </div>
     <div class="col-6 col-md-3">
-        <div class="stat-card">
+        <div class="stat-card" style="border-left-color: #ef4444;">
             <div class="stat-number">{{ number_format($totalViews ?? 0) }}</div>
             <div class="stat-label">Total Views</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="stat-card" style="border-left-color: #10b981;">
+            <div class="stat-number">{{ $totalPesan ?? 0 }}</div>
+            <div class="stat-label">Pesan Masuk</div>
         </div>
     </div>
 </div>
@@ -58,6 +64,7 @@
     <a href="{{ route('admin.galeri.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Galeri</a>
     <a href="{{ route('admin.berita.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Berita</a>
     <a href="{{ route('admin.informasi.create') }}" class="action-btn"><i class="fas fa-plus-circle"></i> Informasi</a>
+    <a href="{{ route('admin.pesan.index') }}" class="action-btn"><i class="fas fa-envelope"></i> Pesan Masuk</a>
     <a href="{{ url('/') }}" target="_blank" class="action-btn"><i class="fas fa-globe"></i> Website</a>
 </div>
 @endsection

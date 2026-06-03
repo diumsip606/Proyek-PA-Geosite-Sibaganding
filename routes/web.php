@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController; // Tambahan untuk Controller Admin
 use App\Http\Controllers\DestinasiController; // Controller untuk Pengunjung
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\KontakInfoController;
+use App\Models\KontakInfo;
 
 /*
 |--------------------------------------------------------------------------
@@ -113,8 +115,27 @@ Route::get('/budaya', [HomeController::class, 'budaya'])->name('budaya');
 
 // KONTAK
 Route::get('/kontak', function () {
-    return view('pages.kontak');
+    $kontakInfos = \App\Models\KontakInfo::active()
+        ->orderBy('urutan')
+        ->get()
+        ->groupBy('tipe');
+
+    $alamat = $kontakInfos->get('alamat', collect());
+    $telepon = $kontakInfos->get('telepon', collect());
+    $email = $kontakInfos->get('email', collect());
+    $sosialMedia = $kontakInfos->get('sosial_media', collect());
+    $jamOperasional = $kontakInfos->get('jam_operasional', collect());
+
+    return view('pages.kontak', compact(
+        'alamat',
+        'telepon',
+        'email',
+        'sosialMedia',
+        'jamOperasional'
+    ));
 })->name('kontak');
+Route::post('/kontak', [\App\Http\Controllers\PesanController::class, 'store'])->name('kontak.store');
+
 
 
 /*
@@ -145,12 +166,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         $totalGaleri = Galeri::count();
         $totalBerita = Berita::count();
         $totalInformasi = Informasi::count();
+        $totalPesan = \App\Models\Pesan::count();
+        $totalKontak = KontakInfo::count();
         $totalViews = 0;
 
         return view('admin.dashboard', compact(
             'totalGaleri',
             'totalBerita',
             'totalInformasi',
+            'totalPesan',
             'totalViews'
         ));
     })->name('admin.dashboard');
@@ -161,6 +185,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // Rute untuk Admin Destinasi
     Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
+
+    // Rute untuk Admin Pesan (Pesan Masuk)
+    Route::resource('pesan', \App\Http\Controllers\Admin\PesanController::class)->names('admin.pesan');
+
+    // Rute untuk Admin Info Kontak
+    Route::resource('kontak-info', KontakInfoController::class)->names('admin.kontak-info');
 
     Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])
         ->name('admin.galeri.toggle-status');

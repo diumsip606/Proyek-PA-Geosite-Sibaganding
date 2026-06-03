@@ -27,7 +27,7 @@ class Destinasi extends Model
         'rute',
         'maps',
         'qr',
-        'gambar'
+        'gambar_utama',
     ];
 
     // ---------------------------------------------------

@@ -38,8 +38,11 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>
                             @if($item->gambar_utama)
-                                <img src="{{ $item->gambar_utama }}" width="60" height="60"
-                                     style="object-fit: cover; border-radius: 8px;">
+                                <img src="{{ asset('storage/' . $item->gambar_utama) }}"
+                                    width="60"
+                                    height="60"
+                                    style="object-fit: cover; border-radius: 8px;"
+                                    alt="{{ $item->nama }}">
                             @else
                                 <div class="bg-secondary text-white text-center"
                                      style="width:60px;height:60px;line-height:60px;border-radius:8px;">

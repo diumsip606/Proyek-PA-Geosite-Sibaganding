@@ -316,6 +316,12 @@
             <a href="{{ route('admin.destinasi.index') }}" class="{{ request()->routeIs('admin.destinasi.*') ? 'active' : '' }}">
                 <i class="fas fa-map-marked-alt"></i> Destinasi
             </a>
+            <a href="{{ route('admin.pesan.index') }}" class="{{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}">
+                <i class="fas fa-envelope"></i> Pesan Masuk
+            </a>
+            <a href="{{ route('admin.kontak-info.index') }}" class="{{ request()->routeIs('admin.kontak-info.*') ? 'active' : '' }}">
+                <i class="fas fa-address-book"></i> Info Kontak
+            </a>
         </div>
     </div>
 

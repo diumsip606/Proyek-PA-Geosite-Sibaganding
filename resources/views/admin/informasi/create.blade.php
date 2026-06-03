@@ -20,10 +20,9 @@
                 <label class="form-label">Kategori</label>
                 <select name="kategori" class="form-select" required>
                     <option value="">Pilih</option>
-                    <option value="Balige">Balige</option>
-                    <option value="Meat">Meat</option>
-                    <option value="Batu Bahisan">Batu Bahisan</option>
-                    <option value="Liang Sipege">Liang Sipege</option>
+                    <option value="Biodiversity">Biodiversity</option>
+                    <option value="Geodiversity">Geodiversity</option>
+                    <option value="Culture Diversity">Culture Diversity</option>
                 </select>
             </div>
             <div class="col-12 mb-3">
