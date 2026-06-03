@@ -54,6 +54,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // INFORMASI
 Route::get('/informasi', function () {
     $informasi = Informasi::where('status', true)
+        ->where('kategori', '!=', 'Pengurus')
         ->latest()
         ->paginate(10);
 
@@ -111,7 +112,11 @@ Route::get('/budaya', [HomeController::class, 'budaya'])->name('budaya');
 
 // KONTAK
 Route::get('/kontak', function () {
-    return view('pages.kontak');
+    $pengurus = Informasi::where('kategori', 'Pengurus')
+        ->where('status', true)
+        ->latest()
+        ->get();
+    return view('pages.kontak', compact('pengurus'));
 })->name('kontak');
 
 

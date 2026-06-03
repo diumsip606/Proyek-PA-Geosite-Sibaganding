@@ -1620,6 +1620,7 @@
 
 .gallery-card {
     min-width: calc((100% - 48px) / 3);
+    flex-shrink: 0;
     height: 430px;
     position: relative;
     overflow: hidden;
@@ -1854,6 +1855,7 @@
 
 .video-card {
     min-width: 100%;
+    flex-shrink: 0;
     display: grid;
     grid-template-columns: 1.25fr 0.75fr;
     gap: 0;
@@ -2023,6 +2025,7 @@
 
 .news-card {
     min-width: calc((100% - 48px) / 3);
+    flex-shrink: 0;
     border-radius: 28px;
     overflow: hidden;
     background: white;
@@ -2201,9 +2204,17 @@
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 34px;
-    align-items: end;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
 }
 
 .team-card {
@@ -3139,7 +3150,13 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
     $rawGambar = $item->gambar ? ltrim($item->gambar, '/') : null;
 
     if ($rawGambar) {
-        if (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
+        if (str_contains($rawGambar, 'monyet')) {
+            $gambarGaleri = asset('images/monkey forest.jpg');
+        } elseif (str_contains($rawGambar, 'batu') && str_contains($rawGambar, 'gantung')) {
+            $gambarGaleri = asset('images/geodiversity.JPG');
+        } elseif (str_contains($rawGambar, 'legenda')) {
+            $gambarGaleri = asset('images/culturediversity.JPG');
+        } elseif (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
             $gambarGaleri = $rawGambar;
         } elseif (str_starts_with($rawGambar, 'storage/')) {
             $gambarGaleri = asset($rawGambar);
@@ -3179,7 +3196,30 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         9 => asset('images/galleri-10.jpg'),
     ];
 
-    $fallbackGambar = $defaultGallery[$i % 10];
+    $galeriExts = [
+        1 => 'jpg',
+        2 => 'JPG',
+        3 => 'jpg',
+        4 => 'jpg',
+        5 => 'JPG',
+        6 => 'JPG',
+        7 => 'JPG',
+        8 => 'JPG',
+        9 => 'jpg',
+        10 => 'jpg',
+    ];
+    $galeriTitles = [
+        1 => 'Keindahan Danau Toba',
+        2 => 'Pesona Sibaganding',
+        3 => 'Pemandangan Bukit',
+        4 => 'Hutan Pinus',
+        5 => 'Kera Ekor Panjang',
+        6 => 'Batu Gantung',
+        7 => 'Tebing Kaldera',
+        8 => 'Desa Wisata',
+        9 => 'Sunset Danau Toba',
+        10 => 'Pusat Edukasi Geopark',
+    ];
 @endphp
                 @for($g = 1; $g <= 10; $g++)
                 <div class="gallery-card">
@@ -3353,62 +3393,101 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         <div class="section-title team-title" data-aos="fade-up">
             <span class="team-kicker">Tim Pengelola</span>
             <h2>Pengurus Sibaganding</h2>
-            <div class="divider"></div>
+            <div class="divider"></div> 
             <p>
                 Orang-orang yang berperan dalam menjaga, mengembangkan, dan memperkenalkan
                 potensi wisata, geologi, budaya, serta kekayaan alam Sibaganding.
             </p>
         </div>
 
-        <div class="team-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 820px; margin: 0 auto;">
+        <div class="team-grid">
 
-            <div class="team-card" data-aos="fade-right"
-                 onclick="openTeamModal({
-                     img: '{{ asset('images/pengurus-1.jpg') }}',
-                     role: 'Ketua Pengelola',
-                     name: 'Pengelola Sibaganding',
-                     instansi: 'Geosite Sibaganding — Geopark Danau Toba',
-                     bidang: 'Manajemen & Pengembangan Kawasan',
-                     kontak: 'sibaganding@geotoba.id',
-                     desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
-                 })">
-                <div class="team-image">
-                    <img src="{{ asset('images/pengurus-1.jpg') }}" alt="Pengurus Sibaganding 1">
+            @forelse($pengurus as $i => $item)
+                @php
+                    $rawImg = $item->gambar ? ltrim($item->gambar, '/') : null;
+                    if ($rawImg) {
+                        if (str_starts_with($rawImg, 'http://') || str_starts_with($rawImg, 'https://')) {
+                            $imgUrl = $rawImg;
+                        } elseif (str_starts_with($rawImg, 'storage/')) {
+                            $imgUrl = asset($rawImg);
+                        } else {
+                            $imgUrl = asset('storage/' . $rawImg);
+                        }
+                    } else {
+                        $imgUrl = asset('images/pengurus-' . (($i % 2) + 1) . '.jpg');
+                    }
+                @endphp
+                <div class="team-card" data-aos="fade-{{ $i % 2 === 0 ? 'right' : 'left' }}"
+                     onclick="openTeamModal({
+                         img: '{{ $imgUrl }}',
+                         role: '{{ $item->penulis ?? 'Tim Pengelola' }}',
+                         name: '{{ $item->judul }}',
+                         instansi: 'Geosite Sibaganding',
+                         bidang: '{{ $item->penulis ?? 'Pengembang Kawasan' }}',
+                         kontak: '{{ $item->slug }}',
+                         desc: '{{ addslashes(str_replace(["\r", "\n"], " ", strip_tags($item->konten))) }}'
+                     })">
+                    <div class="team-image">
+                        <img src="{{ $imgUrl }}" alt="{{ $item->judul }}" onerror="this.onerror=null; this.src='{{ asset('images/pengurus-' . (($i % 2) + 1) . '.jpg') }}';">
+                    </div>
+                    <div class="team-info">
+                        <span>{{ $item->penulis ?? 'Tim Pengelola' }}</span>
+                        <h3>{{ $item->judul }}</h3>
+                        <p>
+                            {{ Str::limit(strip_tags($item->konten), 120) }}
+                        </p>
+                    </div>
+                    <div class="team-card-click-hint">👁</div>
                 </div>
-                <div class="team-info">
-                    <span>Ketua Pengelola</span>
-                    <h3>Pengelola Sibaganding</h3>
-                    <p>
-                        Bertanggung jawab mengoordinasikan pengelolaan kawasan,
-                        pengembangan program, dan kerja sama terkait Geosite Sibaganding.
-                    </p>
+            @empty
+                <div class="team-card" data-aos="fade-right"
+                     onclick="openTeamModal({
+                         img: '{{ asset('images/pengurus-1.jpg') }}',
+                         role: 'Ketua Pengelola',
+                         name: 'Pengelola Sibaganding',
+                         instansi: 'Geosite Sibaganding — Geopark Danau Toba',
+                         bidang: 'Manajemen & Pengembangan Kawasan',
+                         kontak: 'sibaganding@geotoba.id',
+                         desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
+                     })">
+                    <div class="team-image">
+                        <img src="{{ asset('images/pengurus-1.jpg') }}" alt="Pengurus Sibaganding 1">
+                    </div>
+                    <div class="team-info">
+                        <span>Ketua Pengelola</span>
+                        <h3>Pengelola Sibaganding</h3>
+                        <p>
+                            Bertanggung jawab mengoordinasikan pengelolaan kawasan,
+                            pengembangan program, dan kerja sama terkait Geosite Sibaganding.
+                        </p>
+                    </div>
+                    <div class="team-card-click-hint">👁</div>
                 </div>
-                <div class="team-card-click-hint">👁</div>
-            </div>
 
-            <div class="team-card" data-aos="fade-left"
-                 onclick="openTeamModal({
-                     img: '{{ asset('images/pengurus-2.jpg') }}',
-                     role: 'Koordinator Lapangan',
-                     name: 'Koordinator Wisata',
-                     instansi: 'Geosite Sibaganding — Lapangan Operasional',
-                     bidang: 'Operasional Wisata & Pelayanan Pengunjung',
-                     kontak: 'wisata.sibaganding@geotoba.id',
-                     desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
-                 })">
-                <div class="team-image">
-                    <img src="{{ asset('images/pengurus-2.jpg') }}" alt="Pengurus Sibaganding 2">
+                <div class="team-card" data-aos="fade-left"
+                     onclick="openTeamModal({
+                         img: '{{ asset('images/pengurus-2.jpg') }}',
+                         role: 'Koordinator Lapangan',
+                         name: 'Koordinator Wisata',
+                         instansi: 'Geosite Sibaganding — Lapangan Operasional',
+                         bidang: 'Operasional Wisata & Pelayanan Pengunjung',
+                         kontak: 'wisata.sibaganding@geotoba.id',
+                         desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
+                     })">
+                    <div class="team-image">
+                        <img src="{{ asset('images/pengurus-2.jpg') }}" alt="Pengurus Sibaganding 2">
+                    </div>
+                    <div class="team-info">
+                        <span>Koordinator Lapangan</span>
+                        <h3>Koordinator Wisata</h3>
+                        <p>
+                            Bertugas mendampingi kegiatan lapangan, membantu pengunjung,
+                            dan memastikan aktivitas wisata berjalan optimal.
+                        </p>
+                    </div>
+                    <div class="team-card-click-hint">👁</div>
                 </div>
-                <div class="team-info">
-                    <span>Koordinator Lapangan</span>
-                    <h3>Koordinator Wisata</h3>
-                    <p>
-                        Bertugas mendampingi kegiatan lapangan, membantu pengunjung,
-                        dan memastikan aktivitas wisata berjalan optimal.
-                    </p>
-                </div>
-                <div class="team-card-click-hint">👁</div>
-            </div>
+            @endforelse
 
         </div>
 
@@ -3892,7 +3971,21 @@ function openTeamModal(data) {
     document.getElementById('teamModalName').textContent = data.name || '';
     document.getElementById('teamModalInstansi').textContent = data.instansi || '-';
     document.getElementById('teamModalBidang').textContent = data.bidang || '-';
-    document.getElementById('teamModalKontak').textContent = data.kontak || '-';
+    
+    // Parse contact
+    const kontakVal = data.kontak || '-';
+    const kontakEl = document.getElementById('teamModalKontak');
+    if (kontakEl) {
+        if (kontakVal.includes('@')) {
+            kontakEl.innerHTML = `<a href="mailto:${kontakVal}" style="color:#c6a43b; text-decoration:none; font-weight: 600;">${kontakVal}</a>`;
+        } else if (kontakVal.match(/^\+?[0-9\s\-]{7,}$/)) {
+            const cleanPhone = kontakVal.replace(/[^0-9+]/g, '');
+            kontakEl.innerHTML = `<a href="tel:${cleanPhone}" style="color:#c6a43b; text-decoration:none; font-weight: 600;">${kontakVal}</a>`;
+        } else {
+            kontakEl.textContent = kontakVal;
+        }
+    }
+    
     document.getElementById('teamModalDesc').textContent = data.desc || '';
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -3942,6 +4035,87 @@ function showStorySlide(index) {
 function changeStorySlide(direction) {
     showStorySlide(storyCurrentSlide + direction);
 }
+
+// ==================== DRAGGABLE/SWIPEABLE SLIDERS ====================
+function makeSliderDraggable(track, showSlideFn, getCurrentFn) {
+    if (!track) return;
+    
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let initialTranslate = 0;
+    
+    // Touch events
+    track.addEventListener('touchstart', dragStart, { passive: true });
+    track.addEventListener('touchmove', dragMove, { passive: true });
+    track.addEventListener('touchend', dragEnd);
+    
+    // Mouse events
+    track.addEventListener('mousedown', dragStart);
+    track.addEventListener('mousemove', dragMove);
+    track.addEventListener('mouseup', dragEnd);
+    track.addEventListener('mouseleave', dragEnd);
+    
+    function getTranslateX() {
+        const style = window.getComputedStyle(track);
+        const matrix = new DOMMatrixReadOnly(style.transform);
+        return matrix.m41;
+    }
+    
+    function dragStart(e) {
+        isDragging = true;
+        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        initialTranslate = getTranslateX();
+        track.style.transition = 'none';
+        
+        // Prevent default drag behaviors for links/images inside track
+        if (e.type === 'mousedown') {
+            e.preventDefault();
+        }
+    }
+    
+    function dragMove(e) {
+        if (!isDragging) return;
+        currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const walk = currentX - startX;
+        track.style.transform = `translateX(${initialTranslate + walk}px)`;
+    }
+    
+    function dragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const walk = currentX - startX;
+        if (Math.abs(walk) > 50) {
+            if (walk < 0) {
+                // Dragged left -> show next slide
+                showSlideFn(getCurrentFn() + 1);
+            } else {
+                // Dragged right -> show prev slide
+                showSlideFn(getCurrentFn() - 1);
+            }
+        } else {
+            // Revert back to current slide position
+            showSlideFn(getCurrentFn());
+        }
+    }
+}
+
+// Attach swipe/drag behaviors once DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    const galleryTrack = document.getElementById('galleryTrack');
+    if (galleryTrack) {
+        makeSliderDraggable(galleryTrack, showGallerySlide, () => galleryCurrent);
+    }
+    const videoTrack = document.getElementById('videoTrack');
+    if (videoTrack) {
+        makeSliderDraggable(videoTrack, showVideoSlide, () => videoCurrent);
+    }
+    const newsTrack = document.getElementById('newsTrack');
+    if (newsTrack) {
+        makeSliderDraggable(newsTrack, showNewsSlide, () => newsCurrent);
+    }
+});
 </script>
 
 

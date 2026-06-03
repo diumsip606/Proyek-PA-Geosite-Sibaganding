@@ -45,6 +45,12 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
+        // Pengurus untuk Beranda
+        $pengurus = \App\Models\Informasi::where('kategori', 'Pengurus')
+            ->where('status', true)
+            ->latest()
+            ->get();
+
         $destinasi = [
             (object)[
                 'slug' => 'meat',
@@ -74,6 +80,7 @@ class HomeController extends Controller
             'galeriPreview',
             'galeri',
             'berita',
+            'pengurus',
             'destinasi'
         ));
     }

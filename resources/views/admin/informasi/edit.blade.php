@@ -24,12 +24,14 @@
                     <option value="Budaya" {{ $informasi->kategori == 'Budaya' ? 'selected' : '' }}>Budaya</option>
                     <option value="Wisata" {{ $informasi->kategori == 'Wisata' ? 'selected' : '' }}>Wisata</option>
                     <option value="Transportasi" {{ $informasi->kategori == 'Transportasi' ? 'selected' : '' }}>Transportasi</option>
+                    <option value="Pengurus" {{ $informasi->kategori == 'Pengurus' ? 'selected' : '' }}>Pengurus (Tim Pengelola)</option>
                 </select>
             </div>
             
             <div class="mb-3">
-                <label>Penulis</label>
+                <label>Penulis / Jabatan</label>
                 <input type="text" name="penulis" class="form-control" value="{{ $informasi->penulis }}">
+                <small class="text-muted">Untuk kategori Pengurus, isi kolom ini dengan Jabatan/Role.</small>
             </div>
             
             <div class="mb-3">

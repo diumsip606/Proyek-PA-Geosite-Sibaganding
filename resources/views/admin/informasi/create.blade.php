@@ -1,48 +1,59 @@
 @extends('layouts.admin')
 
-@section('title', 'Tambah Galeri')
+@section('title', 'Tambah Informasi')
 
 @section('content')
-<div class="d-flex align-items-center mb-3">
-    <a href="{{ route('admin.galeri.index') }}" class="btn btn-sm btn-secondary me-2"><i class="fas fa-arrow-left"></i></a>
-    <h5 class="mb-0">Tambah Galeri</h5>
-</div>
-
-<div class="form-card">
-    <form action="{{ route('admin.galeri.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="row">
-            <div class="col-md-6 mb-3">
+<div class="card">
+    <div class="card-header">
+        <h5>Tambah Informasi</h5>
+    </div>
+    <div class="card-body">
+        <form action="{{ route('admin.informasi.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            
+            <div class="mb-3">
                 <label class="form-label">Judul</label>
-                <input type="text" name="judul" class="form-control" required>
+                <input type="text" name="judul" class="form-control" placeholder="Masukkan judul informasi / nama pengurus" required>
             </div>
-            <div class="col-md-6 mb-3">
+            
+            <div class="mb-3">
                 <label class="form-label">Kategori</label>
-                <select name="kategori" class="form-select" required>
-                    <option value="">Pilih</option>
-                    <option value="Balige">Balige</option>
-                    <option value="Meat">Meat</option>
-                    <option value="Batu Bahisan">Batu Bahisan</option>
-                    <option value="Liang Sipege">Liang Sipege</option>
+                <select name="kategori" class="form-control" required>
+                    <option value="">Pilih Kategori</option>
+                    <option value="Geologi">Geologi</option>
+                    <option value="Budaya">Budaya</option>
+                    <option value="Wisata">Wisata</option>
+                    <option value="Transportasi">Transportasi</option>
+                    <option value="Pengurus">Pengurus (Tim Pengelola)</option>
                 </select>
             </div>
-            <div class="col-12 mb-3">
-                <label class="form-label">Deskripsi</label>
-                <textarea name="deskripsi" class="form-control" rows="3" required></textarea>
+            
+            <div class="mb-3">
+                <label class="form-label">Penulis / Jabatan</label>
+                <input type="text" name="penulis" class="form-control" placeholder="Contoh: Admin GeoToba (atau Jabatan jika kategori Pengurus, misal: Ketua Pengelola)">
+                <small class="text-muted">Untuk kategori Pengurus, isi kolom ini dengan Jabatan/Role.</small>
             </div>
-            <div class="col-md-6 mb-3">
+            
+            <div class="mb-3">
+                <label class="form-label">Konten / Deskripsi</label>
+                <textarea name="konten" class="form-control" rows="8" placeholder="Masukkan isi informasi / deskripsi profil pengurus" required></textarea>
+            </div>
+            
+            <div class="mb-3">
                 <label class="form-label">Gambar</label>
-                <input type="file" name="gambar" class="form-control" accept="image/*" required>
+                <input type="file" name="gambar" class="form-control" accept="image/*">
             </div>
-            <div class="col-md-6 mb-3">
-                <div class="form-check mt-4">
+            
+            <div class="mb-3">
+                <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="status" value="1" checked>
                     <label class="form-check-label">Aktifkan</label>
                 </div>
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href="{{ route('admin.galeri.index') }}" class="btn btn-secondary">Batal</a>
-    </form>
+            
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ route('admin.informasi.index') }}" class="btn btn-secondary">Batal</a>
+        </form>
+    </div>
 </div>
 @endsection
