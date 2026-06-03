@@ -674,17 +674,62 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 8;
-    width: 44px;
-    height: 44px;
+    z-index: 80;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.55);
-    background: rgba(0, 51, 102, 0.48);
+    border: 2px solid rgba(255,255,255,0.75);
+    background: rgba(7, 59, 99, 0.78);
     color: #fff;
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     cursor: pointer;
     backdrop-filter: blur(10px);
     transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.story-nav:hover {
+    background: #c6a43b;
+    color: #073b63;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.story-nav.prev {
+    left: 22px;
+}
+
+.story-nav.next {
+    right: 22px;
+}
+
+.slide-overlay {
+    position: absolute;
+    left: 118px;
+    right: 118px;
+    bottom: 48px;
+    z-index: 20;
+    color: #fff;
+    display: block;
+    pointer-events: none;
+}
+
+.slide-overlay h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    line-height: 1.18;
+    color: #ffffff;
+    margin-bottom: 14px;
+    max-width: 560px;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.45);
+}
+
+.slide-overlay p {
+    max-width: 610px;
+    font-size: 0.93rem;
+    line-height: 1.65;
 }
 
 .story-nav:hover {
@@ -1083,33 +1128,75 @@
 }
 
 .map-wrapper {
-    position: static;
+    position: relative;
     width: 100%;
     max-width: 980px;
     margin: 0 auto;
-    padding: 22px;
-    border-radius: 32px;
-    background: rgba(255, 255, 255, 0.55);
-    box-shadow: 0 30px 80px rgba(7, 59, 99, 0.13);
-    border: 1px solid rgba(255,255,255,0.75);
+    padding: 28px;
+    border-radius: 34px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 18% 22%, rgba(232, 182, 47, 0.32), transparent 28%),
+        radial-gradient(circle at 82% 78%, rgba(7, 59, 99, 0.45), transparent 38%),
+        linear-gradient(135deg, #dceef8 0%, #b7d6ea 45%, #7faac6 100%) !important;
+
+    box-shadow:
+        0 35px 90px rgba(7, 59, 99, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+    border: 1px solid rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(14px);
 }
 
-/* Inner container jadi positioning context untuk titik peta */
+.map-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 32%),
+        linear-gradient(120deg, rgba(255,255,255,0.25), transparent 55%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.map-wrapper::after {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    right: -170px;
+    bottom: -190px;
+    border-radius: 50%;
+    background: rgba(3, 39, 68, 0.22);
+    filter: blur(10px);
+    z-index: 0;
+    pointer-events: none;
+}
+
 .map-inner-container {
     position: relative;
+    z-index: 2;
     width: 100%;
     line-height: 0;
-    border-radius: 26px;
+    border-radius: 28px;
     overflow: hidden;
+    background: transparent !important;
 }
 
 .map-img {
     width: 100%;
     display: block;
-    border-radius: 26px;
-    filter: drop-shadow(0 18px 28px rgba(7, 59, 99, 0.14));
+    border-radius: 28px;
+    filter:
+        drop-shadow(0 24px 32px rgba(7, 59, 99, 0.20))
+        saturate(1.08)
+        contrast(1.03);
 }
+
+/* Inner container jadi positioning context untuk titik peta */
+
+
 
 .map-point {
     position: absolute;
@@ -1519,20 +1606,65 @@
 
 .gallery-slider {
     position: relative;
-    margin-top: 55px;
     overflow: hidden;
-    border-radius: 34px;
-    padding: 12px;
 }
 
 .gallery-track {
     display: flex;
-    gap: 24px;
-    transition: transform 0.7s ease;
+    gap: 30px;
+    transition: transform 0.45s ease;
+    will-change: transform;
 }
 
 .gallery-card {
+    flex: 0 0 calc((100% - 60px) / 3);
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: rgba(7, 59, 99, 0.85);
+    color: white;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.gallery-nav.prev {
+    left: 18px;
+}
+
+.gallery-nav.next {
+    right: 18px;
+}
+
+.gallery-nav:hover {
+    background: #c6a43b;
+    color: #073b63;
+}
+
+@media (max-width: 992px) {
+    .gallery-card {
+        flex: 0 0 calc((100% - 30px) / 2);
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-card {
+        flex: 0 0 100%;
+    }
+}
+.gallery-card {
     min-width: calc((100% - 48px) / 3);
+    flex-shrink: 0;
     height: 430px;
     position: relative;
     overflow: hidden;
@@ -1766,9 +1898,12 @@
 }
 
 .video-card {
-    min-width: 100%;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
     display: grid;
-    grid-template-columns: 1.25fr 0.75fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
     gap: 0;
     border-radius: 34px;
     overflow: hidden;
@@ -1936,6 +2071,7 @@
 
 .news-card {
     min-width: calc((100% - 48px) / 3);
+    flex-shrink: 0;
     border-radius: 28px;
     overflow: hidden;
     background: white;
@@ -2114,9 +2250,17 @@
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 34px;
-    align-items: end;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
 }
 
 .team-card {
@@ -2894,8 +3038,13 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         </div>
         @endforelse
 
-        <button class="story-nav prev" type="button" onclick="event.stopPropagation()">&#10094;</button>
-        <button class="story-nav next" type="button" onclick="event.stopPropagation()">&#10095;</button>
+     <button class="story-nav prev" type="button" onclick="event.preventDefault(); event.stopPropagation(); changeStorySlide(-1);">
+    &#10094;
+</button>
+
+<button class="story-nav next" type="button" onclick="event.preventDefault(); event.stopPropagation(); changeStorySlide(1);">
+    &#10095;
+</button>
 
         <div class="story-dots" onclick="event.stopPropagation()">
             @forelse($warisanGeologis as $i => $warisan)
@@ -3041,38 +3190,85 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 
         <div class="gallery-slider" data-aos="fade-up">
             <div class="gallery-track" id="galleryTrack">
-                @forelse($galeri as $i => $item)
-                <div class="gallery-card">
-                    @php
-                        $gambarGaleri = $item->gambar
-                            ? (str_starts_with($item->gambar, '/') || str_starts_with($item->gambar, 'http') || str_starts_with($item->gambar, 'storage/')
-                                ? asset($item->gambar)
-                                : asset('storage/' . $item->gambar))
-                            : asset('images/galleri-'.($i+1).'.jpg');
-                    @endphp
-                    <img src="{{ $gambarGaleri }}" alt="{{ $item->judul ?? 'Galeri '.($i+1) }}">
-                    <div class="gallery-caption">
-                        <span>{{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}</span>
-                        <h4>{{ $item->judul ?? 'Keindahan Sibaganding' }}</h4>
-                    </div>
-                </div>
-                @empty
+              @forelse($galeri as $i => $item)
+<div class="gallery-card">
+   @php
+    $rawGambar = $item->gambar ? ltrim($item->gambar, '/') : null;
+
+    if ($rawGambar) {
+        if (str_contains($rawGambar, 'monyet')) {
+            $gambarGaleri = asset('images/monkey forest.jpg');
+        } elseif (str_contains($rawGambar, 'batu') && str_contains($rawGambar, 'gantung')) {
+            $gambarGaleri = asset('images/geodiversity.JPG');
+        } elseif (str_contains($rawGambar, 'legenda')) {
+            $gambarGaleri = asset('images/culturediversity.JPG');
+        } elseif (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
+            $gambarGaleri = $rawGambar;
+        } elseif (str_starts_with($rawGambar, 'storage/')) {
+            $gambarGaleri = asset($rawGambar);
+        } elseif (str_starts_with($rawGambar, 'uploads/')) {
+            $gambarGaleri = asset($rawGambar);
+        } else {
+            $gambarGaleri = asset('storage/' . $rawGambar);
+        }
+    } else {
+        $gambarGaleri = asset('images/sibaganding1.JPG');
+    }
+@endphp
+
+
+<img 
+    src="{{ $gambarGaleri }}" 
+    alt="{{ $item->judul ?? 'Galeri '.($i+1) }}"
+    onerror="this.onerror=null; this.src='{{ asset('images/sibaganding1.JPG') }}';"
+>
+
+    <div class="gallery-caption">
+        <span>{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+        <h4>{{ $item->judul ?? 'Keindahan Sibaganding' }}</h4>
+    </div>
+</div>
+@empty
                 {{-- 10 gambar default menggunakan galleri-1 s/d galleri-10 yang sudah ada --}}
-                @php
-                    $galeriTitles = [
-                        1 => 'Monyet Ekor Panjang Sibaganding',
-                        2 => 'Batu Gantung',
-                        3 => 'Legenda Batu Gantung',
-                        4 => 'Panorama Danau Toba',
-                        5 => 'Hutan Pinus Sibaganding',
-                        6 => 'Budaya Batak Lokal',
-                        7 => 'Kaldera Toba dari Ketinggian',
-                        8 => 'Sumber Mata Air Alami',
-                        9 => 'Tradisi Pertanian Lokal',
-                        10 => 'Tebing Geologi Sibaganding',
-                    ];
-                    $galeriExts = [1=>'jpg',2=>'JPG',3=>'jpg',4=>'jpg',5=>'JPG',6=>'JPG',7=>'JPG',8=>'JPG',9=>'jpg',10=>'jpg'];
-                @endphp
+               @php
+    $defaultGallery = [
+        0 => asset('images/galleri-1.jpg'),
+        1 => asset('images/galleri-2.JPG'),
+        2 => asset('images/galleri-3.jpg'),
+        3 => asset('images/galleri-4.jpg'),
+        4 => asset('images/galleri-5.JPG'),
+        5 => asset('images/galleri-6.JPG'),
+        6 => asset('images/galleri-7.JPG'),
+        7 => asset('images/galleri-8.JPG'),
+        8 => asset('images/galleri-9.jpg'),
+        9 => asset('images/galleri-10.jpg'),
+    ];
+
+    $galeriExts = [
+        1 => 'jpg',
+        2 => 'JPG',
+        3 => 'jpg',
+        4 => 'jpg',
+        5 => 'JPG',
+        6 => 'JPG',
+        7 => 'JPG',
+        8 => 'JPG',
+        9 => 'jpg',
+        10 => 'jpg',
+    ];
+    $galeriTitles = [
+        1 => 'Keindahan Danau Toba',
+        2 => 'Pesona Sibaganding',
+        3 => 'Pemandangan Bukit',
+        4 => 'Hutan Pinus',
+        5 => 'Kera Ekor Panjang',
+        6 => 'Batu Gantung',
+        7 => 'Tebing Kaldera',
+        8 => 'Desa Wisata',
+        9 => 'Sunset Danau Toba',
+        10 => 'Pusat Edukasi Geopark',
+    ];
+@endphp
                 @for($g = 1; $g <= 10; $g++)
                 <div class="gallery-card">
                     <img src="{{ asset('images/galleri-'.$g.'.'.$galeriExts[$g]) }}" alt="{{ $galeriTitles[$g] }}" onerror="this.src='{{ asset('images/sibaganding1.JPG') }}'">
@@ -3164,9 +3360,8 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                     </div>
                     @endforelse
                 </div>
-
-                <button class="video-arrow video-prev" type="button">&#10094;</button>
-                <button class="video-arrow video-next" type="button">&#10095;</button>
+                <button class="video-arrow video-prev" type="button" id="videoPrev">&#10094;</button>
+                <button class="video-arrow video-next" type="button" id="videoNext">&#10095;</button>
             </div>
 
             <div class="video-mini-list" id="videoDots">
@@ -3245,62 +3440,103 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         <div class="section-title team-title" data-aos="fade-up">
             <span class="team-kicker">Tim Pengelola</span>
             <h2>Pengurus Sibaganding</h2>
-            <div class="divider"></div>
+            <div class="divider"></div> 
             <p>
                 Orang-orang yang berperan dalam menjaga, mengembangkan, dan memperkenalkan
                 potensi wisata, geologi, budaya, serta kekayaan alam Sibaganding.
             </p>
         </div>
 
-        <div class="team-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 820px; margin: 0 auto;">
+        <div class="team-grid">
 
-            <div class="team-card" data-aos="fade-right"
-                 onclick="openTeamModal({
-                     img: '{{ asset('images/pengurus-1.jpg') }}',
-                     role: 'Ketua Pengelola',
-                     name: 'Pengelola Sibaganding',
-                     instansi: 'Geosite Sibaganding — Geopark Danau Toba',
-                     bidang: 'Manajemen & Pengembangan Kawasan',
-                     kontak: 'sibaganding@geotoba.id',
-                     desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
-                 })">
-                <div class="team-image">
-                    <img src="{{ asset('images/pengurus-1.jpg') }}" alt="Pengurus Sibaganding 1">
+            @forelse($pengurus as $i => $item)
+                @php
+                    $rawImg = $item->gambar ? ltrim($item->gambar, '/') : null;
+                    if ($rawImg) {
+                        if (str_starts_with($rawImg, 'http://') || str_starts_with($rawImg, 'https://')) {
+                            $imgUrl = $rawImg;
+                        } elseif (str_starts_with($rawImg, 'storage/')) {
+                            $imgUrl = asset($rawImg);
+                        } elseif (str_starts_with($rawImg, 'uploads/')) {
+                            $imgUrl = asset($rawImg);
+                        } else {
+                            $imgUrl = asset('storage/' . $rawImg);
+                        }
+                    } else {
+                        $imgUrl = asset('images/pengurus-' . (($i % 2) + 1) . '.jpg');
+                    }
+                @endphp
+                <div class="team-card" data-aos="fade-{{ $i % 2 === 0 ? 'right' : 'left' }}"
+                     onclick="openTeamModal({
+                         img: '{{ $imgUrl }}',
+                         role: '{{ $item->penulis ?? 'Tim Pengelola' }}',
+                         name: '{{ $item->judul }}',
+                         instansi: 'Geosite Sibaganding',
+                         bidang: '{{ $item->penulis ?? 'Pengembang Kawasan' }}',
+                         kontak: '{{ $item->slug }}',
+                         desc: '{{ addslashes(str_replace(["\r", "\n"], " ", strip_tags($item->konten))) }}'
+                     })">
+                    <div class="team-image">
+                        <img src="{{ $imgUrl }}" alt="{{ $item->judul }}" onerror="this.onerror=null; this.src='{{ asset('images/pengurus-' . (($i % 2) + 1) . '.jpg') }}';">
+                    </div>
+                    <div class="team-info">
+                        <span>{{ $item->penulis ?? 'Tim Pengelola' }}</span>
+                        <h3>{{ $item->judul }}</h3>
+                        <p>
+                            {{ Str::limit(strip_tags($item->konten), 120) }}
+                        </p>
+                    </div>
+                    <div class="team-card-click-hint">👁</div>
                 </div>
-                <div class="team-info">
-                    <span>Ketua Pengelola</span>
-                    <h3>Pengelola Sibaganding</h3>
-                    <p>
-                        Bertanggung jawab mengoordinasikan pengelolaan kawasan,
-                        pengembangan program, dan kerja sama terkait Geosite Sibaganding.
-                    </p>
+            @empty
+                <div class="team-card" data-aos="fade-right"
+                     onclick="openTeamModal({
+                         img: '{{ asset('images/pengurus-1.jpg') }}',
+                         role: 'Ketua Pengelola',
+                         name: 'Pengelola Sibaganding',
+                         instansi: 'Geosite Sibaganding — Geopark Danau Toba',
+                         bidang: 'Manajemen & Pengembangan Kawasan',
+                         kontak: 'sibaganding@geotoba.id',
+                         desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
+                     })">
+                    <div class="team-image">
+                        <img src="{{ asset('images/pengurus-1.jpg') }}" alt="Pengurus Sibaganding 1">
+                    </div>
+                    <div class="team-info">
+                        <span>Ketua Pengelola</span>
+                        <h3>Pengelola Sibaganding</h3>
+                        <p>
+                            Bertanggung jawab mengoordinasikan pengelolaan kawasan,
+                            pengembangan program, dan kerja sama terkait Geosite Sibaganding.
+                        </p>
+                    </div>
+                    <div class="team-card-click-hint">👁</div>
                 </div>
-                <div class="team-card-click-hint">👁</div>
-            </div>
 
-            <div class="team-card" data-aos="fade-left"
-                 onclick="openTeamModal({
-                     img: '{{ asset('images/pengurus-2.jpg') }}',
-                     role: 'Koordinator Lapangan',
-                     name: 'Koordinator Wisata',
-                     instansi: 'Geosite Sibaganding — Lapangan Operasional',
-                     bidang: 'Operasional Wisata & Pelayanan Pengunjung',
-                     kontak: 'wisata.sibaganding@geotoba.id',
-                     desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
-                 })">
-                <div class="team-image">
-                    <img src="{{ asset('images/pengurus-2.jpg') }}" alt="Pengurus Sibaganding 2">
+                <div class="team-card" data-aos="fade-left"
+                     onclick="openTeamModal({
+                         img: '{{ asset('images/pengurus-2.jpg') }}',
+                         role: 'Koordinator Lapangan',
+                         name: 'Koordinator Wisata',
+                         instansi: 'Geosite Sibaganding — Lapangan Operasional',
+                         bidang: 'Operasional Wisata & Pelayanan Pengunjung',
+                         kontak: 'wisata.sibaganding@geotoba.id',
+                         desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
+                     })">
+                    <div class="team-image">
+                        <img src="{{ asset('images/pengurus-2.jpg') }}" alt="Pengurus Sibaganding 2">
+                    </div>
+                    <div class="team-info">
+                        <span>Koordinator Lapangan</span>
+                        <h3>Koordinator Wisata</h3>
+                        <p>
+                            Bertugas mendampingi kegiatan lapangan, membantu pengunjung,
+                            dan memastikan aktivitas wisata berjalan optimal.
+                        </p>
+                    </div>
+                    <div class="team-card-click-hint">👁</div>
                 </div>
-                <div class="team-info">
-                    <span>Koordinator Lapangan</span>
-                    <h3>Koordinator Wisata</h3>
-                    <p>
-                        Bertugas mendampingi kegiatan lapangan, membantu pengunjung,
-                        dan memastikan aktivitas wisata berjalan optimal.
-                    </p>
-                </div>
-                <div class="team-card-click-hint">👁</div>
-            </div>
+            @endforelse
 
         </div>
 
@@ -3363,387 +3599,36 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+// Global variables and functions (for inline onclick handlers)
+let storyCurrent = 0;
 
-    // ==================== AOS ====================
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50
-        });
-    }
-
-    // ==================== HERO SLIDER ====================
-    let heroCurrent = 0;
-    const heroSlides = document.querySelectorAll('.slide');
-    const heroDots = document.querySelectorAll('.dot');
-
-    function showHeroSlide(index) {
-        if (!heroSlides.length) return;
-
-        heroSlides.forEach(function (slide) {
-            slide.classList.remove('active');
-        });
-
-        heroDots.forEach(function (dot) {
-            dot.classList.remove('active');
-        });
-
-        if (index < 0) {
-            heroCurrent = heroSlides.length - 1;
-        } else if (index >= heroSlides.length) {
-            heroCurrent = 0;
-        } else {
-            heroCurrent = index;
-        }
-
-        heroSlides[heroCurrent].classList.add('active');
-
-        if (heroDots[heroCurrent]) {
-            heroDots[heroCurrent].classList.add('active');
-        }
-    }
-
-    function nextHeroSlide() {
-        showHeroSlide(heroCurrent + 1);
-    }
-
-    heroDots.forEach(function (dot, index) {
-        dot.addEventListener('click', function () {
-            showHeroSlide(index);
-        });
-    });
-
-    if (heroSlides.length) {
-        showHeroSlide(0);
-        setInterval(nextHeroSlide, 5000);
-    }
-
-    // ==================== SMOOTH SCROLL ====================
-    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-        anchor.addEventListener('click', function (e) {
-            const target = document.querySelector(this.getAttribute('href'));
-
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // ==================== MAP INTERACTIVE ====================
-    const mapPoints = document.querySelectorAll('.map-point');
-    const mapNumber = document.getElementById('mapNumber');
-    const mapTitle = document.getElementById('mapTitle');
-    const mapDesc = document.getElementById('mapDesc');
-    const mapTags = document.getElementById('mapTags');
-
-    mapPoints.forEach(function (point) {
-        point.addEventListener('click', function () {
-            mapPoints.forEach(function (item) {
-                item.classList.remove('active');
-            });
-
-            point.classList.add('active');
-
-            if (mapNumber) mapNumber.textContent = point.dataset.number;
-            if (mapTitle) mapTitle.textContent = point.dataset.title;
-            if (mapDesc) mapDesc.textContent = point.dataset.desc;
-
-            if (mapTags) {
-                mapTags.innerHTML = '';
-
-                if (point.dataset.tags) {
-                    point.dataset.tags.split(',').forEach(function (tag) {
-                        const span = document.createElement('span');
-                        span.textContent = tag.trim();
-                        mapTags.appendChild(span);
-                    });
-                }
-            }
-        });
-    });
-
-    // ==================== ABOUT STORY SLIDER ====================
-    let storyCurrent = 0;
-    const storySlides = document.querySelectorAll('.story-slider .story-slide');
-    const storyDots = document.querySelectorAll('.story-slider .story-dots button');
-    const storyPrev = document.querySelector('.story-prev');
-    const storyNext = document.querySelector('.story-next');
-
-    function showStorySlide(index) {
-        if (!storySlides.length) return;
-
-        storySlides.forEach(function (slide) {
-            slide.classList.remove('active');
-        });
-
-        storyDots.forEach(function (dot) {
-            dot.classList.remove('active');
-        });
-
-        if (index < 0) {
-            storyCurrent = storySlides.length - 1;
-        } else if (index >= storySlides.length) {
-            storyCurrent = 0;
-        } else {
-            storyCurrent = index;
-        }
-
-        storySlides[storyCurrent].classList.add('active');
-
-        if (storyDots[storyCurrent]) {
-            storyDots[storyCurrent].classList.add('active');
-        }
-    }
-
-    if (storyPrev) {
-        storyPrev.addEventListener('click', function () {
-            showStorySlide(storyCurrent - 1);
-        });
-    }
-
-    if (storyNext) {
-        storyNext.addEventListener('click', function () {
-            showStorySlide(storyCurrent + 1);
-        });
-    }
-
-    storyDots.forEach(function (dot, index) {
-        dot.addEventListener('click', function () {
-            showStorySlide(index);
-        });
-    });
-
-    if (storySlides.length) {
-        showStorySlide(0);
-        setInterval(function () {
-            showStorySlide(storyCurrent + 1);
-        }, 8000);
-    }
-
-    // ==================== GALLERY SLIDER ====================
-    let galleryCurrent = 0;
-    const galleryTrack = document.getElementById('galleryTrack');
-    const galleryCards = document.querySelectorAll('.gallery-card');
-    const galleryDots = document.querySelectorAll('#galleryDots button');
-    const galleryPrev = document.querySelector('.gallery-prev');
-    const galleryNext = document.querySelector('.gallery-next');
-    let galleryAutoTimer = null;
-
-    function getGalleryPerView() {
-        if (window.innerWidth <= 576) return 1;
-        if (window.innerWidth <= 992) return 2;
-        return 3;
-    }
-
-    function showGallerySlide(index) {
-        if (!galleryTrack || !galleryCards.length) return;
-
-        const perView = getGalleryPerView();
-        const maxIndex = galleryCards.length - perView;
-
-        if (index < 0) {
-            galleryCurrent = maxIndex;
-        } else if (index > maxIndex) {
-            galleryCurrent = 0;
-        } else {
-            galleryCurrent = index;
-        }
-
-        const cardWidth = galleryCards[0].offsetWidth;
-        const gap = 24;
-        const move = galleryCurrent * (cardWidth + gap);
-
-        galleryTrack.style.transition = 'transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        galleryTrack.style.transform = 'translateX(-' + move + 'px)';
-
-        galleryDots.forEach(function (dot) {
-            dot.classList.remove('active');
-        });
-
-        if (galleryDots[galleryCurrent]) {
-            galleryDots[galleryCurrent].classList.add('active');
-        }
-    }
-
-    function startGalleryAuto() {
-        if (galleryAutoTimer) clearInterval(galleryAutoTimer);
-        galleryAutoTimer = setInterval(function () {
-            showGallerySlide(galleryCurrent + 1);
-        }, 4500);
-    }
-
-    if (galleryPrev) {
-        galleryPrev.addEventListener('click', function () {
-            showGallerySlide(galleryCurrent - 1);
-            startGalleryAuto();
-        });
-    }
-
-    if (galleryNext) {
-        galleryNext.addEventListener('click', function () {
-            showGallerySlide(galleryCurrent + 1);
-            startGalleryAuto();
-        });
-    }
-
-    galleryDots.forEach(function (dot, index) {
-        dot.addEventListener('click', function () {
-            showGallerySlide(index);
-            startGalleryAuto();
-        });
-    });
-
-    if (galleryCards.length) {
-        showGallerySlide(0);
-        startGalleryAuto();
-
-        window.addEventListener('resize', function () {
-            showGallerySlide(galleryCurrent);
-        });
-    }
-
-});
-// ==================== VIDEO SLIDER ====================
-let videoCurrent = 0;
-const videoTrack = document.getElementById('videoTrack');
-const videoCards = document.querySelectorAll('.video-card');
-const videoDots = document.querySelectorAll('#videoDots button');
-const videoPrev = document.querySelector('.video-prev');
-const videoNext = document.querySelector('.video-next');
-
-function showVideoSlide(index) {
-    if (!videoTrack || !videoCards.length) return;
+function showStorySlide(index) {
+    const slides = document.querySelectorAll('.story-slide');
+    const dots = document.querySelectorAll('.story-dots button');
+    if (!slides.length) return;
 
     if (index < 0) {
-        videoCurrent = videoCards.length - 1;
-    } else if (index >= videoCards.length) {
-        videoCurrent = 0;
+        storyCurrent = slides.length - 1;
+    } else if (index >= slides.length) {
+        storyCurrent = 0;
     } else {
-        videoCurrent = index;
+        storyCurrent = index;
     }
 
-    const cardWidth = videoCards[0].offsetWidth;
-    const gap = 26;
-    const move = videoCurrent * (cardWidth + gap);
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
 
-    videoTrack.style.transform = 'translateX(-' + move + 'px)';
-
-    videoDots.forEach(function (dot) {
-        dot.classList.remove('active');
-    });
-
-    if (videoDots[videoCurrent]) {
-        videoDots[videoCurrent].classList.add('active');
+    slides[storyCurrent].classList.add('active');
+    if (dots[storyCurrent]) {
+        dots[storyCurrent].classList.add('active');
     }
 }
 
-if (videoPrev) {
-    videoPrev.addEventListener('click', function () {
-        showVideoSlide(videoCurrent - 1);
-    });
+function changeStorySlide(direction) {
+    showStorySlide(storyCurrent + direction);
 }
 
-if (videoNext) {
-    videoNext.addEventListener('click', function () {
-        showVideoSlide(videoCurrent + 1);
-    });
-}
-
-videoDots.forEach(function (dot, index) {
-    dot.addEventListener('click', function () {
-        showVideoSlide(index);
-    });
-});
-
-if (videoCards.length) {
-    showVideoSlide(0);
-}
-
-
-// ==================== NEWS SLIDER ====================
-let newsCurrent = 0;
-const newsTrack = document.getElementById('newsTrack');
-const newsCards = document.querySelectorAll('.news-card');
-const newsDots = document.querySelectorAll('#newsDots button');
-const newsPrev = document.querySelector('.news-prev');
-const newsNext = document.querySelector('.news-next');
-let newsAutoTimer = null;
-
-function getNewsPerView() {
-    if (window.innerWidth <= 576) return 1;
-    if (window.innerWidth <= 992) return 2;
-    return 3;
-}
-
-function showNewsSlide(index) {
-    if (!newsTrack || !newsCards.length) return;
-
-    const perView = getNewsPerView();
-    const maxIndex = Math.max(0, newsCards.length - perView);
-
-    if (index < 0) {
-        newsCurrent = maxIndex;
-    } else if (index > maxIndex) {
-        newsCurrent = 0;
-    } else {
-        newsCurrent = index;
-    }
-
-    const cardWidth = newsCards[0].offsetWidth;
-    const gap = 24;
-    const move = newsCurrent * (cardWidth + gap);
-
-    newsTrack.style.transition = 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    newsTrack.style.transform = 'translateX(-' + move + 'px)';
-
-    newsDots.forEach(function (dot) { dot.classList.remove('active'); });
-    if (newsDots[newsCurrent]) { newsDots[newsCurrent].classList.add('active'); }
-}
-
-function startNewsAuto() {
-    if (newsAutoTimer) clearInterval(newsAutoTimer);
-    newsAutoTimer = setInterval(function () {
-        showNewsSlide(newsCurrent + 1);
-    }, 5500);
-}
-
-if (newsPrev) {
-    newsPrev.addEventListener('click', function () {
-        showNewsSlide(newsCurrent - 1);
-        startNewsAuto();
-    });
-}
-
-if (newsNext) {
-    newsNext.addEventListener('click', function () {
-        showNewsSlide(newsCurrent + 1);
-        startNewsAuto();
-    });
-}
-
-newsDots.forEach(function (dot, index) {
-    dot.addEventListener('click', function () {
-        showNewsSlide(index);
-        startNewsAuto();
-    });
-});
-
-if (newsCards.length) {
-    showNewsSlide(0);
-    startNewsAuto();
-
-    window.addEventListener('resize', function () {
-        showNewsSlide(newsCurrent);
-    });
-}
-
-// ==================== STORY IMAGE MODAL ====================
+// Modals
 function openStoryModal(el) {
     const overlay = document.getElementById('storyModalOverlay');
     if (!overlay) return;
@@ -3775,7 +3660,6 @@ function closeStoryModal() {
     document.body.style.overflow = '';
 }
 
-// ==================== TEAM BIODATA MODAL ====================
 function openTeamModal(data) {
     const overlay = document.getElementById('teamModalOverlay');
     if (!overlay) return;
@@ -3784,7 +3668,20 @@ function openTeamModal(data) {
     document.getElementById('teamModalName').textContent = data.name || '';
     document.getElementById('teamModalInstansi').textContent = data.instansi || '-';
     document.getElementById('teamModalBidang').textContent = data.bidang || '-';
-    document.getElementById('teamModalKontak').textContent = data.kontak || '-';
+    
+    const kontakVal = data.kontak || '-';
+    const kontakEl = document.getElementById('teamModalKontak');
+    if (kontakEl) {
+        if (kontakVal.includes('@')) {
+            kontakEl.innerHTML = `<a href="mailto:${kontakVal}" style="color:#c6a43b; text-decoration:none; font-weight: 600;">${kontakVal}</a>`;
+        } else if (kontakVal.match(/^\+?[0-9\s\-]{7,}$/)) {
+            const cleanPhone = kontakVal.replace(/[^0-9+]/g, '');
+            kontakEl.innerHTML = `<a href="tel:${cleanPhone}" style="color:#c6a43b; text-decoration:none; font-weight: 600;">${kontakVal}</a>`;
+        } else {
+            kontakEl.textContent = kontakVal;
+        }
+    }
+    
     document.getElementById('teamModalDesc').textContent = data.desc || '';
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -3796,13 +3693,416 @@ function closeTeamModal() {
     document.body.style.overflow = '';
 }
 
-// Keyboard ESC close modals
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeStoryModal();
-        closeTeamModal();
+// Draggable Helper function
+function makeSliderDraggable(track, showSlideFn, getCurrentFn) {
+    if (!track) return;
+    
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let initialTranslate = 0;
+    let moved = false;
+    
+    track.addEventListener('dragstart', (e) => e.preventDefault());
+    
+    track.addEventListener('touchstart', dragStart, { passive: true });
+    track.addEventListener('touchmove', dragMove, { passive: true });
+    track.addEventListener('touchend', dragEnd);
+    
+    track.addEventListener('mousedown', dragStart);
+    track.addEventListener('mousemove', dragMove);
+    track.addEventListener('mouseup', dragEnd);
+    track.addEventListener('mouseleave', dragEnd);
+    
+    track.addEventListener('click', function(e) {
+        if (moved) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }, true);
+    
+    function getTranslateX() {
+        const style = window.getComputedStyle(track);
+        const matrix = new DOMMatrixReadOnly(style.transform);
+        return matrix.m41;
     }
+    
+    function dragStart(e) {
+        isDragging = true;
+        moved = false;
+        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        currentX = startX;
+        initialTranslate = getTranslateX();
+        track.style.transition = 'none';
+    }
+    
+    function dragMove(e) {
+        if (!isDragging) return;
+        currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const walk = currentX - startX;
+        if (Math.abs(walk) > 5) {
+            moved = true;
+        }
+        track.style.transform = `translateX(${initialTranslate + walk}px)`;
+    }
+    
+    function dragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const walk = currentX - startX;
+        if (Math.abs(walk) > 50) {
+            if (walk < 0) {
+                showSlideFn(getCurrentFn() + 1);
+            } else {
+                showSlideFn(getCurrentFn() - 1);
+            }
+        } else {
+            showSlideFn(getCurrentFn());
+        }
+    }
+}
+
+// DOMContentLoaded Block
+document.addEventListener('DOMContentLoaded', function () {
+
+    // AOS
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    }
+
+    // Hero Slider
+    let heroCurrent = 0;
+    const heroSlides = document.querySelectorAll('.slide');
+    const heroDots = document.querySelectorAll('.dot');
+
+    function showHeroSlide(index) {
+        if (!heroSlides.length) return;
+        heroSlides.forEach(function (slide) { slide.classList.remove('active'); });
+        heroDots.forEach(function (dot) { dot.classList.remove('active'); });
+
+        if (index < 0) {
+            heroCurrent = heroSlides.length - 1;
+        } else if (index >= heroSlides.length) {
+            heroCurrent = 0;
+        } else {
+            heroCurrent = index;
+        }
+        heroSlides[heroCurrent].classList.add('active');
+        if (heroDots[heroCurrent]) heroDots[heroCurrent].classList.add('active');
+    }
+
+    function nextHeroSlide() { showHeroSlide(heroCurrent + 1); }
+
+    heroDots.forEach(function (dot, index) {
+        dot.addEventListener('click', function () { showHeroSlide(index); });
+    });
+
+    if (heroSlides.length) {
+        showHeroSlide(0);
+        setInterval(nextHeroSlide, 5000);
+    }
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Map Interactive
+    const mapPoints = document.querySelectorAll('.map-point');
+    const mapNumber = document.getElementById('mapNumber');
+    const mapTitle = document.getElementById('mapTitle');
+    const mapDesc = document.getElementById('mapDesc');
+    const mapTags = document.getElementById('mapTags');
+
+    mapPoints.forEach(function (point) {
+        point.addEventListener('click', function () {
+            mapPoints.forEach(function (item) { item.classList.remove('active'); });
+            point.classList.add('active');
+
+            if (mapNumber) mapNumber.textContent = point.dataset.number;
+            if (mapTitle) mapTitle.textContent = point.dataset.title;
+            if (mapDesc) mapDesc.textContent = point.dataset.desc;
+
+            if (mapTags) {
+                mapTags.innerHTML = '';
+                if (point.dataset.tags) {
+                    point.dataset.tags.split(',').forEach(function (tag) {
+                        const span = document.createElement('span');
+                        span.textContent = tag.trim();
+                        mapTags.appendChild(span);
+                    });
+                }
+            }
+        });
+    });
+
+    // About Story Slider Dots & Auto-play
+    const storyDots = document.querySelectorAll('.story-slider .story-dots button');
+    storyDots.forEach(function (dot, index) {
+        dot.addEventListener('click', function () {
+            showStorySlide(index);
+        });
+    });
+
+    const storySlides = document.querySelectorAll('.story-slider .story-slide');
+    if (storySlides.length) {
+        showStorySlide(0);
+        setInterval(function () {
+            showStorySlide(storyCurrent + 1);
+        }, 8000);
+    }
+
+    // Gallery Slider
+    let galleryCurrent = 0;
+    const galleryTrack = document.getElementById('galleryTrack');
+    const galleryCards = document.querySelectorAll('.gallery-card');
+    const galleryDots = document.querySelectorAll('#galleryDots button');
+    const galleryPrev = document.querySelector('.gallery-prev');
+    const galleryNext = document.querySelector('.gallery-next');
+    let galleryAutoTimer = null;
+
+    function getGalleryPerView() {
+        if (!galleryTrack || !galleryCards.length) return 3;
+        const containerWidth = galleryTrack.parentElement.offsetWidth;
+        const cardWidth = galleryCards[0].offsetWidth;
+        if (cardWidth === 0) {
+            if (window.innerWidth <= 576) return 1;
+            if (window.innerWidth <= 992) return 2;
+            return 3;
+        }
+        const gap = 24;
+        return Math.max(1, Math.floor((containerWidth + gap) / (cardWidth + gap)));
+    }
+
+    function showGallerySlide(index) {
+        if (!galleryTrack || !galleryCards.length) return;
+
+        const perView = getGalleryPerView();
+        const maxIndex = Math.max(0, galleryCards.length - perView);
+
+        if (index < 0) {
+            galleryCurrent = maxIndex;
+        } else if (index > maxIndex) {
+            galleryCurrent = 0;
+        } else {
+            galleryCurrent = index;
+        }
+
+        const cardWidth = galleryCards[0].offsetWidth;
+        const gap = 24;
+        const move = galleryCurrent * (cardWidth + gap);
+
+        galleryTrack.style.transition = 'transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        galleryTrack.style.transform = 'translateX(-' + move + 'px)';
+
+        galleryDots.forEach(function (dot) { dot.classList.remove('active'); });
+        if (galleryDots[galleryCurrent]) { galleryDots[galleryCurrent].classList.add('active'); }
+    }
+
+    function startGalleryAuto() {
+        if (galleryAutoTimer) clearInterval(galleryAutoTimer);
+        galleryAutoTimer = setInterval(function () {
+            showGallerySlide(galleryCurrent + 1);
+        }, 4500);
+    }
+
+    if (galleryPrev) {
+        galleryPrev.addEventListener('click', function () {
+            showGallerySlide(galleryCurrent - 1);
+            startGalleryAuto();
+        });
+    }
+
+    if (galleryNext) {
+        galleryNext.addEventListener('click', function () {
+            showGallerySlide(galleryCurrent + 1);
+            startGalleryAuto();
+        });
+    }
+
+    galleryDots.forEach(function (dot, index) {
+        dot.addEventListener('click', function () {
+            const perView = getGalleryPerView();
+            const maxIndex = Math.max(0, galleryCards.length - perView);
+            showGallerySlide(Math.min(index, maxIndex));
+            startGalleryAuto();
+        });
+    });
+
+    if (galleryCards.length) {
+        showGallerySlide(0);
+        startGalleryAuto();
+        window.addEventListener('resize', function () {
+            showGallerySlide(galleryCurrent);
+        });
+        makeSliderDraggable(galleryTrack, showGallerySlide, () => galleryCurrent);
+    }
+
+    // Video Slider
+    let videoCurrent = 0;
+    const videoTrack = document.getElementById('videoTrack');
+    const videoCards = document.querySelectorAll('.video-card');
+    const videoDots = document.querySelectorAll('#videoDots button');
+    const videoPrev = document.querySelector('.video-prev');
+    const videoNext = document.querySelector('.video-next');
+
+    function showVideoSlide(index) {
+        if (!videoTrack || !videoCards.length) return;
+
+        if (index < 0) {
+            videoCurrent = videoCards.length - 1;
+        } else if (index >= videoCards.length) {
+            videoCurrent = 0;
+        } else {
+            videoCurrent = index;
+        }
+
+        const cardWidth = videoCards[0].offsetWidth;
+        const gap = 26;
+        const move = videoCurrent * (cardWidth + gap);
+
+        videoTrack.style.transition = 'transform 0.7s ease';
+        videoTrack.style.transform = 'translateX(-' + move + 'px)';
+
+        videoDots.forEach(function (dot) { dot.classList.remove('active'); });
+        if (videoDots[videoCurrent]) { videoDots[videoCurrent].classList.add('active'); }
+    }
+
+    if (videoPrev) {
+        videoPrev.addEventListener('click', function () {
+            showVideoSlide(videoCurrent - 1);
+        });
+    }
+
+    if (videoNext) {
+        videoNext.addEventListener('click', function () {
+            showVideoSlide(videoCurrent + 1);
+        });
+    }
+
+    videoDots.forEach(function (dot, index) {
+        dot.addEventListener('click', function () {
+            showVideoSlide(index);
+        });
+    });
+
+    if (videoCards.length) {
+        showVideoSlide(0);
+        window.addEventListener('resize', function () {
+            showVideoSlide(videoCurrent);
+        });
+        makeSliderDraggable(videoTrack, showVideoSlide, () => videoCurrent);
+    }
+
+    // News Slider
+    let newsCurrent = 0;
+    const newsTrack = document.getElementById('newsTrack');
+    const newsCards = document.querySelectorAll('.news-card');
+    const newsDots = document.querySelectorAll('#newsDots button');
+    const newsPrev = document.querySelector('.news-prev');
+    const newsNext = document.querySelector('.news-next');
+    let newsAutoTimer = null;
+
+    function getNewsPerView() {
+        if (!newsTrack || !newsCards.length) return 3;
+        const containerWidth = newsTrack.parentElement.offsetWidth;
+        const cardWidth = newsCards[0].offsetWidth;
+        if (cardWidth === 0) {
+            if (window.innerWidth <= 576) return 1;
+            if (window.innerWidth <= 992) return 2;
+            return 3;
+        }
+        const gap = 24;
+        return Math.max(1, Math.floor((containerWidth + gap) / (cardWidth + gap)));
+    }
+
+    function showNewsSlide(index) {
+        if (!newsTrack || !newsCards.length) return;
+
+        const perView = getNewsPerView();
+        const maxIndex = Math.max(0, newsCards.length - perView);
+
+        if (index < 0) {
+            newsCurrent = maxIndex;
+        } else if (index > maxIndex) {
+            newsCurrent = 0;
+        } else {
+            newsCurrent = index;
+        }
+
+        const cardWidth = newsCards[0].offsetWidth;
+        const gap = 24;
+        const move = newsCurrent * (cardWidth + gap);
+
+        newsTrack.style.transition = 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        newsTrack.style.transform = 'translateX(-' + move + 'px)';
+
+        newsDots.forEach(function (dot) { dot.classList.remove('active'); });
+        if (newsDots[newsCurrent]) { newsDots[newsCurrent].classList.add('active'); }
+    }
+
+    function startNewsAuto() {
+        if (newsAutoTimer) clearInterval(newsAutoTimer);
+        newsAutoTimer = setInterval(function () {
+            showNewsSlide(newsCurrent + 1);
+        }, 5500);
+    }
+
+    if (newsPrev) {
+        newsPrev.addEventListener('click', function () {
+            showNewsSlide(newsCurrent - 1);
+            startNewsAuto();
+        });
+    }
+
+    if (newsNext) {
+        newsNext.addEventListener('click', function () {
+            showNewsSlide(newsCurrent + 1);
+            startNewsAuto();
+        });
+    }
+
+    newsDots.forEach(function (dot, index) {
+        dot.addEventListener('click', function () {
+            const perView = getNewsPerView();
+            const maxIndex = Math.max(0, newsCards.length - perView);
+            showNewsSlide(Math.min(index, maxIndex));
+            startNewsAuto();
+        });
+    });
+
+    if (newsCards.length) {
+        showNewsSlide(0);
+        startNewsAuto();
+        window.addEventListener('resize', function () {
+            showNewsSlide(newsCurrent);
+        });
+        makeSliderDraggable(newsTrack, showNewsSlide, () => newsCurrent);
+    }
+
+    // Keyboard ESC close modals
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeStoryModal();
+            closeTeamModal();
+        }
+    });
+
 });
 </script>
+
+
+
 
 @endsection

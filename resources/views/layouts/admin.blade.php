@@ -310,31 +310,28 @@
             <a href="{{ route('admin.berita.index') }}" class="{{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper"></i> Berita
             </a>
-            <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') !== 'Pengurus' ? 'active' : '' }}">
                 <i class="fas fa-info-circle"></i> Informasi
             </a>
+<<<<<<< HEAD
             <a href="{{ route('admin.umkm.index') }}" class="{{ request()->routeIs('admin.umkm.*') ? 'active' : '' }}">
                 <i class="fas fa-store"></i> UMKM
             </a>
             <a href="{{ route('admin.penginapan.index') }}" class="{{ request()->routeIs('admin.penginapan.*') ? 'active' : '' }}">
                 <i class="fas fa-hotel"></i> Hotel / Penginapan
+=======
+            <a href="{{ route('admin.informasi.index', ['kategori' => 'Pengurus']) }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') === 'Pengurus' ? 'active' : '' }}">
+                <i class="fas fa-users"></i> Pengurus
+>>>>>>> c6b1f46a5c477ae0a4cec1c7fe9c0cfc2aec48e5
             </a>
             <a href="{{ route('admin.destinasi.index') }}" class="{{ request()->routeIs('admin.destinasi.*') ? 'active' : '' }}">
                 <i class="fas fa-map-marked-alt"></i> Destinasi
             </a>
-            <a href="{{ route('admin.hero-slider.index') }}" class="{{ request()->routeIs('admin.hero-slider.*') ? 'active' : '' }}">
-                <i class="fas fa-photo-film"></i> Slider Beranda
+            <a href="{{ route('admin.pesan.index') }}" class="{{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}">
+                <i class="fas fa-envelope"></i> Pesan Masuk
             </a>
-            <a href="{{ route('admin.fakta-unik.index') }}" class="{{ request()->routeIs('admin.fakta-unik.*') ? 'active' : '' }}">
-                <i class="fas fa-map-pin"></i> Fakta Unik (10 Titik)
-            </a>
-    {{-- 
-<a href="{{ route('admin.warisan-geologi.index') }}" class="{{ request()->routeIs('admin.warisan-geologi.*') ? 'active' : '' }}">
-    <i class="fas fa-landmark"></i> Warisan Geologi
-</a>
---}}
-            <a href="{{ route('admin.video-youtube.index') }}" class="{{ request()->routeIs('admin.video-youtube.*') ? 'active' : '' }}">
-                <i class="fab fa-youtube"></i> Video Youtube
+            <a href="{{ route('admin.kontak-info.index') }}" class="{{ request()->routeIs('admin.kontak-info.*') ? 'active' : '' }}">
+                <i class="fas fa-address-book"></i> Info Kontak
             </a>
         </div>
     </div>

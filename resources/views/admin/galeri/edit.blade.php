@@ -200,9 +200,9 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data" id="formEdit">
-            @csrf
-            @method('PUT')
+<form id="formEdit" action="{{ route('admin.galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    @method('PUT')
 
             <div class="row g-4">
 
@@ -283,26 +283,45 @@
                 {{-- ===== KOLOM KANAN — GAMBAR ===== --}}
                 <div class="col-lg-5">
 
-                    {{-- Gambar Saat Ini --}}
-                    <label class="form-label">Foto Saat Ini</label>
-                    @if($galeri->gambar)
-                        <div class="current-img-wrapper">
-                            <img src="{{ asset('storage/' . $galeri->gambar) }}"
-                                 alt="{{ $galeri->judul }}"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/400x260?text=Gambar+Tidak+Tersedia'">
-                            <div class="current-img-badge"><i class="fas fa-image me-1"></i> Foto Saat Ini</div>
-                        </div>
-                    @else
-                        <div style="border:2px dashed #e0d0b0;border-radius:12px;height:140px;display:flex;align-items:center;justify-content:center;color:#ccc;margin-bottom:12px;">
-                            <i class="fas fa-image" style="font-size:2.5rem;"></i>
-                        </div>
-                    @endif
+                   {{-- Gambar Saat Ini --}}
+<label class="form-label">Foto Saat Ini</label>
 
+@php
+    $rawGambar = $galeri->gambar ? ltrim($galeri->gambar, '/') : null;
+
+    if ($rawGambar) {
+        if (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
+            $fotoSaatIni = $rawGambar;
+        } elseif (str_starts_with($rawGambar, 'storage/')) {
+            $fotoSaatIni = asset($rawGambar);
+        } else {
+            $fotoSaatIni = asset('storage/' . $rawGambar);
+        }
+    } else {
+        $fotoSaatIni = null;
+    }
+@endphp
+
+@if($fotoSaatIni)
+    <div class="current-img-wrapper">
+        <img 
+            src="{{ $fotoSaatIni }}"
+            alt="{{ $galeri->judul }}"
+            onerror="this.onerror=null;this.src='{{ asset('images/sibaganding1.JPG') }}';"
+        >
+        <div class="current-img-badge">
+            <i class="fas fa-image me-1"></i> Foto Saat Ini
+        </div>
+    </div>
+@else
+    <div style="border:2px dashed #e0d0b0;border-radius:12px;height:140px;display:flex;align-items:center;justify-content:center;color:#ccc;margin-bottom:12px;">
+        <i class="fas fa-image" style="font-size:2.5rem;"></i>
+    </div>
+@endif
                     {{-- Upload Ganti Gambar --}}
                     <label class="form-label">Ganti Foto <small class="text-muted fw-normal">(Opsional)</small></label>
                     <div class="upload-zone" id="uploadZone">
-                        <input type="file" name="gambar" id="inputGambar"
-                               accept="image/jpeg,image/png,image/jpg,image/webp">
+                        <input type="file" name="gambar" id="inputGambar" class="form-control" accept="image/*">
                         <i class="fas fa-sync-alt d-block"></i>
                         <div class="upload-title">Klik untuk ganti foto</div>
                         <p>JPG, PNG, WEBP · Maks 4 MB<br>Kosongkan jika tidak ingin mengubah</p>
