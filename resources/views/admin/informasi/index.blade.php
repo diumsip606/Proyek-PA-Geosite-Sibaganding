@@ -1,12 +1,18 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen Informasi')
+@section('title', request('kategori') === 'Pengurus' ? 'Manajemen Pengurus' : 'Manajemen Informasi')
 
 @section('content')
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
-    <h5 class="mb-0"><i class="fas fa-info-circle me-2 text-primary"></i> Daftar Informasi</h5>
-    <a href="{{ route('admin.informasi.create') }}" class="btn-primary-custom btn">
-        <i class="fas fa-plus me-2"></i> Tambah Informasi
+    <h5 class="mb-0">
+        @if(request('kategori') === 'Pengurus')
+            <i class="fas fa-users me-2 text-primary"></i> Daftar Pengurus
+        @else
+            <i class="fas fa-info-circle me-2 text-primary"></i> Daftar Informasi
+        @endif
+    </h5>
+    <a href="{{ route('admin.informasi.create', ['kategori' => request('kategori')]) }}" class="btn-primary-custom btn">
+        <i class="fas fa-plus me-2"></i> {{ request('kategori') === 'Pengurus' ? 'Tambah Pengurus' : 'Tambah Informasi' }}
     </a>
 </div>
 
@@ -18,16 +24,24 @@
     <div class="table-responsive">
         <table class="table table-custom">
             <thead>
-                <tr><th>#</th><th>Judul</th><th>Kategori</th><th>Penulis</th><th>Status</th><th>Aksi</th></tr>
+                @if(request('kategori') === 'Pengurus')
+                    <tr><th>#</th><th>Nama Pengurus</th><th>Jabatan / Role</th><th>Status</th><th>Aksi</th></tr>
+                @else
+                    <tr><th>#</th><th>Judul</th><th>Kategori</th><th>Penulis</th><th>Status</th><th>Aksi</th></tr>
+                @endif
             </thead>
             <tbody>
                 @forelse($informasi as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td><strong>{{ Str::limit($item->judul, 40) }}</strong></td>
-                    <td><span class="badge-info badge">{{ $item->kategori }}</span></td>
-                    <td>{{ $item->penulis }}</span></td>
-                    <td>@if($item->status)<span class="badge-success badge">Aktif</span>@else<span class="badge-danger badge">Tidak</span>@endif</span></td>
+                    @if(request('kategori') === 'Pengurus')
+                        <td>{{ $item->penulis }}</td>
+                    @else
+                        <td><span class="badge-info badge">{{ $item->kategori }}</span></td>
+                        <td>{{ $item->penulis }}</td>
+                    @endif
+                    <td>@if($item->status)<span class="badge-success badge">Aktif</span>@else<span class="badge-danger badge">Tidak Aktif</span>@endif</td>
                     <td>
                         <div class="d-flex gap-1">
                             <a href="{{ route('admin.informasi.edit', $item->id) }}" class="btn btn-outline-custom"><i class="fas fa-edit"></i></a>
@@ -41,12 +55,16 @@
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="6" class="text-center py-4">Belum ada data informasi</td></td>
+                <tr>
+                    <td colspan="{{ request('kategori') === 'Pengurus' ? 5 : 6 }}" class="text-center py-4">
+                        Belum ada data {{ request('kategori') === 'Pengurus' ? 'pengurus' : 'informasi' }}
+                    </td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
     
-    {{ $informasi->links() }}
+    {{ $informasi->appends(request()->query())->links() }}
 </div>
 @endsection

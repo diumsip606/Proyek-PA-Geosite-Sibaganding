@@ -9,9 +9,17 @@ use Illuminate\Support\Str;
 
 class InformasiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $informasi = Informasi::latest()->paginate(10);
+        $query = Informasi::latest();
+        
+        if ($request->has('kategori')) {
+            $query->where('kategori', $request->kategori);
+        } else {
+            $query->where('kategori', '!=', 'Pengurus');
+        }
+        
+        $informasi = $query->paginate(10);
         return view('admin.informasi.index', compact('informasi'));
     }
 
@@ -46,6 +54,9 @@ class InformasiController extends Controller
 
         Informasi::create($data);
 
+        if ($request->kategori === 'Pengurus') {
+            return redirect()->route('admin.informasi.index', ['kategori' => 'Pengurus'])->with('success', 'Pengurus berhasil ditambahkan!');
+        }
         return redirect()->route('admin.informasi.index')->with('success', 'Informasi berhasil ditambahkan!');
     }
 
@@ -86,16 +97,24 @@ class InformasiController extends Controller
 
         $informasi->update($data);
 
+        if ($request->kategori === 'Pengurus') {
+            return redirect()->route('admin.informasi.index', ['kategori' => 'Pengurus'])->with('success', 'Pengurus berhasil diupdate!');
+        }
         return redirect()->route('admin.informasi.index')->with('success', 'Informasi berhasil diupdate!');
     }
 
     public function destroy($id)
     {
         $informasi = Informasi::findOrFail($id);
+        $kategori = $informasi->kategori;
         if ($informasi->gambar && file_exists(public_path($informasi->gambar))) {
             unlink(public_path($informasi->gambar));
         }
         $informasi->delete();
+        
+        if ($kategori === 'Pengurus') {
+            return redirect()->route('admin.informasi.index', ['kategori' => 'Pengurus'])->with('success', 'Pengurus berhasil dihapus!');
+        }
         return redirect()->route('admin.informasi.index')->with('success', 'Informasi berhasil dihapus!');
     }
 }
