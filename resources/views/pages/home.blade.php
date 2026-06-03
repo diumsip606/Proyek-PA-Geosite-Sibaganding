@@ -2844,6 +2844,97 @@
     background: #c6a43b;
 }
 
+/* ==================== GALLERY LIGHTBOX MODAL ==================== */
+.gallery-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 15, 30, 0.9);
+    backdrop-filter: blur(15px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: modalFadeIn 0.35s ease;
+}
+
+.gallery-modal-overlay.open {
+    display: flex;
+}
+
+.gallery-modal-box {
+    position: relative;
+    background: #021d33;
+    border-radius: 32px;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+    max-width: 850px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: modalSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-modal-img {
+    width: 100%;
+    max-height: 72vh;
+    overflow: hidden;
+    background: #011424;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-modal-img img {
+    max-width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    display: block;
+}
+
+.gallery-modal-caption {
+    padding: 26px 36px;
+    background: #021d33;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.gallery-modal-caption h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.85rem;
+    color: #fff8df;
+    margin: 0;
+}
+
+.gallery-modal-close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.45);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.gallery-modal-close:hover {
+    background: #c6a43b;
+    border-color: #c6a43b;
+    color: #003366;
+    transform: rotate(90deg);
+}
+
 </style>
 
 
@@ -3071,7 +3162,20 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
             <h2 id="storyModalTitle"></h2>
             <p id="storyModalDesc"></p>
             <div class="story-modal-tags" id="storyModalTags"></div>
-            <a href="{{ url('/informasi') }}" class="story-modal-btn">Jelajahi Lebih Lanjut →</a>
+            <a href="{{ url('/informasi') }}" id="storyModalLink" class="story-modal-btn">Jelajahi Lebih Lanjut →</a>
+        </div>
+    </div>
+</div>
+
+{{-- Gallery Lightbox Modal --}}
+<div class="gallery-modal-overlay" id="galleryModalOverlay" onclick="if(event.target===this) closeGalleryModal()">
+    <div class="gallery-modal-box">
+        <button class="gallery-modal-close" onclick="closeGalleryModal()">&#10005;</button>
+        <div class="gallery-modal-img">
+            <img id="galleryModalImg" src="" alt="">
+        </div>
+        <div class="gallery-modal-caption">
+            <h4 id="galleryModalTitle"></h4>
         </div>
     </div>
 </div>
@@ -3096,8 +3200,17 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 
             <!-- PILAR 01 -->
             <div class="pilar-item" data-aos="fade-up">
-                <div class="pilar-image">
+                <div class="pilar-image"
+                     style="cursor: pointer; position: relative;"
+                     data-img="{{ asset('images/monkey forest.jpg') }}"
+                     data-label="01 — BIODIVERSITY"
+                     data-title="Biodiversity (Keanekaragaman Hayati)"
+                     data-desc="Keanekaragaman hayati menjadi salah satu kekuatan Sibaganding. Kawasan ini menyimpan kehidupan alam yang tumbuh berdampingan dengan masyarakat, mulai dari kawasan hutan, satwa, hingga lanskap hijau yang menjadi daya tarik ekowisata. Di sini Anda dapat menemui berbagai satwa liar seperti kera ekor panjang yang hidup lestari di habitat aslinya."
+                     data-tags="Satwa Liar, Hutan, Ekowisata, Konservasi"
+                     data-link="{{ route('destinasi.biodiversity') }}"
+                     onclick="openStoryModal(this)">
                     <img src="{{ asset('images/monkey forest.jpg') }}" alt="Biodiversity">
+                    <div style="position:absolute;bottom:16px;right:16px;background:rgba(0,0,0,0.6);color:#fff;padding:6px 12px;border-radius:20px;font-size:0.68rem;z-index:5;pointer-events:none;letter-spacing:0.05em;font-weight:600;">🔍 Detail</div>
                 </div>
 
                 <div class="pilar-content">
@@ -3123,8 +3236,17 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 
             <!-- PILAR 02 -->
             <div class="pilar-item reverse" data-aos="fade-up">
-                <div class="pilar-image">
+                <div class="pilar-image"
+                     style="cursor: pointer; position: relative;"
+                     data-img="{{ asset('images/geodiversity.jpg') }}"
+                     data-label="02 — GEODIVERSITY"
+                     data-title="Geodiversity (Keragaman Geologi)"
+                     data-desc="Jejak geologi Danau Toba terlihat melalui kaldera, tebing, batuan, perbukitan, dan bentang alam yang terbentuk dari proses bumi ribuan tahun lalu. Nilai geologi inilah yang membuat kawasan ini penting sebagai ruang edukasi dan wisata ilmiah."
+                     data-tags="Kaldera Toba, Batuan Unik, Panorama, Edukasi Geologi"
+                     data-link="{{ route('destinasi.geodiversity') }}"
+                     onclick="openStoryModal(this)">
                     <img src="{{ asset('images/geodiversity.jpg') }}" alt="Geodiversity">
+                    <div style="position:absolute;bottom:16px;right:16px;background:rgba(0,0,0,0.6);color:#fff;padding:6px 12px;border-radius:20px;font-size:0.68rem;z-index:5;pointer-events:none;letter-spacing:0.05em;font-weight:600;">🔍 Detail</div>
                 </div>
 
                 <div class="pilar-content">
@@ -3150,8 +3272,17 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 
             <!-- PILAR 03 -->
             <div class="pilar-item" data-aos="fade-up">
-                <div class="pilar-image">
+                <div class="pilar-image"
+                     style="cursor: pointer; position: relative;"
+                     data-img="{{ asset('images/culturediversity.JPG') }}"
+                     data-label="03 — CULTUREDIVERSITY"
+                     data-title="Culturediversity (Keragaman Budaya)"
+                     data-desc="Budaya Batak memperkaya cerita Sibaganding melalui tradisi lokal, arsitektur rumah adat, cerita rakyat yang melegenda, seni pertunjukan, dan kehidupan adat sehari-hari masyarakat lokal. Nilai budaya inilah yang melengkapi perjalanan wisata sejarah."
+                     data-tags="Budaya Batak, Rumah Adat, Cerita Rakyat, Tradisi Lokal"
+                     data-link="{{ route('destinasi.culture-diversity') }}"
+                     onclick="openStoryModal(this)">
                     <img src="{{ asset('images/culturediversity.JPG') }}" alt="Culturediversity">
+                    <div style="position:absolute;bottom:16px;right:16px;background:rgba(0,0,0,0.6);color:#fff;padding:6px 12px;border-radius:20px;font-size:0.68rem;z-index:5;pointer-events:none;letter-spacing:0.05em;font-weight:600;">🔍 Detail</div>
                 </div>
 
                 <div class="pilar-content">
@@ -3191,7 +3322,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         <div class="gallery-slider" data-aos="fade-up">
             <div class="gallery-track" id="galleryTrack">
               @forelse($galeri as $i => $item)
-<div class="gallery-card">
+<div class="gallery-card" style="cursor: pointer;" onclick="openGalleryModal(this.querySelector('img').src, this.querySelector('h4').textContent)">
    @php
     $rawGambar = $item->gambar ? ltrim($item->gambar, '/') : null;
 
@@ -3270,7 +3401,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
     ];
 @endphp
                 @for($g = 1; $g <= 10; $g++)
-                <div class="gallery-card">
+                <div class="gallery-card" style="cursor: pointer;" onclick="openGalleryModal(this.querySelector('img').src, this.querySelector('h4').textContent)">
                     <img src="{{ asset('images/galleri-'.$g.'.'.$galeriExts[$g]) }}" alt="{{ $galeriTitles[$g] }}" onerror="this.src='{{ asset('images/sibaganding1.JPG') }}'">
                     <div class="gallery-caption">
                         <span>{{ str_pad($g, 2, '0', STR_PAD_LEFT) }}</span>
@@ -3693,6 +3824,21 @@ function closeTeamModal() {
     document.body.style.overflow = '';
 }
 
+function openGalleryModal(imgUrl, title) {
+    const overlay = document.getElementById('galleryModalOverlay');
+    if (!overlay) return;
+    document.getElementById('galleryModalImg').src = imgUrl;
+    document.getElementById('galleryModalTitle').textContent = title;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeGalleryModal() {
+    const overlay = document.getElementById('galleryModalOverlay');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
 // Draggable Helper function
 function makeSliderDraggable(track, showSlideFn, getCurrentFn) {
     if (!track) return;
@@ -3728,12 +3874,14 @@ function makeSliderDraggable(track, showSlideFn, getCurrentFn) {
     }
     
     function dragStart(e) {
+        if (track.dataset.isTransitioning === 'true') return;
         isDragging = true;
         moved = false;
         startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
         currentX = startX;
         initialTranslate = getTranslateX();
         track.style.transition = 'none';
+        track.dataset.isTransitioning = 'false';
     }
     
     function dragMove(e) {
@@ -3864,7 +4012,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Gallery Slider
-    let galleryCurrent = 0;
     const galleryTrack = document.getElementById('galleryTrack');
     const galleryCards = document.querySelectorAll('.gallery-card');
     const galleryDots = document.querySelectorAll('#galleryDots button');
@@ -3872,79 +4019,99 @@ document.addEventListener('DOMContentLoaded', function () {
     const galleryNext = document.querySelector('.gallery-next');
     let galleryAutoTimer = null;
 
-    function getGalleryPerView() {
-        if (!galleryTrack || !galleryCards.length) return 3;
-        const containerWidth = galleryTrack.parentElement.offsetWidth;
-        const cardWidth = galleryCards[0].offsetWidth;
-        if (cardWidth === 0) {
-            if (window.innerWidth <= 576) return 1;
-            if (window.innerWidth <= 992) return 2;
-            return 3;
+    if (galleryTrack && galleryCards.length) {
+        const totalGalleryCards = galleryCards.length;
+        const cloneCount = 3;
+
+        // Clone first cloneCount cards and append
+        for (let i = 0; i < cloneCount; i++) {
+            const clone = galleryCards[i].cloneNode(true);
+            clone.classList.add('is-clone');
+            galleryTrack.appendChild(clone);
         }
-        const gap = 24;
-        return Math.max(1, Math.floor((containerWidth + gap) / (cardWidth + gap)));
-    }
 
-    function showGallerySlide(index) {
-        if (!galleryTrack || !galleryCards.length) return;
+        // Clone last cloneCount cards and prepend
+        for (let i = totalGalleryCards - 1; i >= totalGalleryCards - cloneCount; i--) {
+            const clone = galleryCards[i].cloneNode(true);
+            clone.classList.add('is-clone');
+            galleryTrack.insertBefore(clone, galleryTrack.firstChild);
+        }
 
-        const perView = getGalleryPerView();
-        const maxIndex = Math.max(0, galleryCards.length - perView);
+        const allGalleryCards = galleryTrack.querySelectorAll('.gallery-card');
+        let galleryCurrent = 0;
 
-        if (index < 0) {
-            galleryCurrent = maxIndex;
-        } else if (index > maxIndex) {
-            galleryCurrent = 0;
-        } else {
+        function showGallerySlide(index, transition = true) {
+            if (!galleryTrack || !allGalleryCards.length) return;
+
+            if (transition) {
+                if (galleryTrack.dataset.isTransitioning === 'true') return;
+                galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                galleryTrack.dataset.isTransitioning = 'true';
+            } else {
+                galleryTrack.style.transition = 'none';
+                galleryTrack.dataset.isTransitioning = 'false';
+            }
+
+            const cardWidth = allGalleryCards[0].offsetWidth;
+            const gap = parseFloat(window.getComputedStyle(galleryTrack).gap) || 24;
+            const targetIndex = index + cloneCount;
+            const move = targetIndex * (cardWidth + gap);
+
+            galleryTrack.style.transform = 'translateX(-' + move + 'px)';
+
+            let wrappedIndex = index;
+            if (wrappedIndex < 0) {
+                wrappedIndex = totalGalleryCards + (wrappedIndex % totalGalleryCards);
+            }
+            wrappedIndex = wrappedIndex % totalGalleryCards;
+
+            galleryDots.forEach(function (dot) { dot.classList.remove('active'); });
+            if (galleryDots[wrappedIndex]) { galleryDots[wrappedIndex].classList.add('active'); }
+
             galleryCurrent = index;
         }
 
-        const cardWidth = galleryCards[0].offsetWidth;
-        const gap = 24;
-        const move = galleryCurrent * (cardWidth + gap);
-
-        galleryTrack.style.transition = 'transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        galleryTrack.style.transform = 'translateX(-' + move + 'px)';
-
-        galleryDots.forEach(function (dot) { dot.classList.remove('active'); });
-        if (galleryDots[galleryCurrent]) { galleryDots[galleryCurrent].classList.add('active'); }
-    }
-
-    function startGalleryAuto() {
-        if (galleryAutoTimer) clearInterval(galleryAutoTimer);
-        galleryAutoTimer = setInterval(function () {
-            showGallerySlide(galleryCurrent + 1);
-        }, 4500);
-    }
-
-    if (galleryPrev) {
-        galleryPrev.addEventListener('click', function () {
-            showGallerySlide(galleryCurrent - 1);
-            startGalleryAuto();
+        galleryTrack.addEventListener('transitionend', function () {
+            galleryTrack.dataset.isTransitioning = 'false';
+            if (galleryCurrent >= totalGalleryCards) {
+                showGallerySlide(0, false);
+            } else if (galleryCurrent < 0) {
+                showGallerySlide(totalGalleryCards - 1, false);
+            }
         });
-    }
 
-    if (galleryNext) {
-        galleryNext.addEventListener('click', function () {
-            showGallerySlide(galleryCurrent + 1);
-            startGalleryAuto();
+        function startGalleryAuto() {
+            if (galleryAutoTimer) clearInterval(galleryAutoTimer);
+            galleryAutoTimer = setInterval(function () {
+                showGallerySlide(galleryCurrent + 1);
+            }, 4500);
+        }
+
+        if (galleryPrev) {
+            galleryPrev.addEventListener('click', function () {
+                showGallerySlide(galleryCurrent - 1);
+                startGalleryAuto();
+            });
+        }
+
+        if (galleryNext) {
+            galleryNext.addEventListener('click', function () {
+                showGallerySlide(galleryCurrent + 1);
+                startGalleryAuto();
+            });
+        }
+
+        galleryDots.forEach(function (dot, index) {
+            dot.addEventListener('click', function () {
+                showGallerySlide(index);
+                startGalleryAuto();
+            });
         });
-    }
 
-    galleryDots.forEach(function (dot, index) {
-        dot.addEventListener('click', function () {
-            const perView = getGalleryPerView();
-            const maxIndex = Math.max(0, galleryCards.length - perView);
-            showGallerySlide(Math.min(index, maxIndex));
-            startGalleryAuto();
-        });
-    });
-
-    if (galleryCards.length) {
-        showGallerySlide(0);
+        showGallerySlide(0, false);
         startGalleryAuto();
         window.addEventListener('resize', function () {
-            showGallerySlide(galleryCurrent);
+            showGallerySlide(galleryCurrent, false);
         });
         makeSliderDraggable(galleryTrack, showGallerySlide, () => galleryCurrent);
     }
@@ -4006,7 +4173,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // News Slider
-    let newsCurrent = 0;
     const newsTrack = document.getElementById('newsTrack');
     const newsCards = document.querySelectorAll('.news-card');
     const newsDots = document.querySelectorAll('#newsDots button');
@@ -4014,79 +4180,99 @@ document.addEventListener('DOMContentLoaded', function () {
     const newsNext = document.querySelector('.news-next');
     let newsAutoTimer = null;
 
-    function getNewsPerView() {
-        if (!newsTrack || !newsCards.length) return 3;
-        const containerWidth = newsTrack.parentElement.offsetWidth;
-        const cardWidth = newsCards[0].offsetWidth;
-        if (cardWidth === 0) {
-            if (window.innerWidth <= 576) return 1;
-            if (window.innerWidth <= 992) return 2;
-            return 3;
+    if (newsTrack && newsCards.length) {
+        const totalNewsCards = newsCards.length;
+        const cloneCount = 3;
+
+        // Clone first cloneCount cards and append
+        for (let i = 0; i < cloneCount; i++) {
+            const clone = newsCards[i].cloneNode(true);
+            clone.classList.add('is-clone');
+            newsTrack.appendChild(clone);
         }
-        const gap = 24;
-        return Math.max(1, Math.floor((containerWidth + gap) / (cardWidth + gap)));
-    }
 
-    function showNewsSlide(index) {
-        if (!newsTrack || !newsCards.length) return;
+        // Clone last cloneCount cards and prepend
+        for (let i = totalNewsCards - 1; i >= totalNewsCards - cloneCount; i--) {
+            const clone = newsCards[i].cloneNode(true);
+            clone.classList.add('is-clone');
+            newsTrack.insertBefore(clone, newsTrack.firstChild);
+        }
 
-        const perView = getNewsPerView();
-        const maxIndex = Math.max(0, newsCards.length - perView);
+        const allNewsCards = newsTrack.querySelectorAll('.news-card');
+        let newsCurrent = 0;
 
-        if (index < 0) {
-            newsCurrent = maxIndex;
-        } else if (index > maxIndex) {
-            newsCurrent = 0;
-        } else {
+        function showNewsSlide(index, transition = true) {
+            if (!newsTrack || !allNewsCards.length) return;
+
+            if (transition) {
+                if (newsTrack.dataset.isTransitioning === 'true') return;
+                newsTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                newsTrack.dataset.isTransitioning = 'true';
+            } else {
+                newsTrack.style.transition = 'none';
+                newsTrack.dataset.isTransitioning = 'false';
+            }
+
+            const cardWidth = allNewsCards[0].offsetWidth;
+            const gap = parseFloat(window.getComputedStyle(newsTrack).gap) || 24;
+            const targetIndex = index + cloneCount;
+            const move = targetIndex * (cardWidth + gap);
+
+            newsTrack.style.transform = 'translateX(-' + move + 'px)';
+
+            let wrappedIndex = index;
+            if (wrappedIndex < 0) {
+                wrappedIndex = totalNewsCards + (wrappedIndex % totalNewsCards);
+            }
+            wrappedIndex = wrappedIndex % totalNewsCards;
+
+            newsDots.forEach(function (dot) { dot.classList.remove('active'); });
+            if (newsDots[wrappedIndex]) { newsDots[wrappedIndex].classList.add('active'); }
+
             newsCurrent = index;
         }
 
-        const cardWidth = newsCards[0].offsetWidth;
-        const gap = 24;
-        const move = newsCurrent * (cardWidth + gap);
-
-        newsTrack.style.transition = 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        newsTrack.style.transform = 'translateX(-' + move + 'px)';
-
-        newsDots.forEach(function (dot) { dot.classList.remove('active'); });
-        if (newsDots[newsCurrent]) { newsDots[newsCurrent].classList.add('active'); }
-    }
-
-    function startNewsAuto() {
-        if (newsAutoTimer) clearInterval(newsAutoTimer);
-        newsAutoTimer = setInterval(function () {
-            showNewsSlide(newsCurrent + 1);
-        }, 5500);
-    }
-
-    if (newsPrev) {
-        newsPrev.addEventListener('click', function () {
-            showNewsSlide(newsCurrent - 1);
-            startNewsAuto();
+        newsTrack.addEventListener('transitionend', function () {
+            newsTrack.dataset.isTransitioning = 'false';
+            if (newsCurrent >= totalNewsCards) {
+                showNewsSlide(0, false);
+            } else if (newsCurrent < 0) {
+                showNewsSlide(totalNewsCards - 1, false);
+            }
         });
-    }
 
-    if (newsNext) {
-        newsNext.addEventListener('click', function () {
-            showNewsSlide(newsCurrent + 1);
-            startNewsAuto();
+        function startNewsAuto() {
+            if (newsAutoTimer) clearInterval(newsAutoTimer);
+            newsAutoTimer = setInterval(function () {
+                showNewsSlide(newsCurrent + 1);
+            }, 5500);
+        }
+
+        if (newsPrev) {
+            newsPrev.addEventListener('click', function () {
+                showNewsSlide(newsCurrent - 1);
+                startNewsAuto();
+            });
+        }
+
+        if (newsNext) {
+            newsNext.addEventListener('click', function () {
+                showNewsSlide(newsCurrent + 1);
+                startNewsAuto();
+            });
+        }
+
+        newsDots.forEach(function (dot, index) {
+            dot.addEventListener('click', function () {
+                showNewsSlide(index);
+                startNewsAuto();
+            });
         });
-    }
 
-    newsDots.forEach(function (dot, index) {
-        dot.addEventListener('click', function () {
-            const perView = getNewsPerView();
-            const maxIndex = Math.max(0, newsCards.length - perView);
-            showNewsSlide(Math.min(index, maxIndex));
-            startNewsAuto();
-        });
-    });
-
-    if (newsCards.length) {
-        showNewsSlide(0);
+        showNewsSlide(0, false);
         startNewsAuto();
         window.addEventListener('resize', function () {
-            showNewsSlide(newsCurrent);
+            showNewsSlide(newsCurrent, false);
         });
         makeSliderDraggable(newsTrack, showNewsSlide, () => newsCurrent);
     }
@@ -4096,6 +4282,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'Escape') {
             closeStoryModal();
             closeTeamModal();
+            closeGalleryModal();
         }
     });
 
