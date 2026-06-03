@@ -3327,13 +3327,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
     $rawGambar = $item->gambar ? ltrim($item->gambar, '/') : null;
 
     if ($rawGambar) {
-        if (str_contains($rawGambar, 'monyet')) {
-            $gambarGaleri = asset('images/monkey forest.jpg');
-        } elseif (str_contains($rawGambar, 'batu') && str_contains($rawGambar, 'gantung')) {
-            $gambarGaleri = asset('images/geodiversity.JPG');
-        } elseif (str_contains($rawGambar, 'legenda')) {
-            $gambarGaleri = asset('images/culturediversity.JPG');
-        } elseif (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
+        if (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
             $gambarGaleri = $rawGambar;
         } elseif (str_starts_with($rawGambar, 'storage/')) {
             $gambarGaleri = asset($rawGambar);
@@ -3476,6 +3470,10 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                             <span>{{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}</span>
                             <h4>{{ $video->judul }}</h4>
                             <p>{{ $video->deskripsi }}</p>
+                            <div class="video-source" style="align-self: flex-end; margin-top: auto; font-size: 0.82rem; color: rgba(255, 255, 255, 0.65); display: flex; align-items: center; gap: 6px; padding-top: 15px; line-height: 1;">
+                                <i class="fab fa-youtube" style="color: #ff0000; font-size: 1.1rem; position: relative; top: -2px; line-height: 1;"></i>
+                                <span style="line-height: 1;">Sumber: <a href="https://www.youtube.com/watch?v={{ $video->youtube_id }}" target="_blank" rel="noopener noreferrer" style="color: #c6a43b; text-decoration: none; font-weight: 600; border-bottom: 1px dashed #c6a43b; transition: all 0.3s;" onmouseover="this.style.color='#fff8df'; this.style.borderBottomColor='#fff8df'" onmouseout="this.style.color='#c6a43b'; this.style.borderBottomColor='#c6a43b'">YouTube</a></span>
+                            </div>
                         </div>
                     </div>
                     @empty
@@ -3487,6 +3485,10 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                             <span>01</span>
                             <h4>Pesona Alam Sibaganding</h4>
                             <p>Nikmati keindahan alam dan panorama kawasan Geosite Sibaganding.</p>
+                            <div class="video-source" style="align-self: flex-end; margin-top: auto; font-size: 0.82rem; color: rgba(255, 255, 255, 0.65); display: flex; align-items: center; gap: 6px; padding-top: 15px; line-height: 1;">
+                                <i class="fab fa-youtube" style="color: #ff0000; font-size: 1.1rem; position: relative; top: -2px; line-height: 1;"></i>
+                                <span style="line-height: 1;">Sumber: <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" style="color: #c6a43b; text-decoration: none; font-weight: 600; border-bottom: 1px dashed #c6a43b; transition: all 0.3s;" onmouseover="this.style.color='#fff8df'; this.style.borderBottomColor='#fff8df'" onmouseout="this.style.color='#c6a43b'; this.style.borderBottomColor='#c6a43b'">YouTube</a></span>
+                            </div>
                         </div>
                     </div>
                     @endforelse
@@ -3594,7 +3596,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                             $imgUrl = asset('storage/' . $rawImg);
                         }
                     } else {
-                        $imgUrl = asset('images/pengurus-' . (($i % 2) + 1) . '.jpg');
+                        $imgUrl = asset('images/sibaganding' . (($i % 2) + 1) . '.JPG');
                     }
                 @endphp
                 <div class="team-card" data-aos="fade-{{ $i % 2 === 0 ? 'right' : 'left' }}"
@@ -3608,7 +3610,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                          desc: '{{ addslashes(str_replace(["\r", "\n"], " ", strip_tags($item->konten))) }}'
                      })">
                     <div class="team-image">
-                        <img src="{{ $imgUrl }}" alt="{{ $item->judul }}" onerror="this.onerror=null; this.src='{{ asset('images/pengurus-' . (($i % 2) + 1) . '.jpg') }}';">
+                        <img src="{{ $imgUrl }}" alt="{{ $item->judul }}" onerror="this.onerror=null; this.src='{{ asset('images/sibaganding' . (($i % 2) + 1) . '.JPG') }}';">
                     </div>
                     <div class="team-info">
                         <span>{{ $item->penulis ?? 'Tim Pengelola' }}</span>
@@ -3622,7 +3624,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
             @empty
                 <div class="team-card" data-aos="fade-right"
                      onclick="openTeamModal({
-                         img: '{{ asset('images/pengurus-1.jpg') }}',
+                         img: '{{ asset('images/sibaganding1.JPG') }}',
                          role: 'Ketua Pengelola',
                          name: 'Pengelola Sibaganding',
                          instansi: 'Geosite Sibaganding — Geopark Danau Toba',
@@ -3631,7 +3633,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                          desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
                      })">
                     <div class="team-image">
-                        <img src="{{ asset('images/pengurus-1.jpg') }}" alt="Pengurus Sibaganding 1">
+                        <img src="{{ asset('images/sibaganding1.JPG') }}" alt="Pengurus Sibaganding 1">
                     </div>
                     <div class="team-info">
                         <span>Ketua Pengelola</span>
@@ -3646,7 +3648,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 
                 <div class="team-card" data-aos="fade-left"
                      onclick="openTeamModal({
-                         img: '{{ asset('images/pengurus-2.jpg') }}',
+                         img: '{{ asset('images/sibaganding2.JPG') }}',
                          role: 'Koordinator Lapangan',
                          name: 'Koordinator Wisata',
                          instansi: 'Geosite Sibaganding — Lapangan Operasional',
@@ -3655,7 +3657,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                          desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
                      })">
                     <div class="team-image">
-                        <img src="{{ asset('images/pengurus-2.jpg') }}" alt="Pengurus Sibaganding 2">
+                        <img src="{{ asset('images/sibaganding2.JPG') }}" alt="Pengurus Sibaganding 2">
                     </div>
                     <div class="team-info">
                         <span>Koordinator Lapangan</span>
@@ -4049,6 +4051,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 galleryTrack.dataset.isTransitioning = 'true';
             } else {
                 galleryTrack.style.transition = 'none';
+                galleryTrack.offsetHeight; // Force reflow
                 galleryTrack.dataset.isTransitioning = 'false';
             }
 
@@ -4071,7 +4074,8 @@ document.addEventListener('DOMContentLoaded', function () {
             galleryCurrent = index;
         }
 
-        galleryTrack.addEventListener('transitionend', function () {
+        galleryTrack.addEventListener('transitionend', function (e) {
+            if (e.target !== galleryTrack) return; // Ignore transitionend bubbling from children
             galleryTrack.dataset.isTransitioning = 'false';
             if (galleryCurrent >= totalGalleryCards) {
                 showGallerySlide(0, false);
@@ -4117,57 +4121,92 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Video Slider
-    let videoCurrent = 0;
     const videoTrack = document.getElementById('videoTrack');
     const videoCards = document.querySelectorAll('.video-card');
     const videoDots = document.querySelectorAll('#videoDots button');
     const videoPrev = document.querySelector('.video-prev');
     const videoNext = document.querySelector('.video-next');
 
-    function showVideoSlide(index) {
-        if (!videoTrack || !videoCards.length) return;
+    if (videoTrack && videoCards.length) {
+        const totalVideoCards = videoCards.length;
+        const cloneCount = 1;
+        let videoCurrent = 0;
 
-        if (index < 0) {
-            videoCurrent = videoCards.length - 1;
-        } else if (index >= videoCards.length) {
-            videoCurrent = 0;
-        } else {
+        // Clone first card and append
+        const cloneFirst = videoCards[0].cloneNode(true);
+        cloneFirst.classList.add('is-clone');
+        videoTrack.appendChild(cloneFirst);
+
+        // Clone last card and prepend
+        const cloneLast = videoCards[totalVideoCards - 1].cloneNode(true);
+        cloneLast.classList.add('is-clone');
+        videoTrack.insertBefore(cloneLast, videoTrack.firstChild);
+
+        const allVideoCards = videoTrack.querySelectorAll('.video-card');
+
+        function showVideoSlide(index, transition = true) {
+            if (!videoTrack || !allVideoCards.length) return;
+
+            if (transition) {
+                if (videoTrack.dataset.isTransitioning === 'true') return;
+                videoTrack.style.transition = 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                videoTrack.dataset.isTransitioning = 'true';
+            } else {
+                videoTrack.style.transition = 'none';
+                videoTrack.offsetHeight; // Force reflow
+                videoTrack.dataset.isTransitioning = 'false';
+            }
+
+            const cardWidth = allVideoCards[0].offsetWidth;
+            const gap = parseFloat(window.getComputedStyle(videoTrack).gap) || 26;
+            const targetIndex = index + cloneCount;
+            const move = targetIndex * (cardWidth + gap);
+
+            videoTrack.style.transform = 'translateX(-' + move + 'px)';
+
+            let wrappedIndex = index;
+            if (wrappedIndex < 0) {
+                wrappedIndex = totalVideoCards + (wrappedIndex % totalVideoCards);
+            }
+            wrappedIndex = wrappedIndex % totalVideoCards;
+
+            videoDots.forEach(function (dot) { dot.classList.remove('active'); });
+            if (videoDots[wrappedIndex]) { videoDots[wrappedIndex].classList.add('active'); }
+
             videoCurrent = index;
         }
 
-        const cardWidth = videoCards[0].offsetWidth;
-        const gap = 26;
-        const move = videoCurrent * (cardWidth + gap);
-
-        videoTrack.style.transition = 'transform 0.7s ease';
-        videoTrack.style.transform = 'translateX(-' + move + 'px)';
-
-        videoDots.forEach(function (dot) { dot.classList.remove('active'); });
-        if (videoDots[videoCurrent]) { videoDots[videoCurrent].classList.add('active'); }
-    }
-
-    if (videoPrev) {
-        videoPrev.addEventListener('click', function () {
-            showVideoSlide(videoCurrent - 1);
+        videoTrack.addEventListener('transitionend', function (e) {
+            if (e.target !== videoTrack) return; // Ignore transitionend bubbling from children
+            videoTrack.dataset.isTransitioning = 'false';
+            if (videoCurrent >= totalVideoCards) {
+                showVideoSlide(0, false);
+            } else if (videoCurrent < 0) {
+                showVideoSlide(totalVideoCards - 1, false);
+            }
         });
-    }
 
-    if (videoNext) {
-        videoNext.addEventListener('click', function () {
-            showVideoSlide(videoCurrent + 1);
+        if (videoPrev) {
+            videoPrev.addEventListener('click', function () {
+                showVideoSlide(videoCurrent - 1);
+            });
+        }
+
+        if (videoNext) {
+            videoNext.addEventListener('click', function () {
+                showVideoSlide(videoCurrent + 1);
+            });
+        }
+
+        videoDots.forEach(function (dot, index) {
+            dot.addEventListener('click', function () {
+                showVideoSlide(index);
+            });
         });
-    }
 
-    videoDots.forEach(function (dot, index) {
-        dot.addEventListener('click', function () {
-            showVideoSlide(index);
-        });
-    });
-
-    if (videoCards.length) {
-        showVideoSlide(0);
+        showVideoSlide(0, false);
         window.addEventListener('resize', function () {
-            showVideoSlide(videoCurrent);
+            showVideoSlide(videoCurrent, false);
         });
         makeSliderDraggable(videoTrack, showVideoSlide, () => videoCurrent);
     }
@@ -4182,7 +4221,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (newsTrack && newsCards.length) {
         const totalNewsCards = newsCards.length;
-        const cloneCount = 3;
+        const cloneCount = Math.min(3, totalNewsCards);
 
         // Clone first cloneCount cards and append
         for (let i = 0; i < cloneCount; i++) {
@@ -4210,6 +4249,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 newsTrack.dataset.isTransitioning = 'true';
             } else {
                 newsTrack.style.transition = 'none';
+                newsTrack.offsetHeight; // Force reflow
                 newsTrack.dataset.isTransitioning = 'false';
             }
 
@@ -4232,7 +4272,8 @@ document.addEventListener('DOMContentLoaded', function () {
             newsCurrent = index;
         }
 
-        newsTrack.addEventListener('transitionend', function () {
+        newsTrack.addEventListener('transitionend', function (e) {
+            if (e.target !== newsTrack) return; // Ignore transitionend bubbling from children
             newsTrack.dataset.isTransitioning = 'false';
             if (newsCurrent >= totalNewsCards) {
                 showNewsSlide(0, false);

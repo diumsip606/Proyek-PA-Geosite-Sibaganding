@@ -812,7 +812,6 @@
             </div>
         </div>
 
-<<<<<<< HEAD
         <!-- PENGURUS/TEAM SECTION -->
         <div class="team-section mb-5" data-aos="fade-up">
             <div class="team-title">
@@ -836,7 +835,7 @@
                                 $imgUrl = asset('storage/' . $rawImg);
                             }
                         } else {
-                            $imgUrl = asset('images/pengurus-' . (($i % 2) + 1) . '.jpg');
+                            $imgUrl = asset('images/sibaganding' . (($i % 2) + 1) . '.JPG');
                         }
                     @endphp
                     <div class="team-card" 
@@ -850,7 +849,7 @@
                              desc: '{{ addslashes(str_replace(["\r", "\n"], " ", strip_tags($item->konten))) }}'
                          })">
                         <div class="team-image">
-                            <img src="{{ $imgUrl }}" alt="{{ $item->judul }}" onerror="this.onerror=null; this.src='{{ asset('images/pengurus-' . (($i % 2) + 1) . '.jpg') }}';">
+                            <img src="{{ $imgUrl }}" alt="{{ $item->judul }}" onerror="this.onerror=null; this.src='{{ asset('images/sibaganding' . (($i % 2) + 1) . '.JPG') }}';">
                         </div>
                         <div class="team-info">
                             <span>{{ $item->penulis ?? 'Tim Pengelola' }}</span>
@@ -863,7 +862,7 @@
                     <!-- Fallback Static Pengurus 1 -->
                     <div class="team-card" 
                          onclick="openTeamModal({
-                             img: '{{ asset('images/pengurus-1.jpg') }}',
+                             img: '{{ asset('images/sibaganding1.JPG') }}',
                              role: 'Ketua Pengelola',
                              name: 'Pengelola Sibaganding',
                              instansi: 'Geosite Sibaganding — Geopark Danau Toba',
@@ -872,7 +871,7 @@
                              desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
                          })">
                         <div class="team-image">
-                            <img src="{{ asset('images/pengurus-1.jpg') }}" alt="Pengurus Sibaganding 1">
+                            <img src="{{ asset('images/sibaganding1.JPG') }}" alt="Pengurus Sibaganding 1">
                         </div>
                         <div class="team-info">
                             <span>Ketua Pengelola</span>
@@ -885,7 +884,7 @@
                     <!-- Fallback Static Pengurus 2 -->
                     <div class="team-card" 
                          onclick="openTeamModal({
-                             img: '{{ asset('images/pengurus-2.jpg') }}',
+                             img: '{{ asset('images/sibaganding2.JPG') }}',
                              role: 'Koordinator Lapangan',
                              name: 'Koordinator Wisata',
                              instansi: 'Geosite Sibaganding — Lapangan Operasional',
@@ -894,7 +893,7 @@
                              desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
                          })">
                         <div class="team-image">
-                            <img src="{{ asset('images/pengurus-2.jpg') }}" alt="Pengurus Sibaganding 2">
+                            <img src="{{ asset('images/sibaganding2.JPG') }}" alt="Pengurus Sibaganding 2">
                         </div>
                         <div class="team-info">
                             <span>Koordinator Lapangan</span>
@@ -906,8 +905,6 @@
                 @endforelse
             </div>
         </div>
-=======
->>>>>>> 83f11f0d6598cfc10d99f3793a4c2f8882a7071d
 
         <div class="row g-4">
             <!-- FORM KONTAK -->

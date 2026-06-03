@@ -8,6 +8,7 @@ use App\Models\HeroSlider;
 use App\Models\FaktaUnik;
 use App\Models\WarisanGeologi;
 use App\Models\VideoYoutube;
+use App\Models\Informasi;
 
 class HomeController extends Controller
 {
@@ -46,7 +47,7 @@ class HomeController extends Controller
             ->get();
 
         // Pengurus untuk Beranda
-        $pengurus = \App\Models\Informasi::where('kategori', 'Pengurus')
+        $pengurus = Informasi::where('kategori', 'Pengurus')
             ->where('status', true)
             ->latest()
             ->get();

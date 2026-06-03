@@ -13,15 +13,6 @@
         if (!$rawGambar) {
             return asset('images/sibaganding1.JPG');
         }
-        if (str_contains($rawGambar, 'monyet')) {
-            return asset('images/monkey forest.jpg');
-        }
-        if (str_contains($rawGambar, 'batu') && str_contains($rawGambar, 'gantung')) {
-            return asset('images/geodiversity.JPG');
-        }
-        if (str_contains($rawGambar, 'legenda')) {
-            return asset('images/culturediversity.JPG');
-        }
         if (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
             return $rawGambar;
         }
