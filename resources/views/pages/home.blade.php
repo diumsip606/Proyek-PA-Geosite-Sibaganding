@@ -674,17 +674,62 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 8;
-    width: 44px;
-    height: 44px;
+    z-index: 80;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.55);
-    background: rgba(0, 51, 102, 0.48);
+    border: 2px solid rgba(255,255,255,0.75);
+    background: rgba(7, 59, 99, 0.78);
     color: #fff;
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     cursor: pointer;
     backdrop-filter: blur(10px);
     transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.story-nav:hover {
+    background: #c6a43b;
+    color: #073b63;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.story-nav.prev {
+    left: 22px;
+}
+
+.story-nav.next {
+    right: 22px;
+}
+
+.slide-overlay {
+    position: absolute;
+    left: 118px;
+    right: 118px;
+    bottom: 48px;
+    z-index: 20;
+    color: #fff;
+    display: block;
+    pointer-events: none;
+}
+
+.slide-overlay h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    line-height: 1.18;
+    color: #ffffff;
+    margin-bottom: 14px;
+    max-width: 560px;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.45);
+}
+
+.slide-overlay p {
+    max-width: 610px;
+    font-size: 0.93rem;
+    line-height: 1.65;
 }
 
 .story-nav:hover {
@@ -1083,33 +1128,75 @@
 }
 
 .map-wrapper {
-    position: static;
+    position: relative;
     width: 100%;
     max-width: 980px;
     margin: 0 auto;
-    padding: 22px;
-    border-radius: 32px;
-    background: rgba(255, 255, 255, 0.55);
-    box-shadow: 0 30px 80px rgba(7, 59, 99, 0.13);
-    border: 1px solid rgba(255,255,255,0.75);
+    padding: 28px;
+    border-radius: 34px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 18% 22%, rgba(232, 182, 47, 0.32), transparent 28%),
+        radial-gradient(circle at 82% 78%, rgba(7, 59, 99, 0.45), transparent 38%),
+        linear-gradient(135deg, #dceef8 0%, #b7d6ea 45%, #7faac6 100%) !important;
+
+    box-shadow:
+        0 35px 90px rgba(7, 59, 99, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+    border: 1px solid rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(14px);
 }
 
-/* Inner container jadi positioning context untuk titik peta */
+.map-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 32%),
+        linear-gradient(120deg, rgba(255,255,255,0.25), transparent 55%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.map-wrapper::after {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    right: -170px;
+    bottom: -190px;
+    border-radius: 50%;
+    background: rgba(3, 39, 68, 0.22);
+    filter: blur(10px);
+    z-index: 0;
+    pointer-events: none;
+}
+
 .map-inner-container {
     position: relative;
+    z-index: 2;
     width: 100%;
     line-height: 0;
-    border-radius: 26px;
+    border-radius: 28px;
     overflow: hidden;
+    background: transparent !important;
 }
 
 .map-img {
     width: 100%;
     display: block;
-    border-radius: 26px;
-    filter: drop-shadow(0 18px 28px rgba(7, 59, 99, 0.14));
+    border-radius: 28px;
+    filter:
+        drop-shadow(0 24px 32px rgba(7, 59, 99, 0.20))
+        saturate(1.08)
+        contrast(1.03);
 }
+
+/* Inner container jadi positioning context untuk titik peta */
+
+
 
 .map-point {
     position: absolute;
@@ -2894,8 +2981,13 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         </div>
         @endforelse
 
-        <button class="story-nav prev" type="button" onclick="event.stopPropagation()">&#10094;</button>
-        <button class="story-nav next" type="button" onclick="event.stopPropagation()">&#10095;</button>
+     <button class="story-nav prev" type="button" onclick="event.preventDefault(); event.stopPropagation(); changeStorySlide(-1);">
+    &#10094;
+</button>
+
+<button class="story-nav next" type="button" onclick="event.preventDefault(); event.stopPropagation(); changeStorySlide(1);">
+    &#10095;
+</button>
 
         <div class="story-dots" onclick="event.stopPropagation()">
             @forelse($warisanGeologis as $i => $warisan)
@@ -3803,6 +3895,40 @@ document.addEventListener('keydown', function(e) {
         closeTeamModal();
     }
 });
+
+
+let storyCurrentSlide = 0;
+
+function showStorySlide(index) {
+    const slides = document.querySelectorAll('.story-slide');
+    const dots = document.querySelectorAll('.story-dots button');
+
+    if (!slides.length) return;
+
+    if (index < 0) {
+        storyCurrentSlide = slides.length - 1;
+    } else if (index >= slides.length) {
+        storyCurrentSlide = 0;
+    } else {
+        storyCurrentSlide = index;
+    }
+
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    slides[storyCurrentSlide].classList.add('active');
+
+    if (dots[storyCurrentSlide]) {
+        dots[storyCurrentSlide].classList.add('active');
+    }
+}
+
+function changeStorySlide(direction) {
+    showStorySlide(storyCurrentSlide + direction);
+}
 </script>
+
+
+
 
 @endsection
