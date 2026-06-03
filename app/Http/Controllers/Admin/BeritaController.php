@@ -18,8 +18,8 @@ class BeritaController extends Controller
 
     public function create()
     {
-        $kategori = Kategori::all();
-        return view('admin.berita.create', compact('kategori'));
+        // kategori sudah tidak dipakai di form
+        return view('admin.berita.create');
     }
 
     public function store(Request $request)
@@ -28,7 +28,6 @@ class BeritaController extends Controller
             'judul' => 'required',
             'konten' => 'required',
             'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'kategori_id' => 'required',
             'tanggal_terbit' => 'required',
         ]);
 
@@ -41,7 +40,10 @@ class BeritaController extends Controller
             'slug' => Str::slug($request->judul),
             'konten' => $request->konten,
             'gambar' => 'uploads/berita/' . $namaGambar,
-            'kategori_id' => $request->kategori_id,
+
+            // ✅ kategori default (AMAN)
+            'kategori_id' => Kategori::first()->id,
+
             'penulis' => $request->penulis ?? 'Admin',
             'tanggal_terbit' => $request->tanggal_terbit,
             'status' => $request->has('status'),
@@ -53,8 +55,9 @@ class BeritaController extends Controller
     public function edit($id)
     {
         $berita = Berita::findOrFail($id);
-        $kategori = Kategori::all();
-        return view('admin.berita.edit', compact('berita', 'kategori'));
+
+        // kategori tidak dikirim ke view
+        return view('admin.berita.edit', compact('berita'));
     }
 
     public function update(Request $request, $id)
@@ -64,7 +67,6 @@ class BeritaController extends Controller
         $request->validate([
             'judul' => 'required',
             'konten' => 'required',
-            'kategori_id' => 'required',
             'tanggal_terbit' => 'required',
         ]);
 
@@ -72,7 +74,10 @@ class BeritaController extends Controller
             'judul' => $request->judul,
             'slug' => Str::slug($request->judul),
             'konten' => $request->konten,
-            'kategori_id' => $request->kategori_id,
+
+            // ✅ tetap pakai default
+            'kategori_id' => Kategori::first()->id,
+
             'penulis' => $request->penulis ?? 'Admin',
             'tanggal_terbit' => $request->tanggal_terbit,
             'status' => $request->has('status'),
@@ -82,9 +87,11 @@ class BeritaController extends Controller
             if ($berita->gambar && file_exists(public_path($berita->gambar))) {
                 unlink(public_path($berita->gambar));
             }
+
             $gambar = $request->file('gambar');
             $namaGambar = time() . '_' . $gambar->getClientOriginalName();
             $gambar->move(public_path('uploads/berita'), $namaGambar);
+
             $data['gambar'] = 'uploads/berita/' . $namaGambar;
         }
 
@@ -96,10 +103,13 @@ class BeritaController extends Controller
     public function destroy($id)
     {
         $berita = Berita::findOrFail($id);
+
         if ($berita->gambar && file_exists(public_path($berita->gambar))) {
             unlink(public_path($berita->gambar));
         }
+
         $berita->delete();
+
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil dihapus!');
     }
 }

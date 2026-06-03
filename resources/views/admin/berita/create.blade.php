@@ -16,15 +16,6 @@
                 <input type="text" name="judul" class="form-control" required>
             </div>
             
-            <div class="mb-3">
-                <label>Kategori <span class="text-danger">*</span></label>
-                <select name="kategori_id" class="form-control" required>
-                    <option value="">Pilih Kategori</option>
-                    @foreach($kategori as $item)
-                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                    @endforeach
-                </select>
-            </div>
             
             <div class="mb-3">
                 <label>Penulis</label>
