@@ -15,8 +15,11 @@ class Destinasi extends Model
     protected $fillable = [
         'nama',
         'slug',
+        'kategori_id',
         'lokasi',
+        'url',
         'deskripsi',
+        'status',
         'sejarah',
         'jarak',
         'rute',
