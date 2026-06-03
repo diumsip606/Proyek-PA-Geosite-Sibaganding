@@ -18,6 +18,7 @@
             
             <div class="mb-3">
                 <label class="form-label">Kategori</label>
+<<<<<<< HEAD
                 <select name="kategori" class="form-control" required>
                     <option value="">Pilih Kategori</option>
                     <option value="Geologi" {{ request('kategori') === 'Geologi' ? 'selected' : '' }}>Geologi</option>
@@ -25,6 +26,13 @@
                     <option value="Wisata" {{ request('kategori') === 'Wisata' ? 'selected' : '' }}>Wisata</option>
                     <option value="Transportasi" {{ request('kategori') === 'Transportasi' ? 'selected' : '' }}>Transportasi</option>
                     <option value="Pengurus" {{ request('kategori') === 'Pengurus' ? 'selected' : '' }}>Pengurus (Tim Pengelola)</option>
+=======
+                <select name="kategori" class="form-select" required>
+                    <option value="">Pilih</option>
+                    <option value="Biodiversity">Biodiversity</option>
+                    <option value="Geodiversity">Geodiversity</option>
+                    <option value="Culture Diversity">Culture Diversity</option>
+>>>>>>> 83f11f0d6598cfc10d99f3793a4c2f8882a7071d
                 </select>
             </div>
             

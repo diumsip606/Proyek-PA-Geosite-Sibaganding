@@ -152,8 +152,8 @@
     /* ==================== HERO ==================== */
     .kontak-hero {
         height: 45vh;
-        background: linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.4)),
-                    url('/image/kontak-hero.jpg');
+        background: linear-gradient(135deg, rgba(0, 51, 102, 0.7), rgba(0, 102, 153, 0.45)),
+                    url('/images/caldera.jpg');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -173,7 +173,7 @@
         left: 0;
         right: 0;
         height: 80px;
-        background: linear-gradient(to top, #fafaf8, transparent);
+        background: linear-gradient(to top, #f4f8fc, transparent);
     }
 
     .kontak-hero h1 {
@@ -193,172 +193,236 @@
 
     /* ==================== KONTAK SECTION ==================== */
     .kontak-section {
-        padding: 60px 0;
+        padding: 80px 0;
+        background: linear-gradient(135deg, #f4f8fc 0%, #e8f1f9 100%);
     }
 
     .kontak-card {
         background: white;
         border-radius: 20px;
-        padding: 30px 20px;
+        padding: 35px 25px;
         text-align: center;
-        transition: all 0.3s ease;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.04);
-        border: 1px solid #f0f0f0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 10px 30px rgba(0, 51, 102, 0.05);
+        border: 1px solid rgba(0, 51, 102, 0.05);
         height: 100%;
     }
 
     .kontak-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 51, 102, 0.12);
+        border-color: #c6a43b;
     }
 
     .kontak-icon {
-        width: 65px;
-        height: 65px;
-        background: rgba(198, 164, 59, 0.1);
+        width: 70px;
+        height: 70px;
+        background: rgba(198, 164, 59, 0.12);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 18px;
+        margin: 0 auto 22px;
+        transition: all 0.3s ease;
+    }
+
+    .kontak-card:hover .kontak-icon {
+        background: #c6a43b;
+        transform: rotateY(360deg);
+    }
+
+    .kontak-card:hover .kontak-icon i {
+        color: white;
     }
 
     .kontak-icon i {
-        font-size: 28px;
+        font-size: 30px;
         color: #c6a43b;
+        transition: all 0.3s ease;
     }
 
     .kontak-card h4 {
-        font-size: 1.15rem;
-        font-weight: 600;
-        margin-bottom: 12px;
-        color: #1a1a1a;
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+        color: #003366;
     }
 
     .kontak-card p {
-        color: #666;
+        color: #4a759c;
         margin-bottom: 5px;
-        font-size: 0.85rem;
-        line-height: 1.5;
+        font-size: 0.9rem;
+        line-height: 1.6;
     }
 
     /* ==================== FORM ==================== */
     .form-card {
         background: white;
         border-radius: 24px;
-        padding: 35px;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.04);
-        border: 1px solid #f0f0f0;
+        padding: 40px;
+        box-shadow: 0 10px 30px rgba(0, 51, 102, 0.05);
+        border: 1px solid rgba(0, 51, 102, 0.05);
         height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .form-card:hover {
+        box-shadow: 0 15px 35px rgba(0, 51, 102, 0.08);
     }
 
     .form-card h3 {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         font-family: 'Cormorant Garamond', serif;
-        font-weight: 500;
-        margin-bottom: 20px;
-        color: #1a1a1a;
+        font-weight: 700;
+        margin-bottom: 25px;
+        color: #003366;
+        position: relative;
+        display: inline-block;
+    }
+
+    .form-card h3::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background: #c6a43b;
     }
 
     .form-control, .form-select {
-        border: 1px solid #e0e0e0;
+        border: 1px solid #d4e0eb;
         border-radius: 12px;
-        padding: 12px 16px;
-        font-size: 0.85rem;
+        padding: 14px 18px;
+        font-size: 0.9rem;
+        color: #2c5f8a;
+        background-color: #fbfdff;
         transition: all 0.3s ease;
     }
 
     .form-control:focus, .form-select:focus {
         border-color: #c6a43b;
-        box-shadow: 0 0 0 3px rgba(198, 164, 59, 0.08);
+        box-shadow: 0 0 0 4px rgba(198, 164, 59, 0.12);
+        background-color: white;
+        color: #003366;
         outline: none;
     }
 
     .btn-send {
-        background: #1a1a1a;
-        color: white;
+        background: #c6a43b;
+        color: #003366;
         border: none;
-        padding: 12px 30px;
+        padding: 14px 30px;
         border-radius: 50px;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: 1px;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         width: 100%;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
         text-transform: uppercase;
+        box-shadow: 0 4px 15px rgba(198, 164, 59, 0.2);
     }
 
     .btn-send:hover {
-        background: #c6a43b;
-        color: #1a1a1a;
-        transform: translateY(-2px);
+        background: #003366;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 51, 102, 0.25);
     }
 
     /* ==================== MAPS ==================== */
     .map-card {
         border-radius: 24px;
         overflow: hidden;
-        box-shadow: 0 5px 20px rgba(0,0,0,0.04);
-        border: 1px solid #f0f0f0;
+        box-shadow: 0 10px 30px rgba(0, 51, 102, 0.05);
+        border: 1px solid rgba(0, 51, 102, 0.05);
         background: white;
         height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .map-card:hover {
+        box-shadow: 0 15px 35px rgba(0, 51, 102, 0.08);
     }
 
     .map-card iframe {
         width: 100%;
-        height: 280px;
+        height: 300px;
         border: 0;
     }
 
     .map-info {
-        padding: 20px;
+        padding: 30px 25px;
         text-align: center;
     }
 
     .map-info h4 {
-        font-size: 1.15rem;
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: #1a1a1a;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #003366;
+        position: relative;
+        display: inline-block;
+    }
+
+    .map-info h4::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 2px;
+        background: #c6a43b;
     }
 
     .social-icons {
         display: flex;
         justify-content: center;
         gap: 12px;
-        margin-bottom: 20px;
+        margin-bottom: 25px;
+        margin-top: 10px;
     }
 
     .social-icons a {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: #f5f4f0;
+        width: 44px;
+        height: 44px;
+        background: #f0f5fa;
         border-radius: 50%;
-        color: #1a1a1a;
-        transition: all 0.3s ease;
+        color: #003366;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         text-decoration: none;
+        font-size: 1rem;
     }
 
     .social-icons a:hover {
         background: #c6a43b;
         color: white;
-        transform: translateY(-3px);
+        transform: translateY(-4px) scale(1.1);
+        box-shadow: 0 6px 15px rgba(198, 164, 59, 0.3);
     }
 
-    .jam-operasional p {
-        margin-bottom: 5px;
-        font-size: 0.85rem;
-        color: #666;
+    .jam-operasional {
+        background: #f8fbfe;
+        padding: 20px;
+        border-radius: 16px;
+        border: 1px solid rgba(0, 51, 102, 0.03);
     }
 
     .jam-operasional h5 {
-        font-size: 0.9rem;
-        font-weight: 600;
-        margin-bottom: 8px;
-        color: #1a1a1a;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #003366;
+    }
+
+    .jam-operasional p {
+        margin-bottom: 6px;
+        font-size: 0.85rem;
+        color: #4a759c;
     }
 
     /* ==================== RESPONSIVE ==================== */
@@ -706,12 +770,14 @@
             <div class="col-md-4" data-aos="fade-up">
                 <div class="kontak-card">
                     <div class="kontak-icon">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <i class="{{ $alamat->first()->icon ?? 'fas fa-map-marker-alt' }}"></i>
                     </div>
                     <h4>Alamat</h4>
-                    <p>Geosite Danau Toba</p>
-                    <p>Pulau Sibandang, Danau Toba</p>
-                    <p>Sumatera Utara, Indonesia</p>
+                    @forelse($alamat as $item)
+                        <p>{{ $item->label ? $item->label . ' - ' : '' }}{{ $item->nilai }}</p>
+                    @empty
+                        <p>—</p>
+                    @endforelse
                 </div>
             </div>
 
@@ -719,12 +785,14 @@
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
                 <div class="kontak-card">
                     <div class="kontak-icon">
-                        <i class="fas fa-phone-alt"></i>
+                        <i class="{{ $telepon->first()->icon ?? 'fas fa-phone-alt' }}"></i>
                     </div>
                     <h4>Telepon</h4>
-                    <p>+62 812 3456 7890</p>
-                    <p>+62 813 9876 5432</p>
-                    <p>(0622) 12345</p>
+                    @forelse($telepon as $item)
+                        <p>{{ $item->label ? $item->label . ' - ' : '' }}{{ $item->nilai }}</p>
+                    @empty
+                        <p>—</p>
+                    @endforelse
                 </div>
             </div>
 
@@ -732,16 +800,19 @@
             <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
                 <div class="kontak-card">
                     <div class="kontak-icon">
-                        <i class="fas fa-envelope"></i>
+                        <i class="{{ $email->first()->icon ?? 'fas fa-envelope' }}"></i>
                     </div>
                     <h4>Email</h4>
-                    <p>info@geotoba.com</p>
-                    <p>reservasi@geotoba.com</p>
-                    <p>support@geotoba.com</p>
+                    @forelse($email as $item)
+                        <p>{{ $item->label ? $item->label . ' - ' : '' }}{{ $item->nilai }}</p>
+                    @empty
+                        <p>—</p>
+                    @endforelse
                 </div>
             </div>
         </div>
 
+<<<<<<< HEAD
         <!-- PENGURUS/TEAM SECTION -->
         <div class="team-section mb-5" data-aos="fade-up">
             <div class="team-title">
@@ -835,35 +906,57 @@
                 @endforelse
             </div>
         </div>
+=======
+>>>>>>> 83f11f0d6598cfc10d99f3793a4c2f8882a7071d
 
         <div class="row g-4">
             <!-- FORM KONTAK -->
             <div class="col-lg-6" data-aos="fade-right">
                 <div class="form-card">
                     <h3>Kirim Pesan</h3>
-                    <form action="#" method="POST">
+                    
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 12px; font-size: 0.85rem; margin-bottom: 20px;">
+                            <i class="fas fa-check-circle me-2"></i> {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    @if($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="border-radius: 12px; font-size: 0.85rem; margin-bottom: 20px;">
+                            <i class="fas fa-exclamation-circle me-2"></i> Silakan periksa kembali form Anda:
+                            <ul class="mb-0 mt-1 pl-3">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('kontak.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Nama Lengkap" required>
+                            <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" placeholder="Nama Lengkap" value="{{ old('nama') }}" required>
                         </div>
                         <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Email" required>
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" required>
                         </div>
                         <div class="mb-3">
-                            <input type="tel" class="form-control" placeholder="Nomor Telepon">
+                            <input type="tel" name="telepon" class="form-control @error('telepon') is-invalid @enderror" placeholder="Nomor Telepon" value="{{ old('telepon') }}">
                         </div>
                         <div class="mb-3">
-                            <select class="form-select">
-                                <option selected disabled>-- Pilih Subjek --</option>
-                                <option>Informasi Wisata</option>
-                                <option>Reservasi Tiket</option>
-                                <option>Kerjasama</option>
-                                <option>Saran & Masukan</option>
-                                <option>Lainnya</option>
+                            <select name="subjek" class="form-select @error('subjek') is-invalid @enderror" required>
+                                <option value="" selected disabled>-- Pilih Subjek --</option>
+                                <option value="Informasi Wisata" {{ old('subjek') == 'Informasi Wisata' ? 'selected' : '' }}>Informasi Wisata</option>
+                                <option value="Reservasi Tiket" {{ old('subjek') == 'Reservasi Tiket' ? 'selected' : '' }}>Reservasi Tiket</option>
+                                <option value="Kerjasama" {{ old('subjek') == 'Kerjasama' ? 'selected' : '' }}>Kerjasama</option>
+                                <option value="Saran & Masukan" {{ old('subjek') == 'Saran & Masukan' ? 'selected' : '' }}>Saran & Masukan</option>
+                                <option value="Lainnya" {{ old('subjek') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
                             </select>
                         </div>
                         <div class="mb-4">
-                            <textarea class="form-control" rows="5" placeholder="Pesan Anda..."></textarea>
+                            <textarea name="pesan" class="form-control @error('pesan') is-invalid @enderror" rows="5" placeholder="Pesan Anda..." required>{{ old('pesan') }}</textarea>
                         </div>
                         <button type="submit" class="btn-send">
                             Kirim Pesan <i class="fas fa-paper-plane ms-2"></i>
@@ -876,25 +969,31 @@
             <div class="col-lg-6" data-aos="fade-left">
                 <div class="map-card">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.0!2d99.0835095!3d2.3339262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0415b8f7da39%3A0xc6beb74287f355a5!2sBalige%2C%20Toba%20Samosir%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63765.253223792875!2d98.89409062851685!3d2.7184708482423505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3031ec9a74b0c7cd%3A0x32e57ae58314a9bb!2sSibaganding%2C%20Kec.%20Girsang%20Sipangan%20Bolon%2C%20Kabupaten%20Simalungun%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1780467398189!5m2!1sid!2sid"
                         allowfullscreen=""
                         loading="lazy">
                     </iframe>
                     <div class="map-info">
                         <h4>Ikuti Kami</h4>
                         <div class="social-icons">
-                            <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-tiktok"></i></a>
+                            @forelse($sosialMedia as $item)
+                                <a href="{{ $item->nilai }}" target="_blank" rel="noopener noreferrer" title="{{ $item->label ?? '' }}">
+                                    <i class="{{ $item->icon ?? 'fas fa-link' }}"></i>
+                                </a>
+                            @empty
+                                <span class="text-muted">—</span>
+                            @endforelse
                         </div>
                         <div class="jam-operasional">
                             <h5>Jam Operasional</h5>
-                            <p>Senin - Jumat: 08:00 - 17:00</p>
-                            <p>Sabtu - Minggu: 08:00 - 18:00</p>
+                            @forelse($jamOperasional as $item)
+                                <p>{{ $item->label ? $item->label . ': ' : '' }}{{ $item->nilai }}</p>
+                            @empty
+                                <p>—</p>
+                            @endforelse
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

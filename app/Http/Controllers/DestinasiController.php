@@ -9,14 +9,14 @@ class DestinasiController extends Controller
     {
         // Menampilkan semua destinasi yang statusnya aktif (true)
         $destinasi = Destinasi::with('kategori')->where('status', true)->get();
-        
+
         $heroImage = Destinasi::where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
-        
+
         $bioImage = Destinasi::whereHas('kategori', function($q){ $q->where('nama', 'Biodiversity'); })->where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
         $geoImage = Destinasi::whereHas('kategori', function($q){ $q->where('nama', 'Geodiversity'); })->where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
         $cultureImage = Destinasi::whereHas('kategori', function($q){ $q->where('nama', 'Culture Diversity'); })->where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
 
-        return view('destinasi.index', compact('destinasi', 'heroImage', 'bioImage', 'geoImage', 'cultureImage'));
+        return view('pages.destinasi.index', compact('destinasi', 'heroImage', 'bioImage', 'geoImage', 'cultureImage'));
     }
 
     // ============================================
@@ -36,7 +36,7 @@ class DestinasiController extends Controller
             $query->where('nama', 'Geodiversity');
         })->where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
 
-        return view('destinasi.kategori', compact('kategori','deskripsi','destinasi','heroImage'));
+        return view('pages.destinasi.kategori', compact('kategori','deskripsi','destinasi','heroImage'));
     }
 
     public function biodiversity()
@@ -52,7 +52,7 @@ class DestinasiController extends Controller
             $query->where('nama', 'Biodiversity');
         })->where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
 
-        return view('destinasi.kategori', compact('kategori','deskripsi','destinasi','heroImage'));
+        return view('pages.destinasi.kategori', compact('kategori','deskripsi','destinasi','heroImage'));
     }
 
     public function cultureDiversity()
@@ -68,18 +68,18 @@ class DestinasiController extends Controller
             $query->where('nama', 'Culture Diversity');
         })->where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
 
-        return view('destinasi.kategori', compact('kategori','deskripsi','destinasi','heroImage'));
+        return view('pages.destinasi.kategori', compact('kategori','deskripsi','destinasi','heroImage'));
     }
 
     public function show($id)
     {
         // Sekalian memuat data relasi kategori, galeri, dan review agar bisa ditampilkan di detail
         $data = Destinasi::with(['kategori', 'review'])->findOrFail($id);
-        
+
         // Mengambil destinasi lain untuk bagian "Destinasi Lainnya"
         $otherDestinasi = Destinasi::where('id', '!=', $id)->where('status', true)->inRandomOrder()->limit(3)->get();
-        
-        return view('destinasi.detail', compact('data', 'otherDestinasi'));
+
+        return view('pages.destinasi.detail', compact('data', 'otherDestinasi'));
     }
 
 

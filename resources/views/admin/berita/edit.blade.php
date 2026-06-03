@@ -16,15 +16,7 @@
                 <label>Judul</label>
                 <input type="text" name="judul" class="form-control" value="{{ $berita->judul }}" required>
             </div>
-            
-            <div class="mb-3">
-                <label>Kategori</label>
-                <select name="kategori_id" class="form-control" required>
-                    @foreach($kategori as $item)
-                    <option value="{{ $item->id }}" {{ $berita->kategori_id == $item->id ? 'selected' : '' }}>{{ $item->nama }}</option>
-                    @endforeach
-                </select>
-            </div>
+    
             
             <div class="mb-3">
                 <label>Penulis</label>
