@@ -759,6 +759,8 @@
                                 $imgUrl = $rawImg;
                             } elseif (str_starts_with($rawImg, 'storage/')) {
                                 $imgUrl = asset($rawImg);
+                            } elseif (str_starts_with($rawImg, 'uploads/')) {
+                                $imgUrl = asset($rawImg);
                             } else {
                                 $imgUrl = asset('storage/' . $rawImg);
                             }

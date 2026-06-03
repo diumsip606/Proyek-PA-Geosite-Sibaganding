@@ -28,6 +28,9 @@
         if (str_starts_with($rawGambar, 'storage/')) {
             return asset($rawGambar);
         }
+        if (str_starts_with($rawGambar, 'uploads/')) {
+            return asset($rawGambar);
+        }
         return asset('storage/' . $rawGambar);
     };
 

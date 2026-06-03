@@ -310,8 +310,11 @@
             <a href="{{ route('admin.berita.index') }}" class="{{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper"></i> Berita
             </a>
-            <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') !== 'Pengurus' ? 'active' : '' }}">
                 <i class="fas fa-info-circle"></i> Informasi
+            </a>
+            <a href="{{ route('admin.informasi.index', ['kategori' => 'Pengurus']) }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') === 'Pengurus' ? 'active' : '' }}">
+                <i class="fas fa-users"></i> Pengurus
             </a>
             <a href="{{ route('admin.destinasi.index') }}" class="{{ request()->routeIs('admin.destinasi.*') ? 'active' : '' }}">
                 <i class="fas fa-map-marked-alt"></i> Destinasi
