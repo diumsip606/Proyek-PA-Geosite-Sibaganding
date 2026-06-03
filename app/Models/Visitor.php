@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Visitor extends Model
 {
-    protected $fillable = ['ip_address', 'date'];
+    protected $fillable = [
+        'ip_address',
+        'date',
+    ];
 }
