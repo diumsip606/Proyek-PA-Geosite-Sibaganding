@@ -181,16 +181,7 @@
     z-index: 2;
     transform: scale(1);
 }
-.slide-1 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding1.jpg'); }
-.slide-2 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding2.jpg'); }
-.slide-3 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding3.jpg'); }
-.slide-4 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding4.jpg'); }
-.slide-5 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding5.jpg'); }
-.slide-6 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding6.jpg'); }
-.slide-7 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding7.jpg'); }
-.slide-8 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding8.jpg'); }
-.slide-9 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding9.jpg'); }
-.slide-10 { background-image: linear-gradient(rgba(0,36,65,0.58), rgba(0,36,65,0.58)), url('/images/sibaganding10.jpg'); }
+{{-- Dynamic Hero Slider CSS akan di-generate via inline style --}}
 
 .hero-content {
     position: absolute;
@@ -683,17 +674,62 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 8;
-    width: 44px;
-    height: 44px;
+    z-index: 80;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.55);
-    background: rgba(0, 51, 102, 0.48);
+    border: 2px solid rgba(255,255,255,0.75);
+    background: rgba(7, 59, 99, 0.78);
     color: #fff;
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     cursor: pointer;
     backdrop-filter: blur(10px);
     transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
+
+.story-nav:hover {
+    background: #c6a43b;
+    color: #073b63;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.story-nav.prev {
+    left: 22px;
+}
+
+.story-nav.next {
+    right: 22px;
+}
+
+.slide-overlay {
+    position: absolute;
+    left: 118px;
+    right: 118px;
+    bottom: 48px;
+    z-index: 20;
+    color: #fff;
+    display: block;
+    pointer-events: none;
+}
+
+.slide-overlay h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem;
+    line-height: 1.18;
+    color: #ffffff;
+    margin-bottom: 14px;
+    max-width: 560px;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.45);
+}
+
+.slide-overlay p {
+    max-width: 610px;
+    font-size: 0.93rem;
+    line-height: 1.65;
 }
 
 .story-nav:hover {
@@ -1096,20 +1132,71 @@
     width: 100%;
     max-width: 980px;
     margin: 0 auto;
-    padding: 22px;
-    border-radius: 32px;
-    background: rgba(255, 255, 255, 0.55);
-    box-shadow: 0 30px 80px rgba(7, 59, 99, 0.13);
-    border: 1px solid rgba(255,255,255,0.75);
+    padding: 28px;
+    border-radius: 34px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 18% 22%, rgba(232, 182, 47, 0.32), transparent 28%),
+        radial-gradient(circle at 82% 78%, rgba(7, 59, 99, 0.45), transparent 38%),
+        linear-gradient(135deg, #dceef8 0%, #b7d6ea 45%, #7faac6 100%) !important;
+
+    box-shadow:
+        0 35px 90px rgba(7, 59, 99, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+    border: 1px solid rgba(255, 255, 255, 0.75);
     backdrop-filter: blur(14px);
+}
+
+.map-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 32%),
+        linear-gradient(120deg, rgba(255,255,255,0.25), transparent 55%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.map-wrapper::after {
+    content: "";
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    right: -170px;
+    bottom: -190px;
+    border-radius: 50%;
+    background: rgba(3, 39, 68, 0.22);
+    filter: blur(10px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.map-inner-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    line-height: 0;
+    border-radius: 28px;
+    overflow: hidden;
+    background: transparent !important;
 }
 
 .map-img {
     width: 100%;
     display: block;
-    border-radius: 26px;
-    filter: drop-shadow(0 18px 28px rgba(7, 59, 99, 0.14));
+    border-radius: 28px;
+    filter:
+        drop-shadow(0 24px 32px rgba(7, 59, 99, 0.20))
+        saturate(1.08)
+        contrast(1.03);
 }
+
+/* Inner container jadi positioning context untuk titik peta */
+
+
 
 .map-point {
     position: absolute;
@@ -1134,6 +1221,7 @@
     inset: 5px;
     border-radius: 50%;
     background: #fff;
+    transition: all 0.3s ease;
 }
 
 .map-point::after {
@@ -1145,14 +1233,35 @@
     animation: mapPulse 1.8s infinite;
 }
 
-.map-point:hover,
-.map-point.active {
-    transform: translate(-50%, -50%) scale(1.22);
-    background: #073b63;
+.map-point:hover {
+    transform: translate(-50%, -50%) scale(1.25);
+    background: #f0c040;
     box-shadow:
-        0 0 0 8px rgba(7, 59, 99, 0.18),
-        0 0 0 16px rgba(232,182,47,0.13),
-        0 15px 28px rgba(7, 59, 99, 0.35);
+        0 0 0 6px rgba(232,182,47,0.3),
+        0 0 0 14px rgba(232,182,47,0.12),
+        0 15px 28px rgba(232,182,47,0.3);
+}
+
+.map-point.active {
+    transform: translate(-50%, -50%) scale(1.3);
+    background: #e8b62f;
+    box-shadow:
+        0 0 0 5px rgba(232,182,47,0.4),
+        0 0 0 12px rgba(232,182,47,0.18),
+        0 0 0 20px rgba(232,182,47,0.08),
+        0 15px 30px rgba(232,182,47,0.35);
+    z-index: 10;
+}
+
+.map-point.active::before {
+    inset: 6px;
+    background: rgba(255,255,255,0.95);
+}
+
+.map-point.active::after {
+    inset: -14px;
+    border: 2px solid rgba(232,182,47,0.7);
+    animation: mapPulse 1.2s infinite;
 }
 
 @keyframes mapPulse {
@@ -1160,13 +1269,8 @@
     100% { transform: scale(1.45); opacity: 0; }
 }
 
-/* Atur posisi 6 titik di sini */
-.point-1 { top: 35%; left: 38%; }
-.point-2 { top: 49%; left: 52%; }
-.point-3 { top: 63%; left: 47%; }
-.point-4 { top: 42%; left: 66%; }
-.point-5 { top: 58%; left: 32%; }
-.point-6 { top: 29%; left: 56%; }
+
+/* Posisi titik diatur via inline style dari database */
 
 .map-info-card {
     min-height: 390px;
@@ -2264,35 +2368,446 @@
     }
 }
 
+
+/* ==================== STORY IMAGE MODAL ==================== */
+.story-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 15, 30, 0.88);
+    backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: modalFadeIn 0.35s ease;
+}
+
+.story-modal-overlay.open {
+    display: flex;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.story-modal-box {
+    position: relative;
+    background: #021d33;
+    border-radius: 32px;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+    max-width: 1100px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    animation: modalSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(40px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.story-modal-img {
+    position: relative;
+    overflow: hidden;
+    min-height: 500px;
+}
+
+.story-modal-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.story-modal-img:hover img {
+    transform: scale(1.04);
+}
+
+.story-modal-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,20,40,0.55) 100%);
+}
+
+.story-modal-content {
+    padding: 50px 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.story-modal-kicker {
+    color: #e8b62f;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+}
+
+.story-modal-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    color: #fff8df;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.story-modal-content p {
+    color: rgba(255,255,255,0.82);
+    line-height: 1.85;
+    font-size: 0.95rem;
+    margin-bottom: 22px;
+}
+
+.story-modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+}
+
+.story-modal-tags span {
+    padding: 7px 16px;
+    border-radius: 30px;
+    background: rgba(232,182,47,0.18);
+    color: #e8b62f;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+.story-modal-close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.45);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.story-modal-close:hover {
+    background: #c6a43b;
+    border-color: #c6a43b;
+    color: #003366;
+    transform: rotate(90deg);
+}
+
+.story-modal-btn {
+    display: inline-block;
+    padding: 13px 34px;
+    border-radius: 40px;
+    background: #c6a43b;
+    color: #003366;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: all 0.25s ease;
+    align-self: flex-start;
+}
+
+.story-modal-btn:hover {
+    background: #fff8df;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .story-modal-box {
+        grid-template-columns: 1fr;
+        max-height: 95vh;
+    }
+    .story-modal-img {
+        min-height: 260px;
+    }
+    .story-modal-content {
+        padding: 32px 28px;
+    }
+    .story-modal-content h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ==================== TEAM BIODATA MODAL ==================== */
+.team-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 15, 30, 0.88);
+    backdrop-filter: blur(12px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: modalFadeIn 0.35s ease;
+}
+
+.team-modal-overlay.open {
+    display: flex;
+}
+
+.team-modal-box {
+    position: relative;
+    background: linear-gradient(145deg, #021d33 0%, #073b63 100%);
+    border-radius: 32px;
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+    max-width: 820px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    overflow: hidden;
+    animation: modalSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.team-modal-img {
+    position: relative;
+    overflow: hidden;
+    min-height: 460px;
+}
+
+.team-modal-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.team-modal-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,20,50,0.6));
+}
+
+.team-modal-body {
+    padding: 50px 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 90vh;
+}
+
+.team-modal-role {
+    display: inline-block;
+    color: #e8b62f;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding: 7px 16px;
+    border-radius: 40px;
+    background: rgba(232,182,47,0.15);
+    border: 1px solid rgba(232,182,47,0.3);
+    align-self: flex-start;
+}
+
+.team-modal-body h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    color: #fff8df;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.team-modal-divider {
+    width: 50px;
+    height: 2px;
+    background: #c6a43b;
+    margin-bottom: 22px;
+    border-radius: 2px;
+}
+
+.team-modal-bio-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.team-modal-bio-row .bio-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(232,182,47,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e8b62f;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.team-modal-bio-row .bio-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.team-modal-bio-row .bio-label {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.team-modal-bio-row .bio-value {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+.team-modal-desc {
+    color: rgba(255,255,255,0.78);
+    line-height: 1.85;
+    font-size: 0.9rem;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.team-modal-close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.45);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.team-modal-close:hover {
+    background: #c6a43b;
+    border-color: #c6a43b;
+    color: #003366;
+    transform: rotate(90deg);
+}
+
+.team-card {
+    cursor: pointer;
+}
+
+.team-card-click-hint {
+    position: absolute;
+    bottom: 28px;
+    right: 28px;
+    z-index: 4;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(232,182,47,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #003366;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.team-card:hover .team-card-click-hint {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@media (max-width: 768px) {
+    .team-modal-box {
+        grid-template-columns: 1fr;
+        max-height: 95vh;
+        overflow-y: auto;
+    }
+    .team-modal-img {
+        min-height: 260px;
+    }
+    .team-modal-body {
+        padding: 32px 28px;
+        max-height: none;
+    }
+    .team-modal-body h2 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ==================== NEWS AUTO-SLIDE DOTS ==================== */
+.news-dots {
+    display: flex;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 28px;
+}
+
+.news-dots button {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,51,102,0.25);
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.news-dots button.active {
+    width: 30px;
+    border-radius: 20px;
+    background: #c6a43b;
+}
+
 </style>
 
 
-    <!-- ==================== HERO SLIDER ==================== -->
+    <!-- ==================== HERO SLIDER (DYNAMIC) ==================== -->
     <section class="hero-section" id="home">
         <div class="slides-container">
-    <div class="slide slide-1 active"></div>
-    <div class="slide slide-2"></div>
-    <div class="slide slide-3"></div>
-    <div class="slide slide-4"></div>
-    <div class="slide slide-5"></div>
-    <div class="slide slide-6"></div>
-    <div class="slide slide-7"></div>
-    <div class="slide slide-8"></div>
-    <div class="slide slide-9"></div>
-    <div class="slide slide-10"></div>
-</div>
-      <div class="slider-dots">
-    <div class="dot active" data-slide="0"></div>
-    <div class="dot" data-slide="1"></div>
-    <div class="dot" data-slide="2"></div>
-    <div class="dot" data-slide="3"></div>
-    <div class="dot" data-slide="4"></div>
-    <div class="dot" data-slide="5"></div>
-    <div class="dot" data-slide="6"></div>
-    <div class="dot" data-slide="7"></div>
-    <div class="dot" data-slide="8"></div>
-    <div class="dot" data-slide="9"></div>
-</div>
+            @forelse($sliders as $i => $slider)
+            <div class="slide {{ $i === 0 ? 'active' : '' }}"
+                 style="background-image: linear-gradient(rgba(0,36,65,0.55), rgba(0,36,65,0.55)), url('{{ $slider->gambar ? asset($slider->gambar) : asset('images/sibaganding'.($i+1).'.jpg') }}');"></div>
+            @empty
+            <div class="slide active" style="background-image: linear-gradient(rgba(0,36,65,0.55), rgba(0,36,65,0.55)), url('{{ asset('images/sibaganding1.jpg') }}');"></div>
+            @endforelse
+        </div>
+
+        <div class="slider-dots">
+            @forelse($sliders as $i => $slider)
+            <div class="dot {{ $i === 0 ? 'active' : '' }}" data-slide="{{ $i }}"></div>
+            @empty
+            <div class="dot active" data-slide="0"></div>
+            @endforelse
+        </div>
 
         <div class="hero-content">
             <div>
@@ -2322,65 +2837,52 @@
         <div class="map-layout">
             <div>
                 <div class="map-wrapper" data-aos="zoom-in">
-                    <img src="{{ asset('images/peta-sibaganding.png') }}" alt="Peta Sibaganding" class="map-img">
+                    <div class="map-inner-container" style="position:relative; width:100%; line-height:0;">
+                        <img src="{{ asset('images/peta-sibaganding.png') }}" alt="Peta Sibaganding" class="map-img" style="width:100%;display:block;border-radius:26px;">
 
-                    <button class="map-point point-1 active"
-                        data-number="01"
-                        data-title="Taman Wisata Kera Sibaganding"
-                        data-desc="Pengunjung dapat melihat monyet ekor panjang dan siamang yang hidup di kawasan hutan sekitar Sibaganding. Area ini menjadi salah satu daya tarik alam yang dekat dengan jalur wisata Danau Toba."
-                        data-tags="Satwa Liar,Hutan,Ekowisata">
+                    @forelse($faktaUniks as $i => $fakta)
+                    @php
+    $px = max(20, min(75, (float)($fakta->x_koordinat ?? 50)));
+$py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
+@endphp
+                    <button class="map-point {{ $i === 0 ? 'active' : '' }}"
+                        style="top: {{ $py }}%; left: {{ $px }}%;"
+                        data-number="{{ str_pad($fakta->nomor, 2, '0', STR_PAD_LEFT) }}"
+                        data-title="{{ $fakta->judul }}"
+                        data-desc="{{ $fakta->deskripsi }}"
+                        data-tags="{{ $fakta->tag ?? '' }}">
                     </button>
-
-                    <button class="map-point point-2"
-                        data-number="02"
-                        data-title="Kampung Warna-Warni Tigarihit"
-                        data-desc="Kawasan Tigarihit dikenal dengan rumah-rumah berwarna cerah yang mempercantik lereng Parapat. Tempat ini menarik untuk foto, wisata keluarga, dan menikmati suasana tepi Danau Toba."
-                        data-tags="Spot Foto,Kampung Wisata,Parapat">
-                    </button>
-
-                    <button class="map-point point-3"
-                        data-number="03"
-                        data-title="Akses Strategis Danau Toba"
-                        data-desc="Sibaganding berada dekat dengan Parapat, salah satu pintu masuk utama menuju Danau Toba dan Pulau Samosir. Lokasinya cocok menjadi titik singgah wisatawan."
-                        data-tags="Akses Wisata,Danau Toba,Parapat">
-                    </button>
-
-                    <button class="map-point point-4"
-                        data-number="04"
-                        data-title="Legenda Batu Gantung"
-                        data-desc="Batu Gantung merupakan ikon cerita rakyat di kawasan Danau Toba. Bentuk batu yang menjorok dari tebing membuatnya menjadi destinasi yang kuat dari sisi geologi, legenda, dan budaya."
-                        data-tags="Legenda,Budaya,Geosite">
-                    </button>
-
-                    <button class="map-point point-5"
-                        data-number="05"
-                        data-title="Panorama Lereng dan Danau"
-                        data-desc="Bentang alam Sibaganding memperlihatkan perpaduan lereng hijau, kawasan hutan, dan pemandangan Danau Toba. Area ini cocok untuk menikmati udara sejuk dan fotografi alam."
-                        data-tags="Panorama,Landscape,Alam">
-                    </button>
-
-                    <button class="map-point point-6"
-                        data-number="06"
-                        data-title="Kawasan Edukasi Geopark"
-                        data-desc="Sibaganding dapat dikembangkan sebagai ruang edukasi mengenai konservasi, geologi Danau Toba, dan kekayaan hayati. Pengunjung tidak hanya berwisata, tetapi juga belajar tentang alam dan budaya lokal."
-                        data-tags="Edukasi,Geopark,Konservasi">
-                    </button>
+                    @empty
+                    {{-- 10 titik tersebar di dalam peta, semua dalam batas 15%-82% --}}
+                    <button class="map-point active" style="top:42%;left:36%;" data-number="01" data-title="Taman Wisata Kera Sibaganding" data-desc="Pengunjung dapat melihat monyet ekor panjang dan siamang yang hidup di kawasan hutan sekitar Sibaganding." data-tags="Satwa Liar,Hutan,Ekowisata"></button>
+                    <button class="map-point" style="top:32%;left:52%;" data-number="02" data-title="Batu Gantung" data-desc="Batu Gantung adalah fenomena alam yang memiliki legenda mistis dan menjadi daya tarik wisata geologi di kawasan Sibaganding." data-tags="Geologi,Legenda,Wisata"></button>
+                    <button class="map-point" style="top:50%;left:63%;" data-number="03" data-title="Panorama Danau Toba" data-desc="Panorama Danau Toba yang memukau terlihat jelas dari kawasan Sibaganding, membentang luas dengan keindahan alam kaldera vulkanik." data-tags="Panorama,Danau,Geologi"></button>
+                    <button class="map-point" style="top:64%;left:48%;" data-number="04" data-title="Hutan Pinus Sibaganding" data-desc="Kawasan hutan pinus yang rindang menjadi habitat satwa liar dan destinasi ekowisata yang populer di Sibaganding." data-tags="Hutan,Ekowisata,Alam"></button>
+                    <button class="map-point" style="top:58%;left:30%;" data-number="05" data-title="Tradisi Batak Lokal" data-desc="Kehidupan budaya Batak yang kaya masih terjaga di sekitar Sibaganding, mulai dari rumah adat hingga seni tradisional." data-tags="Budaya,Batak,Tradisi"></button>
+                    <button class="map-point" style="top:44%;left:20%;" data-number="06" data-title="Jalur Trekking Alam" data-desc="Jalur trekking melintasi perbukitan dan hutan Sibaganding menawarkan pengalaman alam yang otentik dan menakjubkan." data-tags="Trekking,Alam,Petualangan"></button>
+                    <button class="map-point" style="top:25%;left:38%;" data-number="07" data-title="Spot Foto Kaldera" data-desc="Titik foto terbaik untuk mengabadikan keindahan kaldera Danau Toba dari ketinggian kawasan Sibaganding." data-tags="Fotografi,Kaldera,Panorama"></button>
+                    <button class="map-point" style="top:72%;left:58%;" data-number="08" data-title="Sumber Mata Air Alam" data-desc="Sumber mata air alami yang jernih terdapat di beberapa titik kawasan Sibaganding, menjadi bagian dari ekosistem yang lestari." data-tags="Air,Ekosistem,Alam"></button>
+                    <button class="map-point" style="top:78%;left:36%;" data-number="09" data-title="Pertanian Tradisional" data-desc="Lahan pertanian tradisional masyarakat Batak di sekitar Sibaganding mencerminkan harmoni antara manusia dan alam." data-tags="Pertanian,Budaya,Lokal"></button>
+                    <button class="map-point" style="top:55%;left:75%;" data-number="10" data-title="Tebing Kaldera Toba" data-desc="Tebing curam hasil letusan purba 74.000 tahun lalu yang membentuk kaldera Toba menjadi bukti nyata sejarah geologi bumi." data-tags="Geologi,Tebing,Sejarah"></button>
+                    @endforelse
+                    </div>{{-- end map-inner-container --}}
                 </div>
 
                 <div class="map-hint">Klik salah satu titik emas pada peta untuk mengganti informasi.</div>
             </div>
 
+            @php $firstFakta = $faktaUniks->first(); @endphp
             <div class="map-info-card" data-aos="fade-left">
                 <div class="map-info-label">Titik Informasi</div>
-                <div class="map-info-number" id="mapNumber">01</div>
-                <h3 id="mapTitle">Taman Wisata Kera Sibaganding</h3>
-                <p id="mapDesc">
-                    Pengunjung dapat melihat monyet ekor panjang dan siamang yang hidup di kawasan hutan sekitar Sibaganding. Area ini menjadi salah satu daya tarik alam yang dekat dengan jalur wisata Danau Toba.
-                </p>
+                <div class="map-info-number" id="mapNumber">{{ $firstFakta ? str_pad($firstFakta->nomor, 2, '0', STR_PAD_LEFT) : '01' }}</div>
+                <h3 id="mapTitle">{{ $firstFakta ? $firstFakta->judul : 'Fakta Unik Sibaganding' }}</h3>
+                <p id="mapDesc">{{ $firstFakta ? $firstFakta->deskripsi : 'Klik titik pada peta untuk melihat informasi.' }}</p>
                 <div class="map-info-tags" id="mapTags">
-                    <span>Satwa Liar</span>
-                    <span>Hutan</span>
-                    <span>Ekowisata</span>
+                    @if($firstFakta && $firstFakta->tag)
+                        @foreach(explode(',', $firstFakta->tag) as $tagItem)
+                        <span>{{ trim($tagItem) }}</span>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -2439,90 +2941,81 @@
                 </div>
             </div>
 <div class="about-visual" data-aos="fade-left">
-    <div class="story-slider">
-
-        <div class="story-slide active">
+    <div class="story-slider" style="cursor:pointer;" title="Klik gambar untuk memperbesar">
+        @forelse($warisanGeologis as $i => $warisan)
+        @php
+            $imgUrl = $warisan->gambar ? asset($warisan->gambar) : asset('images/sibaganding1.JPG');
+            $slideLabel = 'SLIDE ' . str_pad($i+1,'2','0',STR_PAD_LEFT) . ' — ' . strtoupper($warisan->sub_judul ?? $warisan->judul);
+            $tags = $warisan->tags ?? ($warisan->tag ?? '');
+        @endphp
+        <div class="story-slide {{ $i === 0 ? 'active' : '' }}"
+             data-img="{{ $imgUrl }}"
+             data-label="{{ $slideLabel }}"
+             data-title="{{ $warisan->judul }}"
+             data-desc="{{ $warisan->deskripsi }}"
+             data-tags="{{ $tags }}"
+             data-link="{{ url('/destinasi') }}"
+             onclick="openStoryModal(this)">
+            <img src="{{ $imgUrl }}" alt="{{ $warisan->judul }}">
+            <div class="slide-overlay">
+                <small>{{ $slideLabel }}</small>
+                <h4>{{ $warisan->judul }}</h4>
+                <p>{{ $warisan->deskripsi }}</p>
+            </div>
+        </div>
+        @empty
+        <div class="story-slide active"
+             data-img="{{ asset('images/danau toba home.jpg') }}"
+             data-label="SLIDE 01 — WARISAN GEOLOGI"
+             data-title="Warisan Geologi Sibaganding"
+             data-desc="Kawasan Sibaganding menyimpan warisan geologi yang bernilai tinggi sebagai bagian dari Geopark Danau Toba. Kaldera Toba terbentuk dari letusan supermassive 74.000 tahun lalu yang mengubah bentang alam Sumatera Utara."
+             data-tags="Geologi,Kaldera,Geopark"
+             data-link="{{ url('/destinasi') }}"
+             onclick="openStoryModal(this)">
             <img src="{{ asset('images/danau toba home.jpg') }}" alt="Danau Toba">
             <div class="slide-overlay">
-                <small>SLIDE 01 — TERBENTUKNYA DANAU TOBA</small>
-                <h4>Letusan Purba yang Melahirkan Danau Toba</h4>
-                <p>
-                    Sekitar 74.000 tahun lalu, letusan supervolcano membentuk kaldera raksasa
-                    yang kemudian dikenal sebagai Danau Toba. Dari peristiwa inilah lahir bentang
-                    alam megah yang menjadi dasar cerita geologi kawasan ini.
-                </p>
+                <small>SLIDE 01 — WARISAN GEOLOGI</small>
+                <h4>Warisan Geologi Sibaganding</h4>
+                <p>Kawasan Sibaganding menyimpan warisan geologi yang bernilai tinggi sebagai bagian dari Geopark Danau Toba.</p>
             </div>
         </div>
+        @endforelse
 
-        <div class="story-slide">
-            <img src="{{ asset('images/caldera.jpg') }}" alt="Kaldera Geopark Toba">
-            <div class="slide-overlay">
-                <small>SLIDE 02 — KALDERA GEOPARK</small>
-                <h4>Kaldera Besar yang Menjadi Identitas Geopark Toba</h4>
-                <p>
-                    Tebing, perbukitan, batuan, dan panorama Danau Toba memperlihatkan jejak geologi
-                    yang bernilai tinggi. Kawasan ini bukan hanya indah dipandang, tetapi juga menyimpan
-                    pengetahuan tentang sejarah bumi.
-                </p>
-            </div>
+     <button class="story-nav prev" type="button" onclick="event.preventDefault(); event.stopPropagation(); changeStorySlide(-1);">
+    &#10094;
+</button>
+
+<button class="story-nav next" type="button" onclick="event.preventDefault(); event.stopPropagation(); changeStorySlide(1);">
+    &#10095;
+</button>
+
+        <div class="story-dots" onclick="event.stopPropagation()">
+            @forelse($warisanGeologis as $i => $warisan)
+            <button class="{{ $i === 0 ? 'active' : '' }}" type="button"></button>
+            @empty
+            <button class="active" type="button"></button>
+            @endforelse
         </div>
 
-        <div class="story-slide">
-            <img src="{{ asset('images/sibaganding1.JPG') }}" alt="Sibaganding">
-            <div class="slide-overlay">
-                <small>SLIDE 03 — SIBAGANDING</small>
-                <h4>Sibaganding, Ruang Kecil dengan Cerita Alam yang Besar</h4>
-                <p>
-                    Sibaganding menjadi bagian dari wajah Geopark Toba yang dekat dengan masyarakat.
-                    Di sini, cerita tentang alam, satwa, budaya Batak, dan kehidupan lokal bertemu
-                    dalam satu kawasan yang dapat dijelajahi.
-                </p>
-            </div>
-        </div>
-
-        <div class="story-slide">
-            <img src="{{ asset('images/unesco.jpg') }}" alt="UNESCO Global Geopark">
-            <div class="slide-overlay">
-                <small>SLIDE 04 — UNESCO GLOBAL GEOPARK</small>
-                <h4>Danau Toba Diakui Dunia sebagai Warisan Geologi</h4>
-                <p>
-                    Pengakuan UNESCO Global Geopark memperkuat posisi Danau Toba sebagai kawasan
-                    bernilai dunia. Sibaganding menjadi salah satu ruang untuk mengenalkan warisan
-                    alam, edukasi, konservasi, dan budaya kepada pengunjung.
-                </p>
-            </div>
-        </div>
-
-
-
+        {{-- Hint klik --}}
+        <div style="position:absolute;top:16px;right:16px;z-index:8;background:rgba(0,0,0,0.45);color:#e8b62f;padding:7px 14px;border-radius:30px;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;backdrop-filter:blur(8px);pointer-events:none;">🔍 Klik untuk perbesar</div>
+    </div>
 </div>
 
-        <div class="story-slide">
-            <img src="{{ asset('images/sibaganding1.JPG') }}" alt="Sibaganding">
-            <div class="geo-badge">
-                <small>Sibaganding</small>
-                <h4>Sibaganding menjadi ruang kecil dengan cerita alam yang besar</h4>
-            </div>
-            <div class="float-card">
-                <span class="big">3</span>
-                <span class="text">pilar utama bertemu di sini: geodiversity, biodiversity, dan culturediversity.</span>
-            </div>
+{{-- Story Image Modal --}}
+<div class="story-modal-overlay" id="storyModalOverlay" onclick="if(event.target===this) closeStoryModal()">
+    <div class="story-modal-box">
+        <button class="story-modal-close" onclick="closeStoryModal()">&#10005;</button>
+        <div class="story-modal-img">
+            <img id="storyModalImg" src="" alt="">
         </div>
-
-        <div class="story-slide">
-            <img src="{{ asset('images/unesco-toba.jpg') }}" alt="UNESCO Global Geopark">
-            <div class="geo-badge">
-                <small>UNESCO Global Geopark</small>
-                <h4>Danau Toba diakui dunia sebagai warisan geologi bernilai tinggi</h4>
-            </div>
-            <div class="float-card">
-                <span class="big">2020</span>
-                <span class="text">Danau Toba ditetapkan sebagai UNESCO Global Geopark dan semakin dikenal dunia.</span>
-            </div>
+        <div class="story-modal-content">
+            <div class="story-modal-kicker" id="storyModalLabel"></div>
+            <h2 id="storyModalTitle"></h2>
+            <p id="storyModalDesc"></p>
+            <div class="story-modal-tags" id="storyModalTags"></div>
+            <a href="{{ url('/informasi') }}" class="story-modal-btn">Jelajahi Lebih Lanjut →</a>
         </div>
-
-
-
     </div>
 </div>
         </div>
@@ -2567,7 +3060,7 @@
                         <span>Konservasi</span>
                     </div>
 
-                    <a href="{{ url('/geosite/biodiversity') }}" class="pilar-link">Jelajahi Lebih Lanjut →</a>
+                    <a href="{{ route('destinasi.biodiversity') }}" class="pilar-link">Jelajahi Lebih Lanjut →</a>
                 </div>
             </div>
 
@@ -2594,7 +3087,7 @@
                         <span>Edukasi Geologi</span>
                     </div>
 
-                    <a href="{{ url('/geosite/geodiversity') }}" class="pilar-link">Jelajahi Lebih Lanjut →</a>
+                    <a href="{{ route('destinasi.geodiversity') }}" class="pilar-link">Jelajahi Lebih Lanjut →</a>
                 </div>
             </div>
 
@@ -2621,7 +3114,7 @@
                         <span>Tradisi Lokal</span>
                     </div>
 
-                    <a href="{{ url('/geosite/culturediversitygit') }}" class="pilar-link">Jelajahi Lebih Lanjut →</a>
+                    <a href="{{ route('destinasi.culture-diversity') }}" class="pilar-link">Jelajahi Lebih Lanjut →</a>
                 </div>
             </div>
 
@@ -2640,105 +3133,83 @@
 
         <div class="gallery-slider" data-aos="fade-up">
             <div class="gallery-track" id="galleryTrack">
+              @forelse($galeri as $i => $item)
+<div class="gallery-card">
+   @php
+    $rawGambar = $item->gambar ? ltrim($item->gambar, '/') : null;
 
+    if ($rawGambar) {
+        if (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
+            $gambarGaleri = $rawGambar;
+        } elseif (str_starts_with($rawGambar, 'storage/')) {
+            $gambarGaleri = asset($rawGambar);
+        } else {
+            $gambarGaleri = asset('storage/' . $rawGambar);
+        }
+    } else {
+        $gambarGaleri = asset('images/sibaganding1.JPG');
+    }
+@endphp
+
+
+<img 
+    src="{{ $gambarGaleri }}" 
+    alt="{{ $item->judul ?? 'Galeri '.($i+1) }}"
+    onerror="this.onerror=null; this.src='{{ asset('images/sibaganding1.JPG') }}';"
+>
+
+    <div class="gallery-caption">
+        <span>{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+        <h4>{{ $item->judul ?? 'Keindahan Sibaganding' }}</h4>
+    </div>
+</div>
+@empty
+                {{-- 10 gambar default menggunakan galleri-1 s/d galleri-10 yang sudah ada --}}
+               @php
+    $defaultGallery = [
+        0 => asset('images/galleri-1.jpg'),
+        1 => asset('images/galleri-2.JPG'),
+        2 => asset('images/galleri-3.jpg'),
+        3 => asset('images/galleri-4.jpg'),
+        4 => asset('images/galleri-5.JPG'),
+        5 => asset('images/galleri-6.JPG'),
+        6 => asset('images/galleri-7.JPG'),
+        7 => asset('images/galleri-8.JPG'),
+        8 => asset('images/galleri-9.jpg'),
+        9 => asset('images/galleri-10.jpg'),
+    ];
+
+    $fallbackGambar = $defaultGallery[$i % 10];
+@endphp
+                @for($g = 1; $g <= 10; $g++)
                 <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-1.jpg') }}" alt="Galeri 1">
+                    <img src="{{ asset('images/galleri-'.$g.'.'.$galeriExts[$g]) }}" alt="{{ $galeriTitles[$g] }}" onerror="this.src='{{ asset('images/sibaganding1.JPG') }}'">
                     <div class="gallery-caption">
-                        <span>01</span>
-                        <h4>Panorama Danau Toba</h4>
+                        <span>{{ str_pad($g, 2, '0', STR_PAD_LEFT) }}</span>
+                        <h4>{{ $galeriTitles[$g] }}</h4>
                     </div>
                 </div>
-
-                <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-2.jpg') }}" alt="Galeri 2">
-                    <div class="gallery-caption">
-                        <span>02</span>
-                        <h4>Lanskap Sibaganding</h4>
-                    </div>
-                </div>
-
-                <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-3.jpg') }}" alt="Galeri 3">
-                    <div class="gallery-caption">
-                        <span>03</span>
-                        <h4>Jejak Geopark</h4>
-                    </div>
-                </div>
-
-                <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-4.jpg') }}" alt="Galeri 4">
-                    <div class="gallery-caption">
-                        <span>04</span>
-                        <h4>Budaya Lokal</h4>
-                    </div>
-                </div>
-
-                <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-5.jpg') }}" alt="Galeri 5">
-                    <div class="gallery-caption">
-                        <span>05</span>
-                        <h4>Alam Hijau</h4>
-                    </div>
-                </div>
-
-                <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-6.jpg') }}" alt="Galeri 6">
-                    <div class="gallery-caption">
-                        <span>06</span>
-                        <h4>Perbukitan Toba</h4>
-                    </div>
-                </div>
-
-                <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-7.jpg') }}" alt="Galeri 7">
-                    <div class="gallery-caption">
-                        <span>07</span>
-                        <h4>Wisata Alam</h4>
-                    </div>
-                </div>
-
-                <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-8.jpg') }}" alt="Galeri 8">
-                    <div class="gallery-caption">
-                        <span>08</span>
-                        <h4>Keindahan Kaldera</h4>
-                    </div>
-                </div>
-
-                <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-9.jpg') }}" alt="Galeri 9">
-                    <div class="gallery-caption">
-                        <span>09</span>
-                        <h4>Pesona Geosite</h4>
-                    </div>
-                </div>
-
-                <div class="gallery-card">
-                    <img src="{{ asset('images/galleri-10.jpg') }}" alt="Galeri 10">
-                    <div class="gallery-caption">
-                        <span>10</span>
-                        <h4>Warisan Dunia</h4>
-                    </div>
-                </div>
-
+                @endfor
+                @endforelse
             </div>
 
-  <button class="gallery-arrow gallery-prev" type="button">&#10094;</button>
-<button class="gallery-arrow gallery-next" type="button">&#10095;</button>
+            <button class="gallery-arrow gallery-prev" type="button">&#10094;</button>
+            <button class="gallery-arrow gallery-next" type="button">&#10095;</button>
         </div>
 
-       <div class="gallery-dots" id="galleryDots">
-    <button class="active" type="button"></button>
-    <button type="button"></button>
-    <button type="button"></button>
-    <button type="button"></button>
-    <button type="button"></button>
-    <button type="button"></button>
-    <button type="button"></button>
-    <button type="button"></button>
-    <button type="button"></button>
-    <button type="button"></button>
-</div>
+        <div class="gallery-dots" id="galleryDots">
+            @forelse($galeri as $i => $item)
+            <button class="{{ $i === 0 ? 'active' : '' }}" type="button"></button>
+            @empty
+            @for($g = 0; $g < 10; $g++)
+            <button class="{{ $g === 0 ? 'active' : '' }}" type="button"></button>
+            @endfor
+            @endforelse
+        </div>
+
+        <div style="text-align:center; margin-top: 40px;" data-aos="fade-up">
+            <a href="{{ route('galeri') }}" class="pilar-link" style="font-size:0.8rem;">Jelajahi Galeri Lebih Banyak →</a>
+        </div>
     </div>
 </section>
 
@@ -2772,67 +3243,34 @@
 
             <div class="video-slider">
                 <div class="video-track" id="videoTrack">
-
+                    @forelse($videoYoutubes as $i => $video)
                     <div class="video-card">
                         <div class="video-frame">
-    <iframe
-        src="https://www.youtube.com/embed/gYiE6bQCoc"
-        title="Video Sibaganding 1"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-    </iframe>
-</div>
+                            <iframe
+                                src="https://www.youtube.com/embed/{{ $video->youtube_id }}"
+                                title="{{ $video->judul }}"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-info">
+                            <span>{{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}</span>
+                            <h4>{{ $video->judul }}</h4>
+                            <p>{{ $video->deskripsi }}</p>
+                        </div>
+                    </div>
+                    @empty
+                    <div class="video-card">
+                        <div class="video-frame">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Sibaganding" allowfullscreen></iframe>
+                        </div>
                         <div class="video-info">
                             <span>01</span>
                             <h4>Pesona Alam Sibaganding</h4>
-                            <p>Pengalaman pertama menikmati suasana alam dan panorama kawasan Sibaganding.</p>
+                            <p>Nikmati keindahan alam dan panorama kawasan Geosite Sibaganding.</p>
                         </div>
                     </div>
-
-                    <div class="video-card">
-                        <div class="video-frame">
-                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" title="Video Sibaganding 2" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-info">
-                            <span>02</span>
-                            <h4>Wisata Edukasi Geopark</h4>
-                            <p>Cerita tentang belajar geologi, alam, dan budaya di kawasan Geopark Toba.</p>
-                        </div>
-                    </div>
-
-                    <div class="video-card">
-                        <div class="video-frame">
-                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" title="Video Sibaganding 3" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-info">
-                            <span>03</span>
-                            <h4>Hutan dan Satwa Sibaganding</h4>
-                            <p>Kesan pengunjung saat melihat kekayaan hayati dan suasana hutan Sibaganding.</p>
-                        </div>
-                    </div>
-
-                    <div class="video-card">
-                        <div class="video-frame">
-                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_4" title="Video Sibaganding 4" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-info">
-                            <span>04</span>
-                            <h4>Budaya dan Cerita Lokal</h4>
-                            <p>Pengalaman mengenal budaya Batak dan kehidupan masyarakat sekitar kawasan.</p>
-                        </div>
-                    </div>
-
-                    <div class="video-card">
-                        <div class="video-frame">
-                            <iframe src="https://www.youtube.com/embed/VIDEO_ID_5" title="Video Sibaganding 5" allowfullscreen></iframe>
-                        </div>
-                        <div class="video-info">
-                            <span>05</span>
-                            <h4>Perjalanan Menuju Sibaganding</h4>
-                            <p>Cuplikan perjalanan wisata dan suasana terbaik saat menjelajahi Sibaganding.</p>
-                        </div>
-                    </div>
-
+                    @endforelse
                 </div>
 
                 <button class="video-arrow video-prev" type="button">&#10094;</button>
@@ -2840,11 +3278,11 @@
             </div>
 
             <div class="video-mini-list" id="videoDots">
+                @forelse($videoYoutubes as $i => $video)
+                <button class="{{ $i === 0 ? 'active' : '' }}" type="button">{{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}</button>
+                @empty
                 <button class="active" type="button">01</button>
-                <button type="button">02</button>
-                <button type="button">03</button>
-                <button type="button">04</button>
-                <button type="button">05</button>
+                @endforelse
             </div>
         </div>
 
@@ -2867,50 +3305,44 @@
         <div class="news-slider" data-aos="fade-up">
             <div class="news-track" id="newsTrack">
 
+                @forelse($berita as $i => $b)
                 <div class="news-card">
-                    <img src="{{ asset('images/galleri-1.jpg') }}" alt="Berita 1">
+                    <img src="{{ $b->gambar ? asset($b->gambar) : asset('images/galleri-'.($i+1).'.jpg') }}" alt="{{ $b->judul }}">
                     <div class="news-content">
-                        <span>Berita • Geopark</span>
-                        <h4>Pengembangan Wisata Sibaganding Terus Diperkuat</h4>
-                        <p>Upaya pengenalan potensi alam, budaya, dan edukasi geopark semakin ditingkatkan.</p>
-                        <a href="{{ url('/berita') }}">Baca Selengkapnya →</a>
+                        <span>{{ $b->kategori ? $b->kategori->nama : 'Berita' }} • Sibaganding</span>
+                        <h4>{{ $b->judul }}</h4>
+                        <p>{{ Str::limit(strip_tags($b->konten ?? $b->isi ?? ''), 100) }}</p>
+                        <a href="{{ route('berita.detail', $b->slug) }}">Baca Selengkapnya →</a>
                     </div>
                 </div>
-
+                @empty
+                @for($n = 1; $n <= 3; $n++)
                 <div class="news-card">
-                    <img src="{{ asset('images/galleri-2.jpg') }}" alt="Berita 2">
+                    <img src="{{ asset('images/galleri-'.$n.'.jpg') }}" alt="Berita">
                     <div class="news-content">
-                        <span>Wisata • Alam</span>
-                        <h4>Sibaganding Menjadi Daya Tarik Baru di Kawasan Danau Toba</h4>
-                        <p>Keindahan alam dan akses wisata membuat kawasan ini semakin menarik dikunjungi.</p>
-                        <a href="{{ url('/berita') }}">Baca Selengkapnya →</a>
+                        <span>Berita • Sibaganding</span>
+                        <h4>Informasi Terbaru Geosite Sibaganding</h4>
+                        <p>Ikuti informasi terbaru seputar kegiatan dan pengembangan Geopark Sibaganding.</p>
+                        <a href="{{ route('berita') }}">Baca Selengkapnya →</a>
                     </div>
                 </div>
-
-                <div class="news-card">
-                    <img src="{{ asset('images/galleri-3.jpg') }}" alt="Berita 3">
-                    <div class="news-content">
-                        <span>Edukasi • Geologi</span>
-                        <h4>Geopark Toba Sebagai Ruang Belajar Alam Terbuka</h4>
-                        <p>Pengunjung dapat memahami proses terbentuknya Danau Toba melalui cerita geologi.</p>
-                        <a href="{{ url('/berita') }}">Baca Selengkapnya →</a>
-                    </div>
-                </div>
-
-                <div class="news-card">
-                    <img src="{{ asset('images/galleri-4.jpg') }}" alt="Berita 4">
-                    <div class="news-content">
-                        <span>Budaya • Lokal</span>
-                        <h4>Budaya Batak Menguatkan Cerita Wisata Sibaganding</h4>
-                        <p>Tradisi lokal menjadi bagian penting dalam pengalaman wisata di kawasan geopark.</p>
-                        <a href="{{ url('/berita') }}">Baca Selengkapnya →</a>
-                    </div>
-                </div>
+                @endfor
+                @endforelse
 
             </div>
 
             <button class="news-arrow news-prev" type="button">&#10094;</button>
             <button class="news-arrow news-next" type="button">&#10095;</button>
+        </div>
+
+        <div class="news-dots" id="newsDots">
+            @forelse($berita as $i => $b)
+            <button class="{{ $i === 0 ? 'active' : '' }}" type="button"></button>
+            @empty
+            @for($n = 0; $n < 3; $n++)
+            <button class="{{ $n === 0 ? 'active' : '' }}" type="button"></button>
+            @endfor
+            @endforelse
         </div>
     </div>
 </section>
@@ -2928,50 +3360,93 @@
             </p>
         </div>
 
-        <div class="team-grid">
+        <div class="team-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 820px; margin: 0 auto;">
 
-            <div class="team-card team-left" data-aos="fade-right">
+            <div class="team-card" data-aos="fade-right"
+                 onclick="openTeamModal({
+                     img: '{{ asset('images/pengurus-1.jpg') }}',
+                     role: 'Ketua Pengelola',
+                     name: 'Pengelola Sibaganding',
+                     instansi: 'Geosite Sibaganding — Geopark Danau Toba',
+                     bidang: 'Manajemen & Pengembangan Kawasan',
+                     kontak: 'sibaganding@geotoba.id',
+                     desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
+                 })">
                 <div class="team-image">
                     <img src="{{ asset('images/pengurus-1.jpg') }}" alt="Pengurus Sibaganding 1">
                 </div>
                 <div class="team-info">
-                    <span>Koordinator Lapangan</span>
-                    <h3>Nama Pengurus 1</h3>
+                    <span>Ketua Pengelola</span>
+                    <h3>Pengelola Sibaganding</h3>
                     <p>
-                        Bertugas mendampingi kegiatan lapangan, membantu pengunjung,
-                        dan memastikan aktivitas wisata berjalan dengan baik.
+                        Bertanggung jawab mengoordinasikan pengelolaan kawasan,
+                        pengembangan program, dan kerja sama terkait Geosite Sibaganding.
                     </p>
                 </div>
+                <div class="team-card-click-hint">👁</div>
             </div>
 
-            <div class="team-card team-center" data-aos="zoom-in">
+            <div class="team-card" data-aos="fade-left"
+                 onclick="openTeamModal({
+                     img: '{{ asset('images/pengurus-2.jpg') }}',
+                     role: 'Koordinator Lapangan',
+                     name: 'Koordinator Wisata',
+                     instansi: 'Geosite Sibaganding — Lapangan Operasional',
+                     bidang: 'Operasional Wisata & Pelayanan Pengunjung',
+                     kontak: 'wisata.sibaganding@geotoba.id',
+                     desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
+                 })">
                 <div class="team-image">
                     <img src="{{ asset('images/pengurus-2.jpg') }}" alt="Pengurus Sibaganding 2">
                 </div>
                 <div class="team-info">
-                    <span>Ketua Pengelola</span>
-                    <h3>Nama Pengurus 2</h3>
+                    <span>Koordinator Lapangan</span>
+                    <h3>Koordinator Wisata</h3>
                     <p>
-                        Bertanggung jawab mengoordinasikan pengelolaan kawasan,
-                        pengembangan program, dan kerja sama terkait Sibaganding.
+                        Bertugas mendampingi kegiatan lapangan, membantu pengunjung,
+                        dan memastikan aktivitas wisata berjalan optimal.
                     </p>
                 </div>
+                <div class="team-card-click-hint">👁</div>
             </div>
 
-            <div class="team-card team-right" data-aos="fade-left">
-                <div class="team-image">
-                    <img src="{{ asset('images/pengurus-3.jpg') }}" alt="Pengurus Sibaganding 3">
+        </div>
+
+        {{-- Team Biodata Modal --}}
+        <div class="team-modal-overlay" id="teamModalOverlay" onclick="if(event.target===this) closeTeamModal()">
+            <div class="team-modal-box">
+                <button class="team-modal-close" onclick="closeTeamModal()">&#10005;</button>
+                <div class="team-modal-img">
+                    <img id="teamModalImg" src="" alt="">
                 </div>
-                <div class="team-info">
-                    <span>Humas dan Informasi</span>
-                    <h3>Nama Pengurus 3</h3>
-                    <p>
-                        Bertugas menyampaikan informasi wisata, dokumentasi kegiatan,
-                        dan membantu komunikasi dengan pengunjung.
-                    </p>
+                <div class="team-modal-body">
+                    <span class="team-modal-role" id="teamModalRole"></span>
+                    <h2 id="teamModalName"></h2>
+                    <div class="team-modal-divider"></div>
+                    <div class="team-modal-bio-row">
+                        <div class="bio-icon">🏛</div>
+                        <div class="bio-text">
+                            <span class="bio-label">Instansi</span>
+                            <span class="bio-value" id="teamModalInstansi"></span>
+                        </div>
+                    </div>
+                    <div class="team-modal-bio-row">
+                        <div class="bio-icon">📋</div>
+                        <div class="bio-text">
+                            <span class="bio-label">Bidang Tugas</span>
+                            <span class="bio-value" id="teamModalBidang"></span>
+                        </div>
+                    </div>
+                    <div class="team-modal-bio-row">
+                        <div class="bio-icon">✉</div>
+                        <div class="bio-text">
+                            <span class="bio-label">Kontak</span>
+                            <span class="bio-value" id="teamModalKontak"></span>
+                        </div>
+                    </div>
+                    <p class="team-modal-desc" id="teamModalDesc"></p>
                 </div>
             </div>
-
         </div>
 
         <div class="team-action" data-aos="fade-up">
@@ -3166,6 +3641,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const galleryDots = document.querySelectorAll('#galleryDots button');
     const galleryPrev = document.querySelector('.gallery-prev');
     const galleryNext = document.querySelector('.gallery-next');
+    let galleryAutoTimer = null;
 
     function getGalleryPerView() {
         if (window.innerWidth <= 576) return 1;
@@ -3191,6 +3667,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const gap = 24;
         const move = galleryCurrent * (cardWidth + gap);
 
+        galleryTrack.style.transition = 'transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         galleryTrack.style.transform = 'translateX(-' + move + 'px)';
 
         galleryDots.forEach(function (dot) {
@@ -3202,30 +3679,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function startGalleryAuto() {
+        if (galleryAutoTimer) clearInterval(galleryAutoTimer);
+        galleryAutoTimer = setInterval(function () {
+            showGallerySlide(galleryCurrent + 1);
+        }, 4500);
+    }
+
     if (galleryPrev) {
         galleryPrev.addEventListener('click', function () {
             showGallerySlide(galleryCurrent - 1);
+            startGalleryAuto();
         });
     }
 
     if (galleryNext) {
         galleryNext.addEventListener('click', function () {
             showGallerySlide(galleryCurrent + 1);
+            startGalleryAuto();
         });
     }
 
     galleryDots.forEach(function (dot, index) {
         dot.addEventListener('click', function () {
             showGallerySlide(index);
+            startGalleryAuto();
         });
     });
 
     if (galleryCards.length) {
         showGallerySlide(0);
-
-        setInterval(function () {
-            showGallerySlide(galleryCurrent + 1);
-        }, 5000);
+        startGalleryAuto();
 
         window.addEventListener('resize', function () {
             showGallerySlide(galleryCurrent);
@@ -3294,8 +3778,10 @@ if (videoCards.length) {
 let newsCurrent = 0;
 const newsTrack = document.getElementById('newsTrack');
 const newsCards = document.querySelectorAll('.news-card');
+const newsDots = document.querySelectorAll('#newsDots button');
 const newsPrev = document.querySelector('.news-prev');
 const newsNext = document.querySelector('.news-next');
+let newsAutoTimer = null;
 
 function getNewsPerView() {
     if (window.innerWidth <= 576) return 1;
@@ -3307,7 +3793,7 @@ function showNewsSlide(index) {
     if (!newsTrack || !newsCards.length) return;
 
     const perView = getNewsPerView();
-    const maxIndex = newsCards.length - perView;
+    const maxIndex = Math.max(0, newsCards.length - perView);
 
     if (index < 0) {
         newsCurrent = maxIndex;
@@ -3321,28 +3807,144 @@ function showNewsSlide(index) {
     const gap = 24;
     const move = newsCurrent * (cardWidth + gap);
 
+    newsTrack.style.transition = 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     newsTrack.style.transform = 'translateX(-' + move + 'px)';
+
+    newsDots.forEach(function (dot) { dot.classList.remove('active'); });
+    if (newsDots[newsCurrent]) { newsDots[newsCurrent].classList.add('active'); }
+}
+
+function startNewsAuto() {
+    if (newsAutoTimer) clearInterval(newsAutoTimer);
+    newsAutoTimer = setInterval(function () {
+        showNewsSlide(newsCurrent + 1);
+    }, 5500);
 }
 
 if (newsPrev) {
     newsPrev.addEventListener('click', function () {
         showNewsSlide(newsCurrent - 1);
+        startNewsAuto();
     });
 }
 
 if (newsNext) {
     newsNext.addEventListener('click', function () {
         showNewsSlide(newsCurrent + 1);
+        startNewsAuto();
     });
 }
 
+newsDots.forEach(function (dot, index) {
+    dot.addEventListener('click', function () {
+        showNewsSlide(index);
+        startNewsAuto();
+    });
+});
+
 if (newsCards.length) {
     showNewsSlide(0);
+    startNewsAuto();
 
     window.addEventListener('resize', function () {
         showNewsSlide(newsCurrent);
     });
 }
+
+// ==================== STORY IMAGE MODAL ====================
+function openStoryModal(el) {
+    const overlay = document.getElementById('storyModalOverlay');
+    if (!overlay) return;
+    document.getElementById('storyModalImg').src = el.dataset.img || '';
+    document.getElementById('storyModalImg').alt = el.dataset.title || '';
+    document.getElementById('storyModalLabel').textContent = el.dataset.label || '';
+    document.getElementById('storyModalTitle').textContent = el.dataset.title || '';
+    document.getElementById('storyModalDesc').textContent = el.dataset.desc || '';
+    const tagsContainer = document.getElementById('storyModalTags');
+    tagsContainer.innerHTML = '';
+    if (el.dataset.tags) {
+        el.dataset.tags.split(',').forEach(function(tag) {
+            if (tag.trim()) {
+                const sp = document.createElement('span');
+                sp.textContent = tag.trim();
+                tagsContainer.appendChild(sp);
+            }
+        });
+    }
+    const link = document.getElementById('storyModalLink');
+    if (link) link.href = el.dataset.link || '#';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeStoryModal() {
+    const overlay = document.getElementById('storyModalOverlay');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// ==================== TEAM BIODATA MODAL ====================
+function openTeamModal(data) {
+    const overlay = document.getElementById('teamModalOverlay');
+    if (!overlay) return;
+    document.getElementById('teamModalImg').src = data.img || '';
+    document.getElementById('teamModalRole').textContent = data.role || '';
+    document.getElementById('teamModalName').textContent = data.name || '';
+    document.getElementById('teamModalInstansi').textContent = data.instansi || '-';
+    document.getElementById('teamModalBidang').textContent = data.bidang || '-';
+    document.getElementById('teamModalKontak').textContent = data.kontak || '-';
+    document.getElementById('teamModalDesc').textContent = data.desc || '';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeTeamModal() {
+    const overlay = document.getElementById('teamModalOverlay');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// Keyboard ESC close modals
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeStoryModal();
+        closeTeamModal();
+    }
+});
+
+
+let storyCurrentSlide = 0;
+
+function showStorySlide(index) {
+    const slides = document.querySelectorAll('.story-slide');
+    const dots = document.querySelectorAll('.story-dots button');
+
+    if (!slides.length) return;
+
+    if (index < 0) {
+        storyCurrentSlide = slides.length - 1;
+    } else if (index >= slides.length) {
+        storyCurrentSlide = 0;
+    } else {
+        storyCurrentSlide = index;
+    }
+
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    slides[storyCurrentSlide].classList.add('active');
+
+    if (dots[storyCurrentSlide]) {
+        dots[storyCurrentSlide].classList.add('active');
+    }
+}
+
+function changeStorySlide(direction) {
+    showStorySlide(storyCurrentSlide + direction);
+}
 </script>
+
+
+
 
 @endsection

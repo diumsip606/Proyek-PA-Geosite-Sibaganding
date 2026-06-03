@@ -7,14 +7,13 @@ use App\Models\Galeri;
 use App\Models\Berita;
 use App\Models\Kategori;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\GaleriController;
+use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
+use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController;
+use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\InformasiController;
-use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController; // Tambahan untuk Controller Admin
-use App\Http\Controllers\DestinasiController; // Controller untuk Pengunjung
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\KontakInfoController;
-use App\Models\KontakInfo;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,14 +66,7 @@ Route::get('/destinasi/culture-diversity', [DestinasiController::class, 'culture
 Route::get('/destinasi/{id}', [DestinasiController::class, 'show'])->name('destinasi.show');
 
 // GALERI
-Route::get('/galeri', function () {
-    $galeriByKategori = Galeri::where('status', true)
-        ->latest()
-        ->get()
-        ->groupBy('kategori');
-
-    return view('pages.galeri', compact('galeriByKategori'));
-})->name('galeri');
+Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
 // BERITA
 Route::get('/berita', function () {
@@ -161,28 +153,32 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 */
 Route::prefix('admin')->middleware('auth')->group(function () {
 
+
     Route::get('/', function () {
 
         $totalGaleri = Galeri::count();
         $totalBerita = Berita::count();
         $totalInformasi = Informasi::count();
-        $totalPesan = \App\Models\Pesan::count();
-        $totalKontak = KontakInfo::count();
         $totalViews = 0;
 
         return view('admin.dashboard', compact(
             'totalGaleri',
             'totalBerita',
             'totalInformasi',
-            'totalPesan',
             'totalViews'
         ));
     })->name('admin.dashboard');
 
-    Route::resource('galeri', GaleriController::class)->names('admin.galeri');
+    Route::resource('galeri', AdminGaleriController::class)->names('admin.galeri');
     Route::resource('berita', BeritaController::class)->names('admin.berita');
     Route::resource('informasi', InformasiController::class)->names('admin.informasi');
-
+    Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
+    Route::resource('hero-slider', \App\Http\Controllers\Admin\HeroSliderController::class)->names('admin.hero-slider');
+    Route::resource('fakta-unik', FaktaUnikController::class)->names('admin.fakta-unik');
+    Route::resource('video-youtube', VideoYoutubeController::class)->names('admin.video-youtube');
+    Route::resource('warisan-geologi', WarisanGeologiController::class)->names('admin.warisan-geologi');
+    Route::resource('video-youtube', \App\Http\Controllers\Admin\VideoYoutubeController::class)->names('admin.video-youtube');
+Route::resource('fakta-unik', FaktaUnikController::class)->names('admin.fakta-unik');
     // Rute untuk Admin Destinasi
     Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
 
@@ -198,4 +194,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     // ini mengarah ke edit background galeri
     Route::post('galeri/{id}/set-hero', [GaleriController::class, 'setHero'])
         ->name('admin.galeri.set_hero');
+    Route::post('galeri/{id}/unset-hero', [GaleriController::class, 'unsetHero'])
+        ->name('admin.galeri.unset_hero');
 });

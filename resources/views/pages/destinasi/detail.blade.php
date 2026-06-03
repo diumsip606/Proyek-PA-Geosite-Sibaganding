@@ -60,11 +60,11 @@
 </style>
 
 <!-- HERO -->
-<div class="hero-detail" style="background-image: url('/image/{{ $destinasi['gambar'] }}')">
+<div class="hero-detail" style="background-image: url('{{ asset('storage/' . $data->gambar_utama) }}')">
     <div class="hero-overlay"></div>
     <div class="hero-text">
-        <h1 class="display-3 fw-bold">{{ $destinasi['nama'] }}</h1>
-        <p class="lead">Geosite Danau Toba</p>
+        <h1 class="display-3 fw-bold">{{ $data->nama }}</h1>
+        <p class="lead">{{ $data->kategori->nama ?? 'Geosite Danau Toba' }}</p>
     </div>
 </div>
 
@@ -74,35 +74,46 @@
     <!-- DESKRIPSI -->
     <div class="card-custom mb-5">
         <h2 class="mb-3">Deskripsi</h2>
-        <p>{{ $destinasi['deskripsi'] }}</p>
+        <p>{{ $data->deskripsi }}</p>
     </div>
 
-    <!-- GALERI -->
-    <div class="card-custom mb-5">
-        <h2 class="mb-4">Galeri</h2>
-        <div class="row gallery">
-            @foreach($destinasi['galeri'] as $img)
-                <div class="col-md-4 mb-3">
-                    <img src="/image/{{ $img }}" class="w-100">
-                </div>
-            @endforeach
-        </div>
-    </div>
+    
 
     <!-- GOOGLE MAPS -->
     <div class="card-custom mb-5">
         <h2 class="mb-3">Lokasi</h2>
 
         <iframe 
-            src="https://www.google.com/maps?q={{ $destinasi['maps'] }}&output=embed"
+            src="https://www.google.com/maps?q={{ $data->maps ?? 'Danau Toba' }}&output=embed"
             width="100%" 
             height="400" 
             style="border:none;">
         </iframe>
     </div>
 
+    <!-- DESTINASI LAINNYA -->
+    @if(isset($otherDestinasi) && count($otherDestinasi) > 0)
+    <div class="card-custom mb-5">
+        <h2 class="mb-4">Destinasi Lainnya</h2>
+        <div class="row">
+            @foreach($otherDestinasi as $other)
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="{{ asset('storage/' . $other->gambar_utama) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $other->nama }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $other->nama }}</h5>
+                        <p class="card-text text-muted small">{{ Str::limit($other->deskripsi, 80) }}</p>
+                        <a href="{{ route('destinasi.show', $other->id) }}" class="btn btn-outline-primary btn-sm rounded-pill">Jelajahi <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+    </div>
+    @endif
+
     <!-- BUTTON -->
-    <a href="/" class="btn btn-primary rounded-pill px-4 shadow">
+    <a href="{{ url('/destinasi') }}" class="btn btn-primary rounded-pill px-4 shadow">
         ← Kembali
     </a>
 

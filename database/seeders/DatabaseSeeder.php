@@ -11,9 +11,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             KategoriSeeder::class,
-            GaleriSeeder::class,
-#            BeritaSeeder::class,
-#            InformasiSeeder::class,
+#            GaleriSeeder::class,
+            HeroSliderSeeder::class,
+            FaktaUnikSeeder::class,
+            WarisanGeologiSeeder::class,
+            VideoYoutubeSeeder::class,
+            BeritaSeeder::class,
+            InformasiSeeder::class,
         ]);
     }
 }

@@ -36,10 +36,94 @@
             padding: 15px 0;
         }
 
-        .navbar.scrolled {
-            padding: 10px 0;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3) !important;
-        }
+     .navbar.scrolled {
+    padding: 10px 0;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 8px 28px rgba(0, 51, 102, 0.14) !important;
+}
+/* ==================== NAVBAR SAAT DISCROLL UNTUK SEMUA HALAMAN ==================== */
+.navbar.scrolled .navbar-brand {
+    color: #073b63 !important;
+    text-shadow: none !important;
+}
+
+.navbar.scrolled .navbar-brand span {
+    color: #073b63 !important;
+}
+
+.navbar.scrolled .nav-menu .nav-link {
+    color: #073b63 !important;
+}
+
+.navbar.scrolled .nav-menu .nav-link::after {
+    background: #f0b323 !important;
+}
+
+.navbar.scrolled .logo-divider {
+    background: linear-gradient(
+        145deg,
+        rgba(7, 59, 99, 0.35),
+        rgba(7, 59, 99, 0.12)
+    );
+}
+
+.navbar.scrolled .lang-btn {
+    color: #073b63;
+    border-color: rgba(7, 59, 99, 0.25);
+    background: rgba(7, 59, 99, 0.04);
+}
+
+.navbar.scrolled .search-input {
+    color: #073b63;
+    border-color: rgba(7, 59, 99, 0.25);
+    background: rgba(7, 59, 99, 0.04);
+}
+
+.navbar.scrolled .search-input::placeholder {
+    color: rgba(7, 59, 99, 0.65);
+}
+
+.navbar.scrolled .search-input:focus {
+    background: rgba(7, 59, 99, 0.08);
+    border-color: #f0b323;
+}
+
+.navbar.scrolled .search-btn {
+    color: #073b63 !important;
+    border-color: rgba(7, 59, 99, 0.25);
+    background: rgba(7, 59, 99, 0.04) !important;
+}
+
+.navbar.scrolled .navbar-toggler {
+    background: rgba(7, 59, 99, 0.10);
+}
+
+.navbar.scrolled .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(7, 59, 99, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* MOBILE MENU SAAT NAVBAR SUDAH PUTIH */
+@media (max-width: 1199px) {
+    .navbar.scrolled .navbar-collapse {
+        background: rgba(255, 255, 255, 0.98);
+    }
+
+    .navbar.scrolled .dropdown-menu {
+        background: rgba(255, 255, 255, 0.98);
+        border: 1px solid rgba(7, 59, 99, 0.12);
+    }
+
+    .navbar.scrolled .dropdown-item {
+        color: #073b63 !important;
+    }
+
+    .navbar.scrolled .dropdown-item:hover {
+        background: #f0b323;
+        color: #073b63 !important;
+    }
+}
+/* 
 
         /* BRAND & LOGO - DIBERSIHKAN DARI BACKGROUND ANEH */
         .navbar-brand {
@@ -240,16 +324,47 @@
 
         }
 
-        /* MUSIC BUTTON */
-        .music-toggle {
+        /* MUSIC BUTTON & TOOLTIP CONTAINER */
+        .music-container {
             position: fixed;
             right: 28px;
             bottom: 110px;
             z-index: 99999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            pointer-events: none;
+        }
+
+        .music-tooltip {
+            background: rgba(7, 59, 99, 0.9);
+            color: #fff8df;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            border: 1px solid rgba(198, 164, 59, 0.35);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateX(15px);
+            white-space: nowrap;
+            pointer-events: auto;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .music-container:hover .music-tooltip {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .music-toggle {
             width: 54px;
             height: 54px;
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.48);
             background: rgba(7, 59, 99, 0.85);
             color: white;
             display: flex;
@@ -259,11 +374,20 @@
             cursor: pointer;
             backdrop-filter: blur(8px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            margin: 0;
         }
 
         .music-toggle.playing {
             background: #f0b323;
             color: #073b63;
+            border-color: #f0b323;
+            box-shadow: 0 0 15px rgba(240, 179, 35, 0.4);
+        }
+        
+        .music-toggle:hover {
+            transform: scale(1.08);
         }
 
         /* HERO TEXT PREMIUM (Dipertahankan) */
@@ -544,9 +668,12 @@
         <source src="{{ asset('audio/lagu.mp3') }}" type="audio/mpeg">
     </audio>
 
-    <button id="musicToggle" class="music-toggle" type="button">
-        <i class="fa-solid fa-music"></i>
-    </button>
+    <div class="music-container">
+        <div class="music-tooltip" id="musicTooltip">Putar Musik Latar</div>
+        <button id="musicToggle" class="music-toggle" type="button">
+            <i class="fa-solid fa-music"></i>
+        </button>
+    </div>
 
     <nav class="navbar navbar-expand-xl fixed-top" id="navbar"> <div class="container-fluid px-4 px-lg-5">
         <!-- LOGO SECTION - LANGSUNG DARI FOLDER public/image/Logo/ -->
@@ -645,24 +772,60 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Audio Script
+        // Audio Script dengan Persistensi Halaman & Autoplay
         document.addEventListener('DOMContentLoaded', function () {
             const music = document.getElementById('bgMusic');
             const btn = document.getElementById('musicToggle');
-            music.volume = 0.45;
+            music.volume = 0.35;
+
+            // Load saved state
+            const savedTime = localStorage.getItem('musicTime');
+            const savedPlaying = localStorage.getItem('musicPlaying');
+
+            if (savedTime) {
+                music.currentTime = parseFloat(savedTime);
+            }
+
+            const tooltip = document.getElementById('musicTooltip');
 
             function setIcon(isPlaying) {
                 btn.classList.toggle('playing', isPlaying);
                 btn.innerHTML = isPlaying
                     ? '<i class="fa-solid fa-pause"></i>'
                     : '<i class="fa-solid fa-play"></i>';
+                if (tooltip) {
+                    tooltip.textContent = isPlaying ? 'Hentikan Musik' : 'Putar Musik Latar';
+                }
+                localStorage.setItem('musicPlaying', isPlaying ? 'true' : 'false');
             }
 
-            music.play().then(() => setIcon(true)).catch(() => setIcon(false));
+            // Play music if it was playing or if it is first load (default play)
+            if (savedPlaying === 'true' || savedPlaying === null) {
+                music.play()
+                    .then(() => setIcon(true))
+                    .catch(() => setIcon(false));
+            } else {
+                setIcon(false);
+            }
+
+            // Save time periodically
+            setInterval(() => {
+                if (!music.paused) {
+                    localStorage.setItem('musicTime', music.currentTime);
+                }
+            }, 1000);
 
             btn.addEventListener('click', function () {
-                if (music.paused) { music.play(); setIcon(true); }
-                else { music.pause(); setIcon(false); }
+                if (music.paused) {
+                    music.play().then(() => setIcon(true));
+                } else {
+                    music.pause();
+                    setIcon(false);
+                }
+            });
+
+            window.addEventListener('beforeunload', () => {
+                localStorage.setItem('musicTime', music.currentTime);
             });
         });
 
@@ -740,9 +903,9 @@
 
             <div class="footer-links">
                 <h4>Destinasi</h4>
-                <a href="{{ url('/geosite/biodiversity') }}">Biodiversity</a>
-                <a href="{{ url('/geosite/geodiversity') }}">Geodiversity</a>
-                <a href="{{ url('/geosite/culturediversity') }}">Culturediversity</a>
+                <a href="{{ route('destinasi.biodiversity') }}">Biodiversity</a>
+                <a href="{{ route('destinasi.geodiversity') }}">Geodiversity</a>
+                <a href="{{ route('destinasi.culture-diversity') }}">Culturediversity</a>
                 <a href="{{ url('/destinasi') }}">Semua Destinasi</a>
             </div>
 

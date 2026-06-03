@@ -284,7 +284,7 @@
 
 <!-- ==================== HERO SECTION ==================== -->
 <section class="kategori-hero">
-    <div class="hero-bg" style="background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('/image/destinasi-{{ strtolower($kategori) }}.jpg');"></div>
+    <div class="hero-bg" style="background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('{{ $heroImage ? asset('storage/' . $heroImage) : '/image/destinasi-' . strtolower($kategori) . '.jpg' }}');"></div>
     <div class="hero-overlay"></div>
     <a href="{{ url('/destinasi') }}" class="back-btn">
         <i class="fas fa-arrow-left"></i> Kembali
@@ -303,7 +303,7 @@
             @forelse($destinasi as $item)
             <div class="dest-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="card-image">
-                    <img src="{{ $item->gambar }}" alt="{{ $item->nama }}">
+                    <img src="{{ asset('storage/' . $item->gambar_utama) }}" alt="{{ $item->nama }}">
                     <span class="card-badge">{{ $kategori }}</span>
                 </div>
                 <div class="card-content">
@@ -317,7 +317,7 @@
                     <span>#{{ $tag }}</span>
                     @endforeach
                 </div>
-                    <a href="{{ $item->url }}" class="card-btn">
+                    <a href="{{ route('destinasi.show', $item->id) }}" class="card-btn">
                         Jelajahi <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>

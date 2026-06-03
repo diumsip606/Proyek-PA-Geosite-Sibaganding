@@ -19,6 +19,17 @@ class SetLocale
         // set bahasa ke Laravel
         App::setLocale($lang);
 
+        // Track unique visitor sessions
+        if (!$request->is('admin*') && !$request->is('login*') && !$request->is('logout*') && !$request->ajax()) {
+            if (!session()->has('has_visited')) {
+                session(['has_visited' => true]);
+                \Illuminate\Support\Facades\Cache::forever(
+                    'total_views',
+                    (\Illuminate\Support\Facades\Cache::get('total_views', 0) + 1)
+                );
+            }
+        }
+
         return $next($request);
     }
 }
