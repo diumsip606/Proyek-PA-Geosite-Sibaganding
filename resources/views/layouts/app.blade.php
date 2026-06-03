@@ -255,6 +255,11 @@
             display: none !important;
         }
 
+        .nav-menu .nav-link.dropdown-toggle::after {
+            display: block !important;
+            border: none !important;
+        }
+
         .dropdown-menu {
             background: rgba(3, 28, 48, 0.95);
             border: 1px solid rgba(255,255,255,0.12);
