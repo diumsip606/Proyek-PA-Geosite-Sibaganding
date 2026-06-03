@@ -1,6 +1,6 @@
-    @extends('layouts.app')
+@extends('layouts.app')
 
-    @section('content')
+@section('content')
 
 <style>
 
@@ -2842,9 +2842,9 @@
 
                     @forelse($faktaUniks as $i => $fakta)
                     @php
-    $px = max(20, min(75, (float)($fakta->x_koordinat ?? 50)));
-$py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
-@endphp
+                        $px = max(20, min(75, (float)($fakta->x_koordinat ?? 50)));
+                        $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
+                    @endphp
                     <button class="map-point {{ $i === 0 ? 'active' : '' }}"
                         style="top: {{ $py }}%; left: {{ $px }}%;"
                         data-number="{{ str_pad($fakta->nomor, 2, '0', STR_PAD_LEFT) }}"
@@ -2879,7 +2879,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                 <p id="mapDesc">{{ $firstFakta ? $firstFakta->deskripsi : 'Klik titik pada peta untuk melihat informasi.' }}</p>
                 <div class="map-info-tags" id="mapTags">
                     @if($firstFakta && $firstFakta->tag)
-                        @foreach(explode(',', $firstFakta->tag) as $tagItem)
+@foreach(explode(',', $firstFakta->tag) as $tagItem)
                         <span>{{ trim($tagItem) }}</span>
                         @endforeach
                     @endif
@@ -2942,12 +2942,13 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
             </div>
 <div class="about-visual" data-aos="fade-left">
     <div class="story-slider" style="cursor:pointer;" title="Klik gambar untuk memperbesar">
-        @forelse($warisanGeologis as $i => $warisan)
-        @php
-            $imgUrl = $warisan->gambar ? asset($warisan->gambar) : asset('images/sibaganding1.JPG');
-            $slideLabel = 'SLIDE ' . str_pad($i+1,'2','0',STR_PAD_LEFT) . ' — ' . strtoupper($warisan->sub_judul ?? $warisan->judul);
-            $tags = $warisan->tags ?? ($warisan->tag ?? '');
-        @endphp
+                    @forelse($warisanGeologis as $warisan)
+                    @php
+                        $imgUrl = $warisan->gambar ? asset($warisan->gambar) : asset('images/sibaganding1.JPG');
+                        $slideLabel = 'SLIDE ' . str_pad($loop->iteration,'2','0',STR_PAD_LEFT) . ' — ' . strtoupper($warisan->sub_judul ?? $warisan->judul);
+                        $tags = $warisan->tags ?? ($warisan->tag ?? '');
+                        $i = $loop->index;
+                    @endphp
         <div class="story-slide {{ $i === 0 ? 'active' : '' }}"
              data-img="{{ $imgUrl }}"
              data-label="{{ $slideLabel }}"
@@ -3179,7 +3180,19 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         9 => asset('images/galleri-10.jpg'),
     ];
 
+    $i = 0;
     $fallbackGambar = $defaultGallery[$i % 10];
+    
+    $galeriExts = [
+        1 => 'jpg', 2 => 'JPG', 3 => 'jpg', 4 => 'jpg', 5 => 'JPG',
+        6 => 'JPG', 7 => 'JPG', 8 => 'JPG', 9 => 'jpg', 10 => 'jpg'
+    ];
+    
+    $galeriTitles = [
+        1 => 'Pemandangan Sibaganding', 2 => 'Danau Toba', 3 => 'Warisan Geologi',
+        4 => 'Keindahan Alam', 5 => 'Destinasi Wisata', 6 => 'Landscape',
+        7 => 'Panorama', 8 => 'Geologi Unik', 9 => 'Sibaganding', 10 => 'Geosite'
+    ];
 @endphp
                 @for($g = 1; $g <= 10; $g++)
                 <div class="gallery-card">
