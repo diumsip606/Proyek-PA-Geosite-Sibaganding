@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             VideoYoutubeSeeder::class,
             BeritaSeeder::class,
             InformasiSeeder::class,
+            UmkmSeeder::class,
+            PenginapanSeeder::class,
         ]);
     }
 }

@@ -313,8 +313,16 @@
             <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') !== 'Pengurus' ? 'active' : '' }}">
                 <i class="fas fa-info-circle"></i> Informasi
             </a>
+<<<<<<< HEAD
+            <a href="{{ route('admin.umkm.index') }}" class="{{ request()->routeIs('admin.umkm.*') ? 'active' : '' }}">
+                <i class="fas fa-store"></i> UMKM
+            </a>
+            <a href="{{ route('admin.penginapan.index') }}" class="{{ request()->routeIs('admin.penginapan.*') ? 'active' : '' }}">
+                <i class="fas fa-hotel"></i> Hotel / Penginapan
+=======
             <a href="{{ route('admin.informasi.index', ['kategori' => 'Pengurus']) }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') === 'Pengurus' ? 'active' : '' }}">
                 <i class="fas fa-users"></i> Pengurus
+>>>>>>> c6b1f46a5c477ae0a4cec1c7fe9c0cfc2aec48e5
             </a>
             <a href="{{ route('admin.destinasi.index') }}" class="{{ request()->routeIs('admin.destinasi.*') ? 'active' : '' }}">
                 <i class="fas fa-map-marked-alt"></i> Destinasi

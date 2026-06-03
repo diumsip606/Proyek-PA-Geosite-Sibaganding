@@ -46,10 +46,7 @@ class HomeController extends Controller
             ->get();
 
         // Pengurus untuk Beranda
-        $pengurus = \App\Models\Informasi::where('kategori', 'Pengurus')
-            ->where('status', true)
-            ->latest()
-            ->get();
+        $pengurus = collect();
 
         $destinasi = [
             (object)[
