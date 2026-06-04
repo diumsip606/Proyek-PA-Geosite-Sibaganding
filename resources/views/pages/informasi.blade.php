@@ -178,6 +178,272 @@
     }
     .fakta-desc { font-size: 0.8rem; color: #2c5f8a; }
 
+    /* ========== CAROUSEL SLIDER ========== */
+    .slider-wrapper {
+        position: relative;
+        overflow: hidden;
+        padding: 20px 40px;
+    }
+    .slider-container {
+        display: flex;
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        gap: 20px;
+    }
+    .slider-card {
+        flex: 0 0 calc((100% - 60px) / 4); /* 4 cards on desktop */
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 51, 102, 0.06);
+        border: 1px solid rgba(0, 51, 102, 0.04);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+    }
+    .slider-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 35px rgba(0, 51, 102, 0.14);
+        border-color: #c6a43b;
+    }
+    .slider-card-img-wrapper {
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+    }
+    .slider-card-img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    .slider-card:hover .slider-card-img {
+        transform: scale(1.08);
+    }
+    .slider-card-body {
+        padding: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .slider-card-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #003366;
+        margin-bottom: 8px;
+        font-family: 'Poppins', sans-serif;
+    }
+    .slider-card-desc {
+        font-size: 0.78rem;
+        color: #4a6b82;
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+    .slider-card-price {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #c6a43b;
+    }
+    .slider-card-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(0, 51, 102, 0.05);
+        padding-top: 12px;
+        margin-top: auto;
+    }
+
+    /* Nav Buttons */
+    .slider-nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: white;
+        border: 1px solid rgba(0, 51, 102, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #003366;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s ease;
+    }
+    .slider-nav-btn:hover {
+        background: #003366;
+        color: white;
+        box-shadow: 0 6px 16px rgba(0, 51, 102, 0.2);
+    }
+    .slider-nav-btn.prev-btn { left: 0px; }
+    .slider-nav-btn.next-btn { right: 0px; }
+    .slider-nav-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    /* Responsiveness for Slider Cards */
+    @media (max-width: 992px) {
+        .slider-card {
+            flex: 0 0 calc((100% - 40px) / 3); /* 3 cards on tablet */
+        }
+    }
+    @media (max-width: 768px) {
+        .slider-card {
+            flex: 0 0 calc((100% - 20px) / 2); /* 2 cards on mobile */
+        }
+    }
+    @media (max-width: 576px) {
+        .slider-card {
+            flex: 0 0 100%; /* 1 card on small devices */
+        }
+        .slider-wrapper {
+            padding: 20px 10px;
+        }
+        .slider-nav-btn.prev-btn { left: -10px; }
+        .slider-nav-btn.next-btn { right: -10px; }
+    }
+
+    /* ========== PREMIUM POPUP MODAL ========== */
+    .premium-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 20, 40, 0.6);
+        backdrop-filter: blur(8px);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.35s ease;
+    }
+    .premium-modal.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    .premium-modal-dialog {
+        background: white;
+        width: 90%;
+        max-width: 600px;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 20, 40, 0.35);
+        transform: scale(0.9);
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .premium-modal.show .premium-modal-dialog {
+        transform: scale(1);
+    }
+    .premium-modal-img {
+        height: 240px;
+        width: 100%;
+        object-fit: cover;
+    }
+    .premium-modal-body {
+        padding: 30px;
+        position: relative;
+    }
+    .premium-modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #003366;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: 0.3s;
+        z-index: 10;
+    }
+    .premium-modal-close:hover {
+        background: #ef4444;
+        color: white;
+        transform: scale(1.1);
+    }
+    .premium-modal-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #003366;
+        margin-top: 10px;
+        margin-bottom: 8px;
+    }
+    .premium-modal-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        background: #e0f2fe;
+        color: #0369a1;
+        border-radius: 40px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+    .premium-modal-desc {
+        font-size: 0.85rem;
+        color: #4a6b82;
+        line-height: 1.7;
+        margin-bottom: 20px;
+        max-height: 120px;
+        overflow-y: auto;
+    }
+    .premium-modal-info {
+        margin-bottom: 25px;
+        font-size: 0.82rem;
+        color: #003366;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .premium-modal-info span {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .premium-modal-info i {
+        color: #c6a43b;
+        width: 16px;
+    }
+    .premium-modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        border-top: 1px solid rgba(0,0,0,0.05);
+        padding-top: 20px;
+    }
+    .modal-wa-btn {
+        background: #25d366;
+        color: white !important;
+        font-weight: 600;
+        padding: 10px 24px;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        font-size: 0.82rem;
+        transition: 0.3s;
+        border: none;
+    }
+    .modal-wa-btn:hover {
+        background: #20ba5a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    }
+
     /* ========== CTA BIRU ========== */
     .cta-section {
         background: linear-gradient(135deg, #003366 0%, #0a4a7a 50%, #005c8a 100%);
@@ -242,6 +508,7 @@
         background: white;
         transform: translateY(-3px);
         letter-spacing: 0.25em;
+        color: #003366;
     }
 
     @media (max-width: 768px) {
@@ -271,29 +538,56 @@
 <section class="section">
     <div class="container">
         <div class="section-title" data-aos="fade-up">
-            <h2>Terbentuknya Danau Toba</h2>
+            <h2>Terbentuknya Danau Toba & Sibaganding</h2>
             <div class="divider"></div>
         </div>
         <div class="sejarah-grid">
+            @forelse($informasi as $index => $item)
+            <div class="sejarah-item {{ $index % 2 == 1 ? 'reverse' : '' }}" data-aos="fade-{{ $index % 2 == 1 ? 'left' : 'right' }}">
+                <div class="sejarah-image">
+                    @if($item->gambar)
+                        <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}">
+                    @else
+                        <img src="/image/sejarah-hero.jpg" alt="{{ $item->judul }}">
+                    @endif
+                </div>
+                <div class="sejarah-text">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; color: #003366; font-size: 1.6rem; margin-bottom: 12px; font-weight: 700;">{{ $item->judul }}</h3>
+                    <div style="font-size: 0.95rem; line-height: 1.8;">
+                        {!! $item->konten !!}
+                    </div>
+                </div>
+            </div>
+            @empty
             <div class="sejarah-item" data-aos="fade-right">
                 <div class="sejarah-image"><img src="/image/sejarah1.jpg" alt="Letusan Supervolcano"></div>
                 <div class="sejarah-text">
+                    <h3 style="font-family: 'Cormorant Garamond', serif; color: #003366; font-size: 1.6rem; margin-bottom: 12px; font-weight: 700;">Terbentuknya Danau Toba</h3>
                     <p>Danau Toba terbentuk akibat letusan gunung berapi super (supervolcano) yang terjadi sekitar 74.000 tahun lalu. Letusan ini merupakan salah satu letusan terbesar dalam sejarah bumi yang meninggalkan kaldera raksasa yang kini dikenal sebagai Danau Toba. Material vulkanik dari letusan ini tersebar hingga ke berbagai belahan dunia, termasuk India dan Afrika.</p>
                 </div>
             </div>
             <div class="sejarah-item reverse" data-aos="fade-left">
                 <div class="sejarah-image"><img src="/image/sejarah2.jpg" alt="Kaldera Toba"></div>
                 <div class="sejarah-text">
-                    <p>Letusan supervolcano Toba menghasilkan kaldera dengan panjang 100 km dan lebar 30 km. Setelah letusan, kaldera perlahan terisi air dan membentuk Danau Toba yang kita kenal sekarang. Proses pengangkatan kembali dasar kaldera kemudian menciptakan Pulau Samosir di tengah danau, yang menjadikan Danau Toba unik di dunia.</p>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; color: #003366; font-size: 1.6rem; margin-bottom: 12px; font-weight: 700;">Kaldera Toba & Geosite Sibaganding</h3>
+                    <p>Letusan supervolcano Toba menghasilkan kaldera dengan panjang 100 km dan lebar 30 km. Setelah letusan, kaldera perlahan terisi air dan membentuk Danau Toba yang kita kenal sekarang. Proses pengangkatan kembali dasar kaldera kemudian menciptakan Pulau Samosir di tengah danau, dan di pinggiran kaldera terbentuk tebing geologi indah seperti Geosite Sibaganding yang kaya akan fauna kera mulia.</p>
                 </div>
             </div>
             <div class="sejarah-item" data-aos="fade-right">
                 <div class="sejarah-image"><img src="/image/sejarah3.jpg" alt="Geopark Toba"></div>
                 <div class="sejarah-text">
-                    <p>Kawasan Danau Toba kini diakui UNESCO sebagai Global Geopark pada tahun 2020. Pengakuan ini diberikan karena nilai geologi yang luar biasa, keanekaragaman hayati, serta warisan budaya Batak yang masih terjaga hingga saat ini.</p>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; color: #003366; font-size: 1.6rem; margin-bottom: 12px; font-weight: 700;">UNESCO Global Geopark</h3>
+                    <p>Kawasan Danau Toba kini diakui UNESCO sebagai Global Geopark pada tahun 2020. Pengakuan ini diberikan karena nilai geologi yang luar biasa, keanekaragaman hayati, serta warisan budaya Batak yang masih terjaga hingga saat ini di seluruh Geosite, termasuk Sibaganding.</p>
                 </div>
             </div>
+            @endforelse
         </div>
+        
+        @if($informasi->count() > 0)
+        <div class="d-flex justify-content-center mt-5">
+            {{ $informasi->links() }}
+        </div>
+        @endif
     </div>
 </section>
 
@@ -357,6 +651,134 @@
     </div>
 </section>
 
+<!-- ========== SECTION UMKM ========== -->
+<section class="section bg-light">
+    <div class="container" style="position: relative;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 px-2" data-aos="fade-up">
+            <div class="section-title text-start mb-0" style="text-align: left !important; margin-bottom: 0px;">
+                <h2 style="margin-bottom: 5px;">Produk UMKM Sibaganding</h2>
+                <div class="divider" style="margin: 0;"></div>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #2c5f8a;">Mendukung usaha kerajinan dan kuliner lokal warga Sibaganding</p>
+            </div>
+            <a href="{{ route('umkm.index') }}" class="cta-btn" style="padding: 10px 25px; margin: 0; background: #003366; color: white;">
+                Lihat Selengkapnya <i class="fas fa-arrow-right ms-1"></i>
+            </a>
+        </div>
+        
+        <div class="slider-wrapper" data-aos="fade-up">
+            <button class="slider-nav-btn prev-btn" id="umkmPrev" type="button"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-nav-btn next-btn" id="umkmNext" type="button"><i class="fas fa-chevron-right"></i></button>
+            
+            <div class="slider-container" id="umkmSlider">
+                @forelse($umkms as $item)
+                @php
+                    $descSnippet = str_replace(["\r", "\n"], ' ', $item->deskripsi);
+                    $addrSnippet = str_replace(["\r", "\n"], ' ', $item->alamat);
+                @endphp
+                <div class="slider-card" onclick="openDetailsModal('{{ addslashes($item->nama) }}', '{{ asset($item->gambar) }}', '{{ addslashes($descSnippet) }}', '{{ addslashes($addrSnippet) }}', '{{ $item->kontak }}', null, 'umkm')">
+                    <div class="slider-card-img-wrapper">
+                        <img src="{{ asset($item->gambar) }}" class="slider-card-img" alt="{{ $item->nama }}">
+                    </div>
+                    <div class="slider-card-body">
+                        <div>
+                            <h4 class="slider-card-title">{{ $item->nama }}</h4>
+                            <p class="slider-card-desc">{{ Str::limit($item->deskripsi, 80) }}</p>
+                        </div>
+                        <div class="slider-card-meta">
+                            <span class="text-muted" style="font-size: 0.72rem;"><i class="fas fa-map-marker-alt text-warning me-1"></i> {{ Str::limit($item->alamat, 18) ?? '-' }}</span>
+                            <span class="text-success font-weight-bold" style="font-size: 0.75rem;"><i class="fab fa-whatsapp me-1"></i> Hubungi</span>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div class="text-center py-4 w-100 text-muted">Belum ada data UMKM aktif. Silakan tambahkan melalui admin panel.</div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== SECTION HOTEL / PENGINAPAN ========== -->
+<section class="section">
+    <div class="container" style="position: relative;">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 px-2" data-aos="fade-up">
+            <div class="section-title text-start mb-0" style="text-align: left !important; margin-bottom: 0px;">
+                <h2 style="margin-bottom: 5px;">Hotel & Penginapan Sibaganding</h2>
+                <div class="divider" style="margin: 0;"></div>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: #2c5f8a;">Rekomendasi tempat menginap dengan pemandangan kaldera indah</p>
+            </div>
+            <a href="{{ route('penginapan.index') }}" class="cta-btn" style="padding: 10px 25px; margin: 0; background: #c6a43b; color: #003366;">
+                Lihat Selengkapnya <i class="fas fa-arrow-right ms-1"></i>
+            </a>
+        </div>
+        
+        <div class="slider-wrapper" data-aos="fade-up">
+            <button class="slider-nav-btn prev-btn" id="hotelPrev" type="button"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-nav-btn next-btn" id="hotelNext" type="button"><i class="fas fa-chevron-right"></i></button>
+            
+            <div class="slider-container" id="hotelSlider">
+                @forelse($penginapans as $item)
+                @php
+                    $descSnippet = str_replace(["\r", "\n"], ' ', $item->deskripsi);
+                    $addrSnippet = str_replace(["\r", "\n"], ' ', $item->alamat);
+                @endphp
+                <div class="slider-card" onclick="openDetailsModal('{{ addslashes($item->nama) }}', '{{ asset($item->gambar) }}', '{{ addslashes($descSnippet) }}', '{{ addslashes($addrSnippet) }}', '{{ $item->kontak }}', '{{ $item->harga ? number_format($item->harga) : null }}', 'hotel')">
+                    <div class="slider-card-img-wrapper">
+                        <img src="{{ asset($item->gambar) }}" class="slider-card-img" alt="{{ $item->nama }}">
+                    </div>
+                    <div class="slider-card-body">
+                        <div>
+                            <h4 class="slider-card-title">{{ $item->nama }}</h4>
+                            <p class="slider-card-desc">{{ Str::limit($item->deskripsi, 80) }}</p>
+                        </div>
+                        <div class="slider-card-meta">
+                            <span class="slider-card-price">
+                                @if($item->harga)
+                                    Rp {{ number_format($item->harga) }}<small style="font-size: 0.65rem; color: #557c9c; font-weight: normal;">/malam</small>
+                                @else
+                                    Hubungi Kontak
+                                @endif
+                            </span>
+                            <span class="text-success font-weight-bold" style="font-size: 0.75rem;"><i class="fab fa-whatsapp me-1"></i> Hubungi</span>
+                        </div>
+                    </div>
+                </div>
+                @empty
+                <div class="text-center py-4 w-100 text-muted">Belum ada data Hotel & Penginapan aktif. Silakan tambahkan melalui admin panel.</div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========== DETAILS MODAL CONTAINER ========== -->
+<div class="premium-modal" id="detailsModal" onclick="handleOutsideClick(event)">
+    <div class="premium-modal-dialog">
+        <div style="position: relative;">
+            <button class="premium-modal-close" type="button" onclick="closeDetailsModal()"><i class="fas fa-times"></i></button>
+            <img id="modalImage" class="premium-modal-img" src="" alt="Detail Gambar">
+        </div>
+        <div class="premium-modal-body">
+            <h4 class="premium-modal-title" id="modalTitle">Detail Nama</h4>
+            <div class="premium-modal-badge" id="modalBadge">Mitra Resmi Geosite Sibaganding</div>
+            
+            <p class="premium-modal-desc" id="modalDesc">Deskripsi detail...</p>
+            
+            <div class="premium-modal-info">
+                <span><i class="fas fa-map-marker-alt"></i> <strong id="modalAddress">Alamat...</strong></span>
+                <span id="modalPriceWrapper"><i class="fas fa-money-bill-wave"></i> Estimasi Harga: <strong class="text-success" style="font-size: 0.95rem;">Rp <span id="modalPrice"></span> / malam</strong></span>
+            </div>
+            
+            <div class="premium-modal-footer">
+                <a href="" id="modalWaBtn" target="_blank" class="modal-wa-btn">
+                    <i class="fab fa-whatsapp" style="font-size: 1.1rem;"></i> Hubungi/Pesan via WhatsApp
+                </a>
+                <button type="button" class="btn btn-secondary px-4 py-2" style="border-radius: 40px; font-size: 0.82rem;" onclick="closeDetailsModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- CTA SECTION -->
 <section class="cta-section">
     <div class="container">
@@ -370,6 +792,137 @@
 </section>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>AOS.init({ duration: 700, once: true, offset: 50 });</script>
+<script>
+    AOS.init({ duration: 700, once: true, offset: 50 });
+
+    // CAROUSEL SLIDING LOGIC
+    function initSlider(containerId, prevBtnId, nextBtnId) {
+        const container = document.getElementById(containerId);
+        const prevBtn = document.getElementById(prevBtnId);
+        const nextBtn = document.getElementById(nextBtnId);
+        if (!container || !prevBtn || !nextBtn) return;
+        
+        let currentIdx = 0;
+        
+        function updateSlider() {
+            const cards = container.children;
+            if (cards.length === 0) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                return;
+            }
+            const cardWidth = cards[0].getBoundingClientRect().width;
+            const gap = 20; // grid-gap
+            
+            // Calculate max slide index
+            const visibleCount = getVisibleCount();
+            const maxIdx = Math.max(0, cards.length - visibleCount);
+            
+            if (currentIdx > maxIdx) currentIdx = maxIdx;
+            if (currentIdx < 0) currentIdx = 0;
+            
+            container.style.transform = `translateX(-${currentIdx * (cardWidth + gap)}px)`;
+            
+            prevBtn.disabled = currentIdx === 0;
+            nextBtn.disabled = currentIdx === maxIdx;
+
+            // Hide arrows if visible count matches or exceeds total items
+            if (maxIdx === 0) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
+        }
+        
+        function getVisibleCount() {
+            const width = window.innerWidth;
+            if (width > 992) return 4;
+            if (width > 768) return 3;
+            if (width > 576) return 2;
+            return 1;
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            currentIdx--;
+            updateSlider();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            currentIdx++;
+            updateSlider();
+        });
+        
+        window.addEventListener('resize', updateSlider);
+        
+        // Initial call after elements render
+        setTimeout(updateSlider, 250);
+    }
+
+    // Initialize both sliders
+    document.addEventListener('DOMContentLoaded', () => {
+        initSlider('umkmSlider', 'umkmPrev', 'umkmNext');
+        initSlider('hotelSlider', 'hotelPrev', 'hotelNext');
+    });
+
+    // DETAILS MODAL LOGIC
+    function openDetailsModal(title, image, desc, address, phone, price = null, type = 'umkm') {
+        const modal = document.getElementById('detailsModal');
+        if (!modal) return;
+        
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalImage').src = image;
+        document.getElementById('modalDesc').textContent = desc;
+        document.getElementById('modalAddress').textContent = address || 'Sibaganding';
+        
+        const priceEl = document.getElementById('modalPriceWrapper');
+        if (priceEl) {
+            if (price && type === 'hotel') {
+                priceEl.style.display = 'block';
+                document.getElementById('modalPrice').textContent = price;
+            } else {
+                priceEl.style.display = 'none';
+            }
+        }
+
+        const badgeEl = document.getElementById('modalBadge');
+        if (badgeEl) {
+            badgeEl.textContent = type === 'hotel' ? 'Akomodasi Resmi Sibaganding' : 'UMKM Resmi Binaan Sibaganding';
+            badgeEl.style.background = type === 'hotel' ? '#fef3c7' : '#e0f2fe';
+            badgeEl.style.color = type === 'hotel' ? '#b45309' : '#0369a1';
+        }
+        
+        const waBtn = document.getElementById('modalWaBtn');
+        if (waBtn) {
+            if (phone) {
+                let cleanPhone = phone.replace(/[^0-9]/g, '');
+                if (cleanPhone.startsWith('0')) {
+                    cleanPhone = '62' + cleanPhone.substring(1);
+                }
+                waBtn.href = `https://wa.me/${cleanPhone}?text=Halo%20saya%20tertarik%20dengan%20${encodeURIComponent(title)}%20di%20Geosite%20Sibaganding`;
+                waBtn.style.display = 'inline-flex';
+            } else {
+                waBtn.style.display = 'none';
+            }
+        }
+        
+        modal.classList.add('show');
+    }
+
+    function closeDetailsModal() {
+        const modal = document.getElementById('detailsModal');
+        if (modal) {
+            modal.classList.remove('show');
+        }
+    }
+
+    function handleOutsideClick(event) {
+        const dialog = document.querySelector('.premium-modal-dialog');
+        if (dialog && !dialog.contains(event.target)) {
+            closeDetailsModal();
+        }
+    }
+</script>
 
 @endsection

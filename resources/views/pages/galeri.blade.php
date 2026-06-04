@@ -7,6 +7,24 @@
 @section('content')
 
 @php
+    // Helper closure to resolve and map database image paths
+    $resolveGambar = function($gambar) {
+        $rawGambar = $gambar ? ltrim($gambar, '/') : null;
+        if (!$rawGambar) {
+            return asset('images/sibaganding1.JPG');
+        }
+        if (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
+            return $rawGambar;
+        }
+        if (str_starts_with($rawGambar, 'storage/')) {
+            return asset($rawGambar);
+        }
+        if (str_starts_with($rawGambar, 'uploads/')) {
+            return asset($rawGambar);
+        }
+        return asset('storage/' . $rawGambar);
+    };
+
     // Ambil semua foto aktif terlepas dari kategori
     $allActiveGaleri = $galeriByKategori->flatten();
     
@@ -44,7 +62,7 @@
     // Masukkan mainHero ke slot 1
     if ($mainHero) {
         $collageItems[0] = [
-            'src' => asset('storage/' . $mainHero->gambar),
+            'src' => $resolveGambar($mainHero->gambar),
             'title' => $mainHero->judul,
         ];
     } else {
@@ -59,7 +77,7 @@
         if (isset($otherItems[$i - 1])) {
             $gal = $otherItems[$i - 1];
             $collageItems[$i] = [
-                'src' => asset('storage/' . $gal->gambar),
+                'src' => $resolveGambar($gal->gambar),
                 'title' => $gal->judul,
             ];
         } else {
@@ -188,11 +206,16 @@ body{
 }
 
 .hero-content p{
-    font-size:1.3rem;
+    font-size:1rem;
     color:#e2e8f0;
     max-width:700px;
     margin:auto;
     line-height:1.8;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
 }
 
 .hero-scroll-indicator {
@@ -638,7 +661,7 @@ body{
             @foreach($galeriByKategori as $namaKat => $items)
                 @foreach($items as $item)
                     @php
-                        $src = asset('storage/' . $item->gambar);
+                        $src = $resolveGambar($item->gambar);
                     @endphp
 
                     <div class="masonry-item"

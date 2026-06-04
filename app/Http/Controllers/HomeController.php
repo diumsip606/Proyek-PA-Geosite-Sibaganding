@@ -8,6 +8,7 @@ use App\Models\HeroSlider;
 use App\Models\FaktaUnik;
 use App\Models\WarisanGeologi;
 use App\Models\VideoYoutube;
+use App\Models\Informasi;
 
 class HomeController extends Controller
 {
@@ -45,6 +46,11 @@ class HomeController extends Controller
             ->take(4)
             ->get();
 
+        $pengurus = Informasi::where('kategori', 'Pengurus')
+            ->where('status', true)
+            ->latest()
+            ->get();
+
         $destinasi = [
             (object)[
                 'slug' => 'meat',
@@ -74,6 +80,7 @@ class HomeController extends Controller
             'galeriPreview',
             'galeri',
             'berita',
+            'pengurus',
             'destinasi'
         ));
     }

@@ -33,7 +33,7 @@ class DestinasiController extends Controller
             'kategori_id' => 'required|exists:kategori,id',
             'lokasi' => 'required|string|max:100',
             'deskripsi' => 'required',
-            'gambar_utama' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120', // Maksimal 5MB sesuai form kamu
+            'gambar_utama' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'tags' => 'nullable|string'
         ]);
 
@@ -95,7 +95,7 @@ class DestinasiController extends Controller
             'kategori_id' => 'required|exists:kategori,id',
             'lokasi' => 'required|string|max:100',
             'deskripsi' => 'required',
-            'gambar_utama' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
+            'gambar_utama' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'tags' => 'nullable|string'
         ]);
 

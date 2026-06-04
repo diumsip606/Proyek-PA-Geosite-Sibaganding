@@ -14,12 +14,19 @@ use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\InformasiController;
+use App\Http\Controllers\Admin\KontakInfoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\FaktaUnikController;
 use App\Http\Controllers\Admin\VideoYoutubeController;
 use App\Http\Controllers\Admin\WarisanGeologiController;
-use App\Http\Controllers\Admin\KontakInfoController;
 
+use App\Http\Controllers\Admin\UmkmController as AdminUmkmController;
+use App\Http\Controllers\Admin\PenginapanController as AdminPenginapanController;
+use App\Http\Controllers\UmkmController;
+use App\Http\Controllers\PenginapanController;
+use App\Http\Controllers\GaleriController as PublicGaleriController;
+use App\Models\Umkm;
+use App\Models\Penginapan;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,14 +60,29 @@ Route::get('/lang/{lang}', function ($lang) {
 // HOME
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// INFORMASI
 Route::get('/informasi', function () {
     $informasi = Informasi::where('status', true)
+        ->where('kategori', '!=', 'Pengurus')
         ->latest()
         ->paginate(10);
 
-    return view('pages.informasi', compact('informasi'));
+    $umkms = Umkm::where('status', true)->latest()->get();
+
+    $penginapans = Penginapan::where('status', true)->latest()->get();
+
+    return view('pages.informasi', compact(
+        'informasi',
+        'umkms',
+        'penginapans'
+    ));
+
 })->name('informasi');
+
+Route::get('/umkm', [UmkmController::class,'index'])->name('umkm.index');
+Route::get('/umkm/{slug}', [UmkmController::class,'show'])->name('umkm.show');
+
+Route::get('/penginapan', [PenginapanController::class,'index'])->name('penginapan.index');
+Route::get('/penginapan/{slug}', [PenginapanController::class,'show'])->name('penginapan.show');
 
 // DESTINASI (Menggunakan 3 Pilar)
 Route::get('/destinasi', [DestinasiController::class, 'index'])->name('destinasi');
@@ -89,14 +111,13 @@ Route::get('/galeri/{slug}', function ($slug) {
     return view('pages.galeri-detail', compact('galeri'));
 })->name('galeri.detail');
 
-// UMKM
-Route::get('/umkm', [HomeController::class, 'umkm'])->name('umkm');
-
 // BUDAYA
 Route::get('/budaya', [HomeController::class, 'budaya'])->name('budaya');
 
 // KONTAK
 Route::get('/kontak', function () {
+    $pengurus = \App\Models\Informasi::where('kategori', 'Pengurus')->where('status', true)->get();
+
     $kontakInfos = \App\Models\KontakInfo::active()
         ->orderBy('urutan')
         ->get()
@@ -109,6 +130,7 @@ Route::get('/kontak', function () {
     $jamOperasional = $kontakInfos->get('jam_operasional', collect());
 
     return view('pages.kontak', compact(
+        'pengurus',
         'alamat',
         'telepon',
         'email',
@@ -149,13 +171,21 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         $totalGaleri = Galeri::count();
         $totalBerita = Berita::count();
         $totalInformasi = Informasi::count();
-        $totalViews = 0;
+        $totalDestinasi = \App\Models\Destinasi::count();
+        $totalViews = \App\Models\Visitor::count();
+        $totalUmkm = \App\Models\Umkm::count();
+        $totalPenginapan = \App\Models\Penginapan::count();
+        $totalPesan = \App\Models\Pesan::count();
 
         return view('admin.dashboard', compact(
             'totalGaleri',
             'totalBerita',
             'totalInformasi',
-            'totalViews'
+            'totalDestinasi',
+            'totalViews',
+            'totalUmkm',
+            'totalPenginapan',
+            'totalPesan'
         ));
     })->name('admin.dashboard');
 
@@ -165,26 +195,22 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
     Route::resource('hero-slider', \App\Http\Controllers\Admin\HeroSliderController::class)->names('admin.hero-slider');
     Route::resource('fakta-unik', FaktaUnikController::class)->names('admin.fakta-unik');
-    Route::resource('video-youtube', VideoYoutubeController::class)->names('admin.video-youtube');
-    Route::resource('warisan-geologi', WarisanGeologiController::class)->names('admin.warisan-geologi');
     Route::resource('video-youtube', \App\Http\Controllers\Admin\VideoYoutubeController::class)->names('admin.video-youtube');
-Route::resource('fakta-unik', FaktaUnikController::class)->names('admin.fakta-unik');
-    // Rute untuk Admin Destinasi
-    Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
+    Route::resource('warisan-geologi', WarisanGeologiController::class)->names('admin.warisan-geologi');
+    Route::resource('umkm', AdminUmkmController::class)->names('admin.umkm');
+    Route::resource('penginapan', AdminPenginapanController::class)->names('admin.penginapan');
 
-    Route::post('galeri/toggle-status/{id}', [AdminGaleriController::class, 'toggleStatus']);
+    Route::post('galeri/toggle-status/{id}', [AdminGaleriController::class, 'toggleStatus'])
+        ->name('admin.galeri.toggle-status');
+
+    Route::post('galeri/{id}/set-hero', [AdminGaleriController::class, 'setHero'])
+        ->name('admin.galeri.set_hero');
+    Route::post('galeri/{id}/unset-hero', [AdminGaleriController::class, 'unsetHero'])
+        ->name('admin.galeri.unset_hero');
+
     // Rute untuk Admin Pesan (Pesan Masuk)
     Route::resource('pesan', \App\Http\Controllers\Admin\PesanController::class)->names('admin.pesan');
 
     // Rute untuk Admin Info Kontak
     Route::resource('kontak-info', KontakInfoController::class)->names('admin.kontak-info');
-
-    Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])
-        ->name('admin.galeri.toggle-status');
-
-    // ini mengarah ke edit background galeri
-    Route::post('galeri/{id}/set-hero', [AdminGaleriController::class, 'setHero'])
-        ->name('admin.galeri.set_hero');
-    Route::post('galeri/{id}/unset-hero', [AdminGaleriController::class, 'unsetHero'])
-        ->name('admin.galeri.unset_hero');
 });

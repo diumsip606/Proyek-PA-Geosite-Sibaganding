@@ -243,7 +243,7 @@
                                accept="image/jpeg,image/png,image/jpg,image/webp" required>
                         <i class="fas fa-cloud-upload-alt d-block"></i>
                         <div class="upload-title">Klik atau seret gambar ke sini</div>
-                        <p>Format: JPG, PNG, WEBP · Maks 4 MB</p>
+                        <p>Format: JPG, PNG, WEBP · <strong>Maks 2 MB</strong></p>
                     </div>
                     <div class="preview-wrapper" id="previewWrapper">
                         <img id="previewImage" src="" alt="Preview">
@@ -295,8 +295,8 @@ inputGambar.addEventListener('change', function () {
     if (!file) return;
 
     // Validasi ukuran
-    if (file.size > 4 * 1024 * 1024) {
-        alert('Ukuran file terlalu besar! Maksimal 4 MB.');
+    if (file.size > 2 * 1024 * 1024) {
+        alert('Ukuran file terlalu besar! Maksimal 2 MB.');
         this.value = '';
         return;
     }

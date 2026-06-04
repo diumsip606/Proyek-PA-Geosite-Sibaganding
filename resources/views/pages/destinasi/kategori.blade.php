@@ -7,12 +7,25 @@
 <style>
     /* ==================== HERO SECTION ==================== */
     .kategori-hero {
-        height: 60vh;
-        min-height: 450px;
-        position: relative;
-        overflow: hidden;
-        margin-top: 0;
-    }
+    height: 50vh;
+    min-height: 350px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 0;
+    background: linear-gradient(135deg, #0a1628 0%, #0d2347 40%, #1a3a6b 70%, #0f2d55 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kategori-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, #c6a43b, transparent);
+    z-index: 5;
+}
 
     .kategori-hero .hero-bg {
         position: absolute;
@@ -84,21 +97,48 @@
     }
 
     .hero-content h1 {
-        font-size: 3.5rem;
-        font-weight: 800;
-        margin-bottom: 15px;
-    }
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 6px;
+    line-height: 1.1;
+    text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.hero-content h1 span {
+    color: #c6a43b;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 6px;
+}
+
+.hero-divider {
+    width: 200px;
+    height: 3px;
+    background: #c6a43b;
+    margin: 0 auto 24px;
+}
 
     .hero-content p {
-        font-size: 1rem;
-        max-width: 600px;
-        margin: 0 auto;
-        opacity: 0.9;
-    }
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    width: 100%;
+    margin: 0 auto;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    line-height: 2;
+    font-weight: 600;
+    white-space: normal;
+    text-align: center;
+}
 
     /* ==================== DESTINASI GRID ==================== */
     .destinasi-section {
-        padding: 80px 0;
+        padding: 150px 0;
         background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
     }
 
@@ -283,16 +323,18 @@
 </style>
 
 <!-- ==================== HERO SECTION ==================== -->
-<section class="kategori-hero">
-    <div class="hero-bg" style="background-image: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('{{ $heroImage ? asset('storage/' . $heroImage) : '/image/destinasi-' . strtolower($kategori) . '.jpg' }}');"></div>
-    <div class="hero-overlay"></div>
+<section class="kategori-hero"
+    @if($heroImage)
+        style="background: linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url('{{ asset('storage/' . $heroImage) }}') center/cover no-repeat;"
+    @endif>
     <a href="{{ url('/destinasi') }}" class="back-btn">
         <i class="fas fa-arrow-left"></i> Kembali
     </a>
     <div class="hero-content">
-        <span class="hero-badge">{{ strtoupper($kategori) }}</span>
-        <h1>Destinasi {{ $kategori }}</h1>
+        <div class="hero-divider"></div>
+        <h1>Destinasi <span>{{ $kategori }}</span></h1>
         <p>{{ $deskripsi }}</p>
+        <div class="hero-divider" style="margin-top: 24px;"></div>
     </div>
 </section>
 
@@ -334,7 +376,9 @@
 </section>
 
 <!-- Font Awesome & AOS -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">                  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>

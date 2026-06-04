@@ -324,7 +324,7 @@
                         <input type="file" name="gambar" id="inputGambar" class="form-control" accept="image/*">
                         <i class="fas fa-sync-alt d-block"></i>
                         <div class="upload-title">Klik untuk ganti foto</div>
-                        <p>JPG, PNG, WEBP · Maks 4 MB<br>Kosongkan jika tidak ingin mengubah</p>
+                        <p>JPG, PNG, WEBP · <strong>Maks 2 MB</strong><br>Kosongkan jika tidak ingin mengubah</p>
                     </div>
                     <div class="new-preview" id="newPreview">
                         <img id="newPreviewImage" src="" alt="Preview Baru">
@@ -374,8 +374,8 @@ inputGambar.addEventListener('change', function () {
     const file = this.files[0];
     if (!file) return;
 
-    if (file.size > 4 * 1024 * 1024) {
-        alert('Ukuran file terlalu besar! Maksimal 4 MB.');
+    if (file.size > 2 * 1024 * 1024) {
+        alert('Ukuran file terlalu besar! Maksimal 2 MB.');
         this.value = '';
         return;
     }

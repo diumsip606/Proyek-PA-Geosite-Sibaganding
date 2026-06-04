@@ -92,7 +92,7 @@
                     <input type="file" name="gambar_utama" id="gambar_utama" accept="image/*"
                            class="form-control @error('gambar_utama') is-invalid @enderror"
                            onchange="previewImage(this)">
-                    <div class="form-text">Format: JPG, PNG, WEBP. Maks 5 MB.</div>
+                    <div class="form-text"><i class="fas fa-info-circle text-primary me-1"></i>Format: JPG, PNG, WEBP. <strong>Maks 2 MB.</strong></div>
                     @error('gambar_utama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     <div id="imagePreview" class="mt-2" style="display:none;">
                         <img id="previewImg" src="" alt="Preview"
@@ -119,12 +119,19 @@ function previewImage(input) {
     const preview = document.getElementById('imagePreview');
     const img     = document.getElementById('previewImg');
     if (input.files && input.files[0]) {
+        const file = input.files[0];
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Ukuran file terlalu besar! Maksimal 2 MB.');
+            input.value = '';
+            preview.style.display = 'none';
+            return;
+        }
         const reader = new FileReader();
         reader.onload = (e) => {
             img.src    = e.target.result;
             preview.style.display = 'block';
         };
-        reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(file);
     }
 }
 </script>

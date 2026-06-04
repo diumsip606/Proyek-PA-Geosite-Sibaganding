@@ -1,6 +1,6 @@
-    @extends('layouts.app')
+@extends('layouts.app')
 
-    @section('content')
+@section('content')
 
 <style>
 
@@ -1606,20 +1606,65 @@
 
 .gallery-slider {
     position: relative;
-    margin-top: 55px;
     overflow: hidden;
-    border-radius: 34px;
-    padding: 12px;
 }
 
 .gallery-track {
     display: flex;
-    gap: 24px;
-    transition: transform 0.7s ease;
+    gap: 30px;
+    transition: transform 0.45s ease;
+    will-change: transform;
 }
 
 .gallery-card {
+    flex: 0 0 calc((100% - 60px) / 3);
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: rgba(7, 59, 99, 0.85);
+    color: white;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.gallery-nav.prev {
+    left: 18px;
+}
+
+.gallery-nav.next {
+    right: 18px;
+}
+
+.gallery-nav:hover {
+    background: #c6a43b;
+    color: #073b63;
+}
+
+@media (max-width: 992px) {
+    .gallery-card {
+        flex: 0 0 calc((100% - 30px) / 2);
+    }
+}
+
+@media (max-width: 576px) {
+    .gallery-card {
+        flex: 0 0 100%;
+    }
+}
+.gallery-card {
     min-width: calc((100% - 48px) / 3);
+    flex-shrink: 0;
     height: 430px;
     position: relative;
     overflow: hidden;
@@ -1853,9 +1898,12 @@
 }
 
 .video-card {
-    min-width: 100%;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
     display: grid;
-    grid-template-columns: 1.25fr 0.75fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
     gap: 0;
     border-radius: 34px;
     overflow: hidden;
@@ -2023,6 +2071,7 @@
 
 .news-card {
     min-width: calc((100% - 48px) / 3);
+    flex-shrink: 0;
     border-radius: 28px;
     overflow: hidden;
     background: white;
@@ -2201,9 +2250,17 @@
 
 .team-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 34px;
-    align-items: end;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+    }
 }
 
 .team-card {
@@ -2787,6 +2844,97 @@
     background: #c6a43b;
 }
 
+/* ==================== GALLERY LIGHTBOX MODAL ==================== */
+.gallery-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 15, 30, 0.9);
+    backdrop-filter: blur(15px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: modalFadeIn 0.35s ease;
+}
+
+.gallery-modal-overlay.open {
+    display: flex;
+}
+
+.gallery-modal-box {
+    position: relative;
+    background: #021d33;
+    border-radius: 32px;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+    max-width: 850px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: modalSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-modal-img {
+    width: 100%;
+    max-height: 72vh;
+    overflow: hidden;
+    background: #011424;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-modal-img img {
+    max-width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    display: block;
+}
+
+.gallery-modal-caption {
+    padding: 26px 36px;
+    background: #021d33;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.gallery-modal-caption h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.85rem;
+    color: #fff8df;
+    margin: 0;
+}
+
+.gallery-modal-close {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.45);
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(8px);
+}
+
+.gallery-modal-close:hover {
+    background: #c6a43b;
+    border-color: #c6a43b;
+    color: #003366;
+    transform: rotate(90deg);
+}
+
 </style>
 
 
@@ -2842,9 +2990,9 @@
 
                     @forelse($faktaUniks as $i => $fakta)
                     @php
-    $px = max(20, min(75, (float)($fakta->x_koordinat ?? 50)));
-$py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
-@endphp
+                        $px = max(20, min(75, (float)($fakta->x_koordinat ?? 50)));
+                        $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
+                    @endphp
                     <button class="map-point {{ $i === 0 ? 'active' : '' }}"
                         style="top: {{ $py }}%; left: {{ $px }}%;"
                         data-number="{{ str_pad($fakta->nomor, 2, '0', STR_PAD_LEFT) }}"
@@ -2879,7 +3027,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                 <p id="mapDesc">{{ $firstFakta ? $firstFakta->deskripsi : 'Klik titik pada peta untuk melihat informasi.' }}</p>
                 <div class="map-info-tags" id="mapTags">
                     @if($firstFakta && $firstFakta->tag)
-                        @foreach(explode(',', $firstFakta->tag) as $tagItem)
+@foreach(explode(',', $firstFakta->tag) as $tagItem)
                         <span>{{ trim($tagItem) }}</span>
                         @endforeach
                     @endif
@@ -2942,12 +3090,13 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
             </div>
 <div class="about-visual" data-aos="fade-left">
     <div class="story-slider" style="cursor:pointer;" title="Klik gambar untuk memperbesar">
-        @forelse($warisanGeologis as $i => $warisan)
-        @php
-            $imgUrl = $warisan->gambar ? asset($warisan->gambar) : asset('images/sibaganding1.JPG');
-            $slideLabel = 'SLIDE ' . str_pad($i+1,'2','0',STR_PAD_LEFT) . ' — ' . strtoupper($warisan->sub_judul ?? $warisan->judul);
-            $tags = $warisan->tags ?? ($warisan->tag ?? '');
-        @endphp
+                    @forelse($warisanGeologis as $warisan)
+                    @php
+                        $imgUrl = $warisan->gambar ? asset($warisan->gambar) : asset('images/sibaganding1.JPG');
+                        $slideLabel = 'SLIDE ' . str_pad($loop->iteration,'2','0',STR_PAD_LEFT) . ' — ' . strtoupper($warisan->sub_judul ?? $warisan->judul);
+                        $tags = $warisan->tags ?? ($warisan->tag ?? '');
+                        $i = $loop->index;
+                    @endphp
         <div class="story-slide {{ $i === 0 ? 'active' : '' }}"
              data-img="{{ $imgUrl }}"
              data-label="{{ $slideLabel }}"
@@ -3014,7 +3163,20 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
             <h2 id="storyModalTitle"></h2>
             <p id="storyModalDesc"></p>
             <div class="story-modal-tags" id="storyModalTags"></div>
-            <a href="{{ url('/informasi') }}" class="story-modal-btn">Jelajahi Lebih Lanjut →</a>
+            <a href="{{ url('/informasi') }}" id="storyModalLink" class="story-modal-btn">Jelajahi Lebih Lanjut →</a>
+        </div>
+    </div>
+</div>
+
+{{-- Gallery Lightbox Modal --}}
+<div class="gallery-modal-overlay" id="galleryModalOverlay" onclick="if(event.target===this) closeGalleryModal()">
+    <div class="gallery-modal-box">
+        <button class="gallery-modal-close" onclick="closeGalleryModal()">&#10005;</button>
+        <div class="gallery-modal-img">
+            <img id="galleryModalImg" src="" alt="">
+        </div>
+        <div class="gallery-modal-caption">
+            <h4 id="galleryModalTitle"></h4>
         </div>
     </div>
 </div>
@@ -3039,8 +3201,17 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 
             <!-- PILAR 01 -->
             <div class="pilar-item" data-aos="fade-up">
-                <div class="pilar-image">
+                <div class="pilar-image"
+                     style="cursor: pointer; position: relative;"
+                     data-img="{{ asset('images/monkey forest.jpg') }}"
+                     data-label="01 — BIODIVERSITY"
+                     data-title="Biodiversity (Keanekaragaman Hayati)"
+                     data-desc="Keanekaragaman hayati menjadi salah satu kekuatan Sibaganding. Kawasan ini menyimpan kehidupan alam yang tumbuh berdampingan dengan masyarakat, mulai dari kawasan hutan, satwa, hingga lanskap hijau yang menjadi daya tarik ekowisata. Di sini Anda dapat menemui berbagai satwa liar seperti kera ekor panjang yang hidup lestari di habitat aslinya."
+                     data-tags="Satwa Liar, Hutan, Ekowisata, Konservasi"
+                     data-link="{{ route('destinasi.biodiversity') }}"
+                     onclick="openStoryModal(this)">
                     <img src="{{ asset('images/monkey forest.jpg') }}" alt="Biodiversity">
+                    <div style="position:absolute;bottom:16px;right:16px;background:rgba(0,0,0,0.6);color:#fff;padding:6px 12px;border-radius:20px;font-size:0.68rem;z-index:5;pointer-events:none;letter-spacing:0.05em;font-weight:600;">🔍 Detail</div>
                 </div>
 
                 <div class="pilar-content">
@@ -3066,8 +3237,17 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 
             <!-- PILAR 02 -->
             <div class="pilar-item reverse" data-aos="fade-up">
-                <div class="pilar-image">
+                <div class="pilar-image"
+                     style="cursor: pointer; position: relative;"
+                     data-img="{{ asset('images/geodiversity.jpg') }}"
+                     data-label="02 — GEODIVERSITY"
+                     data-title="Geodiversity (Keragaman Geologi)"
+                     data-desc="Jejak geologi Danau Toba terlihat melalui kaldera, tebing, batuan, perbukitan, dan bentang alam yang terbentuk dari proses bumi ribuan tahun lalu. Nilai geologi inilah yang membuat kawasan ini penting sebagai ruang edukasi dan wisata ilmiah."
+                     data-tags="Kaldera Toba, Batuan Unik, Panorama, Edukasi Geologi"
+                     data-link="{{ route('destinasi.geodiversity') }}"
+                     onclick="openStoryModal(this)">
                     <img src="{{ asset('images/geodiversity.jpg') }}" alt="Geodiversity">
+                    <div style="position:absolute;bottom:16px;right:16px;background:rgba(0,0,0,0.6);color:#fff;padding:6px 12px;border-radius:20px;font-size:0.68rem;z-index:5;pointer-events:none;letter-spacing:0.05em;font-weight:600;">🔍 Detail</div>
                 </div>
 
                 <div class="pilar-content">
@@ -3093,8 +3273,17 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 
             <!-- PILAR 03 -->
             <div class="pilar-item" data-aos="fade-up">
-                <div class="pilar-image">
+                <div class="pilar-image"
+                     style="cursor: pointer; position: relative;"
+                     data-img="{{ asset('images/culturediversity.JPG') }}"
+                     data-label="03 — CULTUREDIVERSITY"
+                     data-title="Culturediversity (Keragaman Budaya)"
+                     data-desc="Budaya Batak memperkaya cerita Sibaganding melalui tradisi lokal, arsitektur rumah adat, cerita rakyat yang melegenda, seni pertunjukan, dan kehidupan adat sehari-hari masyarakat lokal. Nilai budaya inilah yang melengkapi perjalanan wisata sejarah."
+                     data-tags="Budaya Batak, Rumah Adat, Cerita Rakyat, Tradisi Lokal"
+                     data-link="{{ route('destinasi.culture-diversity') }}"
+                     onclick="openStoryModal(this)">
                     <img src="{{ asset('images/culturediversity.JPG') }}" alt="Culturediversity">
+                    <div style="position:absolute;bottom:16px;right:16px;background:rgba(0,0,0,0.6);color:#fff;padding:6px 12px;border-radius:20px;font-size:0.68rem;z-index:5;pointer-events:none;letter-spacing:0.05em;font-weight:600;">🔍 Detail</div>
                 </div>
 
                 <div class="pilar-content">
@@ -3134,7 +3323,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         <div class="gallery-slider" data-aos="fade-up">
             <div class="gallery-track" id="galleryTrack">
               @forelse($galeri as $i => $item)
-<div class="gallery-card">
+<div class="gallery-card" style="cursor: pointer;" onclick="openGalleryModal(this.querySelector('img').src, this.querySelector('h4').textContent)">
    @php
     $rawGambar = $item->gambar ? ltrim($item->gambar, '/') : null;
 
@@ -3142,6 +3331,8 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         if (str_starts_with($rawGambar, 'http://') || str_starts_with($rawGambar, 'https://')) {
             $gambarGaleri = $rawGambar;
         } elseif (str_starts_with($rawGambar, 'storage/')) {
+            $gambarGaleri = asset($rawGambar);
+        } elseif (str_starts_with($rawGambar, 'uploads/')) {
             $gambarGaleri = asset($rawGambar);
         } else {
             $gambarGaleri = asset('storage/' . $rawGambar);
@@ -3179,10 +3370,22 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         9 => asset('images/galleri-10.jpg'),
     ];
 
+    $i = 0;
     $fallbackGambar = $defaultGallery[$i % 10];
+    
+    $galeriExts = [
+        1 => 'jpg', 2 => 'JPG', 3 => 'jpg', 4 => 'jpg', 5 => 'JPG',
+        6 => 'JPG', 7 => 'JPG', 8 => 'JPG', 9 => 'jpg', 10 => 'jpg'
+    ];
+    
+    $galeriTitles = [
+        1 => 'Pemandangan Sibaganding', 2 => 'Danau Toba', 3 => 'Warisan Geologi',
+        4 => 'Keindahan Alam', 5 => 'Destinasi Wisata', 6 => 'Landscape',
+        7 => 'Panorama', 8 => 'Geologi Unik', 9 => 'Sibaganding', 10 => 'Geosite'
+    ];
 @endphp
                 @for($g = 1; $g <= 10; $g++)
-                <div class="gallery-card">
+                <div class="gallery-card" style="cursor: pointer;" onclick="openGalleryModal(this.querySelector('img').src, this.querySelector('h4').textContent)">
                     <img src="{{ asset('images/galleri-'.$g.'.'.$galeriExts[$g]) }}" alt="{{ $galeriTitles[$g] }}" onerror="this.src='{{ asset('images/sibaganding1.JPG') }}'">
                     <div class="gallery-caption">
                         <span>{{ str_pad($g, 2, '0', STR_PAD_LEFT) }}</span>
@@ -3257,6 +3460,10 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                             <span>{{ str_pad($i+1, 2, '0', STR_PAD_LEFT) }}</span>
                             <h4>{{ $video->judul }}</h4>
                             <p>{{ $video->deskripsi }}</p>
+                            <div class="video-source" style="align-self: flex-end; margin-top: auto; font-size: 0.82rem; color: rgba(255, 255, 255, 0.65); display: flex; align-items: center; gap: 6px; padding-top: 15px; line-height: 1;">
+                                <i class="fab fa-youtube" style="color: #ff0000; font-size: 1.1rem; position: relative; top: -2px; line-height: 1;"></i>
+                                <span style="line-height: 1;">Sumber: <a href="https://www.youtube.com/watch?v={{ $video->youtube_id }}" target="_blank" rel="noopener noreferrer" style="color: #c6a43b; text-decoration: none; font-weight: 600; border-bottom: 1px dashed #c6a43b; transition: all 0.3s;" onmouseover="this.style.color='#fff8df'; this.style.borderBottomColor='#fff8df'" onmouseout="this.style.color='#c6a43b'; this.style.borderBottomColor='#c6a43b'">YouTube</a></span>
+                            </div>
                         </div>
                     </div>
                     @empty
@@ -3268,13 +3475,16 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                             <span>01</span>
                             <h4>Pesona Alam Sibaganding</h4>
                             <p>Nikmati keindahan alam dan panorama kawasan Geosite Sibaganding.</p>
+                            <div class="video-source" style="align-self: flex-end; margin-top: auto; font-size: 0.82rem; color: rgba(255, 255, 255, 0.65); display: flex; align-items: center; gap: 6px; padding-top: 15px; line-height: 1;">
+                                <i class="fab fa-youtube" style="color: #ff0000; font-size: 1.1rem; position: relative; top: -2px; line-height: 1;"></i>
+                                <span style="line-height: 1;">Sumber: <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" style="color: #c6a43b; text-decoration: none; font-weight: 600; border-bottom: 1px dashed #c6a43b; transition: all 0.3s;" onmouseover="this.style.color='#fff8df'; this.style.borderBottomColor='#fff8df'" onmouseout="this.style.color='#c6a43b'; this.style.borderBottomColor='#c6a43b'">YouTube</a></span>
+                            </div>
                         </div>
                     </div>
                     @endforelse
                 </div>
-
-                <button class="video-arrow video-prev" type="button">&#10094;</button>
-                <button class="video-arrow video-next" type="button">&#10095;</button>
+                <button class="video-arrow video-prev" type="button" id="videoPrev">&#10094;</button>
+                <button class="video-arrow video-next" type="button" id="videoNext">&#10095;</button>
             </div>
 
             <div class="video-mini-list" id="videoDots">
@@ -3353,62 +3563,103 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
         <div class="section-title team-title" data-aos="fade-up">
             <span class="team-kicker">Tim Pengelola</span>
             <h2>Pengurus Sibaganding</h2>
-            <div class="divider"></div>
+            <div class="divider"></div> 
             <p>
                 Orang-orang yang berperan dalam menjaga, mengembangkan, dan memperkenalkan
                 potensi wisata, geologi, budaya, serta kekayaan alam Sibaganding.
             </p>
         </div>
 
-        <div class="team-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 820px; margin: 0 auto;">
+        <div class="team-grid">
 
-            <div class="team-card" data-aos="fade-right"
-                 onclick="openTeamModal({
-                     img: '{{ asset('images/pengurus-1.jpg') }}',
-                     role: 'Ketua Pengelola',
-                     name: 'Pengelola Sibaganding',
-                     instansi: 'Geosite Sibaganding — Geopark Danau Toba',
-                     bidang: 'Manajemen & Pengembangan Kawasan',
-                     kontak: 'sibaganding@geotoba.id',
-                     desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
-                 })">
-                <div class="team-image">
-                    <img src="{{ asset('images/pengurus-1.jpg') }}" alt="Pengurus Sibaganding 1">
+            @forelse($pengurus as $i => $item)
+                @php
+                    $rawImg = $item->gambar ? ltrim($item->gambar, '/') : null;
+                    if ($rawImg) {
+                        if (str_starts_with($rawImg, 'http://') || str_starts_with($rawImg, 'https://')) {
+                            $imgUrl = $rawImg;
+                        } elseif (str_starts_with($rawImg, 'storage/')) {
+                            $imgUrl = asset($rawImg);
+                        } elseif (str_starts_with($rawImg, 'uploads/')) {
+                            $imgUrl = asset($rawImg);
+                        } else {
+                            $imgUrl = asset('storage/' . $rawImg);
+                        }
+                    } else {
+                        $imgUrl = asset('images/sibaganding' . (($i % 2) + 1) . '.JPG');
+                    }
+                @endphp
+                <div class="team-card" data-aos="fade-{{ $i % 2 === 0 ? 'right' : 'left' }}"
+                     onclick="openTeamModal({
+                         img: '{{ $imgUrl }}',
+                         role: '{{ $item->penulis ?? 'Tim Pengelola' }}',
+                         name: '{{ $item->judul }}',
+                         instansi: 'Geosite Sibaganding',
+                         bidang: '{{ $item->penulis ?? 'Pengembang Kawasan' }}',
+                         kontak: '{{ $item->slug }}',
+                         desc: '{{ addslashes(str_replace(["\r", "\n"], " ", strip_tags($item->konten))) }}'
+                     })">
+                    <div class="team-image">
+                        <img src="{{ $imgUrl }}" alt="{{ $item->judul }}" onerror="this.onerror=null; this.src='{{ asset('images/sibaganding' . (($i % 2) + 1) . '.JPG') }}';">
+                    </div>
+                    <div class="team-info">
+                        <span>{{ $item->penulis ?? 'Tim Pengelola' }}</span>
+                        <h3>{{ $item->judul }}</h3>
+                        <p>
+                            {{ Str::limit(strip_tags($item->konten), 120) }}
+                        </p>
+                    </div>
+                    <div class="team-card-click-hint">👁</div>
                 </div>
-                <div class="team-info">
-                    <span>Ketua Pengelola</span>
-                    <h3>Pengelola Sibaganding</h3>
-                    <p>
-                        Bertanggung jawab mengoordinasikan pengelolaan kawasan,
-                        pengembangan program, dan kerja sama terkait Geosite Sibaganding.
-                    </p>
+            @empty
+                <div class="team-card" data-aos="fade-right"
+                     onclick="openTeamModal({
+                         img: '{{ asset('images/sibaganding1.JPG') }}',
+                         role: 'Ketua Pengelola',
+                         name: 'Pengelola Sibaganding',
+                         instansi: 'Geosite Sibaganding — Geopark Danau Toba',
+                         bidang: 'Manajemen & Pengembangan Kawasan',
+                         kontak: 'sibaganding@geotoba.id',
+                         desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
+                     })">
+                    <div class="team-image">
+                        <img src="{{ asset('images/sibaganding1.JPG') }}" alt="Pengurus Sibaganding 1">
+                    </div>
+                    <div class="team-info">
+                        <span>Ketua Pengelola</span>
+                        <h3>Pengelola Sibaganding</h3>
+                        <p>
+                            Bertanggung jawab mengoordinasikan pengelolaan kawasan,
+                            pengembangan program, dan kerja sama terkait Geosite Sibaganding.
+                        </p>
+                    </div>
+                    <div class="team-card-click-hint">👁</div>
                 </div>
-                <div class="team-card-click-hint">👁</div>
-            </div>
 
-            <div class="team-card" data-aos="fade-left"
-                 onclick="openTeamModal({
-                     img: '{{ asset('images/pengurus-2.jpg') }}',
-                     role: 'Koordinator Lapangan',
-                     name: 'Koordinator Wisata',
-                     instansi: 'Geosite Sibaganding — Lapangan Operasional',
-                     bidang: 'Operasional Wisata & Pelayanan Pengunjung',
-                     kontak: 'wisata.sibaganding@geotoba.id',
-                     desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
-                 })">
-                <div class="team-image">
-                    <img src="{{ asset('images/pengurus-2.jpg') }}" alt="Pengurus Sibaganding 2">
+                <div class="team-card" data-aos="fade-left"
+                     onclick="openTeamModal({
+                         img: '{{ asset('images/sibaganding2.JPG') }}',
+                         role: 'Koordinator Lapangan',
+                         name: 'Koordinator Wisata',
+                         instansi: 'Geosite Sibaganding — Lapangan Operasional',
+                         bidang: 'Operasional Wisata & Pelayanan Pengunjung',
+                         kontak: 'wisata.sibaganding@geotoba.id',
+                         desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
+                     })">
+                    <div class="team-image">
+                        <img src="{{ asset('images/sibaganding2.JPG') }}" alt="Pengurus Sibaganding 2">
+                    </div>
+                    <div class="team-info">
+                        <span>Koordinator Lapangan</span>
+                        <h3>Koordinator Wisata</h3>
+                        <p>
+                            Bertugas mendampingi kegiatan lapangan, membantu pengunjung,
+                            dan memastikan aktivitas wisata berjalan optimal.
+                        </p>
+                    </div>
+                    <div class="team-card-click-hint">👁</div>
                 </div>
-                <div class="team-info">
-                    <span>Koordinator Lapangan</span>
-                    <h3>Koordinator Wisata</h3>
-                    <p>
-                        Bertugas mendampingi kegiatan lapangan, membantu pengunjung,
-                        dan memastikan aktivitas wisata berjalan optimal.
-                    </p>
-                </div>
-                <div class="team-card-click-hint">👁</div>
-            </div>
+            @endforelse
 
         </div>
 
@@ -3471,387 +3722,36 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
 </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+// Global variables and functions (for inline onclick handlers)
+let storyCurrent = 0;
 
-    // ==================== AOS ====================
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 800,
-            once: true,
-            offset: 50
-        });
-    }
-
-    // ==================== HERO SLIDER ====================
-    let heroCurrent = 0;
-    const heroSlides = document.querySelectorAll('.slide');
-    const heroDots = document.querySelectorAll('.dot');
-
-    function showHeroSlide(index) {
-        if (!heroSlides.length) return;
-
-        heroSlides.forEach(function (slide) {
-            slide.classList.remove('active');
-        });
-
-        heroDots.forEach(function (dot) {
-            dot.classList.remove('active');
-        });
-
-        if (index < 0) {
-            heroCurrent = heroSlides.length - 1;
-        } else if (index >= heroSlides.length) {
-            heroCurrent = 0;
-        } else {
-            heroCurrent = index;
-        }
-
-        heroSlides[heroCurrent].classList.add('active');
-
-        if (heroDots[heroCurrent]) {
-            heroDots[heroCurrent].classList.add('active');
-        }
-    }
-
-    function nextHeroSlide() {
-        showHeroSlide(heroCurrent + 1);
-    }
-
-    heroDots.forEach(function (dot, index) {
-        dot.addEventListener('click', function () {
-            showHeroSlide(index);
-        });
-    });
-
-    if (heroSlides.length) {
-        showHeroSlide(0);
-        setInterval(nextHeroSlide, 5000);
-    }
-
-    // ==================== SMOOTH SCROLL ====================
-    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-        anchor.addEventListener('click', function (e) {
-            const target = document.querySelector(this.getAttribute('href'));
-
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // ==================== MAP INTERACTIVE ====================
-    const mapPoints = document.querySelectorAll('.map-point');
-    const mapNumber = document.getElementById('mapNumber');
-    const mapTitle = document.getElementById('mapTitle');
-    const mapDesc = document.getElementById('mapDesc');
-    const mapTags = document.getElementById('mapTags');
-
-    mapPoints.forEach(function (point) {
-        point.addEventListener('click', function () {
-            mapPoints.forEach(function (item) {
-                item.classList.remove('active');
-            });
-
-            point.classList.add('active');
-
-            if (mapNumber) mapNumber.textContent = point.dataset.number;
-            if (mapTitle) mapTitle.textContent = point.dataset.title;
-            if (mapDesc) mapDesc.textContent = point.dataset.desc;
-
-            if (mapTags) {
-                mapTags.innerHTML = '';
-
-                if (point.dataset.tags) {
-                    point.dataset.tags.split(',').forEach(function (tag) {
-                        const span = document.createElement('span');
-                        span.textContent = tag.trim();
-                        mapTags.appendChild(span);
-                    });
-                }
-            }
-        });
-    });
-
-    // ==================== ABOUT STORY SLIDER ====================
-    let storyCurrent = 0;
-    const storySlides = document.querySelectorAll('.story-slider .story-slide');
-    const storyDots = document.querySelectorAll('.story-slider .story-dots button');
-    const storyPrev = document.querySelector('.story-prev');
-    const storyNext = document.querySelector('.story-next');
-
-    function showStorySlide(index) {
-        if (!storySlides.length) return;
-
-        storySlides.forEach(function (slide) {
-            slide.classList.remove('active');
-        });
-
-        storyDots.forEach(function (dot) {
-            dot.classList.remove('active');
-        });
-
-        if (index < 0) {
-            storyCurrent = storySlides.length - 1;
-        } else if (index >= storySlides.length) {
-            storyCurrent = 0;
-        } else {
-            storyCurrent = index;
-        }
-
-        storySlides[storyCurrent].classList.add('active');
-
-        if (storyDots[storyCurrent]) {
-            storyDots[storyCurrent].classList.add('active');
-        }
-    }
-
-    if (storyPrev) {
-        storyPrev.addEventListener('click', function () {
-            showStorySlide(storyCurrent - 1);
-        });
-    }
-
-    if (storyNext) {
-        storyNext.addEventListener('click', function () {
-            showStorySlide(storyCurrent + 1);
-        });
-    }
-
-    storyDots.forEach(function (dot, index) {
-        dot.addEventListener('click', function () {
-            showStorySlide(index);
-        });
-    });
-
-    if (storySlides.length) {
-        showStorySlide(0);
-        setInterval(function () {
-            showStorySlide(storyCurrent + 1);
-        }, 8000);
-    }
-
-    // ==================== GALLERY SLIDER ====================
-    let galleryCurrent = 0;
-    const galleryTrack = document.getElementById('galleryTrack');
-    const galleryCards = document.querySelectorAll('.gallery-card');
-    const galleryDots = document.querySelectorAll('#galleryDots button');
-    const galleryPrev = document.querySelector('.gallery-prev');
-    const galleryNext = document.querySelector('.gallery-next');
-    let galleryAutoTimer = null;
-
-    function getGalleryPerView() {
-        if (window.innerWidth <= 576) return 1;
-        if (window.innerWidth <= 992) return 2;
-        return 3;
-    }
-
-    function showGallerySlide(index) {
-        if (!galleryTrack || !galleryCards.length) return;
-
-        const perView = getGalleryPerView();
-        const maxIndex = galleryCards.length - perView;
-
-        if (index < 0) {
-            galleryCurrent = maxIndex;
-        } else if (index > maxIndex) {
-            galleryCurrent = 0;
-        } else {
-            galleryCurrent = index;
-        }
-
-        const cardWidth = galleryCards[0].offsetWidth;
-        const gap = 24;
-        const move = galleryCurrent * (cardWidth + gap);
-
-        galleryTrack.style.transition = 'transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        galleryTrack.style.transform = 'translateX(-' + move + 'px)';
-
-        galleryDots.forEach(function (dot) {
-            dot.classList.remove('active');
-        });
-
-        if (galleryDots[galleryCurrent]) {
-            galleryDots[galleryCurrent].classList.add('active');
-        }
-    }
-
-    function startGalleryAuto() {
-        if (galleryAutoTimer) clearInterval(galleryAutoTimer);
-        galleryAutoTimer = setInterval(function () {
-            showGallerySlide(galleryCurrent + 1);
-        }, 4500);
-    }
-
-    if (galleryPrev) {
-        galleryPrev.addEventListener('click', function () {
-            showGallerySlide(galleryCurrent - 1);
-            startGalleryAuto();
-        });
-    }
-
-    if (galleryNext) {
-        galleryNext.addEventListener('click', function () {
-            showGallerySlide(galleryCurrent + 1);
-            startGalleryAuto();
-        });
-    }
-
-    galleryDots.forEach(function (dot, index) {
-        dot.addEventListener('click', function () {
-            showGallerySlide(index);
-            startGalleryAuto();
-        });
-    });
-
-    if (galleryCards.length) {
-        showGallerySlide(0);
-        startGalleryAuto();
-
-        window.addEventListener('resize', function () {
-            showGallerySlide(galleryCurrent);
-        });
-    }
-
-});
-// ==================== VIDEO SLIDER ====================
-let videoCurrent = 0;
-const videoTrack = document.getElementById('videoTrack');
-const videoCards = document.querySelectorAll('.video-card');
-const videoDots = document.querySelectorAll('#videoDots button');
-const videoPrev = document.querySelector('.video-prev');
-const videoNext = document.querySelector('.video-next');
-
-function showVideoSlide(index) {
-    if (!videoTrack || !videoCards.length) return;
+function showStorySlide(index) {
+    const slides = document.querySelectorAll('.story-slide');
+    const dots = document.querySelectorAll('.story-dots button');
+    if (!slides.length) return;
 
     if (index < 0) {
-        videoCurrent = videoCards.length - 1;
-    } else if (index >= videoCards.length) {
-        videoCurrent = 0;
+        storyCurrent = slides.length - 1;
+    } else if (index >= slides.length) {
+        storyCurrent = 0;
     } else {
-        videoCurrent = index;
+        storyCurrent = index;
     }
 
-    const cardWidth = videoCards[0].offsetWidth;
-    const gap = 26;
-    const move = videoCurrent * (cardWidth + gap);
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
 
-    videoTrack.style.transform = 'translateX(-' + move + 'px)';
-
-    videoDots.forEach(function (dot) {
-        dot.classList.remove('active');
-    });
-
-    if (videoDots[videoCurrent]) {
-        videoDots[videoCurrent].classList.add('active');
+    slides[storyCurrent].classList.add('active');
+    if (dots[storyCurrent]) {
+        dots[storyCurrent].classList.add('active');
     }
 }
 
-if (videoPrev) {
-    videoPrev.addEventListener('click', function () {
-        showVideoSlide(videoCurrent - 1);
-    });
+function changeStorySlide(direction) {
+    showStorySlide(storyCurrent + direction);
 }
 
-if (videoNext) {
-    videoNext.addEventListener('click', function () {
-        showVideoSlide(videoCurrent + 1);
-    });
-}
-
-videoDots.forEach(function (dot, index) {
-    dot.addEventListener('click', function () {
-        showVideoSlide(index);
-    });
-});
-
-if (videoCards.length) {
-    showVideoSlide(0);
-}
-
-
-// ==================== NEWS SLIDER ====================
-let newsCurrent = 0;
-const newsTrack = document.getElementById('newsTrack');
-const newsCards = document.querySelectorAll('.news-card');
-const newsDots = document.querySelectorAll('#newsDots button');
-const newsPrev = document.querySelector('.news-prev');
-const newsNext = document.querySelector('.news-next');
-let newsAutoTimer = null;
-
-function getNewsPerView() {
-    if (window.innerWidth <= 576) return 1;
-    if (window.innerWidth <= 992) return 2;
-    return 3;
-}
-
-function showNewsSlide(index) {
-    if (!newsTrack || !newsCards.length) return;
-
-    const perView = getNewsPerView();
-    const maxIndex = Math.max(0, newsCards.length - perView);
-
-    if (index < 0) {
-        newsCurrent = maxIndex;
-    } else if (index > maxIndex) {
-        newsCurrent = 0;
-    } else {
-        newsCurrent = index;
-    }
-
-    const cardWidth = newsCards[0].offsetWidth;
-    const gap = 24;
-    const move = newsCurrent * (cardWidth + gap);
-
-    newsTrack.style.transition = 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    newsTrack.style.transform = 'translateX(-' + move + 'px)';
-
-    newsDots.forEach(function (dot) { dot.classList.remove('active'); });
-    if (newsDots[newsCurrent]) { newsDots[newsCurrent].classList.add('active'); }
-}
-
-function startNewsAuto() {
-    if (newsAutoTimer) clearInterval(newsAutoTimer);
-    newsAutoTimer = setInterval(function () {
-        showNewsSlide(newsCurrent + 1);
-    }, 5500);
-}
-
-if (newsPrev) {
-    newsPrev.addEventListener('click', function () {
-        showNewsSlide(newsCurrent - 1);
-        startNewsAuto();
-    });
-}
-
-if (newsNext) {
-    newsNext.addEventListener('click', function () {
-        showNewsSlide(newsCurrent + 1);
-        startNewsAuto();
-    });
-}
-
-newsDots.forEach(function (dot, index) {
-    dot.addEventListener('click', function () {
-        showNewsSlide(index);
-        startNewsAuto();
-    });
-});
-
-if (newsCards.length) {
-    showNewsSlide(0);
-    startNewsAuto();
-
-    window.addEventListener('resize', function () {
-        showNewsSlide(newsCurrent);
-    });
-}
-
-// ==================== STORY IMAGE MODAL ====================
+// Modals
 function openStoryModal(el) {
     const overlay = document.getElementById('storyModalOverlay');
     if (!overlay) return;
@@ -3883,7 +3783,6 @@ function closeStoryModal() {
     document.body.style.overflow = '';
 }
 
-// ==================== TEAM BIODATA MODAL ====================
 function openTeamModal(data) {
     const overlay = document.getElementById('teamModalOverlay');
     if (!overlay) return;
@@ -3892,7 +3791,20 @@ function openTeamModal(data) {
     document.getElementById('teamModalName').textContent = data.name || '';
     document.getElementById('teamModalInstansi').textContent = data.instansi || '-';
     document.getElementById('teamModalBidang').textContent = data.bidang || '-';
-    document.getElementById('teamModalKontak').textContent = data.kontak || '-';
+    
+    const kontakVal = data.kontak || '-';
+    const kontakEl = document.getElementById('teamModalKontak');
+    if (kontakEl) {
+        if (kontakVal.includes('@')) {
+            kontakEl.innerHTML = `<a href="mailto:${kontakVal}" style="color:#c6a43b; text-decoration:none; font-weight: 600;">${kontakVal}</a>`;
+        } else if (kontakVal.match(/^\+?[0-9\s\-]{7,}$/)) {
+            const cleanPhone = kontakVal.replace(/[^0-9+]/g, '');
+            kontakEl.innerHTML = `<a href="tel:${cleanPhone}" style="color:#c6a43b; text-decoration:none; font-weight: 600;">${kontakVal}</a>`;
+        } else {
+            kontakEl.textContent = kontakVal;
+        }
+    }
+    
     document.getElementById('teamModalDesc').textContent = data.desc || '';
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -3904,44 +3816,508 @@ function closeTeamModal() {
     document.body.style.overflow = '';
 }
 
-// Keyboard ESC close modals
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeStoryModal();
-        closeTeamModal();
+function openGalleryModal(imgUrl, title) {
+    const overlay = document.getElementById('galleryModalOverlay');
+    if (!overlay) return;
+    document.getElementById('galleryModalImg').src = imgUrl;
+    document.getElementById('galleryModalTitle').textContent = title;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeGalleryModal() {
+    const overlay = document.getElementById('galleryModalOverlay');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// Draggable Helper function
+function makeSliderDraggable(track, showSlideFn, getCurrentFn) {
+    if (!track) return;
+    
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+    let initialTranslate = 0;
+    let moved = false;
+    
+    track.addEventListener('dragstart', (e) => e.preventDefault());
+    
+    track.addEventListener('touchstart', dragStart, { passive: true });
+    track.addEventListener('touchmove', dragMove, { passive: true });
+    track.addEventListener('touchend', dragEnd);
+    
+    track.addEventListener('mousedown', dragStart);
+    track.addEventListener('mousemove', dragMove);
+    track.addEventListener('mouseup', dragEnd);
+    track.addEventListener('mouseleave', dragEnd);
+    
+    track.addEventListener('click', function(e) {
+        if (moved) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }, true);
+    
+    function getTranslateX() {
+        const style = window.getComputedStyle(track);
+        const matrix = new DOMMatrixReadOnly(style.transform);
+        return matrix.m41;
     }
+    
+    function dragStart(e) {
+        if (track.dataset.isTransitioning === 'true') return;
+        isDragging = true;
+        moved = false;
+        startX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        currentX = startX;
+        initialTranslate = getTranslateX();
+        track.style.transition = 'none';
+        track.dataset.isTransitioning = 'false';
+    }
+    
+    function dragMove(e) {
+        if (!isDragging) return;
+        currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
+        const walk = currentX - startX;
+        if (Math.abs(walk) > 5) {
+            moved = true;
+        }
+        track.style.transform = `translateX(${initialTranslate + walk}px)`;
+    }
+    
+    function dragEnd() {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const walk = currentX - startX;
+        if (Math.abs(walk) > 50) {
+            if (walk < 0) {
+                showSlideFn(getCurrentFn() + 1);
+            } else {
+                showSlideFn(getCurrentFn() - 1);
+            }
+        } else {
+            showSlideFn(getCurrentFn());
+        }
+    }
+}
+
+// DOMContentLoaded Block
+document.addEventListener('DOMContentLoaded', function () {
+
+    // AOS
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    }
+
+    // Hero Slider
+    let heroCurrent = 0;
+    const heroSlides = document.querySelectorAll('.slide');
+    const heroDots = document.querySelectorAll('.dot');
+
+    function showHeroSlide(index) {
+        if (!heroSlides.length) return;
+        heroSlides.forEach(function (slide) { slide.classList.remove('active'); });
+        heroDots.forEach(function (dot) { dot.classList.remove('active'); });
+
+        if (index < 0) {
+            heroCurrent = heroSlides.length - 1;
+        } else if (index >= heroSlides.length) {
+            heroCurrent = 0;
+        } else {
+            heroCurrent = index;
+        }
+        heroSlides[heroCurrent].classList.add('active');
+        if (heroDots[heroCurrent]) heroDots[heroCurrent].classList.add('active');
+    }
+
+    function nextHeroSlide() { showHeroSlide(heroCurrent + 1); }
+
+    heroDots.forEach(function (dot, index) {
+        dot.addEventListener('click', function () { showHeroSlide(index); });
+    });
+
+    if (heroSlides.length) {
+        showHeroSlide(0);
+        setInterval(nextHeroSlide, 5000);
+    }
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+        anchor.addEventListener('click', function (e) {
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Map Interactive
+    const mapPoints = document.querySelectorAll('.map-point');
+    const mapNumber = document.getElementById('mapNumber');
+    const mapTitle = document.getElementById('mapTitle');
+    const mapDesc = document.getElementById('mapDesc');
+    const mapTags = document.getElementById('mapTags');
+
+    mapPoints.forEach(function (point) {
+        point.addEventListener('click', function () {
+            mapPoints.forEach(function (item) { item.classList.remove('active'); });
+            point.classList.add('active');
+
+            if (mapNumber) mapNumber.textContent = point.dataset.number;
+            if (mapTitle) mapTitle.textContent = point.dataset.title;
+            if (mapDesc) mapDesc.textContent = point.dataset.desc;
+
+            if (mapTags) {
+                mapTags.innerHTML = '';
+                if (point.dataset.tags) {
+                    point.dataset.tags.split(',').forEach(function (tag) {
+                        const span = document.createElement('span');
+                        span.textContent = tag.trim();
+                        mapTags.appendChild(span);
+                    });
+                }
+            }
+        });
+    });
+
+    // About Story Slider Dots & Auto-play
+    const storyDots = document.querySelectorAll('.story-slider .story-dots button');
+    storyDots.forEach(function (dot, index) {
+        dot.addEventListener('click', function () {
+            showStorySlide(index);
+        });
+    });
+
+    const storySlides = document.querySelectorAll('.story-slider .story-slide');
+    if (storySlides.length) {
+        showStorySlide(0);
+        setInterval(function () {
+            showStorySlide(storyCurrent + 1);
+        }, 8000);
+    }
+
+    // Gallery Slider
+    const galleryTrack = document.getElementById('galleryTrack');
+    const galleryCards = document.querySelectorAll('.gallery-card');
+    const galleryDots = document.querySelectorAll('#galleryDots button');
+    const galleryPrev = document.querySelector('.gallery-prev');
+    const galleryNext = document.querySelector('.gallery-next');
+    let galleryAutoTimer = null;
+
+    if (galleryTrack && galleryCards.length) {
+        const totalGalleryCards = galleryCards.length;
+        const cloneCount = 3;
+
+        // Clone first cloneCount cards and append
+        for (let i = 0; i < cloneCount; i++) {
+            const clone = galleryCards[i].cloneNode(true);
+            clone.classList.add('is-clone');
+            galleryTrack.appendChild(clone);
+        }
+
+        // Clone last cloneCount cards and prepend
+        for (let i = totalGalleryCards - 1; i >= totalGalleryCards - cloneCount; i--) {
+            const clone = galleryCards[i].cloneNode(true);
+            clone.classList.add('is-clone');
+            galleryTrack.insertBefore(clone, galleryTrack.firstChild);
+        }
+
+        const allGalleryCards = galleryTrack.querySelectorAll('.gallery-card');
+        let galleryCurrent = 0;
+
+        function showGallerySlide(index, transition = true) {
+            if (!galleryTrack || !allGalleryCards.length) return;
+
+            if (transition) {
+                if (galleryTrack.dataset.isTransitioning === 'true') return;
+                galleryTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                galleryTrack.dataset.isTransitioning = 'true';
+            } else {
+                galleryTrack.style.transition = 'none';
+                galleryTrack.offsetHeight; // Force reflow
+                galleryTrack.dataset.isTransitioning = 'false';
+            }
+
+            const cardWidth = allGalleryCards[0].offsetWidth;
+            const gap = parseFloat(window.getComputedStyle(galleryTrack).gap) || 24;
+            const targetIndex = index + cloneCount;
+            const move = targetIndex * (cardWidth + gap);
+
+            galleryTrack.style.transform = 'translateX(-' + move + 'px)';
+
+            let wrappedIndex = index;
+            if (wrappedIndex < 0) {
+                wrappedIndex = totalGalleryCards + (wrappedIndex % totalGalleryCards);
+            }
+            wrappedIndex = wrappedIndex % totalGalleryCards;
+
+            galleryDots.forEach(function (dot) { dot.classList.remove('active'); });
+            if (galleryDots[wrappedIndex]) { galleryDots[wrappedIndex].classList.add('active'); }
+
+            galleryCurrent = index;
+        }
+
+        galleryTrack.addEventListener('transitionend', function (e) {
+            if (e.target !== galleryTrack) return; // Ignore transitionend bubbling from children
+            galleryTrack.dataset.isTransitioning = 'false';
+            if (galleryCurrent >= totalGalleryCards) {
+                showGallerySlide(0, false);
+            } else if (galleryCurrent < 0) {
+                showGallerySlide(totalGalleryCards - 1, false);
+            }
+        });
+
+        function startGalleryAuto() {
+            if (galleryAutoTimer) clearInterval(galleryAutoTimer);
+            galleryAutoTimer = setInterval(function () {
+                showGallerySlide(galleryCurrent + 1);
+            }, 4500);
+        }
+
+        if (galleryPrev) {
+            galleryPrev.addEventListener('click', function () {
+                showGallerySlide(galleryCurrent - 1);
+                startGalleryAuto();
+            });
+        }
+
+        if (galleryNext) {
+            galleryNext.addEventListener('click', function () {
+                showGallerySlide(galleryCurrent + 1);
+                startGalleryAuto();
+            });
+        }
+
+        galleryDots.forEach(function (dot, index) {
+            dot.addEventListener('click', function () {
+                showGallerySlide(index);
+                startGalleryAuto();
+            });
+        });
+
+        showGallerySlide(0, false);
+        startGalleryAuto();
+        window.addEventListener('resize', function () {
+            showGallerySlide(galleryCurrent, false);
+        });
+        makeSliderDraggable(galleryTrack, showGallerySlide, () => galleryCurrent);
+    }
+
+    // Video Slider
+    const videoTrack = document.getElementById('videoTrack');
+    const videoCards = document.querySelectorAll('.video-card');
+    const videoDots = document.querySelectorAll('#videoDots button');
+    const videoPrev = document.querySelector('.video-prev');
+    const videoNext = document.querySelector('.video-next');
+
+    if (videoTrack && videoCards.length) {
+        const totalVideoCards = videoCards.length;
+        const cloneCount = 1;
+        let videoCurrent = 0;
+
+        // Clone first card and append
+        const cloneFirst = videoCards[0].cloneNode(true);
+        cloneFirst.classList.add('is-clone');
+        videoTrack.appendChild(cloneFirst);
+
+        // Clone last card and prepend
+        const cloneLast = videoCards[totalVideoCards - 1].cloneNode(true);
+        cloneLast.classList.add('is-clone');
+        videoTrack.insertBefore(cloneLast, videoTrack.firstChild);
+
+        const allVideoCards = videoTrack.querySelectorAll('.video-card');
+
+        function showVideoSlide(index, transition = true) {
+            if (!videoTrack || !allVideoCards.length) return;
+
+            if (transition) {
+                if (videoTrack.dataset.isTransitioning === 'true') return;
+                videoTrack.style.transition = 'transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                videoTrack.dataset.isTransitioning = 'true';
+            } else {
+                videoTrack.style.transition = 'none';
+                videoTrack.offsetHeight; // Force reflow
+                videoTrack.dataset.isTransitioning = 'false';
+            }
+
+            const cardWidth = allVideoCards[0].offsetWidth;
+            const gap = parseFloat(window.getComputedStyle(videoTrack).gap) || 26;
+            const targetIndex = index + cloneCount;
+            const move = targetIndex * (cardWidth + gap);
+
+            videoTrack.style.transform = 'translateX(-' + move + 'px)';
+
+            let wrappedIndex = index;
+            if (wrappedIndex < 0) {
+                wrappedIndex = totalVideoCards + (wrappedIndex % totalVideoCards);
+            }
+            wrappedIndex = wrappedIndex % totalVideoCards;
+
+            videoDots.forEach(function (dot) { dot.classList.remove('active'); });
+            if (videoDots[wrappedIndex]) { videoDots[wrappedIndex].classList.add('active'); }
+
+            videoCurrent = index;
+        }
+
+        videoTrack.addEventListener('transitionend', function (e) {
+            if (e.target !== videoTrack) return; // Ignore transitionend bubbling from children
+            videoTrack.dataset.isTransitioning = 'false';
+            if (videoCurrent >= totalVideoCards) {
+                showVideoSlide(0, false);
+            } else if (videoCurrent < 0) {
+                showVideoSlide(totalVideoCards - 1, false);
+            }
+        });
+
+        if (videoPrev) {
+            videoPrev.addEventListener('click', function () {
+                showVideoSlide(videoCurrent - 1);
+            });
+        }
+
+        if (videoNext) {
+            videoNext.addEventListener('click', function () {
+                showVideoSlide(videoCurrent + 1);
+            });
+        }
+
+        videoDots.forEach(function (dot, index) {
+            dot.addEventListener('click', function () {
+                showVideoSlide(index);
+            });
+        });
+
+        showVideoSlide(0, false);
+        window.addEventListener('resize', function () {
+            showVideoSlide(videoCurrent, false);
+        });
+        makeSliderDraggable(videoTrack, showVideoSlide, () => videoCurrent);
+    }
+
+    // News Slider
+    const newsTrack = document.getElementById('newsTrack');
+    const newsCards = document.querySelectorAll('.news-card');
+    const newsDots = document.querySelectorAll('#newsDots button');
+    const newsPrev = document.querySelector('.news-prev');
+    const newsNext = document.querySelector('.news-next');
+    let newsAutoTimer = null;
+
+    if (newsTrack && newsCards.length) {
+        const totalNewsCards = newsCards.length;
+        const cloneCount = Math.min(3, totalNewsCards);
+
+        // Clone first cloneCount cards and append
+        for (let i = 0; i < cloneCount; i++) {
+            const clone = newsCards[i].cloneNode(true);
+            clone.classList.add('is-clone');
+            newsTrack.appendChild(clone);
+        }
+
+        // Clone last cloneCount cards and prepend
+        for (let i = totalNewsCards - 1; i >= totalNewsCards - cloneCount; i--) {
+            const clone = newsCards[i].cloneNode(true);
+            clone.classList.add('is-clone');
+            newsTrack.insertBefore(clone, newsTrack.firstChild);
+        }
+
+        const allNewsCards = newsTrack.querySelectorAll('.news-card');
+        let newsCurrent = 0;
+
+        function showNewsSlide(index, transition = true) {
+            if (!newsTrack || !allNewsCards.length) return;
+
+            if (transition) {
+                if (newsTrack.dataset.isTransitioning === 'true') return;
+                newsTrack.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                newsTrack.dataset.isTransitioning = 'true';
+            } else {
+                newsTrack.style.transition = 'none';
+                newsTrack.offsetHeight; // Force reflow
+                newsTrack.dataset.isTransitioning = 'false';
+            }
+
+            const cardWidth = allNewsCards[0].offsetWidth;
+            const gap = parseFloat(window.getComputedStyle(newsTrack).gap) || 24;
+            const targetIndex = index + cloneCount;
+            const move = targetIndex * (cardWidth + gap);
+
+            newsTrack.style.transform = 'translateX(-' + move + 'px)';
+
+            let wrappedIndex = index;
+            if (wrappedIndex < 0) {
+                wrappedIndex = totalNewsCards + (wrappedIndex % totalNewsCards);
+            }
+            wrappedIndex = wrappedIndex % totalNewsCards;
+
+            newsDots.forEach(function (dot) { dot.classList.remove('active'); });
+            if (newsDots[wrappedIndex]) { newsDots[wrappedIndex].classList.add('active'); }
+
+            newsCurrent = index;
+        }
+
+        newsTrack.addEventListener('transitionend', function (e) {
+            if (e.target !== newsTrack) return; // Ignore transitionend bubbling from children
+            newsTrack.dataset.isTransitioning = 'false';
+            if (newsCurrent >= totalNewsCards) {
+                showNewsSlide(0, false);
+            } else if (newsCurrent < 0) {
+                showNewsSlide(totalNewsCards - 1, false);
+            }
+        });
+
+        function startNewsAuto() {
+            if (newsAutoTimer) clearInterval(newsAutoTimer);
+            newsAutoTimer = setInterval(function () {
+                showNewsSlide(newsCurrent + 1);
+            }, 5500);
+        }
+
+        if (newsPrev) {
+            newsPrev.addEventListener('click', function () {
+                showNewsSlide(newsCurrent - 1);
+                startNewsAuto();
+            });
+        }
+
+        if (newsNext) {
+            newsNext.addEventListener('click', function () {
+                showNewsSlide(newsCurrent + 1);
+                startNewsAuto();
+            });
+        }
+
+        newsDots.forEach(function (dot, index) {
+            dot.addEventListener('click', function () {
+                showNewsSlide(index);
+                startNewsAuto();
+            });
+        });
+
+        showNewsSlide(0, false);
+        startNewsAuto();
+        window.addEventListener('resize', function () {
+            showNewsSlide(newsCurrent, false);
+        });
+        makeSliderDraggable(newsTrack, showNewsSlide, () => newsCurrent);
+    }
+
+    // Keyboard ESC close modals
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeStoryModal();
+            closeTeamModal();
+            closeGalleryModal();
+        }
+    });
+
 });
-
-
-let storyCurrentSlide = 0;
-
-function showStorySlide(index) {
-    const slides = document.querySelectorAll('.story-slide');
-    const dots = document.querySelectorAll('.story-dots button');
-
-    if (!slides.length) return;
-
-    if (index < 0) {
-        storyCurrentSlide = slides.length - 1;
-    } else if (index >= slides.length) {
-        storyCurrentSlide = 0;
-    } else {
-        storyCurrentSlide = index;
-    }
-
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-
-    slides[storyCurrentSlide].classList.add('active');
-
-    if (dots[storyCurrentSlide]) {
-        dots[storyCurrentSlide].classList.add('active');
-    }
-}
-
-function changeStorySlide(direction) {
-    showStorySlide(storyCurrentSlide + direction);
-}
 </script>
 
 

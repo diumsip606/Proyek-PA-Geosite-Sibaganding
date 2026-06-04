@@ -452,6 +452,306 @@
             padding: 25px;
         }
     }
+
+    /* ==================== PENGURUS/TEAM SECTION ==================== */
+    .team-section {
+        padding: 80px 0;
+        background: linear-gradient(180deg, #ffffff 0%, #f4f8fc 100%);
+        overflow: hidden;
+    }
+
+    .team-title {
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    .team-kicker {
+        display: inline-block;
+        color: #c6a43b;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+    }
+
+    .team-title h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.8rem;
+        color: #003366;
+        margin: 0;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 34px;
+        max-width: 820px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        .team-grid {
+            grid-template-columns: 1fr;
+            max-width: 420px;
+        }
+    }
+
+    .team-card {
+        position: relative;
+        border-radius: 34px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 28px 70px rgba(0, 51, 102, 0.14);
+        border: 8px solid rgba(255,255,255,0.68);
+        transition: all 0.35s ease;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 35px 90px rgba(0, 51, 102, 0.22);
+    }
+
+    .team-image {
+        height: 390px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .team-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .team-card:hover .team-image img {
+        transform: scale(1.04);
+    }
+
+    .team-info {
+        padding: 30px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, #ffffff 100%);
+    }
+
+    .team-info span {
+        color: #c6a43b;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .team-info h3 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.85rem;
+        color: #003366;
+        margin: 0 0 12px;
+    }
+
+    .team-info p {
+        color: #556c80;
+        line-height: 1.7;
+        font-size: 0.85rem;
+        margin: 0;
+    }
+
+    .team-card-click-hint {
+        position: absolute;
+        bottom: 24px;
+        right: 24px;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #c6a43b;
+        color: #003366;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.88rem;
+        box-shadow: 0 8px 20px rgba(198,164,59,0.3);
+        z-index: 5;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .team-card:hover .team-card-click-hint {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .team-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 35, 70, 0.82);
+        backdrop-filter: blur(12px);
+        z-index: 99999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .team-modal-overlay.open {
+        display: flex;
+        opacity: 1;
+    }
+
+    .team-modal-box {
+        background: #ffffff;
+        width: 100%;
+        max-width: 780px;
+        border-radius: 36px;
+        overflow: hidden;
+        box-shadow: 0 35px 95px rgba(0, 51, 102, 0.35);
+        border: 1px solid rgba(255,255,255,0.2);
+        display: flex;
+        position: relative;
+        max-height: 90vh;
+        animation: modalPop 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.05) forwards;
+    }
+
+    @keyframes modalPop {
+        from { opacity: 0; transform: scale(0.9) translateY(15px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .team-modal-close {
+        position: absolute;
+        top: 24px;
+        right: 24px;
+        background: rgba(0,0,0,0.05);
+        border: none;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        color: #003366;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.25s;
+        z-index: 10;
+    }
+
+    .team-modal-close:hover {
+        background: #c6a43b;
+        color: #ffffff;
+        transform: rotate(90deg);
+    }
+
+    .team-modal-img {
+        width: 42%;
+        flex-shrink: 0;
+        position: relative;
+    }
+
+    .team-modal-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .team-modal-body {
+        flex: 1;
+        padding: 48px;
+        overflow-y: auto;
+        text-align: left;
+    }
+
+    .team-modal-role {
+        display: inline-block;
+        color: #c6a43b;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+    }
+
+    .team-modal-body h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.3rem;
+        color: #003366;
+        line-height: 1.1;
+        margin: 0 0 18px;
+    }
+
+    .team-modal-divider {
+        width: 60px;
+        height: 2px;
+        background: #c6a43b;
+        margin-bottom: 24px;
+    }
+
+    .team-modal-bio-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .bio-icon {
+        font-size: 1.25rem;
+        color: #c6a43b;
+        width: 24px;
+        text-align: center;
+    }
+
+    .bio-text {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .bio-label {
+        font-size: 0.68rem;
+        font-weight: 800;
+        color: #9ab4cc;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 2px;
+    }
+
+    .bio-value {
+        font-size: 0.88rem;
+        color: #334e68;
+        font-weight: 600;
+    }
+
+    .team-modal-desc {
+        margin-top: 28px;
+        color: #556c80;
+        line-height: 1.8;
+        font-size: 0.9rem;
+        border-top: 1px dashed rgba(0, 51, 102, 0.1);
+        padding-top: 22px;
+        margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+        .team-modal-box {
+            flex-direction: column;
+            max-height: 85vh;
+        }
+        .team-modal-img {
+            width: 100%;
+            height: 240px;
+        }
+        .team-modal-body {
+            padding: 30px;
+        }
+    }
 </style>
 
 <!-- HERO -->
@@ -512,6 +812,99 @@
             </div>
         </div>
 
+        <!-- PENGURUS/TEAM SECTION -->
+        <div class="team-section mb-5" data-aos="fade-up">
+            <div class="team-title">
+                <span class="team-kicker">Tim Pengelola</span>
+                <h2>Pengurus Sibaganding</h2>
+                <div class="divider" style="width: 50px; height: 2px; background: #c6a43b; margin: 10px auto 0;"></div>
+            </div>
+
+            <div class="team-grid">
+                @forelse($pengurus as $i => $item)
+                    @php
+                        $rawImg = $item->gambar ? ltrim($item->gambar, '/') : null;
+                        if ($rawImg) {
+                            if (str_starts_with($rawImg, 'http://') || str_starts_with($rawImg, 'https://')) {
+                                $imgUrl = $rawImg;
+                            } elseif (str_starts_with($rawImg, 'storage/')) {
+                                $imgUrl = asset($rawImg);
+                            } elseif (str_starts_with($rawImg, 'uploads/')) {
+                                $imgUrl = asset($rawImg);
+                            } else {
+                                $imgUrl = asset('storage/' . $rawImg);
+                            }
+                        } else {
+                            $imgUrl = asset('images/sibaganding' . (($i % 2) + 1) . '.JPG');
+                        }
+                    @endphp
+                    <div class="team-card" 
+                         onclick="openTeamModal({
+                             img: '{{ $imgUrl }}',
+                             role: '{{ $item->penulis ?? 'Tim Pengelola' }}',
+                             name: '{{ $item->judul }}',
+                             instansi: 'Geosite Sibaganding',
+                             bidang: '{{ $item->penulis ?? 'Pengembang Kawasan' }}',
+                             kontak: '{{ $item->slug }}',
+                             desc: '{{ addslashes(str_replace(["\r", "\n"], " ", strip_tags($item->konten))) }}'
+                         })">
+                        <div class="team-image">
+                            <img src="{{ $imgUrl }}" alt="{{ $item->judul }}" onerror="this.onerror=null; this.src='{{ asset('images/sibaganding' . (($i % 2) + 1) . '.JPG') }}';">
+                        </div>
+                        <div class="team-info">
+                            <span>{{ $item->penulis ?? 'Tim Pengelola' }}</span>
+                            <h3>{{ $item->judul }}</h3>
+                            <p>{{ Str::limit(strip_tags($item->konten), 120) }}</p>
+                        </div>
+                        <div class="team-card-click-hint">👁</div>
+                    </div>
+                @empty
+                    <!-- Fallback Static Pengurus 1 -->
+                    <div class="team-card" 
+                         onclick="openTeamModal({
+                             img: '{{ asset('images/sibaganding1.JPG') }}',
+                             role: 'Ketua Pengelola',
+                             name: 'Pengelola Sibaganding',
+                             instansi: 'Geosite Sibaganding — Geopark Danau Toba',
+                             bidang: 'Manajemen & Pengembangan Kawasan',
+                             kontak: 'sibaganding@geotoba.id',
+                             desc: 'Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding, termasuk pengembangan program wisata, kerja sama kelembagaan, dan peningkatan fasilitas pengunjung. Memimpin tim dalam menjaga kelestarian alam, budaya, dan nilai geologi kawasan sebagai bagian dari Geopark Danau Toba UNESCO Global Geopark.'
+                         })">
+                        <div class="team-image">
+                            <img src="{{ asset('images/sibaganding1.JPG') }}" alt="Pengurus Sibaganding 1">
+                        </div>
+                        <div class="team-info">
+                            <span>Ketua Pengelola</span>
+                            <h3>Pengelola Sibaganding</h3>
+                            <p>Bertanggung jawab mengoordinasikan pengelolaan kawasan, pengembangan program, dan kerja sama terkait Geosite Sibaganding.</p>
+                        </div>
+                        <div class="team-card-click-hint">👁</div>
+                    </div>
+
+                    <!-- Fallback Static Pengurus 2 -->
+                    <div class="team-card" 
+                         onclick="openTeamModal({
+                             img: '{{ asset('images/sibaganding2.JPG') }}',
+                             role: 'Koordinator Lapangan',
+                             name: 'Koordinator Wisata',
+                             instansi: 'Geosite Sibaganding — Lapangan Operasional',
+                             bidang: 'Operasional Wisata & Pelayanan Pengunjung',
+                             kontak: 'wisata.sibaganding@geotoba.id',
+                             desc: 'Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, membantu dan melayani pengunjung, serta memastikan semua aktivitas wisata berjalan aman, nyaman, dan optimal. Berkoordinasi langsung dengan tim pengelola dan pemandu wisata lokal.'
+                         })">
+                        <div class="team-image">
+                            <img src="{{ asset('images/sibaganding2.JPG') }}" alt="Pengurus Sibaganding 2">
+                        </div>
+                        <div class="team-info">
+                            <span>Koordinator Lapangan</span>
+                            <h3>Koordinator Wisata</h3>
+                            <p>Bertugas mendampingi kegiatan lapangan, membantu pengunjung, dan memastikan aktivitas wisata berjalan optimal.</p>
+                        </div>
+                        <div class="team-card-click-hint">👁</div>
+                    </div>
+                @endforelse
+            </div>
+        </div>
 
         <div class="row g-4">
             <!-- FORM KONTAK -->
@@ -614,6 +1007,85 @@
         duration: 800,
         once: true
     });
+</script>
+
+<!-- Team Biodata Modal -->
+<div class="team-modal-overlay" id="teamModalOverlay" onclick="if(event.target===this) closeTeamModal()">
+    <div class="team-modal-box">
+        <button class="team-modal-close" onclick="closeTeamModal()">&#10005;</button>
+        <div class="team-modal-img">
+            <img id="teamModalImg" src="" alt="">
+        </div>
+        <div class="team-modal-body">
+            <span class="team-modal-role" id="teamModalRole"></span>
+            <h2><span id="teamModalName"></span></h2>
+            <div class="team-modal-divider"></div>
+            <div class="team-modal-bio-row">
+                <div class="bio-icon">🏛</div>
+                <div class="bio-text">
+                    <span class="bio-label">Instansi</span>
+                    <span class="bio-value" id="teamModalInstansi"></span>
+                </div>
+            </div>
+            <div class="team-modal-bio-row">
+                <div class="bio-icon">📋</div>
+                <div class="bio-text">
+                    <span class="bio-label">Bidang Tugas</span>
+                    <span class="bio-value" id="teamModalBidang"></span>
+                </div>
+            </div>
+            <div class="team-modal-bio-row">
+                <div class="bio-icon">✉</div>
+                <div class="bio-text">
+                    <span class="bio-label">Kontak</span>
+                    <span class="bio-value" id="teamModalKontak"></span>
+                </div>
+            </div>
+            <p class="team-modal-desc" id="teamModalDesc"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+function openTeamModal(data) {
+    const overlay = document.getElementById('teamModalOverlay');
+    if (!overlay) return;
+    document.getElementById('teamModalImg').src = data.img || '';
+    document.getElementById('teamModalRole').textContent = data.role || '';
+    document.getElementById('teamModalName').textContent = data.name || '';
+    document.getElementById('teamModalInstansi').textContent = data.instansi || '-';
+    document.getElementById('teamModalBidang').textContent = data.bidang || '-';
+    
+    // Parse contact
+    const kontakVal = data.kontak || '-';
+    const kontakEl = document.getElementById('teamModalKontak');
+    if (kontakEl) {
+        if (kontakVal.includes('@')) {
+            kontakEl.innerHTML = `<a href="mailto:${kontakVal}" style="color:#c6a43b; text-decoration:none; font-weight: 600;">${kontakVal}</a>`;
+        } else if (kontakVal.match(/^\+?[0-9\s\-]{7,}$/)) {
+            const cleanPhone = kontakVal.replace(/[^0-9+]/g, '');
+            kontakEl.innerHTML = `<a href="tel:${cleanPhone}" style="color:#c6a43b; text-decoration:none; font-weight: 600;">${kontakVal}</a>`;
+        } else {
+            kontakEl.textContent = kontakVal;
+        }
+    }
+    
+    document.getElementById('teamModalDesc').textContent = data.desc || '';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeTeamModal() {
+    const overlay = document.getElementById('teamModalOverlay');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeTeamModal();
+    }
+});
 </script>
 
 @endsection

@@ -3,36 +3,57 @@
 @section('title', 'Edit Berita')
 
 @section('content')
-<div class="card">
-    <div class="card-header">
-        <h5>Edit Berita</h5>
+<div class="d-flex align-items-center mb-3">
+    <a href="{{ route('admin.berita.index') }}" class="btn btn-sm btn-secondary me-2">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <h5 class="mb-0">Edit Berita — <span class="text-muted fw-normal">{{ $berita->judul }}</span></h5>
+</div>
+
+@if($errors->any())
+    <div class="alert alert-danger mb-3">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
+@endif
+
+<div class="card shadow-sm">
     <div class="card-body">
         <form action="{{ route('admin.berita.update', $berita->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            
+
             <div class="mb-3">
-                <label>Judul</label>
-                <input type="text" name="judul" class="form-control" value="{{ $berita->judul }}" required>
+                <label class="form-label fw-semibold">Judul <span class="text-danger">*</span></label>
+                <input type="text" name="judul" class="form-control @error('judul') is-invalid @enderror"
+                    value="{{ old('judul', $berita->judul) }}" required>
+                @error('judul') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
-    
-            
+
             <div class="mb-3">
-                <label>Penulis</label>
-                <input type="text" name="penulis" class="form-control" value="{{ $berita->penulis }}">
+                <label class="form-label fw-semibold">Penulis</label>
+                <input type="text" name="penulis" class="form-control"
+                    value="{{ old('penulis', $berita->penulis) }}">
             </div>
-            
+
             <div class="mb-3">
-                <label>Tanggal Terbit</label>
-                <input type="date" name="tanggal_terbit" class="form-control" value="{{ $berita->tanggal_terbit }}" required>
+                <label class="form-label fw-semibold">Tanggal Terbit <span class="text-danger">*</span></label>
+                <input type="date" name="tanggal_terbit"
+                    class="form-control @error('tanggal_terbit') is-invalid @enderror"
+                    value="{{ old('tanggal_terbit', $berita->tanggal_terbit) }}" required>
+                @error('tanggal_terbit') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
-            
+
             <div class="mb-3">
-                <label>Konten</label>
-                <textarea name="konten" class="form-control" rows="8" required>{{ $berita->konten }}</textarea>
+                <label class="form-label fw-semibold">Konten <span class="text-danger">*</span></label>
+                <textarea name="konten" class="form-control @error('konten') is-invalid @enderror"
+                    rows="8" required>{{ old('konten', $berita->konten) }}</textarea>
+                @error('konten') <div class="invalid-feedback">{{ $message }}</div> @enderror
             </div>
-            
+
             <div class="mb-3">
                 <label>Gambar Saat Ini</label><br>
                 <img src="{{ asset($berita->gambar) }}" width="100" class="mb-2">
@@ -51,12 +72,81 @@
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="status" value="1" {{ $berita->status ? 'checked' : '' }}>
                     <label>Publish</label>
+                <label class="form-label fw-semibold">Gambar</label>
+
+                {{-- Preview gambar saat ini --}}
+                @if($berita->gambar)
+                    <div class="mb-2" id="currentImgWrapper">
+                        <p class="small text-muted mb-1">Gambar saat ini:</p>
+                        <img src="{{ asset($berita->gambar) }}" alt="{{ $berita->judul }}"
+                            style="max-height:180px; border-radius:10px; border:1px solid #dee2e6; object-fit:cover;"
+                            onerror="this.src='{{ asset('images/sibaganding1.JPG') }}'">
+                    </div>
+                @endif
+
+                <input type="file" name="gambar" id="gambarInput"
+                    class="form-control @error('gambar') is-invalid @enderror"
+                    accept="image/jpeg,image/png,image/jpg,image/webp"
+                    onchange="previewGambar(this)">
+                <div class="form-text">
+                    <i class="fas fa-info-circle text-primary me-1"></i>
+                    Kosongkan jika tidak ingin mengganti gambar. Format: JPG, PNG, WEBP. <strong>Maks 2 MB.</strong>
+                </div>
+                @error('gambar') <div class="invalid-feedback">{{ $message }}</div> @enderror
+
+                <div class="mt-2" id="previewWrapper" style="display:none;">
+                    <p class="small text-muted mb-1">Preview gambar baru:</p>
+                    <img id="previewImg" src="" alt="Preview"
+                        style="max-height:180px; border-radius:10px; border:1px solid #dee2e6; object-fit:cover;">
+                    <div id="fileInfo" class="mt-1" style="font-size:.8rem; color:#666;"></div>
                 </div>
             </div>
-            
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('admin.berita.index') }}" class="btn btn-secondary">Batal</a>
+
+            <div class="mb-4">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" name="status" value="1"
+                        id="statusToggle" {{ old('status', $berita->status) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="statusToggle">Publish</label>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-1"></i> Simpan Perubahan
+                </button>
+                <a href="{{ route('admin.berita.index') }}" class="btn btn-secondary">Batal</a>
+            </div>
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+function previewGambar(input) {
+    const wrapper  = document.getElementById('previewWrapper');
+    const img      = document.getElementById('previewImg');
+    const fileInfo = document.getElementById('fileInfo');
+
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+
+        // Validasi client-side 2MB
+        if (file.size > 2 * 1024 * 1024) {
+            alert('Ukuran file terlalu besar! Maksimal 2 MB.');
+            input.value = '';
+            wrapper.style.display = 'none';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            img.src = e.target.result;
+            wrapper.style.display = 'block';
+            fileInfo.innerHTML = `<i class="fas fa-file-image me-1 text-success"></i>${file.name} (${(file.size/1024/1024).toFixed(2)} MB)`;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+</script>
+@endpush
 @endsection

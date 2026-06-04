@@ -7,12 +7,16 @@
 <style>
     /* ==================== HERO SECTION ==================== */
     .destinasi-hero {
-        height: 85vh;
-        min-height: 600px;
-        position: relative;
-        overflow: hidden;
-        margin-top: 0;
-    }
+    height: 60vh;
+    min-height: 450px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 0;
+    background: linear-gradient(135deg, #0a1628 0%, #0d2347 40%, #1a3a6b 70%, #0f2d55 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
     .hero-background {
         position: absolute;
@@ -41,17 +45,17 @@
     }
 
     .hero-content {
-        position: relative;
-        z-index: 10;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        color: white;
-        padding: 0 20px;
-    }
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 0 20px;
+}
 
     .hero-badge {
         display: inline-block;
@@ -67,24 +71,37 @@
     }
 
     .hero-content h1 {
-        font-size: 4.5rem;
-        font-weight: 800;
-        margin-bottom: 20px;
-        animation: fadeInUp 0.8s ease 0.1s both;
-        text-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
+    font-family: 'Cinzel', serif !important;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    letter-spacing: 6px;
+    line-height: 1.1;
+    text-transform: uppercase;
+    text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
+    text-align: center;
+    animation: fadeInUp 0.8s ease 0.1s both;
+}
 
-    .hero-content h1 span {
-        color: #c6a43b;
-    }
+.hero-content h1 span {
+    color: #c6a43b;
+    font-family: 'Cinzel', serif;
+}
 
     .hero-content p {
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto 30px;
-        opacity: 0.9;
-        animation: fadeInUp 0.8s ease 0.2s both;
-    }
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    line-height: 1.9;
+    font-weight: 600;
+    white-space: normal;
+    text-align: center;
+}}
 
     .hero-scroll {
         position: absolute;
@@ -166,12 +183,12 @@
     }
 
     .section-header h2 {
-        font-size: 2.5rem;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2.8rem;
         font-weight: 700;
         margin-bottom: 15px;
         color: #1a1a1a;
     }
-
     .section-header .divider {
         width: 60px;
         height: 3px;
@@ -181,11 +198,13 @@
     }
 
     .section-header p {
-        color: #666;
-        max-width: 600px;
-        margin: 0 auto;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
     }
-
     /* Category Cards Premium */
     .category-grid {
         display: grid;
@@ -484,8 +503,8 @@
 
     @media (max-width: 768px) {
         .destinasi-hero {
-            height: 70vh;
-            min-height: 500px;
+        height: 50vh;
+        min-height: 350px;
         }
         .hero-content h1 {
             font-size: 2.2rem;
@@ -510,19 +529,15 @@
 </style>
 
 <!-- ==================== HERO SECTION ==================== -->
-<section class="destinasi-hero">
-    <div class="hero-background" style="background-image: url('{{ $heroImage ? asset('storage/' . $heroImage) : '/image/destinasi-hero.jpg' }}');"></div>
-    <div class="hero-overlay"></div>
+<section class="destinasi-hero" 
+    @if($heroImage)
+        style="background: linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url('{{ asset('storage/' . $heroImage) }}') center/cover no-repeat;"
+    @endif>
     <div class="hero-content">
-        <span class="hero-badge" data-aos="fade-up">EXPLORE THE GEOSITE</span>
-        <h1 data-aos="fade-up" data-aos-delay="100">Destinasi <span>GeoToba</span></h1>
-        <p data-aos="fade-up" data-aos-delay="200">Jelajahi keindahan geologi, budaya, dan pesona alam Caldera Danau Toba yang diakui UNESCO</p>
-    </div>
-    <div class="hero-scroll">
-        <a href="#categories">
-            <span>SCROLL</span>
-            <div class="line"></div>
-        </a>
+        <div class="hero-divider"></div>
+        <h1 data-aos="fade-up">Destinasi <span>Sibaganding</span></h1>
+        <p data-aos="fade-up" data-aos-delay="200">Jelajahi tiga pilar utama Geosite Sibaganding — Biodiversity, Geodiversity, dan Culture Diversity — warisan alam dan budaya yang hidup di tepi Danau Toba</p>
+        <div class="hero-divider" style="margin-top: 24px;"></div>
     </div>
 </section>
 
@@ -596,6 +611,7 @@
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
 <!-- AOS -->
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
