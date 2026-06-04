@@ -11,7 +11,7 @@
     min-height: 350px;
     position: relative;
     overflow: hidden;
-    margin-top: 0;
+    margin-top: 76px;
     background: linear-gradient(135deg, #0a1628 0%, #0d2347 40%, #1a3a6b 70%, #0f2d55 100%);
     display: flex;
     align-items: center;

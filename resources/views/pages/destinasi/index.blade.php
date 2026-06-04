@@ -10,7 +10,7 @@
     min-height: 450px;
     position: relative;
     overflow: hidden;
-    margin-top: 0;
+    margin-top: 76px;
 }
 
     .slides-container {

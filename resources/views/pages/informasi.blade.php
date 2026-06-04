@@ -64,6 +64,7 @@
         justify-content: center;
         text-align: center;
         color: white;
+        padding-top: 76px;
     }
     .sejarah-hero::before {
         content: '';

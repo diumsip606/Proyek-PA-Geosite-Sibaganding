@@ -13,6 +13,7 @@
     justify-content: center;
     color: white;
     overflow: hidden;
+    margin-top: 76px;
 }
 
 .hero-overlay {

@@ -802,7 +802,7 @@
         </div>
     </nav>
 
-    <main style="margin-top: 100px;"> @yield('content')
+    <main> @yield('content')
     </main>
 
     <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>

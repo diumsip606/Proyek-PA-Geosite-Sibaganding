@@ -112,6 +112,7 @@ body{
     width: 100%;
     height: 80vh;
     overflow: hidden;
+    margin-top: 76px;
 }
 
 .collage-grid {
