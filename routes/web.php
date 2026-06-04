@@ -226,4 +226,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // Rute untuk Admin Info Kontak
     Route::resource('kontak-info', KontakInfoController::class)->names('admin.kontak-info');
+
+    // Rute untuk Header Halaman
+    Route::get('page-header', [\App\Http\Controllers\Admin\PageHeaderController::class, 'index'])->name('admin.page-header.index');
+    Route::get('page-header/{id}/edit', [\App\Http\Controllers\Admin\PageHeaderController::class, 'edit'])->name('admin.page-header.edit');
+    Route::put('page-header/{id}', [\App\Http\Controllers\Admin\PageHeaderController::class, 'update'])->name('admin.page-header.update');
 });

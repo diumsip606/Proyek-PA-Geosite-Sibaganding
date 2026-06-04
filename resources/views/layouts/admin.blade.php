@@ -343,6 +343,9 @@
             <a href="{{ route('admin.kontak-info.index') }}" class="{{ request()->routeIs('admin.kontak-info.*') ? 'active' : '' }}">
                 <i class="fas fa-address-book"></i> Info Kontak
             </a>
+            <a href="{{ route('admin.page-header.index') }}" class="{{ request()->routeIs('admin.page-header.*') ? 'active' : '' }}">
+                <i class="fas fa-heading"></i> Header Halaman
+            </a>
         </div>
     </div>
 

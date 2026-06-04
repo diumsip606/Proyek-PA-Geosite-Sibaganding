@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Umkm;
 use App\Models\Penginapan;
 
-class InformasiController extends Controller
+class FrontendController extends Controller
 {
     public function index()
     {
@@ -13,8 +13,8 @@ class InformasiController extends Controller
         $penginapan = Penginapan::latest()->take(3)->get();
 
         return view('informasi.index', compact(
-            'Umkm',
-            'PSenginapan'
+            'umkm',
+            'penginapan'
         ));
     }
 }
