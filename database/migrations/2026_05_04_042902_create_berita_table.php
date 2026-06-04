@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->string('slug')->nullable()->unique();
+            $table->string('link_berita')->nullable(); 
             $table->longText('konten')->nullable();
             $table->string('gambar')->nullable();
             $table->unsignedBigInteger('kategori_id')->nullable();
