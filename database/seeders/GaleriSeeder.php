@@ -21,8 +21,8 @@ class GaleriSeeder extends Seeder
             [
                 'judul'       => 'Monyet Ekor Panjang',
                 'deskripsi'   => 'Monyet ekor panjang (Macaca fascicularis) merupakan salah satu spesies primata yang menghuni kawasan Geosite Sibaganding, tepatnya di Monkey Forest Sibaganding. Kehadiran satwa ini menjadi salah satu daya tarik utama bagi para wisatawan yang berkunjung karena mereka memiliki perilaku yang unik di habitatnya.',
-                'gambar'      => '/image/monyet.jpg',
-                'kategori_id' => $idBio, 
+                'gambar'      => 'https://calderatobageopark.org/wp-content/uploads/2025/05/Geosite-Sibaganding-Simalungun-Aspek-Biologi-scaled.jpg#8414',
+                'kategori_id' => $idBio,
                 'lokasi'      => 'Monkey Forest',
                 'status'      => true,
             ],
@@ -44,6 +44,54 @@ class GaleriSeeder extends Seeder
                 'lokasi'      => 'Geosite Sibaganding, Parapat',
                 'status'      => true,
             ],
+
+            [
+                'judul'       => 'Buah Ara',
+                'deskripsi'   => 'Detail buah ara kemerahan yang tumbuh bergerombol di batang utama pohon Hariara. Tanaman ini memiliki peran vital dalam rantai makanan ekosistem Geosite Sibaganding karena buahnya merupakan asupan utama bagi kawanan primata yang hidup di kawasan tersebut.',
+                'gambar'      => 'https://calderatobageopark.org/wp-content/uploads/2025/05/Geosite-Sibaganding-Simalungun-Biologi-3-scaled.jpg',
+                'kategori_id' => $idBio, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Geosite Sibaganding, Parapat',
+                'status'      => true,
+            ],
+
+            [
+                'judul'       => 'Pohon Hariara',
+                'deskripsi'   => 'Pada zaman dahulu, pohon ini berfungsi sebagai penanda awal mula berdirinya sebuah perkampungan (huta) Batak. Ini merupakan pohon huta (perkampungan) marga Sinaga yang ada di daerah Pelabuhan Ajibata, Parapat.',
+                'gambar'      => '',
+                'kategori_id' => $idCulture, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Pelabuhan Ajibata, Parapat',
+                'status'      => true,
+            ],
+
+            [
+                'judul'       => 'Beruk',
+                'deskripsi'   => 'Kawanan beruk (Macaca nemestrina) di kawasan Geosite Sibaganding tepatnya di Monkey Forest. Tampak seekor beruk duduk tenang di atas batang pohon tumbang, dikelilingi oleh anggota kawanan lainnya di habitat alami mereka.',
+                'gambar'      => '',
+                'kategori_id' => $idBio, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Monkey Forest, Parapat',
+                'status'      => true,
+            ],
+
+            [
+                'judul'       => 'Siamang',
+                'deskripsi'   => 'Siamang (Symphalangus syndactylus) adalah primata berbulu hitam pekat dengan kantong suara besar di tenggorokan yang menghasilkan suara nyaring khas. Siamang merupakan salah satu penghuni utama Monkey Forest Sibaganding — hutan lindung 50 hektar yang menjadi rumah berbagai primata seperti siamang, kera, kukang, dan monyet ekor panjang. Keberadaan siamang di kawasan ini merupakan hasil nyata dari tradisi konservasi yang dirintis oleh Umar Manik.',
+                'gambar'      => '',
+                'kategori_id' => $idBio, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Monkey Forest, Parapat',
+                'status'      => true,
+            ],
+
+            [
+                'judul'       => 'Monyet Ekor Panjang',
+                'deskripsi'   => 'Monyet ekor panjang (Macaca fascicularis) merupakan salah satu spesies primata yang menghuni kawasan Geosite Sibaganding, tepatnya di Monkey Forest Sibaganding. Kehadiran satwa ini menjadi salah satu daya tarik utama bagi para wisatawan yang berkunjung karena mereka memiliki perilaku yang unik di habitatnya.',
+                'gambar'      => '',
+                'kategori_id' => $idBio, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Monkey Forest, Parapat',
+                'status'      => true,
+            ],
+
+            
+
         ];
 
         // 3. Simpan ke database

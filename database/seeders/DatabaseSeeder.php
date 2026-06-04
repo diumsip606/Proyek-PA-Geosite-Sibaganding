@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             KategoriSeeder::class,
-#            GaleriSeeder::class,
+            GaleriSeeder::class,
             HeroSliderSeeder::class,
             FaktaUnikSeeder::class,
             WarisanGeologiSeeder::class,
