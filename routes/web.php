@@ -167,8 +167,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Lupa Password Routes
 Route::get('/forgot-password', [AuthController::class, 'showForgotForm'])->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
-Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+Route::post('/forgot-password/verify-otp', [AuthController::class, 'verifyOtp'])->name('password.verify-otp');
+Route::post('/forgot-password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
+
 
 
 /*
