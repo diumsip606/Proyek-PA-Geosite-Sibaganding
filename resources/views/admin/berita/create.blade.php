@@ -69,6 +69,16 @@
                     <div class="text-danger mt-1">{{ $message }}</div>
                 @enderror
             </div>
+
+            {{-- LINK BERITA --}}
+            <div class="mb-3">
+                <label>Link Berita (Optional)</label>
+                <input type="url" name="link" class="form-control" placeholder="https://example.com" value="{{ old('link') }}">
+                
+                @error('link')
+                    <div class="text-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
             
             {{-- STATUS --}}
             <div class="mb-3">

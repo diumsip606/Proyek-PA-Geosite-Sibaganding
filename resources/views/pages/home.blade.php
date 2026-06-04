@@ -3309,7 +3309,7 @@ $py = max(25, min(72, (float)($fakta->y_koordinat ?? 50)));
                 <div class="news-card">
                     <img src="{{ $b->gambar ? asset($b->gambar) : asset('images/galleri-'.($i+1).'.jpg') }}" alt="{{ $b->judul }}">
                     <div class="news-content">
-                        <span>{{ $b->kategori ? $b->kategori->nama : 'Berita' }} • Sibaganding</span>
+                        <span>Berita • Sibaganding</span>
                         <h4>{{ $b->judul }}</h4>
                         <p>{{ Str::limit(strip_tags($b->konten ?? $b->isi ?? ''), 100) }}</p>
                         <a href="{{ route('berita.detail', $b->slug) }}">Baca Selengkapnya →</a>

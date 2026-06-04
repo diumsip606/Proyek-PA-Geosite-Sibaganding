@@ -18,21 +18,22 @@ class BeritaController extends Controller
 
     public function create()
     {
-        // kategori sudah tidak dipakai di form
         return view('admin.berita.create');
     }
 
     public function store(Request $request)
     {
        $request->validate([
-    'judul' => 'required',
-    'konten' => 'required',
-    'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-    'tanggal_terbit' => 'required',
-], [
-    'gambar.max' => 'Ukuran gambar maksimal 2MB!',
-    'gambar.required' => 'Gambar wajib diisi!',
-]);
+            'judul' => 'required',
+            'konten' => 'required',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'tanggal_terbit' => 'required',
+            'link' => 'nullable|url',
+        ], [
+            'gambar.max' => 'Ukuran gambar maksimal 2MB!',
+            'gambar.required' => 'Gambar wajib diisi!',
+            'link.url' => 'Format link berita harus berupa URL yang valid (contoh: https://example.com)!',
+        ]);
 
         $gambar = $request->file('gambar');
         $namaGambar = time() . '_' . $gambar->getClientOriginalName();
@@ -50,6 +51,7 @@ class BeritaController extends Controller
             'penulis' => $request->penulis ?? 'Admin',
             'tanggal_terbit' => $request->tanggal_terbit,
             'status' => $request->has('status'),
+            'link' => $request->link,
         ]);
 
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan!');
@@ -71,6 +73,9 @@ class BeritaController extends Controller
             'judul' => 'required',
             'konten' => 'required',
             'tanggal_terbit' => 'required',
+            'link' => 'nullable|url',
+        ], [
+            'link.url' => 'Format link berita harus berupa URL yang valid (contoh: https://example.com)!',
         ]);
 
         $data = [
@@ -84,6 +89,7 @@ class BeritaController extends Controller
             'penulis' => $request->penulis ?? 'Admin',
             'tanggal_terbit' => $request->tanggal_terbit,
             'status' => $request->has('status'),
+            'link' => $request->link,
         ];
 
         if ($request->hasFile('gambar')) {

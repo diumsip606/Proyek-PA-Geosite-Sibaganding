@@ -38,6 +38,14 @@
                 <img src="{{ asset($berita->gambar) }}" width="100" class="mb-2">
                 <input type="file" name="gambar" class="form-control" accept="image/*">
             </div>
+
+            <div class="mb-3">
+                <label>Link Berita (Optional)</label>
+                <input type="url" name="link" class="form-control" placeholder="https://example.com" value="{{ old('link', $berita->link) }}">
+                @error('link')
+                    <div class="text-danger mt-1">{{ $message }}</div>
+                @enderror
+            </div>
             
             <div class="mb-3">
                 <div class="form-check">
