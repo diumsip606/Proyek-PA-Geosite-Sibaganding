@@ -994,9 +994,9 @@
 
             <div class="footer-links">
                 <h4>Tautan</h4>
-                <a href="#home">Beranda</a>
-                <a href="#about">Informasi</a>
-                <a href="#galeri">Galeri</a>
+                <a href="{{ url('/') }}">Beranda</a>
+                <a href="{{ url('/informasi') }}">Informasi</a>
+                <a href="{{ url('/galeri') }}">Galeri</a>
                 <a href="{{ url('/berita') }}">Berita</a>
                 <a href="{{ url('/kontak') }}">Kontak</a>
             </div>
