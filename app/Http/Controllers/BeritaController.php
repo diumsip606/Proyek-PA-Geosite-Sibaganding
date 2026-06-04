@@ -25,14 +25,14 @@ class BeritaController extends Controller
             ];
         });
 
-        // Ambil gambar berita terbaru untuk slideshow background hero (maksimal 5 gambar)
-        $sliderImages = $berita->whereNotNull('gambar')->filter(function($item) {
-            return !empty($item->gambar) && file_exists(public_path($item->gambar));
-        })->pluck('gambar')->unique()->take(5)->map(function($img) {
-            return asset($img);
-        })->toArray();
+        // Ambil SEMUA gambar berita untuk slideshow background hero
+        $sliderImages = $berita->map(function($item) {
+            return $item->gambar
+                ? asset($item->gambar)
+                : asset('images/sibaganding1.JPG');
+        })->unique()->values()->toArray();
 
-        // Jika tidak ada gambar berita yang valid, gunakan default Geosite
+        // Jika tidak ada berita sama sekali, gunakan default Geosite
         if (empty($sliderImages)) {
             $sliderImages = [asset('images/sibaganding1.JPG')];
         }

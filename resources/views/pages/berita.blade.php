@@ -83,7 +83,7 @@
     text-align: center;
     color: white;
     margin-top: 76px;
-    padding: 100px 20px;
+    padding: 100px 20px 80px;
     position: relative;
     overflow: hidden;
 }
@@ -116,6 +116,10 @@
     opacity: 0;
 <<<<<<< HEAD
     transform: scale(1.08);
+    transition: opacity 1.8s ease-in-out, transform 8s ease-out;
+=======
+<<<<<<< HEAD
+    transform: scale(1.08);
     transition: opacity 1.5s ease-in-out, transform 6s ease-out;
 }
 
@@ -123,6 +127,7 @@
 =======
     transform: scale(1.05);
     transition: opacity 1.5s ease-in-out, transform 6s ease-out;
+>>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
 }
 
 .berita-slide.active {
@@ -131,7 +136,7 @@
     transform: scale(1);
 }
 
-/* Overlay tipis agar teks terbaca */
+/* Overlay gradient agar teks terbaca, tapi foto tetap terlihat */
 .berita-hero::before {
     content: '';
     position: absolute;
@@ -139,6 +144,14 @@
     left: 0;
     width: 100%;
     height: 100%;
+<<<<<<< HEAD
+    background: linear-gradient(
+        to bottom,
+        rgba(5, 20, 40, 0.55) 0%,
+        rgba(5, 20, 40, 0.45) 50%,
+        rgba(5, 20, 40, 0.70) 100%
+    );
+=======
 <<<<<<< HEAD
     background: rgba(0, 0, 0, 0.55);
     z-index: 2;
@@ -154,7 +167,36 @@
     max-width: 800px;
 =======
     background: linear-gradient(rgba(0, 36, 65, 0.65), rgba(0, 36, 65, 0.65));
+>>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
     z-index: 1;
+}
+
+/* Dot Indicators */
+.slide-dots {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 3;
+}
+
+.slide-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.slide-dot.active {
+    background: #c6a43b;
+    border-color: #c6a43b;
+    width: 24px;
+    border-radius: 4px;
 }
 
 .berita-hero-content {
@@ -166,14 +208,14 @@
 }
 
 .berita-hero h1 {
-    font-family: 'Poppins', sans-serif !important;
+    font-family: 'Cinzel', serif !important;
     font-size: 4.5rem;
-    font-weight: 800;
+    font-weight: 700;
     margin: 0;
     letter-spacing: 6px;
     text-transform: uppercase;
     color: #ffffff !important;
-    text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
 }
 
 .hero-divider {
@@ -196,12 +238,14 @@
 }
 
 .berita-hero p {
-    font-family: 'Poppins', sans-serif !important;
-    font-size: 0.9rem;
-    letter-spacing: 0.2em;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: 1rem;
+    letter-spacing: 4px;
     text-transform: uppercase;
     color: white;
-    opacity: 0.85;
+    opacity: 0.9;
+    font-weight: 600;
+    line-height: 2;
     margin: 0;
 }
 
@@ -559,13 +603,22 @@
         <div class="berita-slide {{ $i === 0 ? 'active' : '' }}" style="background-image: url('{{ $img }}');"></div>
         @endforeach
     </div>
-    
+
     <div class="berita-hero-content">
         <h1 data-aos="fade-up">Berita & Event</h1>
         <div class="hero-divider" data-aos="fade-up" data-aos-delay="100"></div>
         <p data-aos="fade-up" data-aos-delay="200">Informasi terkini seputar Geopark Danau Toba</p>
 >>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
     </div>
+
+    <!-- Dot Indicators -->
+    @if(count($sliderImages) > 1)
+    <div class="slide-dots" id="slideDots">
+        @foreach($sliderImages as $i => $img)
+        <div class="slide-dot {{ $i === 0 ? 'active' : '' }}" onclick="goToSlide({{ $i }})"></div>
+        @endforeach
+    </div>
+    @endif
 </section>
 
 <!-- BERITA GRID -->
@@ -712,18 +765,39 @@
     // Slideshow Background Hero Berita
     let slideCurrent = 0;
     const beritaSlides = document.querySelectorAll('.berita-slide');
-    
+    const slideDots = document.querySelectorAll('.slide-dot');
+    let slideTimer = null;
+
+    function goToSlide(index) {
+        beritaSlides[slideCurrent].classList.remove('active');
+        if (slideDots[slideCurrent]) slideDots[slideCurrent].classList.remove('active');
+
+        slideCurrent = index;
+
+        beritaSlides[slideCurrent].classList.add('active');
+        if (slideDots[slideCurrent]) slideDots[slideCurrent].classList.add('active');
+    }
+
     function showNextBeritaSlide() {
         if (beritaSlides.length <= 1) return;
-        
-        beritaSlides[slideCurrent].classList.remove('active');
-        slideCurrent = (slideCurrent + 1) % beritaSlides.length;
-        beritaSlides[slideCurrent].classList.add('active');
+        const next = (slideCurrent + 1) % beritaSlides.length;
+        goToSlide(next);
     }
-    
-    if (beritaSlides.length > 1) {
-        setInterval(showNextBeritaSlide, 5000); // Ganti gambar setiap 5 detik
+
+    function startSlideTimer() {
+        if (beritaSlides.length > 1) {
+            slideTimer = setInterval(showNextBeritaSlide, 4000);
+        }
     }
+
+    // Pause saat hover
+    const heroSection = document.querySelector('.berita-hero');
+    if (heroSection) {
+        heroSection.addEventListener('mouseenter', () => clearInterval(slideTimer));
+        heroSection.addEventListener('mouseleave', () => startSlideTimer());
+    }
+
+    startSlideTimer();
 </script>
 
     // Hero Slider
