@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('title', $berita->judul . ' - Geosite Danau Toba')
 
 @section('content')
@@ -413,3 +414,26 @@
 </script>
 
 @endsection
+=======
+@section('title', $berita->judul)
+
+@section('content')
+<section style="padding: 140px 0 80px;">
+    <div class="container">
+        <h1>{{ $berita->judul }}</h1>
+
+        @if($berita->gambar)
+            <img src="{{ asset($berita->gambar) }}" alt="{{ $berita->judul }}" style="width:100%; max-height:450px; object-fit:cover; border-radius:20px; margin:25px 0;">
+        @endif
+
+        <p>
+            {{ $berita->tanggal_terbit ? $berita->tanggal_terbit->format('d M Y') : '' }}
+        </p>
+
+        <div>
+            {!! $berita->konten !!}
+        </div>
+    </div>
+</section>
+@endsection
+
