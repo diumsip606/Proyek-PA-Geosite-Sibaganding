@@ -123,7 +123,7 @@
         color: #073b63 !important;
     }
 }
-/* 
+/*
 
         /* BRAND & LOGO - DIBERSIHKAN DARI BACKGROUND ANEH */
         .navbar-brand {
@@ -342,10 +342,10 @@
         }
 
         .music-tooltip {
-            background: rgba(7, 59, 99, 0.9);
+            background: rgba(7, 59, 99, 0.95);
             color: #fff8df;
-            padding: 8px 18px;
-            border-radius: 30px;
+            padding: 10px 18px;
+            border-radius: 12px;
             font-size: 0.72rem;
             font-weight: 600;
             border: 1px solid rgba(198, 164, 59, 0.35);
@@ -390,7 +390,7 @@
             border-color: #f0b323;
             box-shadow: 0 0 15px rgba(240, 179, 35, 0.4);
         }
-        
+
         .music-toggle:hover {
             transform: scale(1.08);
         }
@@ -681,7 +681,13 @@
     </audio>
 
     <div class="music-container">
-        <div class="music-tooltip" id="musicTooltip">Putar Musik Latar</div>
+        <div class="music-tooltip" id="musicTooltip">
+            <div style="font-weight: 600; margin-bottom: 4px;">Putar Musik Latar</div>
+            <div style="font-size: 0.65rem; opacity: 0.85; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 4px; text-align: left; line-height: 1.3;">
+                <i class="fa-solid fa-music" style="color: #c6a43b; margin-right: 4px;"></i> <strong>Lagu:</strong> O Tano Batak (Instrumen)<br>
+                <i class="fa-solid fa-user" style="color: #c6a43b; margin-right: 4px;"></i> <strong>Karya:</strong> S. Dis Sitompul
+            </div>
+        </div>
         <button id="musicToggle" class="music-toggle" type="button">
             <i class="fa-solid fa-music"></i>
         </button>
@@ -806,7 +812,14 @@
                     ? '<i class="fa-solid fa-pause"></i>'
                     : '<i class="fa-solid fa-play"></i>';
                 if (tooltip) {
-                    tooltip.textContent = isPlaying ? 'Hentikan Musik' : 'Putar Musik Latar';
+                    const stateText = isPlaying ? 'Hentikan Musik' : 'Putar Musik Latar';
+                    tooltip.innerHTML = `
+                        <div style="font-weight: 600; margin-bottom: 4px;">${stateText}</div>
+                        <div style="font-size: 0.65rem; opacity: 0.85; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 4px; text-align: left; line-height: 1.3;">
+                            <i class="fa-solid fa-music" style="color: #c6a43b; margin-right: 4px;"></i> <strong>Lagu:</strong> TobaDream (Instrumen)<br>
+                            <i class="fa-solid fa-user" style="color: #c6a43b; margin-right: 4px;"></i> <strong>Karya:</strong> Vicky Sianipar
+                        </div>
+                    `;
                 }
                 localStorage.setItem('musicPlaying', isPlaying ? 'true' : 'false');
             }

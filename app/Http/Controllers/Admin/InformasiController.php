@@ -12,13 +12,13 @@ class InformasiController extends Controller
     public function index(Request $request)
     {
         $query = Informasi::latest();
-        
-        if ($request->has('kategori')) {
+
+        if ($request->has('kategori') && $request->kategori) {
             $query->where('kategori', $request->kategori);
         } else {
             $query->where('kategori', '!=', 'Pengurus');
         }
-        
+
         $informasi = $query->paginate(10);
         return view('admin.informasi.index', compact('informasi'));
     }
@@ -31,22 +31,33 @@ class InformasiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
-            'konten' => 'required',
-            'kategori' => 'required',
+            'judul'    => 'required|string|max:255',
+            'konten'   => 'required|string',
+            'kategori' => 'required|string',
+            'penulis'  => 'required|string|max:255',
+            'gambar'   => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ], [
+            'judul.required'    => 'Judul wajib diisi.',
+            'konten.required'   => 'Konten wajib diisi.',
+            'kategori.required' => 'Kategori wajib dipilih.',
+            'penulis.required'  => 'Penulis/Jabatan wajib diisi.',
+            'gambar.required'   => 'Gambar wajib diunggah.',
+            'gambar.image'      => 'File harus berupa gambar.',
+            'gambar.mimes'      => 'Format gambar: jpeg, png, jpg, atau webp.',
+            'gambar.max'        => 'Ukuran gambar maksimal 2MB.',
         ]);
 
         $data = [
-            'judul' => $request->judul,
-            'slug' => Str::slug($request->judul),
-            'konten' => $request->konten,
+            'judul'    => $request->judul,
+            'slug'     => Str::slug($request->judul) . '-' . time(),
+            'konten'   => $request->konten,
             'kategori' => $request->kategori,
-            'penulis' => $request->penulis ?? 'Admin',
-            'status' => $request->has('status'),
+            'penulis'  => $request->penulis,
+            'status'   => $request->has('status') ? 1 : 0,
         ];
 
         if ($request->hasFile('gambar')) {
-            $gambar = $request->file('gambar');
+            $gambar     = $request->file('gambar');
             $namaGambar = time() . '_' . $gambar->getClientOriginalName();
             $gambar->move(public_path('uploads/informasi'), $namaGambar);
             $data['gambar'] = 'uploads/informasi/' . $namaGambar;
@@ -54,10 +65,15 @@ class InformasiController extends Controller
 
         Informasi::create($data);
 
-        if ($request->kategori === 'Pengurus') {
-            return redirect()->route('admin.informasi.index', ['kategori' => 'Pengurus'])->with('success', 'Pengurus berhasil ditambahkan!');
-        }
-        return redirect()->route('admin.informasi.index')->with('success', 'Informasi berhasil ditambahkan!');
+        $redirect = $request->kategori === 'Pengurus'
+            ? route('admin.informasi.index', ['kategori' => 'Pengurus'])
+            : route('admin.informasi.index');
+
+        return redirect($redirect)->with('success',
+            $request->kategori === 'Pengurus'
+                ? 'Pengurus berhasil ditambahkan!'
+                : 'Informasi berhasil ditambahkan!'
+        );
     }
 
     public function edit($id)
@@ -71,25 +87,36 @@ class InformasiController extends Controller
         $informasi = Informasi::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required',
-            'konten' => 'required',
-            'kategori' => 'required',
+            'judul'    => 'required|string|max:255',
+            'konten'   => 'required|string',
+            'kategori' => 'required|string',
+            'penulis'  => 'required|string|max:255',
+            'gambar'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ], [
+            'judul.required'    => 'Judul wajib diisi.',
+            'konten.required'   => 'Konten wajib diisi.',
+            'kategori.required' => 'Kategori wajib dipilih.',
+            'penulis.required'  => 'Penulis/Jabatan wajib diisi.',
+            'gambar.image'      => 'File harus berupa gambar.',
+            'gambar.mimes'      => 'Format gambar: jpeg, png, jpg, atau webp.',
+            'gambar.max'        => 'Ukuran gambar maksimal 2MB.',
         ]);
 
         $data = [
-            'judul' => $request->judul,
-            'slug' => Str::slug($request->judul),
-            'konten' => $request->konten,
+            'judul'    => $request->judul,
+            'slug'     => Str::slug($request->judul) . '-' . $informasi->id,
+            'konten'   => $request->konten,
             'kategori' => $request->kategori,
-            'penulis' => $request->penulis ?? 'Admin',
-            'status' => $request->has('status'),
+            'penulis'  => $request->penulis,
+            'status'   => $request->has('status') ? 1 : 0,
         ];
 
         if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada
             if ($informasi->gambar && file_exists(public_path($informasi->gambar))) {
                 unlink(public_path($informasi->gambar));
             }
-            $gambar = $request->file('gambar');
+            $gambar     = $request->file('gambar');
             $namaGambar = time() . '_' . $gambar->getClientOriginalName();
             $gambar->move(public_path('uploads/informasi'), $namaGambar);
             $data['gambar'] = 'uploads/informasi/' . $namaGambar;
@@ -97,24 +124,36 @@ class InformasiController extends Controller
 
         $informasi->update($data);
 
-        if ($request->kategori === 'Pengurus') {
-            return redirect()->route('admin.informasi.index', ['kategori' => 'Pengurus'])->with('success', 'Pengurus berhasil diupdate!');
-        }
-        return redirect()->route('admin.informasi.index')->with('success', 'Informasi berhasil diupdate!');
+        $redirect = $request->kategori === 'Pengurus'
+            ? route('admin.informasi.index', ['kategori' => 'Pengurus'])
+            : route('admin.informasi.index');
+
+        return redirect($redirect)->with('success',
+            $request->kategori === 'Pengurus'
+                ? 'Pengurus berhasil diperbarui!'
+                : 'Informasi berhasil diperbarui!'
+        );
     }
 
     public function destroy($id)
     {
         $informasi = Informasi::findOrFail($id);
-        $kategori = $informasi->kategori;
+        $kategori  = $informasi->kategori;
+
         if ($informasi->gambar && file_exists(public_path($informasi->gambar))) {
             unlink(public_path($informasi->gambar));
         }
+
         $informasi->delete();
-        
-        if ($kategori === 'Pengurus') {
-            return redirect()->route('admin.informasi.index', ['kategori' => 'Pengurus'])->with('success', 'Pengurus berhasil dihapus!');
-        }
-        return redirect()->route('admin.informasi.index')->with('success', 'Informasi berhasil dihapus!');
+
+        $redirect = $kategori === 'Pengurus'
+            ? route('admin.informasi.index', ['kategori' => 'Pengurus'])
+            : route('admin.informasi.index');
+
+        return redirect($redirect)->with('success',
+            $kategori === 'Pengurus'
+                ? 'Pengurus berhasil dihapus!'
+                : 'Informasi berhasil dihapus!'
+        );
     }
 }

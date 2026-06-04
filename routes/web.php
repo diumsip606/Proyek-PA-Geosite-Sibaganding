@@ -208,28 +208,22 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
     Route::resource('hero-slider', \App\Http\Controllers\Admin\HeroSliderController::class)->names('admin.hero-slider');
     Route::resource('fakta-unik', FaktaUnikController::class)->names('admin.fakta-unik');
-    Route::resource('video-youtube', VideoYoutubeController::class)->names('admin.video-youtube');
+    Route::resource('video-youtube', \App\Http\Controllers\Admin\VideoYoutubeController::class)->names('admin.video-youtube');
     Route::resource('warisan-geologi', WarisanGeologiController::class)->names('admin.warisan-geologi');
     Route::resource('umkm', AdminUmkmController::class)->names('admin.umkm');
     Route::resource('penginapan', AdminPenginapanController::class)->names('admin.penginapan');
-    Route::resource('video-youtube', \App\Http\Controllers\Admin\VideoYoutubeController::class)->names('admin.video-youtube');
-Route::resource('fakta-unik', FaktaUnikController::class)->names('admin.fakta-unik');
-    // Rute untuk Admin Destinasi
-    Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
 
-    Route::post('galeri/toggle-status/{id}', [AdminGaleriController::class, 'toggleStatus']);
+    Route::post('galeri/toggle-status/{id}', [AdminGaleriController::class, 'toggleStatus'])
+        ->name('admin.galeri.toggle-status');
+
+    Route::post('galeri/{id}/set-hero', [AdminGaleriController::class, 'setHero'])
+        ->name('admin.galeri.set_hero');
+    Route::post('galeri/{id}/unset-hero', [AdminGaleriController::class, 'unsetHero'])
+        ->name('admin.galeri.unset_hero');
+
     // Rute untuk Admin Pesan (Pesan Masuk)
     Route::resource('pesan', \App\Http\Controllers\Admin\PesanController::class)->names('admin.pesan');
 
     // Rute untuk Admin Info Kontak
     Route::resource('kontak-info', KontakInfoController::class)->names('admin.kontak-info');
-
-    Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])
-        ->name('admin.galeri.toggle-status');
-
-    // ini mengarah ke edit background galeri
-    Route::post('galeri/{id}/set-hero', [AdminGaleriController::class, 'setHero'])
-        ->name('admin.galeri.set_hero');
-    Route::post('galeri/{id}/unset-hero', [AdminGaleriController::class, 'unsetHero'])
-        ->name('admin.galeri.unset_hero');
 });

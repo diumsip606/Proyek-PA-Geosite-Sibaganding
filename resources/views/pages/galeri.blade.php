@@ -206,11 +206,16 @@ body{
 }
 
 .hero-content p{
-    font-size:1.3rem;
+    font-size:1rem;
     color:#e2e8f0;
     max-width:700px;
     margin:auto;
     line-height:1.8;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
 }
 
 .hero-scroll-indicator {

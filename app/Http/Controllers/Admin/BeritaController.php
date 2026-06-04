@@ -27,7 +27,7 @@ class BeritaController extends Controller
         $request->validate([
             'judul' => 'required',
             'konten' => 'required',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
             'tanggal_terbit' => 'required',
         ]);
 
@@ -65,9 +65,10 @@ class BeritaController extends Controller
         $berita = Berita::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required',
-            'konten' => 'required',
+            'judul'          => 'required',
+            'konten'         => 'required',
             'tanggal_terbit' => 'required',
+            'gambar'         => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $data = [
