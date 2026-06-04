@@ -10,11 +10,17 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+<<<<<<< HEAD
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+=======
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+>>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -22,6 +28,45 @@
     <style>
         * {
             font-family: 'Poppins', sans-serif;
+        }
+
+        /* UNIFIED HERO LARGE TITLES */
+        .sejarah-hero h1,
+        .gallery-hero-collage h1,
+        .berita-hero h1,
+        .kontak-hero h1,
+        .destinasi-hero h1,
+        .kategori-hero h1 {
+            font-family: 'Cinzel', serif !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 6px !important;
+            text-shadow: 2px 4px 20px rgba(0,0,0,0.5) !important;
+        }
+
+        /* UNIFIED HERO SUBTITLES */
+        .sejarah-hero p,
+        .gallery-hero-collage p,
+        .berita-hero p,
+        .kontak-hero p,
+        .destinasi-hero p,
+        .kategori-hero p {
+            font-family: 'Raleway', sans-serif !important;
+            font-size: 0.9rem !important;
+            letter-spacing: 0.2em !important;
+            text-transform: uppercase !important;
+            opacity: 0.85 !important;
+        }
+
+        /* UNIFIED SECTION TITLES / MEDIUM HEADINGS */
+        .section-title h2,
+        .section-header h2,
+        .gallery-title h2,
+        .team-title h2,
+        .timeline-title,
+        .fakta-title {
+            font-family: 'Cormorant Garamond', serif !important;
+            font-weight: 600 !important;
         }
 
         /* NAVBAR DEFAULT - SELALU BIRU SOLID */

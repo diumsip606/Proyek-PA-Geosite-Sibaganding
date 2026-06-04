@@ -41,10 +41,30 @@ class InformasiSeeder extends Seeder
                 'status' => true,
                 'views' => 0
             ],
+            [
+                'judul' => 'Andy Agustian Manik',
+                'slug' => 'andy-agustian-manik',
+                'konten' => '<p>Bertanggung jawab mengoordinasikan seluruh pengelolaan kawasan Geosite Sibaganding termasuk pengembangan sarana prasarana, program edukasi, konservasi lingkungan, serta kemitraan strategis dengan berbagai pihak eksternal untuk kemajuan geowisata di Danau Toba.</p>',
+                'gambar' => 'uploads/informasi/1780493952_pak andy.jpg',
+                'kategori' => 'Pengurus',
+                'penulis' => 'MANAGER PUSAT INFORMASI GEOPARK CALDERA TOBA',
+                'status' => true,
+                'views' => 0
+            ],
+            [
+                'judul' => 'Corry Paroma Panjaitan,S.H.',
+                'slug' => 'corry-paroma-panjaitan-sh',
+                'konten' => '<p>Bertugas mendampingi seluruh kegiatan lapangan di kawasan Geosite Sibaganding, memimpin pemberdayaan kelompok sadar wisata (Pokdarwis) setempat, serta mengoordinasikan program kebersihan, keamanan, dan pelayanan demi kenyamanan pengunjung.</p>',
+                'gambar' => 'uploads/informasi/1780493852_bu corry.jpg',
+                'kategori' => 'Pengurus',
+                'penulis' => 'KORDINATOR POKJA GEOPARK KALDERA TOBA',
+                'status' => true,
+                'views' => 0
+            ]
         ];
 
         foreach ($informasi as $item) {
-            Informasi::create($item);
+            Informasi::updateOrCreate(['slug' => $item['slug']], $item);
         }
     }
 }

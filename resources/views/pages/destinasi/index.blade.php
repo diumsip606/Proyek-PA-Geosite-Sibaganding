@@ -5,34 +5,38 @@
 @section('content')
 
 <style>
-    /* ==================== HERO SECTION ==================== */
     .destinasi-hero {
     height: 60vh;
     min-height: 450px;
     position: relative;
     overflow: hidden;
     margin-top: 0;
-    background: linear-gradient(135deg, #0a1628 0%, #0d2347 40%, #1a3a6b 70%, #0f2d55 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-    .hero-background {
+    .slides-container {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset: 0;
         width: 100%;
         height: 100%;
-        background: url('/image/destinasi-hero.jpg');
-        background-size: cover;
-        background-position: center;
-        animation: zoomSlow 20s ease-out infinite;
+        z-index: 1;
     }
 
-    @keyframes zoomSlow {
-        0% { transform: scale(1); }
-        100% { transform: scale(1.1); }
+    .slide {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transform: scale(1.08);
+        transition: opacity 1.5s ease-in-out, transform 6s ease-out;
+    }
+
+    .slide.active {
+        opacity: 1;
+        transform: scale(1);
     }
 
     .hero-overlay {
@@ -42,16 +46,17 @@
         width: 100%;
         height: 100%;
         background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.6) 100%);
+        z-index: 2;
     }
 
     .hero-content {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 10;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 90%;
+    max-width: 800px;
     text-align: center;
     color: white;
     padding: 0 20px;
@@ -89,19 +94,19 @@
 }
 
     .hero-content p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
-    opacity: 0.9;
+    opacity: 0.85;
     text-transform: uppercase;
-    letter-spacing: 4px;
-    line-height: 1.9;
-    font-weight: 600;
+    letter-spacing: 6px;
+    line-height: 2;
+    font-weight: 300;
     white-space: normal;
     text-align: center;
-}}
+}
 
     .hero-scroll {
         position: absolute;
@@ -529,14 +534,30 @@
 </style>
 
 <!-- ==================== HERO SECTION ==================== -->
-<section class="destinasi-hero" 
-    @if($heroImage)
-        style="background: linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url('{{ asset('storage/' . $heroImage) }}') center/cover no-repeat;"
-    @endif>
+<section class="destinasi-hero"
+    @if($pageHeader && $pageHeader->gambar)
+        style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset($pageHeader->gambar) }}'); background-size:cover; background-position:center; background-attachment: fixed;"
+    @else
+        style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset('images/sibaganding1.jpg') }}'); background-size:cover; background-position:center; background-attachment: fixed;"
+    @endif
+>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
         <div class="hero-divider"></div>
-        <h1 data-aos="fade-up">Destinasi <span>Sibaganding</span></h1>
-        <p data-aos="fade-up" data-aos-delay="200">Jelajahi tiga pilar utama Geosite Sibaganding — Biodiversity, Geodiversity, dan Culture Diversity — warisan alam dan budaya yang hidup di tepi Danau Toba</p>
+        <h1 data-aos="fade-up">
+            @if($pageHeader && $pageHeader->title)
+                {!! $pageHeader->title !!}
+            @else
+                Destinasi <span>Sibaganding</span>
+            @endif
+        </h1>
+        <p data-aos="fade-up" data-aos-delay="200">
+            @if($pageHeader && $pageHeader->subtitle)
+                {{ $pageHeader->subtitle }}
+            @else
+                Jelajahi tiga pilar utama Geosite Sibaganding — Biodiversity, Geodiversity, dan Culture Diversity — warisan alam dan budaya yang hidup di tepi Danau Toba
+            @endif
+        </p>
         <div class="hero-divider" style="margin-top: 24px;"></div>
     </div>
 </section>
@@ -557,7 +578,6 @@
                 <div class="card-image">
                     <img src="{{ $bioImage ? asset('storage/' . $bioImage) : '/image/destinasi/bbiodiversity.jpg' }}" alt="biodiversity">
                     <div class="card-overlay"></div>
-                    <span class="card-badge"><i class="fas fa-tag"></i> NATURE</span>
                 </div>
                 <div class="card-content">
                     <div class="card-icon">
@@ -575,7 +595,6 @@
                 <div class="card-image">
                     <img src="{{ $geoImage ? asset('storage/' . $geoImage) : '/image/destinasi/geodiversity.jpg' }}" alt="geodiversity">
                     <div class="card-overlay"></div>
-                    <span class="card-badge"><i class="fas fa-tag"></i> URBAN</span>
                 </div>
                 <div class="card-content">
                     <div class="card-icon">
@@ -593,7 +612,6 @@
                 <div class="card-image">
                     <img src="{{ $cultureImage ? asset('storage/' . $cultureImage) : '/image/destinasi/culturediversity.jpg' }}" alt="culturediversity">
                     <div class="card-overlay"></div>
-                    <span class="card-badge"><i class="fas fa-tag"></i> HERITAGE</span>
                 </div>
                 <div class="card-content">
                     <div class="card-icon">
@@ -611,7 +629,7 @@
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
 <!-- AOS -->
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -622,8 +640,35 @@
         offset: 50
     });
 
+    // Hero Slider
+    document.addEventListener('DOMContentLoaded', function () {
+        let heroCurrent = 0;
+        const heroSlides = document.querySelectorAll('.slide');
+
+        function showHeroSlide(index) {
+            if (!heroSlides.length) return;
+            heroSlides.forEach(function (slide) { slide.classList.remove('active'); });
+
+            if (index < 0) {
+                heroCurrent = heroSlides.length - 1;
+            } else if (index >= heroSlides.length) {
+                heroCurrent = 0;
+            } else {
+                heroCurrent = index;
+            }
+            heroSlides[heroCurrent].classList.add('active');
+        }
+
+        function nextHeroSlide() { showHeroSlide(heroCurrent + 1); }
+
+        if (heroSlides.length) {
+            showHeroSlide(0);
+            setInterval(nextHeroSlide, 5000);
+        }
+    });
+
     // Smooth scroll
-    document.querySelector('.hero-scroll a').addEventListener('click', function(e) {
+    document.querySelector('.hero-scroll a')?.addEventListener('click', function(e) {
         e.preventDefault();
         document.querySelector('#categories').scrollIntoView({
             behavior: 'smooth',

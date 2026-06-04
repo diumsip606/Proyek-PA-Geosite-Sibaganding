@@ -57,29 +57,51 @@
     /* ========== HERO ========== */
     .sejarah-hero {
         height: 45vh;
-        background: linear-gradient(rgba(0, 51, 102, 0.6), rgba(0, 102, 153, 0.4)), url('/image/sejarah-hero.jpg');
-        background-size: cover;
-        background-position: center;
+        position: relative;
+        overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         color: white;
-        margin-top: 76px;
+    }
+    .sejarah-hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(rgba(0, 36, 65, 0.65), rgba(0, 36, 65, 0.45));
+        z-index: 2;
+    }
+    .sejarah-hero > div {
+        position: relative;
+        z-index: 3;
+        width: 90%;
+        max-width: 800px;
     }
     .sejarah-hero h1 {
+        font-family: 'Cinzel', serif !important;
         font-size: 3.5rem;
+<<<<<<< HEAD
         font-family: 'Cinzel', serif;
         font-weight: 700;
         letter-spacing: 6px;
         text-transform: uppercase;
         text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
+=======
+        font-weight: 700;
+>>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
         margin-bottom: 12px;
     }
     .sejarah-hero p {
+<<<<<<< HEAD
         font-family: 'Cormorant Garamond', serif;
         font-size: 1rem;
         letter-spacing: 4px;
+=======
+        font-family: 'Raleway', sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 0.2em;
+>>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
         text-transform: uppercase;
         opacity: 0.9;
         font-weight: 600;
@@ -533,10 +555,14 @@
 </style>
 
 <!-- HERO -->
-<section class="sejarah-hero">
+<section class="sejarah-hero"
+    @if($pageHeader && $pageHeader->gambar)
+        style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset($pageHeader->gambar) }}'); background-size:cover; background-position:center;"
+    @endif
+    >
     <div data-aos="fade-up">
-        <h1>Sejarah Caldera Toba</h1>
-        <p>Warisan Geologi Kelas Dunia</p>
+        <h1>{{ $pageHeader->title ?? 'Sejarah Caldera Toba' }}</h1>
+        <p>{{ $pageHeader->subtitle ?? 'Warisan Geologi Kelas Dunia' }}</p>
     </div>
 </section>
 
@@ -929,6 +955,33 @@
             closeDetailsModal();
         }
     }
+
+    // Hero Slider
+    document.addEventListener('DOMContentLoaded', function () {
+        let heroCurrent = 0;
+        const heroSlides = document.querySelectorAll('.slide');
+
+        function showHeroSlide(index) {
+            if (!heroSlides.length) return;
+            heroSlides.forEach(function (slide) { slide.classList.remove('active'); });
+
+            if (index < 0) {
+                heroCurrent = heroSlides.length - 1;
+            } else if (index >= heroSlides.length) {
+                heroCurrent = 0;
+            } else {
+                heroCurrent = index;
+            }
+            heroSlides[heroCurrent].classList.add('active');
+        }
+
+        function nextHeroSlide() { showHeroSlide(heroCurrent + 1); }
+
+        if (heroSlides.length) {
+            showHeroSlide(0);
+            setInterval(nextHeroSlide, 5000);
+        }
+    });
 </script>
 
 @endsection

@@ -377,7 +377,6 @@
                 <div class="card-image">
                     <img src="{{ $bioImage ? asset('storage/' . $bioImage) : '/image/destinasi/bbiodiversity.jpg' }}" alt="biodiversity">
                     <div class="card-overlay"></div>
-                    <span class="card-badge"><i class="fas fa-tag"></i> NATURE</span>
                 </div>
                 <div class="card-content">
                     <div class="card-icon">
@@ -395,7 +394,6 @@
                 <div class="card-image">
                     <img src="{{ $geoImage ? asset('storage/' . $geoImage) : '/image/destinasi/geodiversity.jpg' }}" alt="geodiversity">
                     <div class="card-overlay"></div>
-                    <span class="card-badge"><i class="fas fa-tag"></i> URBAN</span>
                 </div>
                 <div class="card-content">
                     <div class="card-icon">
@@ -413,7 +411,6 @@
                 <div class="card-image">
                     <img src="{{ $cultureImage ? asset('storage/' . $cultureImage) : '/image/destinasi/culturediversity.jpg' }}" alt="culturediversity">
                     <div class="card-overlay"></div>
-                    <span class="card-badge"><i class="fas fa-tag"></i> HERITAGE</span>
                 </div>
                 <div class="card-content">
                     <div class="card-icon">

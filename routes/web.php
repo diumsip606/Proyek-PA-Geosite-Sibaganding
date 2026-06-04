@@ -154,8 +154,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Lupa Password Routes
 Route::get('/forgot-password', [AuthController::class, 'showForgotForm'])->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
-Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+Route::post('/forgot-password/verify-otp', [AuthController::class, 'verifyOtp'])->name('password.verify-otp');
+Route::post('/forgot-password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
+
 
 
 /*
@@ -213,4 +214,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
     // Rute untuk Admin Info Kontak
     Route::resource('kontak-info', KontakInfoController::class)->names('admin.kontak-info');
+
+    // Rute untuk Header Halaman
+    Route::get('page-header', [\App\Http\Controllers\Admin\PageHeaderController::class, 'index'])->name('admin.page-header.index');
+    Route::get('page-header/{id}/edit', [\App\Http\Controllers\Admin\PageHeaderController::class, 'edit'])->name('admin.page-header.edit');
+    Route::put('page-header/{id}', [\App\Http\Controllers\Admin\PageHeaderController::class, 'update'])->name('admin.page-header.update');
 });
