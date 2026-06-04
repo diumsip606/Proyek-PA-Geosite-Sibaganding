@@ -62,6 +62,18 @@
 
 /* HERO dengan background slideshow foto Berita */
 .berita-hero {
+<<<<<<< HEAD
+    height: 45vh;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+    margin-top: 76px;
+}
+
+.slides-container {
+=======
     height: auto;
     min-height: 450px;
     background-color: #0c1c2c;
@@ -78,14 +90,22 @@
 
 /* Container untuk Slide */
 .berita-slides {
+>>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
+<<<<<<< HEAD
+    z-index: 1;
+}
+
+.slide {
+=======
     z-index: 0;
 }
 
 .berita-slide {
+>>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
     position: absolute;
     inset: 0;
     width: 100%;
@@ -94,11 +114,19 @@
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0;
+<<<<<<< HEAD
+    transform: scale(1.08);
+    transition: opacity 1.5s ease-in-out, transform 6s ease-out;
+}
+
+.slide.active {
+=======
     transform: scale(1.05);
     transition: opacity 1.5s ease-in-out, transform 6s ease-out;
 }
 
 .berita-slide.active {
+>>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
     opacity: 1;
     transform: scale(1);
 }
@@ -111,6 +139,20 @@
     left: 0;
     width: 100%;
     height: 100%;
+<<<<<<< HEAD
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 2;
+}
+
+.berita-hero > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    width: 90%;
+    max-width: 800px;
+=======
     background: linear-gradient(rgba(0, 36, 65, 0.65), rgba(0, 36, 65, 0.65));
     z-index: 1;
 }
@@ -120,6 +162,7 @@
     z-index: 2;
     max-width: 900px;
     width: 100%;
+>>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
 }
 
 .berita-hero h1 {
@@ -495,6 +538,19 @@
 }
 </style>
 
+<<<<<<< HEAD
+<!-- HERO dengan background berita.jpg -->
+<section class="berita-hero"
+    @if($pageHeader && $pageHeader->gambar)
+        style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset($pageHeader->gambar) }}'); background-size:cover; background-position:center;"
+    @else
+        style="background-image: linear-gradient(rgba(0,36,65,0.55), rgba(0,36,65,0.55)), url('{{ asset('images/sibaganding1.jpg') }}'); background-size:cover; background-position:center;"
+    @endif
+    >
+    <div>
+        <h1 data-aos="fade-up">{{ $pageHeader->title ?? 'Berita & Event' }}</h1>
+        <p data-aos="fade-up">{{ $pageHeader->subtitle ?? 'Informasi terkini seputar Geopark Danau Toba' }}</p>
+=======
 <!-- HERO dengan background slideshow foto Berita -->
 <section class="berita-hero">
     <!-- Slides Container for Background Photos -->
@@ -508,6 +564,7 @@
         <h1 data-aos="fade-up">Berita & Event</h1>
         <div class="hero-divider" data-aos="fade-up" data-aos-delay="100"></div>
         <p data-aos="fade-up" data-aos-delay="200">Informasi terkini seputar Geopark Danau Toba</p>
+>>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
     </div>
 </section>
 
@@ -669,8 +726,33 @@
     }
 </script>
 
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
+    // Hero Slider
+    document.addEventListener('DOMContentLoaded', function () {
+        let heroCurrent = 0;
+        const heroSlides = document.querySelectorAll('.slide');
+
+        function showHeroSlide(index) {
+            if (!heroSlides.length) return;
+            heroSlides.forEach(function (slide) { slide.classList.remove('active'); });
+
+            if (index < 0) {
+                heroCurrent = heroSlides.length - 1;
+            } else if (index >= heroSlides.length) {
+                heroCurrent = 0;
+            } else {
+                heroCurrent = index;
+            }
+            heroSlides[heroCurrent].classList.add('active');
+        }
+
+        function nextHeroSlide() { showHeroSlide(heroCurrent + 1); }
+
+        if (heroSlides.length) {
+            showHeroSlide(0);
+            setInterval(nextHeroSlide, 5000);
+        }
+    });
+
     AOS.init({
         duration: 700,
         once: true

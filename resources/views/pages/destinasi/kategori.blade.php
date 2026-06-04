@@ -123,15 +123,16 @@
 }
 
     .hero-content p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.85rem;
     width: 100%;
+    max-width: 800px;
     margin: 0 auto;
-    opacity: 0.9;
+    opacity: 0.85;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 6px;
     line-height: 2;
-    font-weight: 600;
+    font-weight: 300;
     white-space: normal;
     text-align: center;
 }
@@ -324,16 +325,33 @@
 
 <!-- ==================== HERO SECTION ==================== -->
 <section class="kategori-hero"
-    @if($heroImage)
-        style="background: linear-gradient(135deg, rgba(0,0,0,0.65), rgba(0,0,0,0.45)), url('{{ asset('storage/' . $heroImage) }}') center/cover no-repeat;"
+    @if($pageHeader && $pageHeader->gambar)
+        style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset($pageHeader->gambar) }}'); background-size:cover; background-position:center; background-attachment: fixed;"
+    @elseif($heroImage)
+        style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset('storage/' . $heroImage) }}'); background-size:cover; background-position:center; background-attachment: fixed;"
+    @else
+        style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset('images/sibaganding1.jpg') }}'); background-size:cover; background-position:center; background-attachment: fixed;"
     @endif>
     <a href="{{ url('/destinasi') }}" class="back-btn">
         <i class="fas fa-arrow-left"></i> Kembali
     </a>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
         <div class="hero-divider"></div>
-        <h1>Destinasi <span>{{ $kategori }}</span></h1>
-        <p>{{ $deskripsi }}</p>
+        <h1>
+            @if($pageHeader && $pageHeader->title)
+                {!! $pageHeader->title !!}
+            @else
+                Destinasi <span>{{ $kategori }}</span>
+            @endif
+        </h1>
+        <p>
+            @if($pageHeader && $pageHeader->subtitle)
+                {{ $pageHeader->subtitle }}
+            @else
+                {{ $deskripsi }}
+            @endif
+        </p>
         <div class="hero-divider" style="margin-top: 24px;"></div>
     </div>
 </section>
@@ -378,13 +396,13 @@
 <!-- Font Awesome & AOS -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">                  
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
     AOS.init({
         duration: 800,
-        once: true,
+        once: true, 
         offset: 50
     });
 </script>

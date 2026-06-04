@@ -152,18 +152,37 @@
     /* ==================== HERO ==================== */
     .kontak-hero {
         height: 45vh;
-        background: linear-gradient(135deg, rgba(0, 51, 102, 0.7), rgba(0, 102, 153, 0.45)),
-                    url('/images/caldera.jpg');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        position: relative;
+        overflow: hidden;
         text-align: center;
         color: white;
         margin-top: 76px;
-        position: relative;
+    }
+
+    .slides-container {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .slide {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transform: scale(1.08);
+        transition: opacity 1.5s ease-in-out, transform 6s ease-out;
+    }
+
+    .slide.active {
+        opacity: 1;
+        transform: scale(1);
     }
 
     .kontak-hero::before {
@@ -174,6 +193,25 @@
         right: 0;
         height: 80px;
         background: linear-gradient(to top, #f4f8fc, transparent);
+        z-index: 3;
+    }
+
+    /* Add overlay for text readability */
+    .kontak-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(0, 51, 102, 0.65), rgba(0, 102, 153, 0.4));
+        z-index: 2;
+    }
+
+    .kontak-hero > .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 4;
+        width: 90%;
+        max-width: 800px;
     }
 
     .kontak-hero h1 {
@@ -755,10 +793,17 @@
 </style>
 
 <!-- HERO -->
-<section class="kontak-hero">
+<section class="kontak-hero"
+    @if($pageHeader && $pageHeader->gambar)
+        style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset($pageHeader->gambar) }}'); background-size:cover; background-position:center;"
+    @else
+        style="background-image: linear-gradient(rgba(0,36,65,0.55), rgba(0,36,65,0.55)), url('{{ asset('images/sibaganding1.jpg') }}'); background-size:cover; background-position:center;"
+    @endif
+    >
+    <div class="kontak-hero-overlay"></div>
     <div class="container">
-        <h1 data-aos="fade-up">Hubungi Kami</h1>
-        <p data-aos="fade-up" data-aos-delay="100">Senang mendengar dari Anda</p>
+        <h1 data-aos="fade-up">{{ $pageHeader->title ?? 'Hubungi Kami' }}</h1>
+        <p data-aos="fade-up" data-aos-delay="100">{{ $pageHeader->subtitle ?? 'Senang mendengar dari Anda' }}</p>
     </div>
 </section>
 
@@ -1081,11 +1126,38 @@ function closeTeamModal() {
     document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeTeamModal();
-    }
-});
+    // Hero Slider
+    document.addEventListener('DOMContentLoaded', function () {
+        let heroCurrent = 0;
+        const heroSlides = document.querySelectorAll('.slide');
+
+        function showHeroSlide(index) {
+            if (!heroSlides.length) return;
+            heroSlides.forEach(function (slide) { slide.classList.remove('active'); });
+
+            if (index < 0) {
+                heroCurrent = heroSlides.length - 1;
+            } else if (index >= heroSlides.length) {
+                heroCurrent = 0;
+            } else {
+                heroCurrent = index;
+            }
+            heroSlides[heroCurrent].classList.add('active');
+        }
+
+        function nextHeroSlide() { showHeroSlide(heroCurrent + 1); }
+
+        if (heroSlides.length) {
+            showHeroSlide(0);
+            setInterval(nextHeroSlide, 5000);
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeTeamModal();
+        }
+    });
 </script>
 
 @endsection

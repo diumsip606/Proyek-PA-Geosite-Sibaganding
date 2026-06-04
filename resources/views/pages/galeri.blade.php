@@ -112,7 +112,6 @@ body{
     width: 100%;
     height: 80vh;
     overflow: hidden;
-    background: #0d1b2a;
 }
 
 .collage-grid {
@@ -178,7 +177,7 @@ body{
     background: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.5) 50%,
+        rgba(0, 0, 0, 0.55) 50%,
         rgba(0, 0, 0, 0.8) 100%
     );
     z-index: 2;
@@ -603,8 +602,8 @@ body{
     </div>
 
     <div class="hero-content">
-        <h1>SIBAGANDING</h1>
-        <p>Dokumentasi keindahan alam dan keanekaragaman Geosite Sibaganding</p>
+        <h1>{{ $pageHeader->title ?? 'SIBAGANDING' }}</h1>
+        <p>{{ $pageHeader->subtitle ?? 'Dokumentasi keindahan alam dan keanekaragaman Geosite Sibaganding' }}</p>
     </div>
 
     <div class="hero-scroll-indicator" onclick="document.querySelector('.gallery-wrapper').scrollIntoView({behavior:'smooth'})">
@@ -781,6 +780,7 @@ styleEl.textContent = `
 }`;
 document.head.appendChild(styleEl);
 
+// Hero Slider removed
 </script>
 
 @endsection
