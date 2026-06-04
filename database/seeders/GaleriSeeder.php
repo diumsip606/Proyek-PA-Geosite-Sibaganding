@@ -22,7 +22,7 @@ class GaleriSeeder extends Seeder
                 'judul'       => 'Monyet Ekor Panjang',
                 'deskripsi'   => 'Monyet ekor panjang (Macaca fascicularis) merupakan salah satu spesies primata yang menghuni kawasan Geosite Sibaganding, tepatnya di Monkey Forest Sibaganding. Kehadiran satwa ini menjadi salah satu daya tarik utama bagi para wisatawan yang berkunjung karena mereka memiliki perilaku yang unik di habitatnya.',
                 'gambar'      => '/image/monyet.jpg',
-                'kategori_id' => $idBio, // <-- SUDAH BENAR
+                'kategori_id' => $idBio, 
                 'lokasi'      => 'Monkey Forest',
                 'status'      => true,
             ],
