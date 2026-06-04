@@ -69,15 +69,21 @@
     }
     .sejarah-hero h1 {
         font-size: 3.5rem;
-        font-family: 'Cormorant Garamond', serif;
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
         margin-bottom: 12px;
-        text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
     }
     .sejarah-hero p {
-        font-size: 0.9rem;
-        letter-spacing: 0.2em;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1rem;
+        letter-spacing: 4px;
         text-transform: uppercase;
-        opacity: 0.85;
+        opacity: 0.9;
+        font-weight: 600;
+        line-height: 2;
     }
 
     /* ========== SECTION ========== */
