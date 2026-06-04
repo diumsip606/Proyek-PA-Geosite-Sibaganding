@@ -11,12 +11,15 @@ use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
 use App\Http\Controllers\Admin\DestinasiController as AdminDestinasiController;
 use App\Http\Controllers\DestinasiController;
-use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
 use App\Http\Controllers\Admin\InformasiController;
 use App\Http\Controllers\Admin\KontakInfoController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\WarisanGeologiController;
 use App\Http\Controllers\Admin\FaktaUnikController;
+use App\Http\Controllers\Admin\VideoYoutubeController;
+use App\Http\Controllers\Admin\WarisanGeologiController;
+
 use App\Http\Controllers\Admin\UmkmController as AdminUmkmController;
 use App\Http\Controllers\Admin\PenginapanController as AdminPenginapanController;
 use App\Http\Controllers\UmkmController;
@@ -93,28 +96,12 @@ Route::get('/destinasi/{id}', [DestinasiController::class, 'show'])->name('desti
 // GALERI
 Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri');
 
-// BERITA
-Route::get('/berita', function () {
-    $berita = Berita::with('kategori')
-        ->where('status', true)
-        ->latest()
-        ->paginate(9);
 
-    $kategori = Kategori::all();
-
-    return view('pages.berita', compact('berita', 'kategori'));
-})->name('berita');
-
-// DETAIL BERITA
-Route::get('/berita/{slug}', function ($slug) {
-    $berita = Berita::with('kategori')
-        ->where('slug', $slug)
-        ->firstOrFail();
-
-    $berita->increment('views');
-
-    return view('pages.berita-detail', compact('berita'));
-})->name('berita.detail');
+//BERITA
+Route::get('/berita', [BeritaController::class, 'index'])->name('berita');
+ 
+//BERITA
+Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.detail');
 
 // DETAIL GALERI
 Route::get('/galeri/{slug}', function ($slug) {
@@ -167,8 +154,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // Lupa Password Routes
 Route::get('/forgot-password', [AuthController::class, 'showForgotForm'])->name('password.request');
 Route::post('/forgot-password', [AuthController::class, 'sendResetLink'])->name('password.email');
-Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+Route::post('/forgot-password/verify-otp', [AuthController::class, 'verifyOtp'])->name('password.verify-otp');
+Route::post('/forgot-password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
+
 
 
 /*
@@ -203,7 +191,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     })->name('admin.dashboard');
 
     Route::resource('galeri', AdminGaleriController::class)->names('admin.galeri');
-    Route::resource('berita', BeritaController::class)->names('admin.berita');
+    Route::resource('berita', AdminBeritaController::class)->names('admin.berita');
     Route::resource('informasi', InformasiController::class)->names('admin.informasi');
     Route::resource('destinasi', AdminDestinasiController::class)->names('admin.destinasi');
     Route::resource('hero-slider', \App\Http\Controllers\Admin\HeroSliderController::class)->names('admin.hero-slider');

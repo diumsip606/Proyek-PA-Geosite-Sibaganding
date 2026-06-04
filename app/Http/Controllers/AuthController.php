@@ -48,12 +48,16 @@ class AuthController extends Controller
     }
 
     // Tampilkan form lupa password
-    public function showForgotForm()
+    public function showForgotForm(Request $request)
     {
+        if ($request->query('clear')) {
+            session()->forget(['otp_sent', 'otp_verified', 'reset_email']);
+            return redirect()->route('password.request');
+        }
         return view('auth.forgot-password');
     }
 
-    // Kirim link reset password ke EMAIL
+    // Kirim kode OTP ke EMAIL
     public function sendResetLink(Request $request)
     {
         $request->validate([
@@ -66,84 +70,86 @@ class AuthController extends Controller
             return back()->withErrors(['email' => 'Email tidak ditemukan.']);
         }
 
-        // Generate token
-        $token = Str::random(64);
+        // Generate 6-digit OTP
+        $otp = rand(100000, 999999);
         
-        // Hapus token lama jika ada
+        // Hapus token/OTP lama jika ada
         DB::table('password_resets')->where('email', $request->email)->delete();
         
-        // Simpan token baru
+        // Simpan OTP baru
         DB::table('password_resets')->insert([
             'email' => $request->email,
-            'token' => $token,
+            'token' => $otp,
             'created_at' => Carbon::now()
         ]);
         
         // Kirim email
         try {
-            Mail::to($request->email)->send(new ResetPasswordMail($token, $request->email));
+            Mail::to($request->email)->send(new ResetPasswordMail($otp, $request->email));
             
-            return back()->with('success', 'Link reset password telah dikirim ke ' . $request->email . '. Silakan cek inbox atau folder spam Anda.');
+            // Simpan status pengiriman OTP ke session secara persisten
+            session([
+                'otp_sent' => true,
+                'reset_email' => $request->email
+            ]);
+            
+            return back()->with('success', 'Kode OTP reset password telah dikirim ke ' . $request->email . '. Silakan cek inbox atau folder spam Anda.');
         } catch (\Exception $e) {
             return back()->withErrors(['email' => 'Gagal mengirim email. Error: ' . $e->getMessage()]);
         }
     }
 
-    // Tampilkan form reset password
-    public function showResetForm($token)
-    {
-        $resetData = DB::table('password_resets')
-            ->where('token', $token)
-            ->first();
-        
-        if (!$resetData) {
-            return redirect()->route('password.request')
-                ->withErrors(['email' => 'Token reset password tidak valid. Silakan request ulang.']);
-        }
-        
-        $createdAt = Carbon::parse($resetData->created_at);
-        if (Carbon::now()->diffInMinutes($createdAt) > 60) {
-            DB::table('password_resets')->where('token', $token)->delete();
-            return redirect()->route('password.request')
-                ->withErrors(['email' => 'Link reset password sudah kadaluarsa. Silakan request ulang.']);
-        }
-        
-        return view('auth.reset-password', [
-            'token' => $token,
-            'email' => $resetData->email
-        ]);
-    }
-
-    // Proses reset password
-    public function resetPassword(Request $request)
+    // Proses verifikasi OTP
+    public function verifyOtp(Request $request)
     {
         $request->validate([
             'email' => 'required|email|exists:users',
-            'password' => 'required|min:6|confirmed',
-            'token' => 'required'
+            'otp' => 'required|numeric|digits:6',
         ]);
-        
+
         $resetData = DB::table('password_resets')
             ->where('email', $request->email)
-            ->where('token', $request->token)
+            ->where('token', $request->otp)
             ->first();
-        
+
         if (!$resetData) {
-            return back()->withErrors(['email' => 'Token reset password tidak valid.']);
+            return back()->withErrors(['otp' => 'Kode OTP tidak valid.'])->withInput();
         }
-        
+
         $createdAt = Carbon::parse($resetData->created_at);
-        if (Carbon::now()->diffInMinutes($createdAt) > 60) {
+        if (Carbon::now()->diffInMinutes($createdAt) > 15) {
             DB::table('password_resets')->where('email', $request->email)->delete();
-            return back()->withErrors(['email' => 'Link reset password sudah kadaluarsa. Silakan request ulang.']);
+            return back()->withErrors(['otp' => 'Kode OTP sudah kadaluarsa. Silakan request ulang.'])->withInput();
         }
-        
+
+        // Set status verifikasi OTP ke session secara persisten
+        session(['otp_verified' => true]);
+
+        return back()->with('success', 'Kode OTP berhasil diverifikasi. Silakan masukkan password baru Anda.');
+    }
+
+    // Proses reset password setelah verifikasi OTP sukses
+    public function resetPassword(Request $request)
+    {
+        if (!session('otp_verified') || session('reset_email') !== $request->email) {
+            return redirect()->route('password.request')
+                ->withErrors(['email' => 'Sesi verifikasi Anda tidak valid. Silakan mulai ulang.']);
+        }
+
+        $request->validate([
+            'email' => 'required|email|exists:users',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
         User::where('email', $request->email)->update([
             'password' => Hash::make($request->password)
         ]);
-        
+
         DB::table('password_resets')->where('email', $request->email)->delete();
-        
+
+        // Hapus session state
+        session()->forget(['otp_sent', 'otp_verified', 'reset_email']);
+
         return redirect()->route('login')
             ->with('success', 'Password berhasil direset! Silakan login dengan password baru Anda.');
     }
