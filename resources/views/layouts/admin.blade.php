@@ -314,6 +314,9 @@
                 <i class="fas fa-newspaper"></i> Berita
             </a>
             <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') !== 'Pengurus' ? 'active' : '' }}">
+
+            <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') !== 'Pengurus' && !(isset($informasi) && $informasi instanceof \App\Models\Informasi && $informasi->kategori === 'Pengurus') ? 'active' : '' }}">
+
                 <i class="fas fa-info-circle"></i> Informasi
             </a>
             <a href="{{ route('admin.umkm.index') }}" class="{{ request()->routeIs('admin.umkm.*') ? 'active' : '' }}">
