@@ -60,9 +60,8 @@
     color: #5a6e7c;
 }
 
-/* HERO dengan background slideshow foto Berita */
+/* HERO dengan background berita.jpg - TIDAK TERPOTONG */
 .berita-hero {
-<<<<<<< HEAD
     height: 45vh;
     min-height: 400px;
     position: relative;
@@ -73,39 +72,14 @@
 }
 
 .slides-container {
-=======
-    height: auto;
-    min-height: 450px;
-    background-color: #0c1c2c;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    margin-top: 76px;
-    padding: 100px 20px 80px;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Container untuk Slide */
-.berita-slides {
->>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-<<<<<<< HEAD
     z-index: 1;
 }
 
 .slide {
-=======
-    z-index: 0;
-}
-
-.berita-slide {
->>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
     position: absolute;
     inset: 0;
     width: 100%;
@@ -114,29 +88,16 @@
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0;
-<<<<<<< HEAD
-    transform: scale(1.08);
-    transition: opacity 1.8s ease-in-out, transform 8s ease-out;
-=======
-<<<<<<< HEAD
     transform: scale(1.08);
     transition: opacity 1.5s ease-in-out, transform 6s ease-out;
 }
 
 .slide.active {
-=======
-    transform: scale(1.05);
-    transition: opacity 1.5s ease-in-out, transform 6s ease-out;
->>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
-}
-
-.berita-slide.active {
->>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
     opacity: 1;
     transform: scale(1);
 }
 
-/* Overlay gradient agar teks terbaca, tapi foto tetap terlihat */
+/* Overlay tipis agar teks terbaca */
 .berita-hero::before {
     content: '';
     position: absolute;
@@ -144,15 +105,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-<<<<<<< HEAD
-    background: linear-gradient(
-        to bottom,
-        rgba(5, 20, 40, 0.55) 0%,
-        rgba(5, 20, 40, 0.45) 50%,
-        rgba(5, 20, 40, 0.70) 100%
-    );
-=======
-<<<<<<< HEAD
     background: rgba(0, 0, 0, 0.55);
     z-index: 2;
 }
@@ -165,88 +117,20 @@
     z-index: 3;
     width: 90%;
     max-width: 800px;
-=======
-    background: linear-gradient(rgba(0, 36, 65, 0.65), rgba(0, 36, 65, 0.65));
->>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
-    z-index: 1;
-}
-
-/* Dot Indicators */
-.slide-dots {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 3;
-}
-
-.slide-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    cursor: pointer;
-    transition: all 0.4s ease;
-}
-
-.slide-dot.active {
-    background: #c6a43b;
-    border-color: #c6a43b;
-    width: 24px;
-    border-radius: 4px;
-}
-
-.berita-hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 900px;
-    width: 100%;
->>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
 }
 
 .berita-hero h1 {
-    font-family: 'Cinzel', serif !important;
-    font-size: 4.5rem;
-    font-weight: 700;
-    margin: 0;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: #ffffff !important;
-    text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
-}
-
-.hero-divider {
-    width: 130px;
-    height: 3px;
-    background: #c6a43b;
-    margin: 24px auto 30px;
-    position: relative;
-}
-
-.hero-divider::after {
-    content: "✦";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #c6a43b;
-    font-size: 18px;
-    background: transparent;
+    font-size: 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .berita-hero p {
-    font-family: 'Cormorant Garamond', serif !important;
-    font-size: 1rem;
-    letter-spacing: 4px;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: white;
-    opacity: 0.9;
-    font-weight: 600;
-    line-height: 2;
-    margin: 0;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .section {
@@ -339,28 +223,6 @@
 .berita-readmore:hover {
     color: #1a3c5e;
     transform: translateX(5px);
-}
-
-.btn-sumber-card {
-    background: #f0f7ff;
-    color: #1a3c5e;
-    border: 1px solid #d0e5ff;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.65rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    line-height: 1;
-}
-
-.btn-sumber-card:hover {
-    background: #c6a43b;
-    color: white;
-    border-color: #c6a43b;
 }
 
 /* MODAL UNTUK DETAIL BERITA */
@@ -582,7 +444,6 @@
 }
 </style>
 
-<<<<<<< HEAD
 <!-- HERO dengan background berita.jpg -->
 <section class="berita-hero"
     @if($pageHeader && $pageHeader->gambar)
@@ -594,31 +455,7 @@
     <div>
         <h1 data-aos="fade-up">{{ $pageHeader->title ?? 'Berita & Event' }}</h1>
         <p data-aos="fade-up">{{ $pageHeader->subtitle ?? 'Informasi terkini seputar Geopark Danau Toba' }}</p>
-=======
-<!-- HERO dengan background slideshow foto Berita -->
-<section class="berita-hero">
-    <!-- Slides Container for Background Photos -->
-    <div class="berita-slides">
-        @foreach($sliderImages as $i => $img)
-        <div class="berita-slide {{ $i === 0 ? 'active' : '' }}" style="background-image: url('{{ $img }}');"></div>
-        @endforeach
     </div>
-
-    <div class="berita-hero-content">
-        <h1 data-aos="fade-up">Berita & Event</h1>
-        <div class="hero-divider" data-aos="fade-up" data-aos-delay="100"></div>
-        <p data-aos="fade-up" data-aos-delay="200">Informasi terkini seputar Geopark Danau Toba</p>
->>>>>>> facf06fbbbf95c71e77ff17189cb0e25709322a5
-    </div>
-
-    <!-- Dot Indicators -->
-    @if(count($sliderImages) > 1)
-    <div class="slide-dots" id="slideDots">
-        @foreach($sliderImages as $i => $img)
-        <div class="slide-dot {{ $i === 0 ? 'active' : '' }}" onclick="goToSlide({{ $i }})"></div>
-        @endforeach
-    </div>
-    @endif
 </section>
 
 <!-- BERITA GRID -->
@@ -643,7 +480,8 @@
 </div>
 
 <script>
-    const beritaData = @json($beritaFormatted);
+    // DATA BERITA KOSONG - NANTI DIISI DENGAN CRUD
+    const beritaData = [];
 
     let currentPage = 1;
     const itemsPerPage = 6;
@@ -674,31 +512,19 @@
             return;
         }
 
-        grid.innerHTML = beritaToShow.map(berita => {
-            const hasLink = berita.link ? true : false;
-            const linkButton = hasLink ? `
-                <button onclick="event.stopPropagation(); window.open('${berita.link}', '_blank')" class="btn-sumber-card" title="Buka Link Sumber">
-                    <span>🌐 Sumber</span> ↗
-                </button>
-            ` : '';
-
-            return `
-                <div class="berita-card" onclick="window.location.href='{{ url('/berita') }}/${berita.slug}'">
-                    <div class="berita-image">
-                        <img src="${berita.image}" alt="${berita.title}">
-                    </div>
-                    <div class="berita-content">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <span class="berita-date" style="margin-bottom: 0;">${berita.date}</span>
-                            ${linkButton}
-                        </div>
-                        <h3 class="berita-title">${berita.title}</h3>
-                        <p class="berita-excerpt">${berita.excerpt}</p>
-                        <span class="berita-readmore">Baca Selengkapnya →</span>
-                    </div>
+        grid.innerHTML = beritaToShow.map(berita => `
+            <div class="berita-card" onclick="openModal(${berita.id})">
+                <div class="berita-image">
+                    <img src="${berita.image}" alt="${berita.title}">
                 </div>
-            `;
-        }).join('');
+                <div class="berita-content">
+                    <span class="berita-date">${berita.date}</span>
+                    <h3 class="berita-title">${berita.title}</h3>
+                    <p class="berita-excerpt">${berita.excerpt.substring(0, 100)}${berita.excerpt.length > 100 ? '...' : ''}</p>
+                    <span class="berita-readmore">Baca Selengkapnya →</span>
+                </div>
+            </div>
+        `).join('');
 
         renderPagination();
     }
@@ -762,43 +588,6 @@
 
     renderBerita();
 
-    // Slideshow Background Hero Berita
-    let slideCurrent = 0;
-    const beritaSlides = document.querySelectorAll('.berita-slide');
-    const slideDots = document.querySelectorAll('.slide-dot');
-    let slideTimer = null;
-
-    function goToSlide(index) {
-        beritaSlides[slideCurrent].classList.remove('active');
-        if (slideDots[slideCurrent]) slideDots[slideCurrent].classList.remove('active');
-
-        slideCurrent = index;
-
-        beritaSlides[slideCurrent].classList.add('active');
-        if (slideDots[slideCurrent]) slideDots[slideCurrent].classList.add('active');
-    }
-
-    function showNextBeritaSlide() {
-        if (beritaSlides.length <= 1) return;
-        const next = (slideCurrent + 1) % beritaSlides.length;
-        goToSlide(next);
-    }
-
-    function startSlideTimer() {
-        if (beritaSlides.length > 1) {
-            slideTimer = setInterval(showNextBeritaSlide, 4000);
-        }
-    }
-
-    // Pause saat hover
-    const heroSection = document.querySelector('.berita-hero');
-    if (heroSection) {
-        heroSection.addEventListener('mouseenter', () => clearInterval(slideTimer));
-        heroSection.addEventListener('mouseleave', () => startSlideTimer());
-    }
-
-    startSlideTimer();
-</script>
 
     // Hero Slider
     document.addEventListener('DOMContentLoaded', function () {
