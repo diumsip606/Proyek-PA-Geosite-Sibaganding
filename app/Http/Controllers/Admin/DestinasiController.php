@@ -34,7 +34,6 @@ class DestinasiController extends Controller
             'lokasi' => 'required|string|max:100',
             'deskripsi' => 'required',
             'gambar_utama' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'tags' => 'nullable|string'
         ]);
 
         // 2. Buat Slug Otomatis
@@ -47,13 +46,7 @@ class DestinasiController extends Controller
         // 4. Tangani Status (Kalau checkbox tidak dicentang, nilainya false)
         $validatedData['status'] = $request->has('status') ? true : false;
 
-        // 5. Tangani Tags (Ubah teks yang dipisah koma menjadi format JSON array)
-        if ($request->filled('tags')) {
-            $tagsArray = array_map('trim', explode(',', $request->tags));
-            $validatedData['tags'] = json_encode($tagsArray);
-        }
-
-        // 6. Tangani Upload Gambar Utama
+        // 5. Tangani Upload Gambar Utama
         if ($request->hasFile('gambar_utama')) {
             $validatedData['gambar_utama'] = $request->file('gambar_utama')->store('destinasi', 'public');
         }
@@ -96,30 +89,21 @@ class DestinasiController extends Controller
             'lokasi' => 'required|string|max:100',
             'deskripsi' => 'required',
             'gambar_utama' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'tags' => 'nullable|string'
         ]);
 
         // 3. Buat ulang slug dan status
         $validatedData['slug'] = \Illuminate\Support\Str::slug($request->nama);
         $validatedData['status'] = $request->has('status') ? true : false;
 
-        // 4. Tangani Tags (JSON)
-        if ($request->filled('tags')) {
-            $tagsArray = array_map('trim', explode(',', $request->tags));
-            $validatedData['tags'] = json_encode($tagsArray);
-        } else {
-            $validatedData['tags'] = null;
-        }
-
-        // 5. Tangani Gambar Utama (Timpa gambar lama jika ada yang baru)
+        // 4. Tangani Gambar Utama (Timpa gambar lama jika ada yang baru)
         if ($request->hasFile('gambar_utama')) {
             $validatedData['gambar_utama'] = $request->file('gambar_utama')->store('destinasi', 'public');
         }
 
-        // 6. Update data ke database
+        // 5. Update data ke database
         $destinasi->update($validatedData);
 
-        // 7. Kembalikan ke halaman index dengan pesan sukses
+        // 6. Kembalikan ke halaman index dengan pesan sukses
         return redirect()->route('admin.destinasi.index')->with('success', 'Data destinasi berhasil diperbarui!');
     }
 

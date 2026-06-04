@@ -228,27 +228,6 @@
         margin-bottom: 20px;
     }
 
-    .card-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-bottom: 25px;
-    }
-
-    .card-tags span {
-        background: #f5f4f0;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: #555;
-        transition: all 0.3s ease;
-    }
-
-    .card-tags span:hover {
-        background: #c6a43b;
-        color: white;
-    }
-
     .card-btn {
         display: inline-flex;
         align-items: center;
@@ -371,12 +350,6 @@
                     <div class="card-location">
                         <i class="fas fa-map-marker-alt"></i> {{ $item->lokasi }}
                     </div>
-                    <p class="card-desc">{{ $item->deskripsi }}</p>
-                <div class="card-tags">
-                    @foreach($item->tags ?? [] as $tag)
-                    <span>#{{ $tag }}</span>
-                    @endforeach
-                </div>
                     <a href="{{ route('destinasi.show', $item->id) }}" class="card-btn">
                         Jelajahi <i class="fas fa-arrow-right"></i>
                     </a>

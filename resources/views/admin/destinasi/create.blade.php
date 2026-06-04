@@ -67,16 +67,6 @@
                     @error('deskripsi') <div class="invalid-feedback">{{ $message }}</div> @enderror
                 </div>
 
-                {{-- Tags --}}
-                <div class="col-md-8">
-                    <label class="form-label fw-semibold">Tags</label>
-                    <input type="text" name="tags" class="form-control @error('tags') is-invalid @enderror"
-                           value="{{ old('tags') }}"
-                           placeholder="Pisahkan dengan koma, misal: Goa Alami, Caving, Geologi">
-                    <div class="form-text">Pisahkan setiap tag dengan tanda koma (,)</div>
-                    @error('tags') <div class="invalid-feedback">{{ $message }}</div> @enderror
-                </div>
-
                 {{-- Status --}}
                 <div class="col-md-4 d-flex align-items-end">
                     <div class="form-check form-switch mb-2">
