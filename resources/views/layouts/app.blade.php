@@ -13,14 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
-<<<<<<< HEAD
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
-=======
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
->>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -28,6 +23,12 @@
     <style>
         * {
             font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
         }
 
         /* UNIFIED HERO LARGE TITLES */
@@ -836,21 +837,21 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // Audio Script dengan Persistensi Halaman & Autoplay
+        // Audio Script dengan Auto-Play & Persistensi
         document.addEventListener('DOMContentLoaded', function () {
             const music = document.getElementById('bgMusic');
             const btn = document.getElementById('musicToggle');
+            const tooltip = document.getElementById('musicTooltip');
             music.volume = 0.35;
 
-            // Load saved state
-            const savedTime = localStorage.getItem('musicTime');
-            const savedPlaying = localStorage.getItem('musicPlaying');
-
-            if (savedTime) {
-                music.currentTime = parseFloat(savedTime);
+            // Restore playback position from last session
+            const savedTime = parseFloat(localStorage.getItem('musicTime') || '0');
+            if (savedTime > 0) {
+                music.currentTime = savedTime;
             }
 
-            const tooltip = document.getElementById('musicTooltip');
+            // Check if user manually stopped music (the only state we persist)
+            const userStopped = localStorage.getItem('musicPlaying') === 'false';
 
             function setIcon(isPlaying) {
                 btn.classList.toggle('playing', isPlaying);
@@ -862,30 +863,57 @@
                     tooltip.innerHTML = `
                         <div style="font-weight: 600; margin-bottom: 4px;">${stateText}</div>
                         <div style="font-size: 0.65rem; opacity: 0.85; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 4px; text-align: left; line-height: 1.3;">
-                            <i class="fa-solid fa-music" style="color: #c6a43b; margin-right: 4px;"></i> <strong>Lagu:</strong> TobaDream (Instrumen)<br>
-                            <i class="fa-solid fa-user" style="color: #c6a43b; margin-right: 4px;"></i> <strong>Karya:</strong> Vicky Sianipar
+                            <i class="fa-solid fa-music" style="color: #c6a43b; margin-right: 4px;"></i> <strong>Lagu:</strong> O Tano Batak (Instrumen)<br>
+                            <i class="fa-solid fa-user" style="color: #c6a43b; margin-right: 4px;"></i> <strong>Karya:</strong> S. Dis Sitompul
                         </div>
                     `;
                 }
                 localStorage.setItem('musicPlaying', isPlaying ? 'true' : 'false');
             }
 
-            // Play music if it was playing or if it is first load (default play)
-            if (savedPlaying === 'true' || savedPlaying === null) {
+            // Try to autoplay. If blocked, set up first-interaction listener.
+            function tryAutoplay() {
+                if (userStopped) {
+                    // User explicitly stopped it last time — respect their choice
+                    setIcon(false);
+                    return;
+                }
                 music.play()
-                    .then(() => setIcon(true))
-                    .catch(() => setIcon(false));
-            } else {
-                setIcon(false);
+                    .then(() => {
+                        setIcon(true);
+                    })
+                    .catch(() => {
+                        // Autoplay was blocked by browser — wait for first user interaction
+                        setIcon(false);
+                        const interactionEvents = ['click', 'touchstart', 'keydown', 'scroll'];
+                        function onFirstInteraction() {
+                            // Only auto-start if user hasn't manually stopped it
+                            if (localStorage.getItem('musicPlaying') !== 'false') {
+                                music.play()
+                                    .then(() => setIcon(true))
+                                    .catch(() => {});
+                            }
+                            // Remove all listeners after first interaction
+                            interactionEvents.forEach(event =>
+                                document.removeEventListener(event, onFirstInteraction)
+                            );
+                        }
+                        interactionEvents.forEach(event =>
+                            document.addEventListener(event, onFirstInteraction, { once: true })
+                        );
+                    });
             }
 
-            // Save time periodically
+            tryAutoplay();
+
+            // Save playback position every second
             setInterval(() => {
                 if (!music.paused) {
                     localStorage.setItem('musicTime', music.currentTime);
                 }
             }, 1000);
 
+            // Toggle play/pause on button click
             btn.addEventListener('click', function () {
                 if (music.paused) {
                     music.play().then(() => setIcon(true));
@@ -895,6 +923,7 @@
                 }
             });
 
+            // Save position before page unload
             window.addEventListener('beforeunload', () => {
                 localStorage.setItem('musicTime', music.currentTime);
             });

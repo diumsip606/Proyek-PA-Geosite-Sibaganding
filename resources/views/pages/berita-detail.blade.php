@@ -9,7 +9,7 @@
 /* HERO SECTION */
 .berita-detail-hero {
     height: auto;
-    min-height: 400px;
+    min-height: 450px;
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('{{ $berita->gambar ? asset($berita->gambar) : asset("images/sibaganding1.JPG") }}');
     background-size: cover;
     background-position: center;
@@ -22,6 +22,22 @@
     margin-top: 76px;
     padding: 100px 20px;
     position: relative;
+}
+
+.berita-detail-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #ffffff, transparent);
+    z-index: 1;
+}
+
+.berita-detail-hero > div {
+    position: relative;
+    z-index: 2;
 }
 
 .berita-detail-hero h1 {
@@ -305,19 +321,78 @@
 @media (max-width: 992px) {
     .other-news-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .berita-detail-hero h1 {
+        font-size: 2.5rem;
     }
 }
 
 @media (max-width: 768px) {
     .berita-detail-hero {
-        min-height: 300px;
-        padding: 70px 20px;
+        min-height: 220px;
+        padding: 40px 16px;
     }
     .berita-detail-hero h1 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
+        line-height: 1.25;
+    }
+    .content-section {
+        padding: 36px 0;
+    }
+    .content-container {
+        padding: 0 16px;
+    }
+    .berita-meta-bar {
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 0.82rem;
+    }
+    .berita-body {
+        font-size: 0.97rem;
+        line-height: 1.8;
     }
     .other-news-grid {
         grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .other-news-section {
+        padding: 50px 0;
+    }
+    .other-news-title {
+        font-size: 1.6rem;
+    }
+    .action-bar {
+        margin-top: 36px;
+        padding-top: 22px;
+    }
+}
+
+@media (max-width: 576px) {
+    .berita-detail-hero {
+        padding: 30px 14px;
+        min-height: 180px;
+    }
+    .berita-detail-hero h1 {
+        font-size: 1.4rem;
+    }
+    .berita-meta-top {
+        font-size: 0.75rem;
+    }
+    .external-link-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .btn-kembali, .btn-link-sumber {
+        padding: 10px 20px;
+        font-size: 0.85rem;
+    }
+    .news-card img {
+        height: 160px;
+    }
+    .news-card-content {
+        padding: 16px;
     }
 }
 </style>
@@ -414,26 +489,3 @@
 </script>
 
 @endsection
-=======
-@section('title', $berita->judul)
-
-@section('content')
-<section style="padding: 140px 0 80px;">
-    <div class="container">
-        <h1>{{ $berita->judul }}</h1>
-
-        @if($berita->gambar)
-            <img src="{{ asset($berita->gambar) }}" alt="{{ $berita->judul }}" style="width:100%; max-height:450px; object-fit:cover; border-radius:20px; margin:25px 0;">
-        @endif
-
-        <p>
-            {{ $berita->tanggal_terbit ? $berita->tanggal_terbit->format('d M Y') : '' }}
-        </p>
-
-        <div>
-            {!! $berita->konten !!}
-        </div>
-    </div>
-</section>
-@endsection
-

@@ -7,8 +7,8 @@
 <style>
     /* ==================== HERO SECTION ==================== */
     .kategori-hero {
-    height: 50vh;
-    min-height: 350px;
+    height: 55vh;
+    min-height: 450px;
     position: relative;
     overflow: hidden;
     margin-top: 76px;
@@ -16,6 +16,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.kategori-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #ffffff, transparent);
+    z-index: 6;
+    pointer-events: none;
 }
 
 .kategori-hero::before {

@@ -95,14 +95,11 @@
 <style>
 
 *{
-    margin:0;
-    padding:0;
     box-sizing:border-box;
 }
 
 body{
-    background:#ffffff;
-    overflow-x:hidden;
+    overflow-x: hidden;
     font-family:'Poppins',sans-serif;
 }
 
@@ -113,6 +110,18 @@ body{
     height: 80vh;
     overflow: hidden;
     margin-top: 76px;
+}
+
+.gallery-hero-collage::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #ffffff, transparent);
+    z-index: 3;
+    pointer-events: none;
 }
 
 .collage-grid {
@@ -190,7 +199,7 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 3;
+    z-index: 4;
     text-align: center;
     color: white;
     width: 90%;
@@ -223,7 +232,7 @@ body{
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 3;
+    z-index: 4;
     color: white;
     font-size: 1.5rem;
     animation: bounceDown 1.5s infinite;

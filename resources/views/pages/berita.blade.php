@@ -6,8 +6,6 @@
 
 <style>
    * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
@@ -62,8 +60,8 @@
 
 /* HERO dengan background berita.jpg - TIDAK TERPOTONG */
 .berita-hero {
-    height: 45vh;
-    min-height: 400px;
+    height: 55vh;
+    min-height: 450px;
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -109,12 +107,23 @@
     z-index: 2;
 }
 
+.berita-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #ffffff, transparent);
+    z-index: 3;
+}
+
 .berita-hero > div {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 3;
+    z-index: 4;
     width: 90%;
     max-width: 800px;
 }
@@ -374,72 +383,75 @@
 }
 
 /* RESPONSIVE */
-@media (max-width: 900px) {
+@media (max-width: 992px) {
     .berita-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 }
 
 @media (max-width: 768px) {
-    .flag-img {
-        width: 60px;
-    }
-    .del-img {
-        width: 35px;
-    }
-    .geotoba-text {
-        font-size: 1.2rem;
+    .berita-hero {
+        height: auto;
+        min-height: 220px;
+        padding-top: 0;
     }
     .berita-hero h1 {
         font-size: 2rem;
     }
+    .berita-hero p {
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+    }
     .section {
         padding: 40px 0;
     }
-    .berita-hero {
-        min-height: 300px;
-        padding: 60px 20px;
+    .container {
+        padding: 0 16px;
     }
     .berita-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 18px;
+    }
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
     }
     .modal-title {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
     .modal-body {
-        padding: 20px;
+        padding: 18px;
     }
     .modal-image {
-        height: 200px;
+        height: 180px;
     }
 }
 
 @media (max-width: 576px) {
-    .flag-img {
-        width: 45px;
-    }
-    .del-img {
-        width: 28px;
-    }
-    .geotoba-text {
-        font-size: 0.9rem;
-    }
     .berita-hero h1 {
         font-size: 1.6rem;
+        letter-spacing: 2px;
     }
     .berita-hero p {
         font-size: 0.7rem;
-    }
-    .berita-hero {
-        min-height: 250px;
-        padding: 40px 20px;
+        display: none;
     }
     .berita-title {
         font-size: 1rem;
     }
     .modal-title {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+    }
+    .berita-content {
+        padding: 15px;
+    }
+    .pagination {
+        gap: 6px;
+    }
+    .pagination button {
+        padding: 6px 10px;
+        font-size: 0.8rem;
     }
 }
 </style>

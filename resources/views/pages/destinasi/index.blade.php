@@ -13,6 +13,18 @@
     margin-top: 76px;
 }
 
+.destinasi-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to top, #f8f9fa, transparent);
+    z-index: 3;
+    pointer-events: none;
+}
+
     .slides-container {
         position: absolute;
         inset: 0;

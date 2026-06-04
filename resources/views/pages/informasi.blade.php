@@ -56,7 +56,8 @@
 
     /* ========== HERO ========== */
     .sejarah-hero {
-        height: 45vh;
+        height: 55vh;
+        min-height: 450px;
         position: relative;
         overflow: hidden;
         display: flex;
@@ -64,7 +65,7 @@
         justify-content: center;
         text-align: center;
         color: white;
-        padding-top: 76px;
+        margin-top: 76px;
     }
     .sejarah-hero::before {
         content: '';
@@ -73,36 +74,35 @@
         background: linear-gradient(rgba(0, 36, 65, 0.65), rgba(0, 36, 65, 0.45));
         z-index: 2;
     }
+    .sejarah-hero::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100px;
+        background: linear-gradient(to top, #ffffff, transparent);
+        z-index: 3;
+    }
     .sejarah-hero > div {
         position: relative;
-        z-index: 3;
+        z-index: 4;
         width: 90%;
         max-width: 800px;
     }
     .sejarah-hero h1 {
         font-family: 'Cinzel', serif !important;
         font-size: 3.5rem;
-<<<<<<< HEAD
-        font-family: 'Cinzel', serif;
         font-weight: 700;
         letter-spacing: 6px;
         text-transform: uppercase;
         text-shadow: 2px 4px 20px rgba(0,0,0,0.5);
-=======
-        font-weight: 700;
->>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
         margin-bottom: 12px;
     }
     .sejarah-hero p {
-<<<<<<< HEAD
-        font-family: 'Cormorant Garamond', serif;
-        font-size: 1rem;
-        letter-spacing: 4px;
-=======
         font-family: 'Raleway', sans-serif;
         font-size: 0.9rem;
         letter-spacing: 0.2em;
->>>>>>> eecf22f4b37cbfbee4f772e9d5e73fa933c271c9
         text-transform: uppercase;
         opacity: 0.9;
         font-weight: 600;
@@ -540,18 +540,48 @@
         color: #003366;
     }
 
-    @media (max-width: 768px) {
-        .sejarah-hero h1 { font-size: 2.2rem; }
-        .section { padding: 40px 0; }
-        .sejarah-item, .sejarah-item.reverse { flex-direction: column; text-align: center; }
-        .sejarah-image img { height: 220px; }
-        .timeline { flex-direction: column; }
-        .fakta-grid { grid-template-columns: 1fr; }
-        .cta-content h3 { font-size: 1.6rem; }
-        .cta-btn { padding: 10px 28px; font-size: 0.65rem; }
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 992px) {
+        .sejarah-hero h1 { font-size: 2.8rem; letter-spacing: 4px; }
+        .fakta-grid { grid-template-columns: repeat(2, 1fr); }
+        .slider-card { flex: 0 0 calc((100% - 40px) / 3); }
     }
+
+    @media (max-width: 768px) {
+        .sejarah-hero { height: auto; min-height: 220px; padding-top: 40px; padding-bottom: 40px; }
+        .sejarah-hero h1 { font-size: 2rem; letter-spacing: 2px; }
+        .sejarah-hero p { font-size: 0.75rem; letter-spacing: 0.1em; }
+        .section { padding: 40px 0; }
+        .container { padding: 0 16px; }
+        .section-title h2 { font-size: 1.6rem; }
+        .sejarah-item, .sejarah-item.reverse { flex-direction: column; text-align: center; gap: 24px; }
+        .sejarah-text { width: 100%; }
+        .sejarah-image { width: 100%; }
+        .sejarah-image img { height: 200px; }
+        .timeline { flex-direction: column; gap: 14px; }
+        .fakta-grid { grid-template-columns: 1fr; gap: 16px; }
+        .cta-content h3 { font-size: 1.4rem; }
+        .cta-btn { padding: 10px 24px; font-size: 0.65rem; }
+        .slider-wrapper { padding: 20px 10px; }
+        .slider-nav-btn.prev-btn { left: -4px; }
+        .slider-nav-btn.next-btn { right: -4px; }
+        .slider-card { flex: 0 0 calc((100% - 20px) / 2); }
+        .d-flex.flex-wrap { flex-direction: column; gap: 14px; }
+        .d-flex.flex-wrap .cta-btn { width: 100%; text-align: center; }
+    }
+
     @media (max-width: 576px) {
-        .sejarah-hero h1 { font-size: 1.8rem; }
+        .sejarah-hero h1 { font-size: 1.6rem; letter-spacing: 1px; }
+        .sejarah-hero p { display: none; }
+        .section-title h2 { font-size: 1.35rem; }
+        .slider-card { flex: 0 0 100%; }
+        .slider-wrapper { padding: 20px 8px; }
+        .fakta-grid { grid-template-columns: 1fr; }
+        .timeline-item { padding: 15px; }
+        .timeline-year { font-size: 1.1rem; }
+        .premium-modal-dialog { width: 95%; }
+        .premium-modal-img { height: 180px; }
+        .premium-modal-body { padding: 20px; }
     }
 </style>
 
@@ -559,6 +589,8 @@
 <section class="sejarah-hero"
     @if($pageHeader && $pageHeader->gambar)
         style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset($pageHeader->gambar) }}'); background-size:cover; background-position:center;"
+    @else
+        style="background-image: linear-gradient(rgba(0,36,65,0.55), rgba(0,36,65,0.55)), url('{{ asset('images/sibaganding1.JPG') }}'); background-size:cover; background-position:center;"
     @endif
     >
     <div data-aos="fade-up">
@@ -615,7 +647,7 @@
             </div>
             @endforelse
         </div>
-        
+
         @if($informasi->count() > 0)
         <div class="d-flex justify-content-center mt-5">
             {{ $informasi->links() }}
@@ -697,11 +729,11 @@
                 Lihat Selengkapnya <i class="fas fa-arrow-right ms-1"></i>
             </a>
         </div>
-        
+
         <div class="slider-wrapper" data-aos="fade-up">
             <button class="slider-nav-btn prev-btn" id="umkmPrev" type="button"><i class="fas fa-chevron-left"></i></button>
             <button class="slider-nav-btn next-btn" id="umkmNext" type="button"><i class="fas fa-chevron-right"></i></button>
-            
+
             <div class="slider-container" id="umkmSlider">
                 @forelse($umkms as $item)
                 @php
@@ -744,11 +776,11 @@
                 Lihat Selengkapnya <i class="fas fa-arrow-right ms-1"></i>
             </a>
         </div>
-        
+
         <div class="slider-wrapper" data-aos="fade-up">
             <button class="slider-nav-btn prev-btn" id="hotelPrev" type="button"><i class="fas fa-chevron-left"></i></button>
             <button class="slider-nav-btn next-btn" id="hotelNext" type="button"><i class="fas fa-chevron-right"></i></button>
-            
+
             <div class="slider-container" id="hotelSlider">
                 @forelse($penginapans as $item)
                 @php
@@ -794,14 +826,14 @@
         <div class="premium-modal-body">
             <h4 class="premium-modal-title" id="modalTitle">Detail Nama</h4>
             <div class="premium-modal-badge" id="modalBadge">Mitra Resmi Geosite Sibaganding</div>
-            
+
             <p class="premium-modal-desc" id="modalDesc">Deskripsi detail...</p>
-            
+
             <div class="premium-modal-info">
                 <span><i class="fas fa-map-marker-alt"></i> <strong id="modalAddress">Alamat...</strong></span>
                 <span id="modalPriceWrapper"><i class="fas fa-money-bill-wave"></i> Estimasi Harga: <strong class="text-success" style="font-size: 0.95rem;">Rp <span id="modalPrice"></span> / malam</strong></span>
             </div>
-            
+
             <div class="premium-modal-footer">
                 <a href="" id="modalWaBtn" target="_blank" class="modal-wa-btn">
                     <i class="fab fa-whatsapp" style="font-size: 1.1rem;"></i> Hubungi/Pesan via WhatsApp
@@ -834,9 +866,9 @@
         const prevBtn = document.getElementById(prevBtnId);
         const nextBtn = document.getElementById(nextBtnId);
         if (!container || !prevBtn || !nextBtn) return;
-        
+
         let currentIdx = 0;
-        
+
         function updateSlider() {
             const cards = container.children;
             if (cards.length === 0) {
@@ -846,16 +878,16 @@
             }
             const cardWidth = cards[0].getBoundingClientRect().width;
             const gap = 20; // grid-gap
-            
+
             // Calculate max slide index
             const visibleCount = getVisibleCount();
             const maxIdx = Math.max(0, cards.length - visibleCount);
-            
+
             if (currentIdx > maxIdx) currentIdx = maxIdx;
             if (currentIdx < 0) currentIdx = 0;
-            
+
             container.style.transform = `translateX(-${currentIdx * (cardWidth + gap)}px)`;
-            
+
             prevBtn.disabled = currentIdx === 0;
             nextBtn.disabled = currentIdx === maxIdx;
 
@@ -868,7 +900,7 @@
                 nextBtn.style.display = 'flex';
             }
         }
-        
+
         function getVisibleCount() {
             const width = window.innerWidth;
             if (width > 992) return 4;
@@ -876,19 +908,19 @@
             if (width > 576) return 2;
             return 1;
         }
-        
+
         prevBtn.addEventListener('click', () => {
             currentIdx--;
             updateSlider();
         });
-        
+
         nextBtn.addEventListener('click', () => {
             currentIdx++;
             updateSlider();
         });
-        
+
         window.addEventListener('resize', updateSlider);
-        
+
         // Initial call after elements render
         setTimeout(updateSlider, 250);
     }
@@ -903,12 +935,12 @@
     function openDetailsModal(title, image, desc, address, phone, price = null, type = 'umkm') {
         const modal = document.getElementById('detailsModal');
         if (!modal) return;
-        
+
         document.getElementById('modalTitle').textContent = title;
         document.getElementById('modalImage').src = image;
         document.getElementById('modalDesc').textContent = desc;
         document.getElementById('modalAddress').textContent = address || 'Sibaganding';
-        
+
         const priceEl = document.getElementById('modalPriceWrapper');
         if (priceEl) {
             if (price && type === 'hotel') {
@@ -925,7 +957,7 @@
             badgeEl.style.background = type === 'hotel' ? '#fef3c7' : '#e0f2fe';
             badgeEl.style.color = type === 'hotel' ? '#b45309' : '#0369a1';
         }
-        
+
         const waBtn = document.getElementById('modalWaBtn');
         if (waBtn) {
             if (phone) {
@@ -939,7 +971,7 @@
                 waBtn.style.display = 'none';
             }
         }
-        
+
         modal.classList.add('show');
     }
 
