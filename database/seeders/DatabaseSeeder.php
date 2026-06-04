@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             InformasiSeeder::class,
             UmkmSeeder::class,
             PenginapanSeeder::class,
+            DestinasiSeeder::class,
         ]);
     }
 }
