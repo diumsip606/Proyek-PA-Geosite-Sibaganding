@@ -19,36 +19,30 @@ class GaleriSeeder extends Seeder
         $galeris = [
             // --- DATA 1 ---
             [
-                'judul'       => 'Monyet Ekor Panjang Sibaganding',
-                'slug'        => 'monyet-ekor-panjang-sibaganding',
-                'deskripsi'   => 'Fauna endemik...',
+                'judul'       => 'Monyet Ekor Panjang',
+                'deskripsi'   => 'Monyet ekor panjang (Macaca fascicularis) merupakan salah satu spesies primata yang menghuni kawasan Geosite Sibaganding, tepatnya di Monkey Forest Sibaganding. Kehadiran satwa ini menjadi salah satu daya tarik utama bagi para wisatawan yang berkunjung karena mereka memiliki perilaku yang unik di habitatnya.',
                 'gambar'      => '/image/monyet.jpg',
                 'kategori_id' => $idBio, // <-- SUDAH BENAR
-                'lokasi'      => 'Geosite Sibaganding',
+                'lokasi'      => 'Monkey Forest',
                 'status'      => true,
-                'views'       => 150,
             ],
             // --- DATA 2 (Ini yang bikin error tadi) ---
             [
-                'judul'       => 'Batu Gantung',
-                'slug'        => 'batu-gantung',
-                'deskripsi'   => 'Fenomena geologi berupa formasi batuan...',
+                'judul'       => 'Batu Sabak',
+                'deskripsi'   => 'Jarak dekat pecahan batu sabak berukuran kecil. Patahan batu ini memperlihatkan pola alami yang menarik pada bagian dalamnya, menyerupai kerang atau jejak struktur geologi yang menjadi salah satu daya tarik kawasan Geosite Sibaganding.',
                 'gambar'      => '/image/batu_gantung.jpg',
                 'kategori_id' => $idGeo, // disini buat ngubah kategori geo
                 'lokasi'      => 'Geosite Sibaganding',
                 'status'      => true,
-                'views'       => 320,
             ],
             // --- DATA 3 (Kalau ada Legenda Batu Gantung, dsb) ---
             [
-                'judul'       => 'Legenda Batu Gantung',
-                'slug'        => 'legenda-batu-gantung',
-                'deskripsi'   => 'Cerita rakyat...',
+                'judul'       => 'Jabu Bolon',
+                'deskripsi'   => 'Jabu Bolon atau Rumah Bolon merupakan rumah adat tradisional masyarakat Batak. Ciri khas utamanya sangat terlihat dari bentuk atap segitiga lancip yang menjulang tinggi serta struktur bangunannya yang berupa rumah panggung dan ditopang oleh tiang-tiang penyangga.',
                 'gambar'      => '/image/legenda.jpg',
                 'kategori_id' => $idCulture, // <-- PASTIKAN INI JUGA DIUBAH
-                'lokasi'      => 'Geosite Sibaganding',
+                'lokasi'      => 'Geosite Sibaganding, Parapat',
                 'status'      => true,
-                'views'       => 200,
             ],
         ];
 
