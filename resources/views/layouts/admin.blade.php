@@ -287,6 +287,32 @@
                 font-size: 2.2rem;
             }
         }
+            /* ===== FIX PAGINATION ===== */
+            .pagination {
+                gap: 4px;
+            }
+            .pagination .page-link {
+                border-radius: 8px !important;
+                padding: 6px 12px;
+                font-size: .85rem;
+                color: #c6a43b;
+                border-color: #e0d0b0;
+            }
+            .pagination .page-item.active .page-link {
+                background: linear-gradient(135deg, #c6a43b, #e8c96a);
+                border-color: transparent;
+                color: white;
+            }
+            .pagination .page-link:hover {
+                background: #fff8e0;
+                color: #b8962e;
+            }
+            .pagination svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            
     </style>
 
     @stack('styles')

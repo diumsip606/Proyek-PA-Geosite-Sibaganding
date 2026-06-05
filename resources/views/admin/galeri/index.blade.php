@@ -57,13 +57,18 @@
                                     $gambarGaleri = asset('images/sibaganding1.JPG');
                                 }
                             @endphp
-
-                            <img 
-                                src="{{ $gambarGaleri }}" 
-                                alt="Gambar Galeri" 
-                                style="width:80px;height:55px;object-fit:cover;border-radius:6px;"
-                                onerror="this.onerror=null; this.src='{{ asset('images/sibaganding1.JPG') }}';"
-                            >
+                                @if($item->gambar)
+                                    <img
+                                        src="{{ $gambarGaleri }}"
+                                        alt="Gambar Galeri"
+                                        style="width:80px;height:55px;object-fit:cover;border-radius:6px;"
+                                        onerror="this.onerror=null; this.src='{{ asset('images/sibaganding1.JPG') }}';"
+                                    >
+                                @else
+                                    <div style="width:80px;height:55px;border-radius:6px;background:#f3f4f6;border:1.5px dashed #ccc;display:flex;align-items:center;justify-content:center;">
+                                        <span style="font-size:.6rem;color:#aaa;text-align:center;line-height:1.3;">Belum<br>ada foto</span>
+                                    </div>
+                                @endif
                         </td>
 
                         <td>
@@ -102,10 +107,10 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <button 
-                                        type="submit" 
-                                        class="btn btn-outline-custom" 
-                                        style="border-color:#ef4444;color:#ef4444;" 
+                                    <button
+                                        type="submit"
+                                        class="btn btn-outline-custom"
+                                        style="border-color:#ef4444;color:#ef4444;"
                                         onclick="return confirm('Yakin hapus?')"
                                     >
                                         <i class="fas fa-trash"></i>
@@ -116,11 +121,11 @@
                                     <form action="{{ route('admin.galeri.set_hero', $item->id) }}" method="POST" class="d-inline">
                                         @csrf
 
-                                        <button 
-                                            type="submit" 
-                                            class="btn btn-outline-custom" 
-                                            style="border-color:#3b82f6;color:#3b82f6;" 
-                                            title="Jadikan Hero" 
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline-custom"
+                                            style="border-color:#3b82f6;color:#3b82f6;"
+                                            title="Jadikan Hero"
                                             onclick="return confirm('Jadikan hero?')"
                                         >
                                             <i class="far fa-star"></i>
@@ -130,11 +135,11 @@
                                     <form action="{{ route('admin.galeri.unset_hero', $item->id) }}" method="POST" class="d-inline">
                                         @csrf
 
-                                        <button 
-                                            type="submit" 
-                                            class="btn btn-outline-custom text-warning" 
-                                            style="border-color:#ffc107;color:#ffc107;" 
-                                            title="Batalkan Hero" 
+                                        <button
+                                            type="submit"
+                                            class="btn btn-outline-custom text-warning"
+                                            style="border-color:#ffc107;color:#ffc107;"
+                                            title="Batalkan Hero"
                                             onclick="return confirm('Batalkan hero?')"
                                         >
                                             <i class="fas fa-star"></i>
@@ -156,7 +161,7 @@
     </div>
 
     <div class="mt-3">
-        {{ $galeris->links() }}
+        {{ $galeris->links('vendor.pagination.bootstrap-5') }}
     </div>
 </div>
 @endsection
