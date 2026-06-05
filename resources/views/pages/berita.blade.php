@@ -234,93 +234,6 @@
     transform: translateX(5px);
 }
 
-/* MODAL UNTUK DETAIL BERITA */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 10001;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-content {
-    background: white;
-    max-width: 800px;
-    width: 90%;
-    max-height: 85vh;
-    border-radius: 16px;
-    overflow-y: auto;
-    position: relative;
-    cursor: default;
-}
-
-.modal-close {
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    color: #333;
-    font-size: 35px;
-    cursor: pointer;
-    background: rgba(255,255,255,0.9);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-}
-
-.modal-close:hover {
-    background: #c6a43b;
-    color: white;
-}
-
-.modal-body {
-    padding: 30px;
-}
-
-.modal-image {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 20px;
-}
-
-.modal-date {
-    font-size: 0.75rem;
-    color: #c6a43b;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.modal-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1a3c5e;
-    margin-bottom: 20px;
-    font-family: 'Cormorant Garamond', serif;
-}
-
-.modal-text {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #444;
-}
-
 /* EMPTY STATE */
 .empty-state {
     grid-column: 1 / -1;
@@ -473,134 +386,49 @@
 <!-- BERITA GRID -->
 <section class="section">
     <div class="container">
-        <div class="berita-grid" id="beritaGrid"></div>
-        <div class="pagination" id="pagination"></div>
-    </div>
-</section>
-
-<!-- MODAL DETAIL BERITA -->
-<div class="modal" id="modal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
-        <div class="modal-body">
-            <img id="modalImage" class="modal-image" src="" alt="">
-            <span id="modalDate" class="modal-date"></span>
-            <h2 id="modalTitle" class="modal-title"></h2>
-            <div id="modalText" class="modal-text"></div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // DATA BERITA KOSONG - NANTI DIISI DENGAN CRUD
-    const beritaData = [];
-
-    let currentPage = 1;
-    const itemsPerPage = 6;
-
-    function renderBerita() {
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const beritaToShow = beritaData.slice(startIndex, endIndex);
-
-        const grid = document.getElementById('beritaGrid');
-
-        if (beritaData.length === 0) {
-            // Tampilkan pesan kosong
-            grid.innerHTML = `
+        <div class="berita-grid" id="beritaGrid">
+            @if($berita->count() > 0)
+                @foreach($berita as $item)
+                <a href="{{ route('berita.detail', $item->slug) }}" class="berita-card" data-aos="fade-up" style="text-decoration: none; color: inherit;">
+                    @if($item->gambar)
+                    <div class="berita-image">
+                        <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" onerror="this.parentElement.style.display='none';">
+                    </div>
+                    @endif
+                    <div class="berita-content">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <div style="display: flex; gap: 12px; align-items: center;">
+                                <span class="berita-date">{{ $item->tanggal_terbit ? $item->tanggal_terbit->format('d M Y') : '' }}</span>
+                                <span style="font-size: 0.75rem; color: #888; display: flex; align-items: center; gap: 4px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                    {{ $item->views }}
+                                </span>
+                            </div>
+                            @if($item->link)
+                                <object><a href="{{ $item->link }}" target="_blank" rel="noopener noreferrer" class="btn-sumber-card" style="margin: 0; padding: 2px 8px; font-size: 0.65rem; border-radius: 12px; background: #c6a43b; color: white; text-decoration: none; display: inline-flex; align-items: center; gap: 3px;" title="Menuju Link Berita Asli">
+                                    <span>🌐 Sumber</span> ↗
+                                </a></object>
+                            @endif
+                        </div>
+                        <h3 class="berita-title">{{ $item->judul }}</h3>
+                        <p class="berita-excerpt">{{ Str::limit(strip_tags($item->konten), 100) }}</p>
+                        <span class="berita-readmore">Baca Selengkapnya →</span>
+                    </div>
+                </a>
+                @endforeach
+            @else
                 <div class="empty-state">
                     <div class="empty-state-icon">📰</div>
                     <h3>Belum Ada Berita</h3>
                     <p>Saat ini belum ada berita yang tersedia.</p>
                     <p style="font-size: 0.8rem;">Silakan cek kembali nanti untuk informasi terbaru.</p>
                 </div>
-            `;
-            document.getElementById('pagination').innerHTML = '';
-            return;
-        }
+            @endif
+        </div>
+    </div>
+</section>
 
-        if (beritaToShow.length === 0) {
-            grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:60px"><p>Tidak ada berita</p></div>';
-            return;
-        }
-
-        grid.innerHTML = beritaToShow.map(berita => `
-            <div class="berita-card" onclick="openModal(${berita.id})">
-                <div class="berita-image">
-                    <img src="${berita.image}" alt="${berita.title}">
-                </div>
-                <div class="berita-content">
-                    <span class="berita-date">${berita.date}</span>
-                    <h3 class="berita-title">${berita.title}</h3>
-                    <p class="berita-excerpt">${berita.excerpt.substring(0, 100)}${berita.excerpt.length > 100 ? '...' : ''}</p>
-                    <span class="berita-readmore">Baca Selengkapnya →</span>
-                </div>
-            </div>
-        `).join('');
-
-        renderPagination();
-    }
-
-    function renderPagination() {
-        const totalPages = Math.ceil(beritaData.length / itemsPerPage);
-        const paginationDiv = document.getElementById('pagination');
-
-        if (totalPages <= 1) {
-            paginationDiv.innerHTML = '';
-            return;
-        }
-
-        let paginationHtml = '';
-
-        // Tombol Previous
-        paginationHtml += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>« Sebelumnya</button>`;
-
-        // Nomor halaman
-        for (let i = 1; i <= totalPages; i++) {
-            paginationHtml += `<button onclick="changePage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</button>`;
-        }
-
-        // Tombol Next
-        paginationHtml += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Selanjutnya »</button>`;
-
-        paginationDiv.innerHTML = paginationHtml;
-    }
-
-    function changePage(page) {
-        const totalPages = Math.ceil(beritaData.length / itemsPerPage);
-        if (page < 1 || page > totalPages) return;
-        currentPage = page;
-        renderBerita();
-        window.scrollTo({ top: 300, behavior: 'smooth' });
-    }
-
-    function openModal(id) {
-        const berita = beritaData.find(b => b.id === id);
-        if (!berita) return;
-
-        document.getElementById('modalImage').src = berita.image;
-        document.getElementById('modalDate').innerText = berita.date;
-        document.getElementById('modalTitle').innerText = berita.title;
-        document.getElementById('modalText').innerHTML = berita.content;
-        document.getElementById('modal').classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        document.getElementById('modal').classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    // Tutup modal dengan ESC
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeModal();
-        }
-    });
-
-    renderBerita();
-
-
+<script>
     // Hero Slider
     document.addEventListener('DOMContentLoaded', function () {
         let heroCurrent = 0;

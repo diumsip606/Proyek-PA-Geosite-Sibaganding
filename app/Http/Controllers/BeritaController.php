@@ -19,6 +19,7 @@ class BeritaController extends Controller
                 'title' => $item->judul,
                 'slug' => $item->slug,
                 'excerpt' => \Illuminate\Support\Str::limit(strip_tags($item->konten), 120),
+                'content' => $item->konten,
                 'image' => $item->gambar ? asset($item->gambar) : asset('images/sibaganding1.JPG'),
                 'date' => $item->tanggal_terbit ? \Carbon\Carbon::parse($item->tanggal_terbit)->format('d M Y') : '',
                 'link' => $item->link,
@@ -43,6 +44,9 @@ class BeritaController extends Controller
     public function show($slug)
     {
         $berita = Berita::with('kategori')->where('slug', $slug)->firstOrFail();
+        
+        // Tambah jumlah views setiap kali dibaca
+        $berita->increment('views');
 
         $otherBerita = Berita::with('kategori')
                             ->where('slug', '!=', $slug)
