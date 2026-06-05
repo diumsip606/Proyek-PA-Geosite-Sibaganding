@@ -304,7 +304,7 @@
 
 @if($fotoSaatIni)
     <div class="current-img-wrapper">
-        <img 
+        <img
             src="{{ $fotoSaatIni }}"
             alt="{{ $galeri->judul }}"
             onerror="this.onerror=null;this.src='{{ asset('images/sibaganding1.JPG') }}';"
@@ -321,7 +321,7 @@
                     {{-- Upload Ganti Gambar --}}
                     <label class="form-label">Ganti Foto <small class="text-muted fw-normal">(Opsional)</small></label>
                     <div class="upload-zone" id="uploadZone">
-                        <input type="file" name="gambar" id="inputGambar" class="form-control" accept="image/*">
+                        <input type="file" name="gambar" id="inputGambar" accept="image/jpeg,image/png,image/jpg,image/JPG,image/webp">
                         <i class="fas fa-sync-alt d-block"></i>
                         <div class="upload-title">Klik untuk ganti foto</div>
                         <p>JPG, PNG, WEBP · <strong>Maks 2 MB</strong><br>Kosongkan jika tidak ingin mengubah</p>

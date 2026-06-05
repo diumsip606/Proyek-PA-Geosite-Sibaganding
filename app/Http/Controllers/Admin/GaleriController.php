@@ -85,7 +85,7 @@ class GaleriController extends Controller
             'judul'       => 'required|string|max:255',
             'kategori_id' => 'required|exists:kategori,id',
             'deskripsi'   => 'required|string',
-            'gambar'      => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'gambar'      => 'nullable|image|mimes:jpeg,png,jpg,JPG,webp|max:2048',
             'lokasi'      => 'nullable|string|max:255',
             'status'      => 'nullable|boolean',
             'is_hero'     => 'nullable|boolean',

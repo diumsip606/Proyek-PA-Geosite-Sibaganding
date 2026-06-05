@@ -23,7 +23,7 @@ class GaleriSeeder extends Seeder
                 'deskripsi'   => 'Monyet ekor panjang (Macaca fascicularis) merupakan salah satu spesies primata yang menghuni kawasan Geosite Sibaganding, tepatnya di Monkey Forest Sibaganding. Kehadiran satwa ini menjadi salah satu daya tarik utama bagi para wisatawan yang berkunjung karena mereka memiliki perilaku yang unik di habitatnya.',
                 'gambar'      => 'https://calderatobageopark.org/wp-content/uploads/2025/05/Geosite-Sibaganding-Simalungun-Aspek-Biologi-scaled.jpg#8414',
                 'kategori_id' => $idBio,
-                'lokasi'      => 'Monkey Forest',
+                'lokasi'      => 'Monkey Forest, Parapat',
                 'status'      => true,
             ],
             // --- DATA 2 (Ini yang bikin error tadi) ---
@@ -82,15 +82,58 @@ class GaleriSeeder extends Seeder
             ],
 
             [
-                'judul'       => 'Monyet Ekor Panjang',
-                'deskripsi'   => 'Monyet ekor panjang (Macaca fascicularis) merupakan salah satu spesies primata yang menghuni kawasan Geosite Sibaganding, tepatnya di Monkey Forest Sibaganding. Kehadiran satwa ini menjadi salah satu daya tarik utama bagi para wisatawan yang berkunjung karena mereka memiliki perilaku yang unik di habitatnya.',
-                'gambar'      => '',
-                'kategori_id' => $idBio, // <-- PASTIKAN INI JUGA DIUBAH
-                'lokasi'      => 'Monkey Forest, Parapat',
+                'judul'       => 'Batu Gantung',
+                'deskripsi'   => 'Batu Gantung merupakan salah satu daya tarik utama di kawasan Geosite Sibaganding yang merepresentasikan perpaduan sempurna antara kekayaan geologi (geodiversity) dan warisan budaya (culture diversity).',
+                'gambar'      => 'https://calderatobageopark.org/wp-content/uploads/2025/05/Geosite-Sibaganding-Simalungun-Aspek-Geologi.jpg#8413',
+                'kategori_id' => $idGeo, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Parapat',
                 'status'      => true,
             ],
 
-            
+            [
+                'judul'       => 'Batu Gamping Purba',
+                'deskripsi'   => 'Batu Gamping ini terbentuk sejak zaman purba hingga masa supervolcano Toba. Ciri khasnya berwarna keunguan, menandakan kandungan besi dan proses oksidasi alami yang berlangsung sangat lama.',
+                'gambar'      => '',
+                'kategori_id' => $idGeo, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Geosite Sibaganding',
+                'status'      => true,
+            ],
+
+            [
+                'judul'       => 'Batu Gamping Sekarang',
+                'deskripsi'   => 'Batu Gamping yang terbentuk pada masa sekarang yang memiliki warna putih, menunjukkan komposisi mineral yang berbeda dan usia yang lebih baru.',
+                'gambar'      => '',
+                'kategori_id' => $idGeo, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Geosite Sibaganding',
+                'status'      => true,
+            ],
+
+            [
+                'judul'       => 'Monkey Forest',
+                'deskripsi'   => 'Monkey Forest Sibaganding, merupakan salah satu contoh wilayah yang memiliki biodiversity fauna yang cukup beragam. Di kawasan ini terdapat beberapa jenis primata seperti siamang, kera, beruk, dan kia-kia yang hidup berkelompok di habitat hutan sekitar Danau Toba.',
+                'gambar'      => '',
+                'kategori_id' => $idCulture, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Taman Wisata Kera Sibaganding',
+                'status'      => true,
+            ],
+
+            [
+                'judul'       => 'Terowongan Batuan',
+                'deskripsi'   => 'Terowongan yang dibuat untuk jalur utama Pematang Siantar menuju Parapat pada zaman Belanda, sekarang sudah dibangun jalur baru untuk menuju Parapat',
+                'gambar'      => 'https://calderatobageopark.org/wp-content/uploads/2025/05/Geosite-Sibaganding-Simalungun-Geologi-3-scaled.jpg',
+                'kategori_id' => $idCulture, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Pintu Masuk Taman Wisata Kera Sibaganding',
+                'status'      => true,
+            ],
+
+            [
+                'judul'       => 'Persinggahan Soekarno',
+                'deskripsi'   => 'Lokasi bersejarah yang pernah disinggahi oleh Presiden Republik Indonesia. Tempat ini memiliki nilai historis dan menjadi salah satu objek wisata budaya yang menarik perhatian wisatawan di kawasan Sibaganding.',
+                'gambar'      => '',
+                'kategori_id' => $idCulture, // <-- PASTIKAN INI JUGA DIUBAH
+                'lokasi'      => 'Pesanggrahan Bung Karno, Parapat',
+                'status'      => true,
+            ],
 
         ];
 

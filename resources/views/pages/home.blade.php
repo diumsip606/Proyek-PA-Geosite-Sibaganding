@@ -454,25 +454,6 @@
     z-index: 2;
 }
 
-.about-kicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    color: #c6a43b;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    margin-bottom: 18px;
-}
-
-.about-kicker::before {
-    content: "";
-    width: 42px;
-    height: 2px;
-    background: #c6a43b;
-}
-
 .about-content h3 {
     font-size: 2.75rem;
     font-family: 'Cormorant Garamond', serif;
@@ -3042,7 +3023,6 @@
     <div class="container">
         <div class="about-grid">
             <div class="about-content" data-aos="fade-right">
-                <div class="about-kicker">Warisan Geologi Khas Dunia</div>
 
                 <h3>Dari Letusan Purba Danau Toba, Sibaganding Menyimpan Cerita Alam yang Hidup</h3>
 
@@ -3343,8 +3323,8 @@
 @endphp
 
 
-<img 
-    src="{{ $gambarGaleri }}" 
+<img
+    src="{{ $gambarGaleri }}"
     alt="{{ $item->judul ?? 'Galeri '.($i+1) }}"
     onerror="this.onerror=null; this.src='{{ asset('images/sibaganding1.JPG') }}';"
 >
@@ -3372,12 +3352,12 @@
 
     $i = 0;
     $fallbackGambar = $defaultGallery[$i % 10];
-    
+
     $galeriExts = [
         1 => 'jpg', 2 => 'JPG', 3 => 'jpg', 4 => 'jpg', 5 => 'JPG',
         6 => 'JPG', 7 => 'JPG', 8 => 'JPG', 9 => 'jpg', 10 => 'jpg'
     ];
-    
+
     $galeriTitles = [
         1 => 'Pemandangan Sibaganding', 2 => 'Danau Toba', 3 => 'Warisan Geologi',
         4 => 'Keindahan Alam', 5 => 'Destinasi Wisata', 6 => 'Landscape',
@@ -3563,7 +3543,7 @@
         <div class="section-title team-title" data-aos="fade-up">
             <span class="team-kicker">Tim Pengelola</span>
             <h2>Pengurus Sibaganding</h2>
-            <div class="divider"></div> 
+            <div class="divider"></div>
             <p>
                 Orang-orang yang berperan dalam menjaga, mengembangkan, dan memperkenalkan
                 potensi wisata, geologi, budaya, serta kekayaan alam Sibaganding.
@@ -3791,7 +3771,7 @@ function openTeamModal(data) {
     document.getElementById('teamModalName').textContent = data.name || '';
     document.getElementById('teamModalInstansi').textContent = data.instansi || '-';
     document.getElementById('teamModalBidang').textContent = data.bidang || '-';
-    
+
     const kontakVal = data.kontak || '-';
     const kontakEl = document.getElementById('teamModalKontak');
     if (kontakEl) {
@@ -3804,7 +3784,7 @@ function openTeamModal(data) {
             kontakEl.textContent = kontakVal;
         }
     }
-    
+
     document.getElementById('teamModalDesc').textContent = data.desc || '';
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -3834,37 +3814,37 @@ function closeGalleryModal() {
 // Draggable Helper function
 function makeSliderDraggable(track, showSlideFn, getCurrentFn) {
     if (!track) return;
-    
+
     let startX = 0;
     let currentX = 0;
     let isDragging = false;
     let initialTranslate = 0;
     let moved = false;
-    
+
     track.addEventListener('dragstart', (e) => e.preventDefault());
-    
+
     track.addEventListener('touchstart', dragStart, { passive: true });
     track.addEventListener('touchmove', dragMove, { passive: true });
     track.addEventListener('touchend', dragEnd);
-    
+
     track.addEventListener('mousedown', dragStart);
     track.addEventListener('mousemove', dragMove);
     track.addEventListener('mouseup', dragEnd);
     track.addEventListener('mouseleave', dragEnd);
-    
+
     track.addEventListener('click', function(e) {
         if (moved) {
             e.preventDefault();
             e.stopPropagation();
         }
     }, true);
-    
+
     function getTranslateX() {
         const style = window.getComputedStyle(track);
         const matrix = new DOMMatrixReadOnly(style.transform);
         return matrix.m41;
     }
-    
+
     function dragStart(e) {
         if (track.dataset.isTransitioning === 'true') return;
         isDragging = true;
@@ -3875,7 +3855,7 @@ function makeSliderDraggable(track, showSlideFn, getCurrentFn) {
         track.style.transition = 'none';
         track.dataset.isTransitioning = 'false';
     }
-    
+
     function dragMove(e) {
         if (!isDragging) return;
         currentX = e.type.includes('touch') ? e.touches[0].clientX : e.clientX;
@@ -3885,11 +3865,11 @@ function makeSliderDraggable(track, showSlideFn, getCurrentFn) {
         }
         track.style.transform = `translateX(${initialTranslate + walk}px)`;
     }
-    
+
     function dragEnd() {
         if (!isDragging) return;
         isDragging = false;
-        
+
         const walk = currentX - startX;
         if (Math.abs(walk) > 50) {
             if (walk < 0) {
