@@ -10,7 +10,7 @@
     height: auto;
     min-height: 480px;
     background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.7)), 
-                url('{{ $data->gambar_utama ? asset('storage/' . $data->gambar_utama) : asset("images/sibaganding1.JPG") }}');
+                url('{{ $data->gambar_utama ? asset($data->gambar_utama) : asset('images/sibaganding1.jpg') }}');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -619,8 +619,9 @@
             <div class="card-premium">
                 <h3>Visual Geosite</h3>
                 <div class="featured-image-container">
-                    <img src="{{ $data->gambar_utama ? asset('storage/' . $data->gambar_utama) : asset("images/sibaganding1.JPG") }}" alt="{{ $data->nama }}">
-                </div>
+                <img src="{{ $data->gambar_utama ? asset($data->gambar_utama) : asset('images/sibaganding1.jpg') }}" 
+                    alt="{{ $data->nama }}"
+                    onerror="this.onerror=null;this.src='{{ asset('images/sibaganding1.jpg') }}';">                </div>
                 <div class="img-caption">
                     <i class="fas fa-info-circle me-2"></i>Keindahan alam panorama {{ $data->nama }} di kawasan Geosite Sibaganding, Danau Toba.
                 </div>
@@ -705,8 +706,9 @@
             <div class="col-md-4 mb-4">
                 <div class="card related-card">
                     <div class="related-img-box">
-                        <img src="{{ $other->gambar_utama ? asset('storage/' . $other->gambar_utama) : asset("images/sibaganding1.JPG") }}" alt="{{ $other->nama }}">
-                        <span class="related-badge">{{ $other->kategori->nama ?? 'Geosite' }}</span>
+            <img src="{{ $data->gambar_utama ? asset($data->gambar_utama) : asset('images/sibaganding1.jpg') }}" 
+                alt="{{ $data->nama }}"
+                onerror="this.onerror=null;this.src='{{ asset('images/sibaganding1.jpg') }}';">                        <span class="related-badge">{{ $other->kategori->nama ?? 'Geosite' }}</span>
                     </div>
                     <div class="card-body related-body">
                         <h5 class="related-card-title">{{ $other->nama }}</h5>
@@ -729,4 +731,4 @@
 </section>
 @endif
 
-@endsection
+@endsection

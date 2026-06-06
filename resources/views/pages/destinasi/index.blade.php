@@ -588,9 +588,9 @@
             <!-- Biodiversity -->
             <div class="category-card" data-aos="fade-up" data-aos-delay="0">
                 <div class="card-image">
-                    <img src="{{ $bioImage ? asset('storage/' . $bioImage) : '/image/destinasi/bbiodiversity.jpg' }}" alt="biodiversity">
-                    <div class="card-overlay"></div>
-                </div>
+<img src="{{ $gambarBio ? asset($gambarBio) : asset('images/Buah-Ara-Bio.jpg') }}" 
+    alt="Biodiversity"
+    onerror="this.onerror=null;this.src='{{ asset('images/Buah-Ara-Bio.jpg') }}';">                </div>
                 <div class="card-content">
                     <div class="card-icon">
                         <i class="fas fa-mountain"></i>
@@ -605,9 +605,9 @@
             <!-- Geodiversity -->
             <div class="category-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="card-image">
-                    <img src="{{ $geoImage ? asset('storage/' . $geoImage) : '/image/destinasi/geodiversity.jpg' }}" alt="geodiversity">
-                    <div class="card-overlay"></div>
-                </div>
+<img src="{{ $gambarGeo ? asset($gambarGeo) : asset('images/caldera.jpg') }}" 
+    alt="Geodiversity"
+    onerror="this.onerror=null;this.src='{{ asset('images/caldera.jpg') }}';">                </div>
                 <div class="card-content">
                     <div class="card-icon">
                         <i class="fas fa-building"></i>
@@ -620,21 +620,23 @@
             </div>
 
             <!-- Culturediversity -->
-            <div class="category-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="card-image">
-                    <img src="{{ $cultureImage ? asset('storage/' . $cultureImage) : '/image/destinasi/culturediversity.jpg' }}" alt="culturediversity">
-                    <div class="card-overlay"></div>
-                </div>
-                <div class="card-content">
-                    <div class="card-icon">
-                        <i class="fas fa-landmark"></i>
-                    </div>
-                    <h3>Culturediversity</h3>
-                    <p>Rasakan kearifan lokal Batak Toba, kunjungi desa adat, museum sejarah, dan pusat kerajinan tenun ulos khas.</p>
-
-                    <a href="{{ url('/destinasi/culture-diversity') }}" class="card-btn">Jelajahi →</a>
-                </div>
-            </div>
+<!-- Culturediversity -->
+<div class="category-card" data-aos="fade-up" data-aos-delay="200">
+    <div class="card-image">
+        <img src="{{ $gambarCulture ? asset($gambarCulture) : asset('images/sibaganding1.JPG') }}" 
+            alt="Culturediversity"
+            onerror="this.onerror=null;this.src='{{ asset('images/sibaganding1.JPG') }}';">
+        <div class="card-overlay"></div>
+    </div>
+    <div class="card-content">
+        <div class="card-icon">
+            <i class="fas fa-landmark"></i>
+        </div>
+        <h3>Culturediversity</h3>
+        <p>Rasakan kearifan lokal Batak Toba, kunjungi desa adat, museum sejarah, dan pusat kerajinan tenun ulos khas.</p>
+        <a href="{{ url('/destinasi/culture-diversity') }}" class="card-btn">Jelajahi →</a>
+    </div>
+</div>
         </div>
     </div>
 </section>

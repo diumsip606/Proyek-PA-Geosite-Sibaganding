@@ -1,10 +1,10 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Edit Destinasi')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="mb-0">✏️ Edit Destinasi</h5>
+    <h5 class="mb-0"> Edit Destinasi</h5>
     <a href="{{ route('admin.destinasi.index') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Kembali
     </a>
@@ -84,14 +84,15 @@
                     @if($destinasi->gambar_utama)
                         <div class="mb-2">
                             <p class="text-muted small mb-1">Gambar saat ini:</p>
-                            <img src="{{ $destinasi->gambar_utama }}" alt="{{ $destinasi->nama }}"
-                                 style="max-height:150px; border-radius:8px; border:1px solid #dee2e6;">
+                            <img src="{{ asset($destinasi->gambar_utama) }}" alt="{{ $destinasi->nama }}"
+                                 style="max-height:150px; border-radius:8px; border:1px solid #dee2e6;"
+                                 onerror="this.onerror=null;this.src='{{ asset('images/sibaganding1.JPG') }}';">
                         </div>
                     @endif
                     <input type="file" name="gambar_utama" id="gambar_utama" accept="image/*"
                            class="form-control @error('gambar_utama') is-invalid @enderror"
                            onchange="previewImage(this)">
-                    <div class="form-text"><i class="fas fa-info-circle text-primary me-1"></i>Kosongkan jika tidak ingin mengganti. Format: JPG, PNG, WEBP. <strong>Maks 2 MB.</strong></div>
+                    <div class="form-text"><i class="fas fa-info-circle text-primary me-1"></i>Kosongkan jika tidak ingin mengganti. Format: JPG, PNG, GIF, WEBP, BMP. <strong>Maks 5 MB.</strong></div>
                     @error('gambar_utama') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     <div id="imagePreview" class="mt-2" style="display:none;">
                         <p class="text-muted small mb-1">Gambar baru:</p>
@@ -120,8 +121,8 @@ function previewImage(input) {
     const img     = document.getElementById('previewImg');
     if (input.files && input.files[0]) {
         const file = input.files[0];
-        if (file.size > 2 * 1024 * 1024) {
-            alert('Ukuran file terlalu besar! Maksimal 2 MB.');
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Ukuran file terlalu besar! Maksimal 5 MB.');
             input.value = '';
             preview.style.display = 'none';
             return;
@@ -136,3 +137,4 @@ function previewImage(input) {
 }
 </script>
 @endsection
+

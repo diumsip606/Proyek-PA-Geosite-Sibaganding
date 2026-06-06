@@ -1,10 +1,10 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Tambah Destinasi')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="mb-0">➕ Tambah Destinasi</h5>
+    <h5 class="mb-0"> Tambah Destinasi</h5>
     <a href="{{ route('admin.destinasi.index') }}" class="btn btn-secondary">
         <i class="fas fa-arrow-left"></i> Kembali
     </a>
@@ -110,8 +110,8 @@ function previewImage(input) {
     const img     = document.getElementById('previewImg');
     if (input.files && input.files[0]) {
         const file = input.files[0];
-        if (file.size > 2 * 1024 * 1024) {
-            alert('Ukuran file terlalu besar! Maksimal 2 MB.');
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Ukuran file terlalu besar! Maksimal 5 MB.');
             input.value = '';
             preview.style.display = 'none';
             return;
@@ -126,3 +126,4 @@ function previewImage(input) {
 }
 </script>
 @endsection
+

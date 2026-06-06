@@ -17,15 +17,11 @@ class Destinasi extends Model
         'slug',
         'kategori_id',
         'lokasi',
-        'url',
         'deskripsi',
-        'status',
-        'sejarah',
-        'jarak',
-        'rute',
-        'maps',
-        'qr',
-        'gambar'
+        'gambar_utama',
+        'tags',
+        'admin_id',
+        'status'
     ];
 
     public function kategori()

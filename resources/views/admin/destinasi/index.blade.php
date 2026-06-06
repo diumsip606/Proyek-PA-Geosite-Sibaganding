@@ -1,10 +1,10 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Manajemen Destinasi')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="mb-0">🗺️ Manajemen Destinasi</h5>
+    <h5 class="mb-0"><i class="fas fa-map-marked-alt me-2"></i>Manajemen Destinasi</h5>
     <a href="{{ route('admin.destinasi.create') }}" class="btn btn-primary">
         <i class="fas fa-plus"></i> Tambah Destinasi
     </a>
@@ -38,11 +38,12 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>
                             @if($item->gambar_utama)
-                                <img src="{{ asset('storage/' . $item->gambar_utama) }}"
+                                <img src="{{ asset($item->gambar_utama) }}"
                                     width="60"
                                     height="60"
                                     style="object-fit: cover; border-radius: 8px;"
-                                    alt="{{ $item->nama }}">
+                                    alt="{{ $item->nama }}"
+                                    onerror="this.onerror=null;this.src='{{ asset('images/sibaganding1.JPG') }}';">
                             @else
                                 <div class="bg-secondary text-white text-center"
                                      style="width:60px;height:60px;line-height:60px;border-radius:8px;">
@@ -110,3 +111,4 @@
     </div>
 </div>
 @endsection
+

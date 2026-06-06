@@ -5,19 +5,29 @@ use App\Models\Destinasi;
 use App\Models\Review;
 class DestinasiController extends Controller
 {
-    public function index()
-    {
-        // Menampilkan semua destinasi yang statusnya aktif (true)
-        $destinasi = Destinasi::with('kategori')->where('status', true)->get();
+public function index()
+{
+    $destinasi = Destinasi::with('kategori')->where('status', 1)->get();
 
-        $heroImage = Destinasi::where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
+    // Ambil 1 gambar representatif per kategori
+    $gambarBio = Destinasi::whereHas('kategori', fn($q) => $q->where('nama', 'Biodiversity'))
+        ->where('status', 1)->whereNotNull('gambar_utama')
+        ->inRandomOrder()->value('gambar_utama');
 
-        $bioImage = Destinasi::whereHas('kategori', function($q){ $q->where('nama', 'Biodiversity'); })->where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
-        $geoImage = Destinasi::whereHas('kategori', function($q){ $q->where('nama', 'Geodiversity'); })->where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
-        $cultureImage = Destinasi::whereHas('kategori', function($q){ $q->where('nama', 'Culture Diversity'); })->where('status', true)->whereNotNull('gambar_utama')->inRandomOrder()->value('gambar_utama');
+    $gambarGeo = Destinasi::whereHas('kategori', fn($q) => $q->where('nama', 'Geodiversity'))
+        ->where('status', 1)->whereNotNull('gambar_utama')
+        ->inRandomOrder()->value('gambar_utama');
 
-        return view('pages.destinasi.index', compact('destinasi', 'heroImage', 'bioImage', 'geoImage', 'cultureImage'));
-    }
+    $gambarCulture = Destinasi::whereHas('kategori', fn($q) => $q->where('nama', 'Culture diversity'))
+        ->where('status', 1)->whereNotNull('gambar_utama')
+        ->inRandomOrder()->value('gambar_utama');
+
+    $pageHeader = \App\Models\PageHeader::where('page_name', 'destinasi')->first();
+
+    return view('pages.destinasi.index', compact(
+        'destinasi', 'gambarBio', 'gambarGeo', 'gambarCulture', 'pageHeader'
+    ));
+}
 
     // ============================================
     // 3 PILAR GEOPARK
