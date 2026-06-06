@@ -319,8 +319,7 @@
     @if($pageHeader && $pageHeader->gambar)
         style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset($pageHeader->gambar) }}'); background-size:cover; background-position:center; background-attachment: fixed;"
     @elseif($heroImage)
-        style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ resolve_image_url($heroImage, 'images/sibaganding1.jpg') }}'); background-size:cover; background-position:center; background-attachment: fixed;"
-    @else
+style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ $heroImage ? asset('storage/' . $heroImage) : asset('images/sibaganding1.jpg') }}'); background-size:cover; background-position:center; background-attachment: fixed;"    @else
         style="background-image: linear-gradient(rgba(0,36,65,0.60), rgba(0,36,65,0.50)), url('{{ asset('images/sibaganding1.jpg') }}'); background-size:cover; background-position:center; background-attachment: fixed;"
     @endif>
     <a href="{{ url('/destinasi') }}" class="back-btn">
@@ -355,7 +354,7 @@
             @forelse($destinasi as $item)
             <div class="dest-card" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                 <div class="card-image">
-        <img src="{{ $item->gambar_utama ? asset($item->gambar_utama) : asset('images/Buah-Ara-Bio.jpg') }}" 
+        <img src="{{ $item->gambar_utama ? asset($item->gambar_utama) : asset('images/Buah-Ara-Bio.jpg') }}"
              alt="{{ $item->nama }}"
              onerror="this.onerror=null;this.src='{{ asset('images/Buah-Ara-Bio.jpg') }}';">
                             <span class="card-badge">{{ $kategori }}</span>
@@ -382,7 +381,7 @@
 </section>
 
 <!-- Font Awesome & AOS -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">                  
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -390,7 +389,7 @@
 <script>
     AOS.init({
         duration: 800,
-        once: true, 
+        once: true,
         offset: 50
     });
 </script>
