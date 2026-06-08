@@ -14,7 +14,7 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    
+
     <div class="table-responsive">
         <table class="table table-custom">
             <thead>
@@ -47,7 +47,7 @@
             </tbody>
         </table>
     </div>
-    
-    {{ $berita->links() }}
+
+    {{ $berita->links('vendor.pagination.bootstrap-5') }}
 </div>
 @endsection

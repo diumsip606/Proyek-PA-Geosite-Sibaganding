@@ -83,7 +83,7 @@
             </table>
         </div>
         <div class="mt-3">
-            {{ $sliders->links() }}
+            {{ $sliders->links('vendor.pagination.bootstrap-5') }}
         </div>
     </div>
 </div>

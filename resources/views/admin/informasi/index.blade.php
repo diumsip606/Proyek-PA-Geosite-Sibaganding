@@ -20,7 +20,7 @@
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    
+
     <div class="table-responsive">
         <table class="table table-custom">
             <thead>
@@ -64,7 +64,7 @@
             </tbody>
         </table>
     </div>
-    
-    {{ $informasi->appends(request()->query())->links() }}
+
+    {{ $informasi->appends(request()->query())->links('vendor.pagination.bootstrap-5') }}
 </div>
 @endsection

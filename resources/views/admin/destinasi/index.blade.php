@@ -106,7 +106,7 @@
         </div>
 
         <div class="d-flex justify-content-end mt-3">
-            {{ $destinasi->links() }}
+            {{ $destinasi->links('vendor.pagination.bootstrap-5') }}
         </div>
     </div>
 </div>

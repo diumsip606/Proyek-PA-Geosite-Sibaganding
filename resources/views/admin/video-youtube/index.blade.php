@@ -87,7 +87,7 @@
             </table>
         </div>
         <div class="mt-3">
-            {{ $videos->links() }}
+            {{ $videos->links('vendor.pagination.bootstrap-5') }}
         </div>
     </div>
 </div>

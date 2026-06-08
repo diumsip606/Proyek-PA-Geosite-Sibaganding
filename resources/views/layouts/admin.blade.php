@@ -405,30 +405,45 @@
                 font-size: 2.2rem;
             }
         }
-            /* ===== FIX PAGINATION ===== */
-            .pagination {
-                gap: 4px;
-            }
-            .pagination .page-link {
-                border-radius: 8px !important;
-                padding: 6px 12px;
-                font-size: .85rem;
-                color: #c6a43b;
-                border-color: #e0d0b0;
-            }
-            .pagination .page-item.active .page-link {
-                background: linear-gradient(135deg, #c6a43b, #e8c96a);
-                border-color: transparent;
-                color: white;
-            }
-            .pagination .page-link:hover {
-                background: #fff8e0;
-                color: #b8962e;
-            }
-            .pagination svg {
-                width: 12px;
-                height: 12px;
-            }
+
+        /* ===== FIX PAGINATION ===== */
+        .pagination {
+            gap: 4px;
+            margin: 0;
+        }
+
+        .pagination .page-link {
+            border-radius: 8px !important;
+            padding: 6px 12px;
+            font-size: .85rem;
+            color: #3b82f6;
+            border-color: #dbeafe;
+        }
+
+        .pagination .page-item.active .page-link {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .pagination .page-link:hover {
+            background: #eff6ff;
+            color: #2563eb;
+            border-color: #bfdbfe;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #94a3b8;
+            border-color: #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .pagination a svg,
+        .pagination span svg {
+            width: 12px !important;
+            height: 12px !important;
+            vertical-align: middle;
+        }
 
 
     </style>

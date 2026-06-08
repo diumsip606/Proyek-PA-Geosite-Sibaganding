@@ -94,7 +94,7 @@
     </div>
 
     <div class="d-flex justify-content-center mt-3">
-        {{ $kontakInfos->links() }}
+        {{ $kontakInfos->links('vendor.pagination.bootstrap-5') }}
     </div>
 </div>
 @endsection

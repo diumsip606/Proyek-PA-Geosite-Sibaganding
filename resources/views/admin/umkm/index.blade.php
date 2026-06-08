@@ -15,7 +15,7 @@
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-        
+
         <div class="table-responsive">
             <table class="table align-middle table-hover">
                 <thead class="table-light">
@@ -70,9 +70,9 @@
                 </tbody>
             </table>
         </div>
-        
+
         <div class="mt-3">
-            {{ $umkms->links() }}
+            {{ $umkms->links('vendor.pagination.bootstrap-5') }}
         </div>
     </div>
 </div>

@@ -1,12 +1,12 @@
 @extends('layouts.admin')
- 
+
 @section('title', 'Pesan Masuk')
- 
+
 @section('content')
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
     <h5 class="mb-0"><i class="fas fa-envelope me-2 text-primary"></i> Daftar Pesan Masuk</h5>
 </div>
- 
+
 <div class="card-premium">
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius: 8px;">
@@ -14,7 +14,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    
+
     <div class="table-responsive">
         <table class="table table-custom">
             <thead>
@@ -57,9 +57,9 @@
             </tbody>
         </table>
     </div>
-    
+
     <div class="d-flex justify-content-center mt-3">
-        {{ $pesans->links() }}
+        {{ $pesans->links('vendor.pagination.bootstrap-5') }}
     </div>
 </div>
 @endsection
