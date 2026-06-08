@@ -27,13 +27,35 @@
             top: 0;
             left: 0;
             width: 260px;
-            height: 100%;
+            height: 100vh;
             background: #1e293b;
             color: #94a3b8;
             transition: transform 0.3s ease;
             z-index: 1000;
             transform: translateX(-100%);
+            overflow-y:auto;
+            overflow-x:hidden;
         }
+
+        /* sidebar buat scroll*/
+        .sidebar::-webkit-scrollbar {
+        width: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 2px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        /*---------------------------------*/
+
 
         .sidebar.open {
             transform: translateX(0);
@@ -80,6 +102,102 @@
         .sidebar-menu a.active {
             background: #3b82f6;
             color: white;
+        }
+
+        /* Submenu untuk beranda*/
+        .sidebar-submenu {
+            display: none;
+            background: #162032;
+        }
+
+        .sidebar-submenu a {
+            padding: 9px 20px 9px 45px;
+            font-size: 0.85rem;
+        }
+
+        .sidebar-menu .has-submenu {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: 0.2s;
+            cursor: pointer;
+            justify-content: space-between;
+        }
+
+        .sidebar-menu .has-submenu:hover {
+            background: #334155;
+            color: white;
+        }
+
+        .sidebar-menu .has-submenu.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .has-submenu .arrow {
+            transition: transform 0.2s;
+            font-size: 0.7rem;
+        }
+
+        .has-submenu.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .parent-row {
+            display: flex;
+            align-items: center;
+            color: #94a3b8;
+            transition: 0.2s;
+        }
+
+        .parent-row:hover {
+            background: #334155;
+            color: white;
+        }
+
+        .parent-row.active {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .parent-row.active .arrow-btn {
+            border-left: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .parent-row.active .parent-link {
+            color: white;
+        }
+
+        .parent-link {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            padding: 12px 20px;
+            color: inherit;
+            text-decoration: none;
+            font-size: inherit;
+        }
+
+        .parent-link:hover {
+            color: white;
+        }
+
+        .arrow-btn {
+            padding: 12px 14px;
+            border-left: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            color: inherit;
+        }
+
+        .arrow-btn .arr {
+            transition: transform 0.2s;
+            font-size: 0.7rem;
+        }
+
+        .arrow-btn.open .arr {
+            transform: rotate(180deg);
         }
 
         /* Overlay */
@@ -312,7 +430,7 @@
                 height: 12px;
             }
 
-            
+
     </style>
 
     @stack('styles')
@@ -330,53 +448,114 @@
             <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                 <i class="fas fa-tachometer-alt"></i> Dashboard
             </a>
-            <a href="{{ route('admin.hero-slider.index') }}" class="{{ request()->routeIs('admin.hero-slider.*') ? 'active' : '' }}">
-                <i class="fas fa-sliders-h"></i> Hero Slider
-            </a>
+
+            @php
+            $berandaRoutes = ['admin.hero-slider.*','admin.fakta-unik.*','admin.warisan-geologi.*','admin.video-youtube.*'];
+            $berandaActive = collect($berandaRoutes)->contains(fn($r) => request()->routeIs($r));
+            @endphp
+
+            <div class="sidebar-menu-group">
+                <div class="has-submenu {{ $berandaActive ? 'active open' : '' }}" onclick="toggleSubmenu(this)">
+                    <span>
+                        <i class="fas fa-home" style="width:25px; margin-right:10px;"></i> Beranda
+                    </span>
+                    <i class="fas fa-chevron-down arrow"></i>
+                </div>
+                <div class="sidebar-submenu" style="{{ $berandaActive ? 'display:block;' : '' }}">
+                    <a href="{{ route('admin.hero-slider.index') }}"
+                    class="{{ request()->routeIs('admin.hero-slider.*') ? 'active' : '' }}">
+                        <i class="fas fa-sliders-h"></i> Hero Slider
+                    </a>
+                    <a href="{{ route('admin.fakta-unik.index') }}"
+                    class="{{ request()->routeIs('admin.fakta-unik.*') ? 'active' : '' }}">
+                        <i class="fas fa-lightbulb"></i> Fakta Unik
+                    </a>
+                    <a href="{{ route('admin.warisan-geologi.index') }}"
+                    class="{{ request()->routeIs('admin.warisan-geologi.*') ? 'active' : '' }}">
+                        <i class="fas fa-mountain"></i> Warisan Geologi
+                    </a>
+                    <a href="{{ route('admin.video-youtube.index') }}"
+                    class="{{ request()->routeIs('admin.video-youtube.*') ? 'active' : '' }}">
+                        <i class="fab fa-youtube"></i> Video Youtube
+                    </a>
+                </div>
+            </div>
+
+
+            @php
+                $informasiActive = (request()->routeIs('admin.informasi.*') && request('kategori') !== 'Pengurus') || request()->routeIs('admin.umkm.*') || request()->routeIs('admin.penginapan.*');
+            @endphp
+
+            <div class="sidebar-menu-group">
+                <div class="parent-row {{ $informasiActive ? 'active' : '' }}">
+                    <a href="{{ route('admin.informasi.index') }}" class="parent-link">
+                        <i class="fas fa-info-circle" style="width:25px; margin-right:10px;"></i> Informasi
+                    </a>
+                    <div class="arrow-btn {{ $informasiActive ? 'open' : '' }}" onclick="toggleSubmenu(this)">
+                        <i class="fas fa-chevron-down arr"></i>
+                    </div>
+                </div>
+                <div class="sidebar-submenu" style="{{ $informasiActive ? 'display:block;' : '' }}">
+                    <a href="{{ route('admin.umkm.index') }}"
+                    class="{{ request()->routeIs('admin.umkm.*') ? 'active' : '' }}">
+                        <i class="fas fa-store"></i> UMKM
+                    </a>
+                    <a href="{{ route('admin.penginapan.index') }}"
+                    class="{{ request()->routeIs('admin.penginapan.*') ? 'active' : '' }}">
+                        <i class="fas fa-hotel"></i> Hotel / Penginapan
+                    </a>
+                </div>
+            </div>
+
             <a href="{{ route('admin.galeri.index') }}" class="{{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
                 <i class="fas fa-images"></i> Galeri
             </a>
             <a href="{{ route('admin.berita.index') }}" class="{{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper"></i> Berita
             </a>
-            <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') !== 'Pengurus' ? 'active' : '' }}">
 
-            <a href="{{ route('admin.informasi.index') }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') !== 'Pengurus' && !(isset($informasi) && $informasi instanceof \App\Models\Informasi && $informasi->kategori === 'Pengurus') ? 'active' : '' }}">
-
-                <i class="fas fa-info-circle"></i> Informasi
-            </a>
-            <a href="{{ route('admin.umkm.index') }}" class="{{ request()->routeIs('admin.umkm.*') ? 'active' : '' }}">
-                <i class="fas fa-store"></i> UMKM
-            </a>
-            <a href="{{ route('admin.penginapan.index') }}" class="{{ request()->routeIs('admin.penginapan.*') ? 'active' : '' }}">
-                <i class="fas fa-hotel"></i> Hotel / Penginapan
-            </a>
-            <a href="{{ route('admin.informasi.index', ['kategori' => 'Pengurus']) }}" class="{{ request()->routeIs('admin.informasi.*') && request('kategori') === 'Pengurus' ? 'active' : '' }}">
-                <i class="fas fa-users"></i> Pengurus
-            </a>
             <a href="{{ route('admin.destinasi.index') }}" class="{{ request()->routeIs('admin.destinasi.*') ? 'active' : '' }}">
                 <i class="fas fa-map-marked-alt"></i> Destinasi
             </a>
-            <a href="{{ route('admin.fakta-unik.index') }}" class="{{ request()->routeIs('admin.fakta-unik.*') ? 'active' : '' }}">
-                <i class="fas fa-lightbulb"></i> Fakta Unik
-            </a>
-            <a href="{{ route('admin.warisan-geologi.index') }}" class="{{ request()->routeIs('admin.warisan-geologi.*') ? 'active' : '' }}">
-                <i class="fas fa-mountain"></i> Warisan Geologi
-            </a>
-            <a href="{{ route('admin.video-youtube.index') }}" class="{{ request()->routeIs('admin.video-youtube.*') ? 'active' : '' }}">
-                <i class="fab fa-youtube"></i> Video Youtube
-            </a>
-            <a href="{{ route('admin.pesan.index') }}" class="{{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}">
-                <i class="fas fa-envelope"></i> Pesan Masuk
-            </a>
-            <a href="{{ route('admin.kontak-info.index') }}" class="{{ request()->routeIs('admin.kontak-info.*') ? 'active' : '' }}">
-                <i class="fas fa-address-book"></i> Info Kontak
-            </a>
+
+            @php
+            $kontakActive = request()->routeIs('admin.pesan.*')
+                || request()->routeIs('admin.kontak-info.*')
+                || (request()->routeIs('admin.informasi.*') && request('kategori') === 'Pengurus');
+            @endphp
+
+            <div class="sidebar-menu-group">
+                <div class="parent-row {{ $kontakActive ? 'active' : '' }}">
+                    <a href="{{ route('admin.kontak-info.index') }}" class="parent-link">
+                        <i class="fas fa-address-book" style="width:25px; margin-right:10px;"></i> Kontak
+                    </a>
+                    <div class="arrow-btn {{ $kontakActive ? 'open' : '' }}" onclick="toggleSubmenu(this)">
+                        <i class="fas fa-chevron-down arr"></i>
+                    </div>
+                </div>
+                <div class="sidebar-submenu" style="{{ $kontakActive ? 'display:block;' : '' }}">
+                    <a href="{{ route('admin.kontak-info.index') }}"
+                    class="{{ request()->routeIs('admin.kontak-info.*') ? 'active' : '' }}">
+                        <i class="fas fa-address-book"></i> Info Kontak
+                    </a>
+                    <a href="{{ route('admin.informasi.index', ['kategori' => 'Pengurus']) }}"
+                    class="{{ request()->routeIs('admin.informasi.*') && request('kategori') === 'Pengurus' ? 'active' : '' }}">
+                        <i class="fas fa-users"></i> Pengurus
+                    </a>
+                    <a href="{{ route('admin.pesan.index') }}"
+                    class="{{ request()->routeIs('admin.pesan.*') ? 'active' : '' }}">
+                        <i class="fas fa-envelope"></i> Pesan Masuk
+                    </a>
+                </div>
+            </div>
+
             <a href="{{ route('admin.page-header.index') }}" class="{{ request()->routeIs('admin.page-header.*') ? 'active' : '' }}">
                 <i class="fas fa-heading"></i> Header Halaman
             </a>
+
         </div>
     </div>
+
 
     <!-- Main Content -->
     <div class="main-content">
@@ -411,6 +590,14 @@
             sidebar.classList.remove('open');
             overlay.classList.remove('show');
         }
+
+        function toggleSubmenu(el) {
+            const submenu = el.closest('.sidebar-menu-group').querySelector('.sidebar-submenu');
+            const isOpen = submenu.style.display === 'block';
+            submenu.style.display = isOpen ? 'none' : 'block';
+            el.classList.toggle('open', !isOpen);
+        }
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
