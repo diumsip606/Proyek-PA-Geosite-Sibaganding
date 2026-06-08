@@ -507,15 +507,16 @@
                 </div>
             </div>
 
+            <a href="{{ route('admin.destinasi.index') }}" class="{{ request()->routeIs('admin.destinasi.*') ? 'active' : '' }}">
+                <i class="fas fa-map-marked-alt"></i> Destinasi
+            </a>
+
+
             <a href="{{ route('admin.galeri.index') }}" class="{{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
                 <i class="fas fa-images"></i> Galeri
             </a>
             <a href="{{ route('admin.berita.index') }}" class="{{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
                 <i class="fas fa-newspaper"></i> Berita
-            </a>
-
-            <a href="{{ route('admin.destinasi.index') }}" class="{{ request()->routeIs('admin.destinasi.*') ? 'active' : '' }}">
-                <i class="fas fa-map-marked-alt"></i> Destinasi
             </a>
 
             @php
